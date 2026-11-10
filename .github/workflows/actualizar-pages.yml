@@ -65,6 +65,9 @@ jobs:
 
       - name: Configurar GitHub Pages
         uses: actions/configure-pages@v5
+        with:
+          # Crea el sitio de Pages automáticamente si aún no existe.
+          enablement: true
 
       - name: Subir el sitio como artefacto
         uses: actions/upload-pages-artifact@v3
