@@ -1,0 +1,76 @@
+name: Actualizar episodios y publicar en Pages
+
+on:
+  schedule:
+    # Cada 6 horas (UTC). GitHub puede retrasar la ejecución unos minutos.
+    - cron: "17 */6 * * *"
+  workflow_dispatch:
+  push:
+    branches: ["main", "master"]
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+jobs:
+  actualizar-y-publicar:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    steps:
+      - name: Descargar repositorio
+        uses: actions/checkout@v4
+
+      - name: Configurar Python
+        if: github.event_name != 'push'
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Instalar Pillow para optimizar portadas
+        if: github.event_name != 'push'
+        run: python -m pip install --upgrade Pillow
+
+      - name: Buscar episodios nuevos en iVoox
+        if: github.event_name != 'push'
+        run: python actualizar.py
+
+      - name: Guardar cambios en el repositorio
+        if: github.event_name != 'push'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add js/episodes.js img/episodes feed.xml episodes-raw.json
+          if git diff --cached --quiet; then
+            echo "No hay episodios nuevos. No se crea commit."
+          else
+            git commit -m "Actualiza episodios desde el feed de iVoox"
+            git pull --rebase origin "${GITHUB_REF_NAME}"
+            git push origin HEAD:"${GITHUB_REF_NAME}"
+          fi
+
+      - name: Preparar el sitio estático
+        run: |
+          mkdir -p _site
+          cp -r index.html css js img _site/
+          touch _site/.nojekyll
+
+      - name: Configurar GitHub Pages
+        uses: actions/configure-pages@v5
+
+      - name: Subir el sitio como artefacto
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+      - name: Desplegar en GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

@@ -1,0 +1,10 @@
+# Python
+__pycache__/
+*.py[cod]
+
+# Artefacto local del sitio (solo se usa en GitHub Actions)
+_site/
+
+# Sistema
+Thumbs.db
+.DS_Store

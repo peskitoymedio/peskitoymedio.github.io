@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Peskito y Medio · Tu Podcast Friki</title>
+  <meta name="description" content="Podcast buenrollero de un grupo de amig@s frikis: series, cómics, juegos de mesa, doramas, bandas sonoras, rol, Star Wars, Cthulhu y mucho más. Escucha todos los episodios.">
+  <meta name="author" content="Peskito y Medio">
+  <meta name="theme-color" content="#0B1B2D">
+  <link rel="icon" type="image/png" href="img/favicon.png">
+  <link rel="apple-touch-icon" href="img/apple-touch-icon.png">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="es_ES">
+  <meta property="og:site_name" content="Peskito y Medio">
+  <meta property="og:title" content="Peskito y Medio · Tu Podcast Friki">
+  <meta property="og:description" content="Podcast buenrollero de amig@s frikis: series, cómics, juegos de mesa, doramas, BSOs, rol y muchas risas. ¡Dale al play, peskiter!">
+  <meta property="og:image" content="img/logo-800.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@peskito3">
+  <meta name="twitter:title" content="Peskito y Medio · Tu Podcast Friki">
+  <meta name="twitter:description" content="Podcast buenrollero de amig@s frikis: series, cómics, juegos de mesa, doramas, BSOs, rol y muchas risas.">
+  <meta name="twitter:image" content="img/logo-800.jpg">
+
+  <!-- Fuentes e iconos -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" referrerpolicy="no-referrer">
+
+  <link rel="stylesheet" href="css/styles.css">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "PodcastSeries",
+    "name": "Peskito y Medio - Tu Podcast Friki",
+    "description": "Podcast buenrollero de un grupo de amig@s frikis que hablan de series, cómics, ciencia ficción, fantasía, juegos de mesa, doramas, bandas sonoras, rol, Marvel y DC, Star Wars, Cthulhu y muchas cosas más.",
+    "image": "img/logo-800.jpg",
+    "webFeed": "https://feeds.ivoox.com/feed_fg_f1661614_filtro_1.xml",
+    "inLanguage": "es-ES",
+    "author": { "@type": "Organization", "name": "Peskito y Medio" },
+    "sameAs": [
+      "https://www.ivoox.com/podcast-peskito-medio-tu-podcast-friki_sq_f1661614_1.html",
+      "https://open.spotify.com/show/3dxYih3F7UfO4Oeser3W0I",
+      "https://youtube.com/channel/UCXAHPVKfZA6GyViUag-nBgw",
+      "https://www.instagram.com/peskitoymedio",
+      "https://twitter.com/peskito3"
+    ]
+  }
+  </script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Saltar al contenido</a>
+
+  <!-- Barra superior -->
+  <div class="topbar">
+    <div class="container topbar-inner">
+      <a class="topbar-item topbar-award" href="https://go.ivoox.com/wv/premios26?c=4757" target="_blank" rel="noopener">
+        <i class="fa-solid fa-trophy" aria-hidden="true"></i>
+        <span>¡Vótame en los Premios iVoox 2026!</span>
+      </a>
+      <a class="topbar-item topbar-latest" href="#episodios" id="topbar-latest-link">
+        <span class="topbar-dot" aria-hidden="true"></span>
+        <span class="topbar-latest-label">Último programa:</span>
+        <strong id="topbar-latest">Cargando…</strong>
+      </a>
+    </div>
+  </div>
+
+  <!-- Cabecera -->
+  <header class="site-header" id="site-header">
+    <div class="container nav-inner">
+      <a class="brand" href="#top" aria-label="Peskito y Medio, ir al inicio">
+        <span class="brand-badge"><img src="img/logo-800.jpg" alt="" width="46" height="46"></span>
+        <span class="brand-text">
+          <span class="brand-name">Peskito</span>
+          <span class="brand-sub">y Medio</span>
+        </span>
+      </a>
+
+      <nav class="nav" id="nav" aria-label="Navegación principal">
+        <a href="#sobre">El podcast</a>
+        <a href="#episodios">Episodios</a>
+        <a href="#secciones">Secciones</a>
+        <a href="#equipo">Equipo</a>
+        <a href="#escuchanos">Escúchanos</a>
+      </nav>
+
+      <a class="btn btn-primary btn-sm nav-cta" href="#episodios">
+        <i class="fa-solid fa-play" aria-hidden="true"></i> Dale al play
+      </a>
+
+      <button class="nav-toggle" id="nav-toggle" type="button" aria-expanded="false" aria-controls="nav" aria-label="Abrir menú">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <main id="main">
+    <!-- HERO -->
+    <section class="hero" id="top">
+      <div class="hero-bg" aria-hidden="true">
+        <span class="hero-blob hero-blob--teal"></span>
+        <span class="hero-blob hero-blob--orange"></span>
+        <span class="hero-halftone"></span>
+      </div>
+
+      <div class="container hero-grid">
+        <div class="hero-copy">
+          <span class="eyebrow"><i class="fa-solid fa-microphone-lines" aria-hidden="true"></i> Tu podcast friki</span>
+
+          <h1 class="hero-title">
+            <span class="hero-title-top">Peskito</span>
+            <span class="hero-title-bottom"><span class="hero-title-mark">y Medio</span></span>
+          </h1>
+
+          <p class="hero-lead">
+            Podcast buenrollero de un grupo de amig@s frikis que se lo pasan
+            <em>pipongo</em> hablando de series, cómics, juegos de mesa, doramas,
+            literatura, cine, bandas sonoras, ciencia ficción, fantasía, rol…
+            y lo que surja.
+          </p>
+
+          <div class="hero-actions">
+            <button class="btn btn-primary btn-lg" id="hero-play" type="button" data-play-id="1">
+              <span class="btn-play-icon"><i class="fa-solid fa-play" aria-hidden="true"></i></span>
+              Escuchar el último programa
+            </button>
+            <a class="btn btn-ghost btn-lg" href="#episodios">
+              Ver todos los episodios <i class="fa-solid fa-arrow-down" aria-hidden="true"></i>
+            </a>
+          </div>
+
+          <p class="hero-latest">
+            Último episodio:
+            <button class="link-like" id="hero-latest" type="button" data-play-id="1">Cargando…</button>
+          </p>
+
+          <div class="hero-platforms" aria-label="Plataformas para escuchar">
+            <span class="hero-platforms-label">Escúchanos en</span>
+            <div class="platform-mini">
+              <a href="https://www.ivoox.com/podcast-peskito-medio-tu-podcast-friki_sq_f1661614_1.html" target="_blank" rel="noopener" title="iVoox" aria-label="iVoox"><i class="fa-solid fa-headphones" aria-hidden="true"></i></a>
+              <a href="https://open.spotify.com/show/3dxYih3F7UfO4Oeser3W0I" target="_blank" rel="noopener" title="Spotify" aria-label="Spotify"><i class="fa-brands fa-spotify" aria-hidden="true"></i></a>
+              <a href="https://itunes.apple.com/es/podcast/peskito-y-medio/id1453280178" target="_blank" rel="noopener" title="Apple Podcasts" aria-label="Apple Podcasts"><i class="fa-brands fa-apple" aria-hidden="true"></i></a>
+              <a href="https://youtube.com/channel/UCXAHPVKfZA6GyViUag-nBgw" target="_blank" rel="noopener" title="YouTube" aria-label="YouTube"><i class="fa-brands fa-youtube" aria-hidden="true"></i></a>
+              <a href="https://feeds.ivoox.com/feed_fg_f1661614_filtro_1.xml" target="_blank" rel="noopener" title="RSS" aria-label="RSS"><i class="fa-solid fa-rss" aria-hidden="true"></i></a>
+            </div>
+          </div>
+        </div>
+
+        <div class="hero-art">
+          <div class="logo-stage">
+            <span class="logo-shadow" aria-hidden="true"></span>
+            <figure class="logo-card">
+              <img src="img/logo-800.jpg" alt="Portada oficial del podcast Peskito y Medio" width="800" height="800">
+              <figcaption class="sr-only">Peskito y Medio, tu podcast friki</figcaption>
+            </figure>
+
+            <span class="sticker sticker--orange" aria-hidden="true">¡Pipongo!</span>
+            <span class="sticker sticker--yellow" aria-hidden="true">+70 episodios</span>
+            <span class="sticker sticker--teal" aria-hidden="true">Tutanitos ✦</span>
+
+            <span class="float-emoji float-emoji--1" aria-hidden="true">🎲</span>
+            <span class="float-emoji float-emoji--2" aria-hidden="true">🎬</span>
+            <span class="float-emoji float-emoji--3" aria-hidden="true">🎵</span>
+            <span class="float-emoji float-emoji--4" aria-hidden="true">🚀</span>
+            <span class="float-emoji float-emoji--5" aria-hidden="true">🦖</span>
+            <span class="float-emoji float-emoji--6" aria-hidden="true">📚</span>
+          </div>
+
+          <div class="hero-badges">
+            <span class="mini-badge"><i class="fa-solid fa-heart" aria-hidden="true"></i> Hecho entre amig@s</span>
+            <span class="mini-badge"><i class="fa-solid fa-face-laugh-beam" aria-hidden="true"></i> 100% buenrollo</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="marquee" aria-hidden="true">
+        <div class="marquee-track">
+          <span>Series</span><span class="sep">✦</span>
+          <span>Cómics</span><span class="sep">✦</span>
+          <span>Juegos de mesa</span><span class="sep">✦</span>
+          <span>Doramas</span><span class="sep">✦</span>
+          <span>Bandas sonoras</span><span class="sep">✦</span>
+          <span>Rol</span><span class="sep">✦</span>
+          <span>Star Wars</span><span class="sep">✦</span>
+          <span>Cthulhu</span><span class="sep">✦</span>
+          <span>Marvel &amp; DC</span><span class="sep">✦</span>
+          <span>Fantasía</span><span class="sep">✦</span>
+          <span>Ciencia ficción</span><span class="sep">✦</span>
+          <span>Series</span><span class="sep">✦</span>
+          <span>Cómics</span><span class="sep">✦</span>
+          <span>Juegos de mesa</span><span class="sep">✦</span>
+          <span>Doramas</span><span class="sep">✦</span>
+          <span>Bandas sonoras</span><span class="sep">✦</span>
+          <span>Rol</span><span class="sep">✦</span>
+          <span>Star Wars</span><span class="sep">✦</span>
+          <span>Cthulhu</span><span class="sep">✦</span>
+          <span>Marvel &amp; DC</span><span class="sep">✦</span>
+          <span>Fantasía</span><span class="sep">✦</span>
+          <span>Ciencia ficción</span><span class="sep">✦</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- STATS -->
+    <section class="stats" aria-label="El podcast en cifras">
+      <div class="container stats-grid">
+        <div class="stat reveal">
+          <span class="stat-num" id="stat-episodes">71</span>
+          <span class="stat-label">episodios publicados</span>
+        </div>
+        <div class="stat reveal">
+          <span class="stat-num">6</span>
+          <span class="stat-label">peskiters al micro</span>
+        </div>
+        <div class="stat reveal">
+          <span class="stat-num">2019</span>
+          <span class="stat-label">dando la chapa desde</span>
+        </div>
+        <div class="stat reveal">
+          <span class="stat-num">∞</span>
+          <span class="stat-label">tutanitos y risas</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- SOBRE -->
+    <section class="about" id="sobre">
+      <div class="container about-grid">
+        <div class="about-copy reveal">
+          <span class="section-kicker">El podcast</span>
+          <h2>Mucho más que<br><span class="marker marker--teal">un podcast friki</span></h2>
+          <p class="about-lead">
+            Peskito y Medio nació en 2019 como una charla entre amig@s y se ha convertido
+            en la excusa perfecta para hablar de todo lo que nos apasiona. Sin prisas,
+            sin guion rígido y con muchas ganas de reírnos.
+          </p>
+          <p>
+            Cada programa tiene su <strong>menú del día</strong>: recomendaciones de libros,
+            series, cómics, doramas y juegos; juegos de bandas sonoras; concursos; el club
+            de visionado y la sección del CM. Y si te quedas hasta el final… siempre hay
+            <strong>tomas extras</strong>.
+          </p>
+
+          <ul class="check-list">
+            <li><i class="fa-solid fa-circle-check" aria-hidden="true"></i> Recomendaciones con y sin alerones (spoilers)</li>
+            <li><i class="fa-solid fa-circle-check" aria-hidden="true"></i> Concursos, juegos y mucha competitividad sana</li>
+            <li><i class="fa-solid fa-circle-check" aria-hidden="true"></i> Especiales temáticos y una comunidad: los peskiters</li>
+          </ul>
+
+          <blockquote class="about-quote">
+            <p>“Decidnos cómo de <em>pipongo</em> os lo habéis pasado escuchándonos.”</p>
+            <cite>— Peskito y Medio</cite>
+          </blockquote>
+        </div>
+
+        <div class="about-pillars">
+          <article class="pillar reveal" style="--accent: var(--orange)">
+            <span class="pillar-icon"><i class="fa-solid fa-utensils" aria-hidden="true"></i></span>
+            <h3>El menú del día</h3>
+            <p>Cada peskiter trae su recomendación: una novela, una serie, un cómic, un dorama o un juego. Tú solo tienes que apuntar.</p>
+          </article>
+          <article class="pillar reveal" style="--accent: var(--teal)">
+            <span class="pillar-icon"><i class="fa-solid fa-music" aria-hidden="true"></i></span>
+            <h3>Juegos y concursos</h3>
+            <p>Bandas sonoras, tutanitos y concursazos. Malcolm nunca decepciona y Phoebe tiene licencia para repartir.</p>
+          </article>
+          <article class="pillar reveal" style="--accent: var(--yellow)">
+            <span class="pillar-icon"><i class="fa-solid fa-users" aria-hidden="true"></i></span>
+            <h3>Comunidad peskiter</h3>
+            <p>Charlas frikis en Telegram, memes en redes y saludos para quienes comentan. Esto se hace entre amig@s.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- EPISODIOS -->
+    <section class="episodes" id="episodios">
+      <div class="episodes-bg" aria-hidden="true"></div>
+      <div class="container">
+        <div class="section-head section-head--light reveal">
+          <div>
+            <span class="section-kicker section-kicker--light">Archivo peskiter</span>
+            <h2>Últimos <span class="marker marker--orange">episodios</span></h2>
+            <p class="section-sub">Dale al play a cualquiera de ellos. Sí, el reproductor de abajo funciona de verdad.</p>
+          </div>
+          <a class="btn btn-outline-light" href="https://www.ivoox.com/podcast-peskito-medio-tu-podcast-friki_sq_f1661614_1.html" target="_blank" rel="noopener">
+            Ver todo en iVoox <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i>
+          </a>
+        </div>
+
+        <div class="episode-controls reveal">
+          <div class="filters" role="group" aria-label="Filtrar episodios">
+            <button class="filter is-active" type="button" data-filter="all">Todos <span class="filter-count" data-count="all"></span></button>
+            <button class="filter" type="button" data-filter="programa">Programas <span class="filter-count" data-count="programa"></span></button>
+            <button class="filter" type="button" data-filter="especial">Especiales <span class="filter-count" data-count="especial"></span></button>
+            <button class="filter" type="button" data-filter="colaboracion">Colaboraciones <span class="filter-count" data-count="colaboracion"></span></button>
+          </div>
+          <label class="search">
+            <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
+            <span class="sr-only">Buscar episodios</span>
+            <input type="search" id="episode-search" placeholder="Buscar por título o tema…" autocomplete="off">
+          </label>
+        </div>
+
+        <p class="episode-count" id="episode-count" aria-live="polite"></p>
+
+        <div class="episode-grid" id="episode-grid"></div>
+
+        <div class="episodes-footer">
+          <button class="btn btn-primary" id="load-more" type="button">Cargar más episodios <i class="fa-solid fa-arrow-down" aria-hidden="true"></i></button>
+          <a class="episodes-archive" href="https://www.ivoox.com/podcast-peskito-medio-tu-podcast-friki_sq_f1661614_1.html" target="_blank" rel="noopener">¿Te lo has escuchado todo? Archivo completo en iVoox <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECCIONES -->
+    <section class="sections" id="secciones">
+      <div class="container">
+        <div class="section-head reveal">
+          <div>
+            <span class="section-kicker">El formato</span>
+            <h2>Secciones que nos <span class="marker marker--orange">molan</span></h2>
+            <p class="section-sub">Un poco de todo, siempre con el mismo espíritu: pasarlo bien y contagiar el frikismo.</p>
+          </div>
+        </div>
+
+        <div class="section-grid">
+          <article class="section-card reveal" style="--accent: var(--orange)">
+            <span class="section-card-icon">🍽️</span>
+            <h3>El menú del día</h3>
+            <p>Libros, series, cómics, doramas y juegos. Cada peskiter trae su recomendación y tú apuntas deberes.</p>
+          </article>
+          <article class="section-card reveal" style="--accent: var(--teal)">
+            <span class="section-card-icon">🎵</span>
+            <h3>Juego de BSOs</h3>
+            <p>Malcolm pone a prueba nuestro oído con bandas sonoras. Adivinar la película nunca fue tan divertido.</p>
+          </article>
+          <article class="section-card reveal" style="--accent: var(--yellow)">
+            <span class="section-card-icon">🎲</span>
+            <h3>Juego de Tutanitos</h3>
+            <p>Phoebe reparte juegos de mesa y videojuegos. Cuidado, que tiene licencia para repartir tutanitos.</p>
+          </article>
+          <article class="section-card reveal" style="--accent: var(--red)">
+            <span class="section-card-icon">🎬</span>
+            <h3>Club de visionado</h3>
+            <p>Seidon McFly dirige lecto-visionados de libro + película. Con alerones y sin ellos, tú decides.</p>
+          </article>
+          <article class="section-card reveal" style="--accent: var(--orange)">
+            <span class="section-card-icon">🏆</span>
+            <h3>Concursos</h3>
+            <p>Preguntas, música y competitividad sana. Malcolm nunca decepciona y siempre hay premio emocional.</p>
+          </article>
+          <article class="section-card reveal" style="--accent: var(--teal)">
+            <span class="section-card-icon">📣</span>
+            <h3>Sección del CM</h3>
+            <p>Seidon recomienda podcasts, canales y joyitas de internet. La lista de pendientes crece sola.</p>
+          </article>
+          <article class="section-card reveal" style="--accent: var(--yellow)">
+            <span class="section-card-icon">🌞</span>
+            <h3>Freskito y Medio</h3>
+            <p>El especial de verano: mini-recomendaciones, nostalgia y un formato más fresquito. Nunca falla.</p>
+          </article>
+          <article class="section-card reveal" style="--accent: var(--red)">
+            <span class="section-card-icon">👻</span>
+            <h3>Peskito y Miedo</h3>
+            <p>Nuestro especial terrorífico: cómics, videojuegos, doramas y concursos para no dormir. Jáwelin approves.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- EQUIPO -->
+    <section class="team" id="equipo">
+      <div class="container">
+        <div class="section-head reveal">
+          <div>
+            <span class="section-kicker">Quiénes somos</span>
+            <h2>Los <span class="marker marker--teal">peskiters</span></h2>
+            <p class="section-sub">Seis amig@s, un micro (o varios) y muchas cosas que contar. Estos son los culpables.</p>
+          </div>
+        </div>
+
+        <div class="team-grid">
+          <article class="team-card reveal" style="--accent: var(--orange)">
+            <div class="team-top">
+              <span class="team-avatar" aria-hidden="true">🧙</span>
+              <div class="team-head">
+                <h3>Alecrombie</h3>
+                <span class="team-role">Presentador · Fantasía</span>
+              </div>
+            </div>
+            <p>Le gustan las novelas de fantasía y los juegos de mesa, pero sobre todo que le recuerden polacos famosos.</p>
+            <a class="team-link" href="https://twitter.com/alecrombie" target="_blank" rel="noopener"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i> @alecrombie</a>
+          </article>
+
+          <article class="team-card reveal" style="--accent: var(--teal)">
+            <div class="team-top">
+              <span class="team-avatar" aria-hidden="true">📚</span>
+              <div class="team-head">
+                <h3>Mildre</h3>
+                <span class="team-role">Libros · Doramas</span>
+              </div>
+            </div>
+            <p>Devoradora de libros. Se ha leído todos los existentes dos veces; los que no han salido, una. Con Joy forma las Noona Sisters.</p>
+            <a class="team-link" href="https://twitter.com/MildrePeski3" target="_blank" rel="noopener"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i> @MildrePeski3</a>
+          </article>
+
+          <article class="team-card reveal" style="--accent: var(--yellow)">
+            <div class="team-top">
+              <span class="team-avatar" aria-hidden="true">🪕</span>
+              <div class="team-head">
+                <h3>Joy</h3>
+                <span class="team-role">Ukelele · Cultura coreana</span>
+              </div>
+            </div>
+            <p>Creadora de sintonías, maestra del ukelele y madre de dragones. Nos trae doramas y muchos tutanitos.</p>
+            <a class="team-link" href="https://twitter.com/JoyNoonaRaider" target="_blank" rel="noopener"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i> @JoyNoonaRaider</a>
+          </article>
+
+          <article class="team-card reveal" style="--accent: var(--navy)">
+            <div class="team-top">
+              <span class="team-avatar" aria-hidden="true">🚀</span>
+              <div class="team-head">
+                <h3>Seidon McFly</h3>
+                <span class="team-role">Star Wars · Cómics · CM</span>
+              </div>
+            </div>
+            <p>Fan de Star Wars y lector de cómics. El mejor community manager. Le encantan los especiales escena a escena.</p>
+            <a class="team-link" href="https://twitter.com/SeidonMF" target="_blank" rel="noopener"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i> @SeidonMF</a>
+          </article>
+
+          <article class="team-card reveal" style="--accent: var(--red)">
+            <div class="team-top">
+              <span class="team-avatar" aria-hidden="true">🦖</span>
+              <div class="team-head">
+                <h3>Malcolm</h3>
+                <span class="team-role">BSOs · Marvel · Rol</span>
+              </div>
+            </div>
+            <p>Apasionado de Parque Jurásico, las bandas sonoras, los cómics Marvel, el rol y los videojuegos. Mente creativa desencadenada.</p>
+            <a class="team-link" href="https://twitter.com/sp_malcolm" target="_blank" rel="noopener"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i> @sp_malcolm</a>
+          </article>
+
+          <article class="team-card reveal" style="--accent: var(--green)">
+            <div class="team-top">
+              <span class="team-avatar" aria-hidden="true">🎲</span>
+              <div class="team-head">
+                <h3>Phoebe</h3>
+                <span class="team-role">Juegos de mesa · Videojuegos</span>
+              </div>
+            </div>
+            <p>Jugona todoterreno. La última incorporación peskitera y con licencia para repartir tutanitos.</p>
+            <a class="team-link" href="https://twitter.com/PheebsMcM" target="_blank" rel="noopener"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i> @PheebsMcM</a>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ESCÚCHANOS -->
+    <section class="listen" id="escuchanos">
+      <div class="container">
+        <div class="listen-panel reveal">
+          <div class="listen-deco listen-deco--1" aria-hidden="true">🎧</div>
+          <div class="listen-deco listen-deco--2" aria-hidden="true">✨</div>
+          <div class="listen-head">
+            <span class="section-kicker section-kicker--light">Donde quieras</span>
+            <h2>Escúchanos en tu <span class="marker marker--orange">plataforma</span> favorita</h2>
+            <p>Estés donde estés, hay un Peskito esperándote. Elige tu app, dale al play y únete a la comunidad peskiter.</p>
+          </div>
+
+          <div class="platform-grid">
+            <a class="platform-card platform-card--primary" href="https://www.ivoox.com/podcast-peskito-medio-tu-podcast-friki_sq_f1661614_1.html" target="_blank" rel="noopener">
+              <i class="fa-solid fa-headphones" aria-hidden="true"></i>
+              <span><strong>iVoox</strong><small>El hogar del podcast</small></span>
+              <i class="fa-solid fa-arrow-up-right-from-square platform-arrow" aria-hidden="true"></i>
+            </a>
+            <a class="platform-card" href="https://open.spotify.com/show/3dxYih3F7UfO4Oeser3W0I" target="_blank" rel="noopener">
+              <i class="fa-brands fa-spotify" aria-hidden="true"></i>
+              <span><strong>Spotify</strong><small>Sigue el podcast</small></span>
+              <i class="fa-solid fa-arrow-up-right-from-square platform-arrow" aria-hidden="true"></i>
+            </a>
+            <a class="platform-card" href="https://itunes.apple.com/es/podcast/peskito-y-medio/id1453280178" target="_blank" rel="noopener">
+              <i class="fa-brands fa-apple" aria-hidden="true"></i>
+              <span><strong>Apple Podcasts</strong><small>Para los de iPhone</small></span>
+              <i class="fa-solid fa-arrow-up-right-from-square platform-arrow" aria-hidden="true"></i>
+            </a>
+            <a class="platform-card" href="https://youtube.com/channel/UCXAHPVKfZA6GyViUag-nBgw" target="_blank" rel="noopener">
+              <i class="fa-brands fa-youtube" aria-hidden="true"></i>
+              <span><strong>YouTube</strong><small>Vídeo y podcast</small></span>
+              <i class="fa-solid fa-arrow-up-right-from-square platform-arrow" aria-hidden="true"></i>
+            </a>
+            <a class="platform-card" href="https://t.me/peskiters3" target="_blank" rel="noopener">
+              <i class="fa-brands fa-telegram" aria-hidden="true"></i>
+              <span><strong>Telegram</strong><small>Charlas peskiteras</small></span>
+              <i class="fa-solid fa-arrow-up-right-from-square platform-arrow" aria-hidden="true"></i>
+            </a>
+            <a class="platform-card" href="https://feeds.ivoox.com/feed_fg_f1661614_filtro_1.xml" target="_blank" rel="noopener">
+              <i class="fa-solid fa-rss" aria-hidden="true"></i>
+              <span><strong>RSS</strong><small>Para tu app favorita</small></span>
+              <i class="fa-solid fa-arrow-up-right-from-square platform-arrow" aria-hidden="true"></i>
+            </a>
+          </div>
+
+          <div class="social-row" aria-label="Redes sociales">
+            <a href="https://www.instagram.com/peskitoymedio" target="_blank" rel="noopener" aria-label="Instagram"><i class="fa-brands fa-instagram" aria-hidden="true"></i></a>
+            <a href="https://twitter.com/peskito3" target="_blank" rel="noopener" aria-label="X / Twitter"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a>
+            <a href="https://facebook.com/PeskitoYMedio" target="_blank" rel="noopener" aria-label="Facebook"><i class="fa-brands fa-facebook-f" aria-hidden="true"></i></a>
+            <a href="https://mastodon.social/@PeskitoyMedio" target="_blank" rel="noopener" aria-label="Mastodon"><i class="fa-brands fa-mastodon" aria-hidden="true"></i></a>
+            <a href="mailto:peskitoymedio@gmail.com" aria-label="Correo electrónico"><i class="fa-solid fa-envelope" aria-hidden="true"></i></a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="container footer-grid">
+      <div class="footer-brand">
+        <a class="brand brand--footer" href="#top" aria-label="Peskito y Medio, ir al inicio">
+          <span class="brand-badge"><img src="img/logo-800.jpg" alt="" width="46" height="46"></span>
+          <span class="brand-text">
+            <span class="brand-name">Peskito</span>
+            <span class="brand-sub">y Medio</span>
+          </span>
+        </a>
+        <p>Tu podcast friki. Series, cómics, juegos de mesa, doramas, bandas sonoras y muchas risas entre amig@s.</p>
+        <div class="footer-social" aria-label="Redes sociales">
+          <a href="https://www.instagram.com/peskitoymedio" target="_blank" rel="noopener" aria-label="Instagram"><i class="fa-brands fa-instagram" aria-hidden="true"></i></a>
+          <a href="https://twitter.com/peskito3" target="_blank" rel="noopener" aria-label="X / Twitter"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a>
+          <a href="https://facebook.com/PeskitoYMedio" target="_blank" rel="noopener" aria-label="Facebook"><i class="fa-brands fa-facebook-f" aria-hidden="true"></i></a>
+          <a href="https://mastodon.social/@PeskitoyMedio" target="_blank" rel="noopener" aria-label="Mastodon"><i class="fa-brands fa-mastodon" aria-hidden="true"></i></a>
+          <a href="https://t.me/peskiters3" target="_blank" rel="noopener" aria-label="Telegram"><i class="fa-brands fa-telegram" aria-hidden="true"></i></a>
+        </div>
+      </div>
+
+      <div class="footer-col">
+        <h3>Explora</h3>
+        <a href="#sobre">El podcast</a>
+        <a href="#episodios">Episodios</a>
+        <a href="#secciones">Secciones</a>
+        <a href="#equipo">Equipo</a>
+        <a href="#escuchanos">Escúchanos</a>
+      </div>
+
+      <div class="footer-col">
+        <h3>Escúchanos</h3>
+        <a href="https://www.ivoox.com/podcast-peskito-medio-tu-podcast-friki_sq_f1661614_1.html" target="_blank" rel="noopener">iVoox</a>
+        <a href="https://open.spotify.com/show/3dxYih3F7UfO4Oeser3W0I" target="_blank" rel="noopener">Spotify</a>
+        <a href="https://itunes.apple.com/es/podcast/peskito-y-medio/id1453280178" target="_blank" rel="noopener">Apple Podcasts</a>
+        <a href="https://youtube.com/channel/UCXAHPVKfZA6GyViUag-nBgw" target="_blank" rel="noopener">YouTube</a>
+        <a href="https://feeds.ivoox.com/feed_fg_f1661614_filtro_1.xml" target="_blank" rel="noopener">RSS</a>
+      </div>
+
+      <div class="footer-col">
+        <h3>Contacto</h3>
+        <a href="mailto:peskitoymedio@gmail.com">peskitoymedio@gmail.com</a>
+        <a href="https://t.me/peskiters3" target="_blank" rel="noopener">Telegram peskiter</a>
+        <a href="https://twitter.com/peskito3" target="_blank" rel="noopener">@peskito3</a>
+        <a href="https://go.ivoox.com/wv/premios26?c=4757" target="_blank" rel="noopener">Premios iVoox 2026</a>
+      </div>
+    </div>
+
+    <div class="container footer-bottom">
+      <p>© <span id="year">2026</span> Peskito y Medio · Tu Podcast Friki. Hecho con ukelele, risas y mucho cariño.</p>
+      <p class="footer-credits">Datos y portadas: <a href="https://www.ivoox.com/podcast-peskito-medio-tu-podcast-friki_sq_f1661614_1.html" target="_blank" rel="noopener">iVoox</a> · Web estática hecha por un peskiter.</p>
+    </div>
+  </footer>
+
+  <!-- REPRODUCTOR -->
+  <div class="mini-player" id="player" aria-hidden="true">
+    <div class="player-inner">
+      <img class="player-cover" id="player-cover" src="img/logo-800.jpg" alt="" width="56" height="56">
+      <div class="player-info">
+        <strong class="player-title" id="player-title">Selecciona un episodio</strong>
+        <span class="player-sub" id="player-sub">Peskito y Medio · Tu Podcast Friki</span>
+      </div>
+      <div class="player-progress-wrap">
+        <input class="player-progress" id="player-progress" type="range" min="0" max="100" step="0.1" value="0" aria-label="Progreso del episodio">
+        <div class="player-time">
+          <span id="player-current">0:00</span>
+          <span id="player-duration">0:00</span>
+        </div>
+      </div>
+      <button class="player-btn" id="player-toggle" type="button" aria-label="Reproducir o pausar">
+        <i class="fa-solid fa-play" aria-hidden="true"></i>
+      </button>
+      <button class="player-close" id="player-close" type="button" aria-label="Cerrar reproductor">
+        <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+      </button>
+      <audio id="audio" preload="metadata"></audio>
+    </div>
+  </div>
+
+  <script src="js/episodes.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
