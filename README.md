@@ -28,7 +28,8 @@ Ese archivo se regenera automáticamente desde el feed; no se edita a mano.
 
 | Tipo | Regla |
 |---|---|
-| Colaboración | El título no empieza por `PYM` |
+| Promo | El título empieza por «Promo» |
+| Colaboración | El título no empieza por `PYM` (y no es una promo) |
 | Especial | El título empieza por `PYM` y contiene «Especial» |
 | Programa | Cualquier otro episodio de `PYM` |
 

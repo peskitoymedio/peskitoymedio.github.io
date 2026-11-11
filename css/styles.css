@@ -1059,6 +1059,7 @@ ul { list-style: none; }
 }
 .ep-type--programa { background: var(--teal); color: var(--ink); }
 .ep-type--especial { background: var(--orange); color: var(--ink); }
+.ep-type--promo { background: var(--red); color: var(--white); }
 .ep-type--colaboracion { background: var(--yellow); color: var(--ink); }
 .ep-meta time { font-weight: 600; color: var(--muted); white-space: nowrap; }
 .ep-title {

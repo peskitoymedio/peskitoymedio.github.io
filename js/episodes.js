@@ -723,7 +723,7 @@ const EPISODES = [
     {
         "id":  61,
         "n":  null,
-        "type":  "colaboracion",
+        "type":  "promo",
         "title":  "Promo Peskito y Medio - Final Cut",
         "date":  "2019-09-18",
         "duration":  "00:58",
@@ -819,7 +819,7 @@ const EPISODES = [
     {
         "id":  69,
         "n":  null,
-        "type":  "colaboracion",
+        "type":  "promo",
         "title":  "Promo Peskito Y Medio 2.0 - Old Version también ;P",
         "date":  "2019-02-24",
         "duration":  "00:30",
@@ -831,7 +831,7 @@ const EPISODES = [
     {
         "id":  70,
         "n":  null,
-        "type":  "colaboracion",
+        "type":  "promo",
         "title":  "Promo Peskito y Medio - Old Version",
         "date":  "2019-02-19",
         "duration":  "00:30",

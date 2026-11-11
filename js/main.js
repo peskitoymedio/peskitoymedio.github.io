@@ -12,6 +12,7 @@
   const TYPE_LABEL = {
     programa: "Programa",
     especial: "Especial",
+    promo: "Promo",
     colaboracion: "Colaboración",
   };
 
@@ -43,6 +44,7 @@
 
   const badgeFor = (ep) => {
     if (ep.n != null) return "PYM " + ep.n;
+    if (ep.type === "promo") return "Promo";
     return ep.type === "colaboracion" ? "Colaboración" : "Especial";
   };
 
@@ -287,9 +289,9 @@
   };
 
   const updateCounts = () => {
-    const counts = { all: EPISODES.length, programa: 0, especial: 0, colaboracion: 0 };
+    const counts = { all: EPISODES.length, programa: 0, especial: 0, promo: 0, colaboracion: 0 };
     EPISODES.forEach((ep) => {
-      counts[ep.type] += 1;
+      counts[ep.type] = (counts[ep.type] || 0) + 1;
     });
     $$(".filter-count").forEach((el) => {
       const key = el.dataset.count;

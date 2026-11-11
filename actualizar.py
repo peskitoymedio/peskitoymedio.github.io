@@ -165,6 +165,8 @@ def clean_description(raw: str, limit: int = 190) -> str:
 
 
 def classify(title: str) -> str:
+    if re.match(r"^promo\b", title, re.IGNORECASE):
+        return "promo"
     if not re.match(r"^PYM\b", title, re.IGNORECASE):
         return "colaboracion"
     if "especial" in title.lower():
@@ -328,6 +330,14 @@ def main() -> int:
         print("ERROR: " + str(error))
         return 1
 
+    # Reclasificar el archivo existente con las reglas actuales
+    reclassified = 0
+    for episode in existing:
+        expected = classify(episode.get("title", ""))
+        if episode.get("type") != expected:
+            episode["type"] = expected
+            reclassified += 1
+
     known_keys = {
         episode_key(episode.get("link", ""), episode.get("audio", ""))
         for episode in existing
@@ -362,6 +372,22 @@ def main() -> int:
         next_id += 1
 
     if not new_episodes:
+        if reclassified and args.dry_run:
+            print(
+                "Episodios que se reclasificarían con las reglas actuales: "
+                + str(reclassified)
+            )
+        elif reclassified:
+            try:
+                write_episodes(existing)
+            except OSError as error:
+                print("ERROR: no se pudo escribir js/episodes.js.")
+                print("  " + str(error))
+                return 1
+            print(
+                "Episodios reclasificados con las reglas actuales: "
+                + str(reclassified)
+            )
         print("Todo al día: no hay episodios nuevos en el feed.")
         print("Episodios en la web: " + str(len(existing)))
         return 0
