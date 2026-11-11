@@ -15,6 +15,7 @@ Es una web estática: no hay servidor, base de datos ni proceso de compilación.
 - Filtros por **programas**, **especiales**, **promos** y **colaboraciones**, además de buscador por texto.
 - Reproductor integrado que usa los MP3 publicados en el feed.
 - Vídeo de presentación incrustado desde YouTube.
+- Sección de reconocimientos con los premios de la Asociación Podcast y los rankings de Goodpods.
 - Contadores de episodios y de cada categoría calculados en tiempo real.
 - Diseño adaptable a móvil, tableta y escritorio, con una estética de cómic y aire friki.
 - Navegación por teclado, textos alternativos y contraste cuidado.
