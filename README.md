@@ -1,99 +1,108 @@
-# Peskito y Medio · web estática
+# Peskito y Medio
 
-Web del podcast **Peskito y Medio**. Contenido, portadas y datos obtenidos del feed oficial de iVoox.
+Sitio web del podcast **Peskito y Medio**, un programa de amig@s frikis que hablan de series, cómics, ciencia ficción, fantasía, juegos de mesa, doramas, bandas sonoras, rol, Marvel y DC, Star Wars, Cthulhu y muchas cosas más.
 
-- Web publicada: <https://peskitoymedio.github.io/>
-- Repositorio: <https://github.com/peskitoymedio/peskitoymedio.github.io>
+- **Web:** <https://peskitoymedio.github.io/>
+- **Podcast en iVoox:** <https://www.ivoox.com/podcast-peskito-medio-tu-podcast-friki_sq_f1661614_1.html>
+- **Repositorio:** <https://github.com/peskitoymedio/peskitoymedio.github.io>
 
-## Publicar un episodio nuevo
+Es una web estática: no hay servidor, base de datos ni proceso de compilación. Todo el contenido de los episodios se genera a partir del feed RSS oficial del podcast.
 
-Cuando publiques un episodio en iVoox, no hay que tocar el HTML ni el CSS. Basta con actualizar los datos:
+## Características
 
-1. **Doble clic en `actualizar.bat`** (o ejecuta `python actualizar.py` en esta carpeta).
-2. El script descarga el feed, detecta los episodios nuevos, baja su portada a `img/episodes/` y regenera `js/episodes.js`.
-3. Si la web está publicada, sube a tu hosting los archivos que hayan cambiado:
-   - `js/episodes.js`
-   - las portadas nuevas de `img/episodes/` (el script te dice cuáles)
-   - opcionalmente `feed.xml` y `episodes-raw.json` (son copias de referencia)
+- Archivo completo de episodios con portada, número, tipo, fecha, duración y descripción.
+- Filtros por **programas**, **especiales** y **colaboraciones**, además de buscador por texto.
+- Reproductor integrado que usa los MP3 publicados en el feed.
+- Contadores de episodios y de cada categoría calculados en tiempo real.
+- Diseño adaptable a móvil, tableta y escritorio, con una estética de cómic y aire friki.
+- Navegación por teclado, textos alternativos y contraste cuidado.
+- Sin dependencias de JavaScript: solo HTML, CSS y JS del navegador.
 
-Con eso, la portada del hero, la barra superior, el contador, los filtros, el buscador y el reproductor se actualizan solos: todo se genera a partir de `EPISODES` en `js/episodes.js`.
+## Contenido de los episodios
 
-### Comprobar sin modificar nada
+Los datos viven en `js/episodes.js`, en el array `EPISODES`. Cada entrada incluye el identificador de iVoox, el número de programa, el tipo, el título, la fecha, la duración, el enlace, la portada local, la URL del audio y una descripción corta.
 
-```bash
-python actualizar.py --dry-run
-```
+Ese archivo se regenera automáticamente desde el feed; no se edita a mano.
 
-Muestra los episodios nuevos que encontraría, pero no descarga ni escribe archivos.
+### Clasificación
 
-### Requisitos
+| Tipo | Regla |
+|---|---|
+| Colaboración | El título no empieza por `PYM` |
+| Especial | El título empieza por `PYM` y contiene «Especial» |
+| Programa | Cualquier otro episodio de `PYM` |
 
-- Python 3.9 o superior (`python --version`).
-- Conexión a internet para leer el feed de iVoox.
-- No hacen falta librerías externas. Pillow o ffmpeg son opcionales: si están disponibles, las portadas nuevas se optimizan a ~600 px.
+### Descripciones
 
-### Qué hace exactamente
+Se elimina el HTML, se deshacen las entidades, se compactan los espacios y se retira la promo de los Premios iVoox que encabeza algunas descripciones. Después se recorta el texto a unas 190 letras cortando por palabra y se cierra con puntos suspensivos.
 
-- Lee `https://feeds.ivoox.com/feed_fg_f1661614_filtro_1.xml`.
-- Identifica cada episodio por su ID de iVoox, así que puede ejecutarse tantas veces como quieras sin duplicar nada.
-- Clasifica automáticamente:
-  - títulos que no empiezan por `PYM` → **colaboración**
-  - títulos `PYM` que contienen “Especial” → **especial**
-  - resto → **programa**
-- Extrae el número de `PYM 63. ...` para la etiqueta `PYM 63`.
-- Limpia la descripción, quita la promo de los Premios iVoox y la recorta para las tarjetas.
-- Guarda las portadas nuevas con un nombre estable: `ep-<id-de-iVoox>.jpg`. Las portadas antiguas no se renombran.
+### Portadas
 
-## Actualización automática en GitHub Pages
+Las portadas se descargan a `img/episodes/` y se guardan con un nombre estable basado en el ID de iVoox: `ep-<id>.jpg`. Así, volver a ejecutar la actualización nunca duplica ni pisa imágenes de otros episodios. Las portadas antiguas conservan su nombre original.
 
-El repositorio incluye `.github/workflows/actualizar-pages.yml`. Cada 6 horas (y cuando lo lances a mano) el workflow:
+`feed.xml` y `episodes-raw.json` son copias de referencia del último feed descargado.
 
-1. descarga el feed de iVoox,
-2. ejecuta `actualizar.py`,
-3. si hay episodios nuevos, guarda la portada y hace commit de los datos,
-4. publica el sitio actualizado en GitHub Pages.
+## Actualización automática
 
-### Puesta en marcha (solo una vez)
+El workflow `.github/workflows/actualizar-pages.yml` mantiene la web al día sin intervención manual. Se ejecuta cada seis horas, al lanzarlo a mano desde la pestaña **Actions** y en cada push a `main` o `master`.
 
-Este repositorio ya está configurado. Si algún día hay que recrearlo:
+En las ejecuciones programadas y manuales:
 
-1. Crea un repositorio en GitHub llamado `peskitoymedio.github.io`. Para usar Pages gratis, que sea **público**.
-2. Sube el contenido de esta carpeta a la **raíz** del repositorio, incluida la carpeta oculta `.github`.
-3. En el repo: **Settings → Pages → Build and deployment → Source: GitHub Actions**.
-4. En **Settings → Actions → General → Workflow permissions**, marca **Read and write permissions** y guarda.
-5. Ve a **Actions → “Actualizar episodios y publicar en Pages” → Run workflow** para probarlo.
-6. La web quedará en `https://peskitoymedio.github.io/`.
+1. Descarga el feed oficial de iVoox.
+2. Ejecuta `actualizar.py`, que detecta los episodios que aún no están en la web.
+3. Descarga y optimiza las portadas nuevas y regenera `js/episodes.js`.
+4. Si hay cambios, hace commit y push de los datos actualizados.
+5. Publica el sitio en GitHub Pages con `actions/deploy-pages`.
 
-A partir de ahí no hay que hacer nada más: cuando publiques un episodio en iVoox, la siguiente pasada lo detectará y lo publicará.
+Los push solo despliegan el contenido, sin ejecutar la actualización, para evitar bucles de commits.
 
-### Notas
+### Notas de despliegue
 
 - El cron está en UTC y GitHub puede retrasar la ejecución unos minutos.
-- Si el repositorio pasa más de 60 días sin actividad, GitHub puede desactivar el workflow programado. Se vuelve a activar desde la pestaña **Actions** o lanzándolo a mano.
-- El workflow también se ejecuta al hacer push a `main`/`master`, para publicar cambios manuales.
-- No uses la opción “Deploy from a branch” con este bot: los commits hechos con `GITHUB_TOKEN` no disparan un build de Pages. Por eso el workflow despliega con `actions/deploy-pages`.
-- Si usas un dominio propio, configúralo en **Settings → Pages**; no hay que tocar el workflow.
+- Si el repositorio pasa más de 60 días sin actividad, GitHub puede pausar el workflow programado; se reactiva desde la pestaña Actions o lanzándolo a mano.
+- El sitio se publica como artefacto con `actions/upload-pages-artifact` y `actions/deploy-pages`. La opción «Deploy from a branch» no es compatible con este flujo, porque los commits hechos con `GITHUB_TOKEN` no disparan builds de Pages.
+- El workflow necesita permisos de escritura sobre el contenido del repositorio para poder guardar los episodios nuevos.
+
+## Actualizador manual
+
+`actualizar.py` reproduce el mismo proceso en local. Solo necesita Python 3.9 o superior y conexión a internet; usa únicamente la biblioteca estándar.
+
+```bash
+python actualizar.py            # actualiza los datos y las portadas
+python actualizar.py --dry-run  # muestra qué episodios nuevos hay, sin escribir nada
+python actualizar.py --feed RUTA  # usa otro feed local o remoto (para pruebas)
+```
+
+Si están disponibles, se usan **Pillow** o **ffmpeg** para reducir las portadas nuevas a unos 600 px y que la web cargue más rápido. Si no lo están, la imagen se guarda tal cual.
+
+En Windows, `actualizar.bat` abre el mismo script con doble clic.
 
 ## Estructura
 
 ```
-index.html            Página principal
-css/styles.css        Estilos
-js/main.js            Interactividad, filtros, buscador y reproductor
-js/episodes.js        Datos de los episodios (se regenera con actualizar.py)
-img/episodes/         Portadas de los episodios
-img/                  Logo y favicons
-actualizar.py         Actualizador desde el feed de iVoox
-actualizar.bat        Lanzador para Windows (doble clic)
-feed.xml              Última copia descargada del feed
-episodes-raw.json     Última copia de los datos crudos del feed
-.github/workflows/    Workflow de GitHub Actions para actualizar y publicar
+index.html              Página principal
+css/styles.css          Estilos, variables de diseño y adaptación a móvil
+js/main.js              Renderizado, filtros, buscador, navegación y reproductor
+js/episodes.js          Datos de los episodios (generado automáticamente)
+img/episodes/           Portadas de los episodios
+img/                    Logo, iconos y favicons
+actualizar.py           Actualizador desde el feed de iVoox
+actualizar.bat          Lanzador para Windows
+feed.xml                Última copia del feed descargado
+episodes-raw.json       Última copia de los datos crudos del feed
+.github/workflows/      Workflow de actualización y despliegue
 ```
 
-## Ver la web en local
+## Tecnologías
 
-```bash
-python -m http.server 8123
-```
+- HTML5 semántico y CSS3 con variables, grid y flexbox.
+- JavaScript sin frameworks ni compilación.
+- Tipografías [Bangers y Outfit](https://fonts.google.com/) desde Google Fonts.
+- Iconos de [Font Awesome](https://fontawesome.com/).
+- GitHub Actions y GitHub Pages para la actualización y el alojamiento.
 
-Y abrir <http://localhost:8123/>.
+## Créditos
+
+Los audios, portadas, títulos y descripciones pertenecen a **Peskito y Medio** y se obtienen de su feed oficial en iVoox. La web es un proyecto hecho por un peskiter para la comunidad.
+
+El código puede reutilizarse libremente; los contenidos del podcast conservan los derechos de sus autores.
