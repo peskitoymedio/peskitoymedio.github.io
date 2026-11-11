@@ -1,6 +1,19 @@
 /* Datos reales generados desde el feed oficial de Peskito y Medio (iVoox) */
 const EPISODES = [
     {
+        "id": 73,
+        "n": 63,
+        "type": "programa",
+        "title": "PYM 63. Pikmin Bloom - Festival Int. de Juegos de Mesa Córdoba 2026 - Axia, Slayer Combo - BSOs Compositores Pixar",
+        "date": "2026-11-11",
+        "duration": "01:24:12",
+        "link": "https://www.ivoox.com/pym-63-pikmin-bloom-festival-int-de-audios-mp3_rf_183682229_1.html",
+        "img": "img/episodes/ep-183682229.jpg",
+        "audio": "https://www.ivoox.com/pym-63-pikmin-bloom-festival-int-de_mf_183682229_feed_1.mp3",
+        "desc": "Vamos con el menú del día: 00:00:00 - Introducción. Seidon nos recomienda un videojuego móvil y su saga en consolas. 00:06:50 - Pikmin Bloom Phoebe nos trae un juego de mesa que ha probado…",
+        "descHtml": "Vamos con el menú del día:<br>\n<br>\n00:00:00 - Introducción.<br>\n<br>\nSeidon nos recomienda un videojuego móvil y su saga en consolas.<br>\n00:06:50 - Pikmin Bloom<br>\n<br>\nPhoebe nos trae un juego de mesa que ha probado en el Festival Internacional de Juegos de Mesa de Córdoba 2026.<br>\n00:32:29 - Axia - Slayer Combo (PIF Games)<br>\n<br>\n00:46:21 - Pausa de hidratación<br>\n<br>\nMalcolm no decepciona y nos trae un juego de bandas sonoras.<br>\n00:47:56 - Juego de BSOs: Compositores Pixar. <br>\n<br>\nY para terminar, como no:<br>\n01:18:18 - Sección del CM.<br>\n<br>\n01:23:20 - Tomas extras.<br>\n<br>\nMúsica inicial: \"Podcasteadores\" (Versión de \"Chip y Chop: Guardianes rescatadores\"). Voz y ukelele by Joy. <br><br>Te recordamos que si quieres tener charlas frikis en Telegram no dudes en unirte a este grupo hecho por y para Peskiters ❤️: <a href=\"https://t.me/peskiters3\" target=\"_blank\" rel=\"noopener\">https://t.me/peskiters3</a><br>\n<br>\nComo siempre, os pedimos que le deis a \"Me gusta\" en iVoox y nos comentéis a través de esa plataforma. Decidnos cómo de \"pipongo\" os lo habéis pasado escuchándonos.<br>\nYa sabéis, a los que comentéis en iVoox o en Spotify os saludaremos en el próximo programa ;)<br><br>Enlace al programa en iVoox: <a href=\"https://go.ivoox.com/rf/183682229\" target=\"_blank\" rel=\"noopener\">https://go.ivoox.com/rf/183682229</a>\n<br>\nSíguenos en nuestras redes sociales: <a href=\"https://linktr.ee/peskitoymedio\" target=\"_blank\" rel=\"noopener\">https://linktr.ee/peskitoymedio</a>\n<br><br>\n<a href=\"https://www.ivoox.com/ajx-suscribirse_jh_661614_1.html\" target=\"_blank\" rel=\"noopener\">Suscríbete en iVoox</a> y dale a <a href=\"https://www.ivoox.com/ajx-mis-audios-favoritos_ve_183682229_like_1.html\" target=\"_blank\" rel=\"noopener\">Me gusta</a>"
+    },
+    {
         "id": 1,
         "n": 62,
         "type": "especial",
