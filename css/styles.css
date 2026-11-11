@@ -739,6 +739,7 @@ ul { list-style: none; }
 }
 .marker--orange::after { background: rgba(240, 112, 0, 0.28); }
 .marker--teal::after { background: rgba(61, 185, 192, 0.36); }
+.marker--yellow::after { background: rgba(255, 197, 49, 0.38); }
 
 .check-list {
   display: grid;
@@ -1161,57 +1162,42 @@ ul { list-style: none; }
 .episodes-archive:hover { gap: 11px; color: var(--yellow); }
 
 /* ===========================
-   Secciones del podcast
+   Presentación en vídeo
    =========================== */
-.sections {
+.presentation {
   padding: clamp(64px, 8.5vw, 108px) 0;
   background: var(--white);
 }
-.section-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 20px;
-}
-.section-card {
+.video-frame {
   position: relative;
   overflow: hidden;
-  padding: 24px;
-  background: var(--cream);
+  aspect-ratio: 16 / 9;
+  background: var(--ink);
   border: 3px solid var(--ink);
-  border-radius: 22px;
-  box-shadow: 5px 5px 0 var(--ink);
-  transition: transform .2s ease, background .2s ease, box-shadow .2s ease;
+  border-radius: 24px;
+  box-shadow: 7px 7px 0 var(--ink);
 }
-.section-card::before {
-  content: "";
+.video-frame iframe {
   position: absolute;
-  top: 0; left: 0; right: 0;
-  height: 8px;
-  background: var(--accent);
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
 }
-.section-card:hover {
-  transform: translateY(-5px);
-  background: var(--white);
-  box-shadow: 7px 8px 0 var(--ink);
+.video-link {
+  margin: 18px 0 0;
+  text-align: center;
 }
-.section-card-icon {
-  display: inline-block;
-  margin-bottom: 12px;
-  font-size: 2rem;
-  filter: drop-shadow(0 2px 0 rgba(11, 27, 45, 0.12));
+.video-link a {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--orange-dark);
+  transition: gap .15s ease, color .15s ease;
 }
-.section-card h3 {
-  margin: 0 0 8px;
-  font-family: var(--font-display);
-  font-size: 1.44rem;
-  letter-spacing: 0.02em;
-}
-.section-card p {
-  margin: 0;
-  font-size: 0.93rem;
-  line-height: 1.6;
-  color: var(--ink-soft);
-}
+.video-link a:hover { gap: 11px; color: var(--ink); }
 
 /* ===========================
    Equipo
@@ -1457,29 +1443,62 @@ ul { list-style: none; }
 }
 .listen-links-promo i { color: var(--red); }
 
-.social-row {
+.social-block {
   position: relative;
   z-index: 2;
-  display: flex;
-  flex-wrap: wrap;
+  margin-top: 30px;
+  padding-top: 28px;
+  border-top: 2px dashed rgba(255, 246, 233, 0.18);
+}
+.social-title {
+  margin: 0 0 16px;
+  font-family: var(--font-display);
+  font-size: clamp(1.55rem, 3vw, 2.1rem);
+  line-height: 1;
+  letter-spacing: 0.01em;
+  color: var(--cream);
+}
+.social-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
   gap: 10px;
 }
-.social-row a {
+.social-link {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px 10px 10px;
+  background: rgba(255, 246, 233, 0.07);
+  border: 2px solid rgba(255, 246, 233, 0.2);
+  border-radius: 14px;
+  color: var(--cream);
+  font-size: 0.9rem;
+  font-weight: 700;
+  transition: background .18s ease, border-color .18s ease, transform .18s ease, box-shadow .18s ease;
+}
+.social-link i {
   display: grid;
   place-items: center;
-  width: 46px; height: 46px;
-  border: 2px solid rgba(255, 246, 233, 0.24);
-  border-radius: 50%;
-  background: rgba(255, 246, 233, 0.08);
-  color: var(--cream);
-  font-size: 1.05rem;
-  transition: background .18s ease, color .18s ease, transform .18s ease, border-color .18s ease;
+  flex: 0 0 auto;
+  width: 36px; height: 36px;
+  border-radius: 10px;
+  background: var(--brand, var(--orange));
+  color: var(--white);
+  font-size: 1.08rem;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.22);
+  transition: background .18s ease, color .18s ease, transform .18s ease;
 }
-.social-row a:hover {
-  background: var(--yellow);
-  border-color: var(--ink);
-  color: var(--ink);
-  transform: translateY(-3px) rotate(-6deg);
+.social-link span { line-height: 1.1; }
+.social-link:hover {
+  background: rgba(255, 246, 233, 0.14);
+  border-color: var(--cream);
+  transform: translateY(-3px);
+  box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.35);
+}
+.social-link:hover i {
+  background: var(--cream);
+  color: var(--brand, var(--orange));
+  transform: rotate(-6deg) scale(1.06);
 }
 .listen-deco {
   position: absolute;
@@ -1725,7 +1744,6 @@ ul { list-style: none; }
    Responsive
    =========================== */
 @media (max-width: 1100px) {
-  .section-grid { grid-template-columns: repeat(2, 1fr); }
   .episode-grid { grid-template-columns: repeat(2, 1fr); }
   .team-grid { grid-template-columns: repeat(2, 1fr); }
   .footer-grid { grid-template-columns: 1.4fr 1fr 1fr; }
@@ -1830,7 +1848,7 @@ ul { list-style: none; }
   .footer-grid { grid-template-columns: 1fr; gap: 28px; }
   .footer-col:last-child { display: block; }
   .stat-num { font-size: 2.4rem; }
-  .section-card { padding: 20px; }
+  .video-frame { border-radius: 18px; box-shadow: 5px 5px 0 var(--ink); }
   .team-avatar { width: 58px; height: 58px; font-size: 1.7rem; }
   .about-quote p { font-size: 1.3rem; }
   .player-cover { width: 46px; height: 46px; }

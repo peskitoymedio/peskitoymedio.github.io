@@ -14,6 +14,7 @@ Es una web estática: no hay servidor, base de datos ni proceso de compilación.
 - Descripciones completas en HTML que se muestran recortadas y se pueden desplegar bajo demanda.
 - Filtros por **programas**, **especiales**, **promos** y **colaboraciones**, además de buscador por texto.
 - Reproductor integrado que usa los MP3 publicados en el feed.
+- Vídeo de presentación incrustado desde YouTube.
 - Contadores de episodios y de cada categoría calculados en tiempo real.
 - Diseño adaptable a móvil, tableta y escritorio, con una estética de cómic y aire friki.
 - Navegación por teclado, textos alternativos y contraste cuidado.
