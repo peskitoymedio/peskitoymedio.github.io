@@ -2,6 +2,9 @@
 
 Web del podcast **Peskito y Medio**. Contenido, portadas y datos obtenidos del feed oficial de iVoox.
 
+- Web publicada: <https://peskitoymedio.github.io/>
+- Repositorio: <https://github.com/peskitoymedio/peskitoymedio.github.io>
+
 ## Publicar un episodio nuevo
 
 Cuando publiques un episodio en iVoox, no hay que tocar el HTML ni el CSS. Basta con actualizar los datos:
@@ -52,12 +55,14 @@ El repositorio incluye `.github/workflows/actualizar-pages.yml`. Cada 6 horas (y
 
 ### Puesta en marcha (solo una vez)
 
-1. Crea un repositorio en GitHub. Para usar Pages gratis, que sea **público**.
+Este repositorio ya está configurado. Si algún día hay que recrearlo:
+
+1. Crea un repositorio en GitHub llamado `peskitoymedio.github.io`. Para usar Pages gratis, que sea **público**.
 2. Sube el contenido de esta carpeta a la **raíz** del repositorio, incluida la carpeta oculta `.github`.
 3. En el repo: **Settings → Pages → Build and deployment → Source: GitHub Actions**.
 4. En **Settings → Actions → General → Workflow permissions**, marca **Read and write permissions** y guarda.
 5. Ve a **Actions → “Actualizar episodios y publicar en Pages” → Run workflow** para probarlo.
-6. Tu web quedará en `https://TU-USUARIO.github.io/NOMBRE-DEL-REPO/`.
+6. La web quedará en `https://peskitoymedio.github.io/`.
 
 A partir de ahí no hay que hacer nada más: cuando publiques un episodio en iVoox, la siguiente pasada lo detectará y lo publicará.
 
