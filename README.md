@@ -103,6 +103,6 @@ episodes-raw.json       Última copia de los datos crudos del feed
 
 ## Créditos
 
-Los audios, portadas, títulos y descripciones pertenecen a **Peskito y Medio** y se obtienen de su feed oficial en iVoox. La web es un proyecto hecho por un peskiter para la comunidad.
+Los audios, portadas, títulos y descripciones pertenecen a **Peskito y Medio** y se obtienen de su feed oficial en iVoox. La web es un proyecto hecho por un peskito para la comunidad.
 
 El código puede reutilizarse libremente; los contenidos del podcast conservan los derechos de sus autores.

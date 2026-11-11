@@ -125,8 +125,6 @@ ul { list-style: none; }
   transition: color .15s ease;
 }
 .topbar-item:hover { color: var(--white); }
-.topbar-award i { color: var(--yellow); }
-.topbar-award span { white-space: nowrap; }
 .topbar-latest {
   justify-content: flex-end;
   overflow: hidden;
@@ -1391,6 +1389,43 @@ ul { list-style: none; }
 }
 .platform-card--primary .platform-arrow { color: rgba(255, 255, 255, 0.8); }
 
+.listen-links {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 16px;
+  margin-bottom: 26px;
+  font-size: 0.86rem;
+  color: rgba(255, 246, 233, 0.62);
+}
+.listen-links-label {
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  font-size: 0.7rem;
+  color: rgba(255, 246, 233, 0.45);
+}
+.listen-links a {
+  color: rgba(255, 246, 233, 0.82);
+  border-bottom: 1px dashed rgba(255, 246, 233, 0.3);
+  padding-bottom: 1px;
+  transition: color .15s ease, border-color .15s ease;
+}
+.listen-links a:hover {
+  color: var(--yellow);
+  border-color: var(--yellow);
+}
+.listen-links-promo {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-left: auto;
+  font-weight: 600;
+}
+.listen-links-promo i { color: var(--red); }
+
 .social-row {
   position: relative;
   z-index: 2;
@@ -1727,8 +1762,9 @@ ul { list-style: none; }
 @media (max-width: 760px) {
   html { scroll-padding-top: 84px; }
   .container { width: min(100% - 36px, var(--maxw)); }
-  .topbar-latest { display: none; }
   .topbar-inner { justify-content: center; }
+  .topbar-latest { justify-content: center; width: 100%; }
+  .topbar-latest strong { max-width: 58vw; }
   .stats-grid { grid-template-columns: repeat(2, 1fr); }
   .about-pillars { grid-template-columns: 1fr; }
   .team-grid { grid-template-columns: 1fr; }
@@ -1739,6 +1775,8 @@ ul { list-style: none; }
   .filter { flex: 0 0 auto; }
   .search { min-width: 0; width: 100%; }
   .listen-deco { display: none; }
+  .listen-links { gap: 6px 12px; }
+  .listen-links-promo { margin-left: 0; }
   .player-progress-wrap { order: 6; flex-basis: 100%; }
   .player-inner { flex-wrap: wrap; row-gap: 8px; }
   .player-info { flex-basis: 0; }
