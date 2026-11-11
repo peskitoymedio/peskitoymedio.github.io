@@ -11,7 +11,8 @@ Es una web estática: no hay servidor, base de datos ni proceso de compilación.
 ## Características
 
 - Archivo completo de episodios con portada, número, tipo, fecha, duración y descripción.
-- Filtros por **programas**, **especiales** y **colaboraciones**, además de buscador por texto.
+- Descripciones completas en HTML que se muestran recortadas y se pueden desplegar bajo demanda.
+- Filtros por **programas**, **especiales**, **promos** y **colaboraciones**, además de buscador por texto.
 - Reproductor integrado que usa los MP3 publicados en el feed.
 - Contadores de episodios y de cada categoría calculados en tiempo real.
 - Diseño adaptable a móvil, tableta y escritorio, con una estética de cómic y aire friki.
@@ -20,7 +21,7 @@ Es una web estática: no hay servidor, base de datos ni proceso de compilación.
 
 ## Contenido de los episodios
 
-Los datos viven en `js/episodes.js`, en el array `EPISODES`. Cada entrada incluye el identificador de iVoox, el número de programa, el tipo, el título, la fecha, la duración, el enlace, la portada local, la URL del audio y una descripción corta.
+Los datos viven en `js/episodes.js`, en el array `EPISODES`. Cada entrada incluye el identificador de iVoox, el número de programa, el tipo, el título, la fecha, la duración, el enlace, la portada local, la URL del audio, un resumen corto (`desc`) y la descripción completa en HTML (`descHtml`).
 
 Ese archivo se regenera automáticamente desde el feed; no se edita a mano.
 
@@ -35,7 +36,9 @@ Ese archivo se regenera automáticamente desde el feed; no se edita a mano.
 
 ### Descripciones
 
-Se elimina el HTML, se deshacen las entidades, se compactan los espacios y se retira la promo de los Premios iVoox que encabeza algunas descripciones. Después se recorta el texto a unas 190 letras cortando por palabra y se cierra con puntos suspensivos.
+El feed entrega las descripciones en HTML. El actualizador conserva una versión completa y segura en `descHtml`: elimina las imágenes, los scripts y cualquier etiqueta no permitida, y retira la promo de los Premios iVoox que encabeza algunas descripciones. Los enlaces se mantienen y se abren en una pestaña nueva.
+
+También genera `desc`, un resumen en texto plano de unas 190 letras. La web muestra ese resumen recortado y, si la descripción tiene más contenido o enlaces, añade un botón **Leer más** para desplegar el HTML completo sin salir de la tarjeta.
 
 ### Portadas
 
@@ -49,7 +52,7 @@ El workflow `.github/workflows/actualizar-pages.yml` mantiene la web al día sin
 
 En las ejecuciones programadas y manuales:
 
-1. Descarga el feed oficial de iVoox.
+1. Descarga el feed oficial del podcast desde Feedburner.
 2. Ejecuta `actualizar.py`, que detecta los episodios que aún no están en la web.
 3. Descarga y optimiza las portadas nuevas y regenera `js/episodes.js`.
 4. Si hay cambios, hace commit y push de los datos actualizados.
@@ -87,7 +90,7 @@ js/main.js              Renderizado, filtros, buscador, navegación y reproducto
 js/episodes.js          Datos de los episodios (generado automáticamente)
 img/episodes/           Portadas de los episodios
 img/                    Logo, iconos y favicons
-actualizar.py           Actualizador desde el feed de iVoox
+actualizar.py           Actualizador desde el feed del podcast
 actualizar.bat          Lanzador para Windows
 feed.xml                Última copia del feed descargado
 episodes-raw.json       Última copia de los datos crudos del feed
@@ -104,6 +107,6 @@ episodes-raw.json       Última copia de los datos crudos del feed
 
 ## Créditos
 
-Los audios, portadas, títulos y descripciones pertenecen a **Peskito y Medio** y se obtienen de su feed oficial en iVoox. La web es un proyecto hecho por un peskito para la comunidad.
+Los audios, portadas, títulos y descripciones pertenecen a **Peskito y Medio** y se obtienen de su feed oficial. La web es un proyecto hecho por un peskite para la comunidad.
 
 El código puede reutilizarse libremente; los contenidos del podcast conservan los derechos de sus autores.

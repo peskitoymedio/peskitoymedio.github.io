@@ -33,6 +33,31 @@
       .replace(/"/g, "&quot;")
       .replace(/'/g, "&#39;");
 
+  const htmlToText = (html) =>
+    String(html || "")
+      .replace(/<br\s*\/?>/gi, " ")
+      .replace(/<[^>]*>/g, " ")
+      .replace(/&nbsp;/gi, " ")
+      .replace(/&amp;/gi, "&")
+      .replace(/&lt;/gi, "<")
+      .replace(/&gt;/gi, ">")
+      .replace(/&quot;/gi, '"')
+      .replace(/&#0*39;/g, "'")
+      .replace(/\s+/g, " ")
+      .trim();
+
+  const excerptFor = (ep, limit = 190) => {
+    const text = htmlToText(ep.descHtml || ep.desc || "");
+    if (text.length <= limit) return text;
+    let cut = text.slice(0, limit);
+    const lastSpace = cut.lastIndexOf(" ");
+    if (lastSpace > 0) cut = cut.slice(0, lastSpace);
+    return cut.replace(/[ .,-]+$/, "") + "…";
+  };
+
+  const canExpand = (ep) =>
+    !!ep.descHtml && (htmlToText(ep.descHtml).length > 190 || /<a\b/i.test(ep.descHtml));
+
   const formatDate = (iso) => {
     const date = new Date(iso + "T00:00:00");
     return new Intl.DateTimeFormat("es-ES", {
@@ -228,17 +253,40 @@
     playEpisode(trigger.dataset.playId);
   });
 
+  /* Delegación: mostrar u ocultar la descripción completa */
+  document.addEventListener("click", (event) => {
+    const button = event.target.closest("[data-more-id]");
+    if (!button) return;
+    event.preventDefault();
+    const episode = EPISODES.find((ep) => String(ep.id) === button.dataset.moreId);
+    if (!episode) return;
+    const wrap = button.closest(".ep-desc-wrap");
+    const desc = wrap ? wrap.querySelector(".ep-desc") : null;
+    if (!desc) return;
+
+    if (button.getAttribute("aria-expanded") === "true") {
+      desc.innerHTML = escapeHtml(excerptFor(episode));
+      desc.classList.remove("ep-desc--full");
+      button.textContent = "Leer más";
+      button.setAttribute("aria-expanded", "false");
+    } else {
+      desc.innerHTML = episode.descHtml || escapeHtml(episode.desc || "");
+      desc.classList.add("ep-desc--full");
+      button.textContent = "Leer menos";
+      button.setAttribute("aria-expanded", "true");
+    }
+  });
+
   /* ---------- Episodios ---------- */
   const filteredEpisodes = () => {
     const query = state.search.trim().toLowerCase();
     return EPISODES.filter((ep) => {
       if (state.filter !== "all" && ep.type !== state.filter) return false;
       if (!query) return true;
-      return (
-        ep.title.toLowerCase().includes(query) ||
-        ep.desc.toLowerCase().includes(query) ||
-        TYPE_LABEL[ep.type].toLowerCase().includes(query)
-      );
+      const haystack = (
+        ep.title + " " + htmlToText(ep.descHtml || ep.desc) + " " + TYPE_LABEL[ep.type]
+      ).toLowerCase();
+      return haystack.includes(query);
     });
   };
 
@@ -260,7 +308,12 @@
             '<time datetime="' + ep.date + '">' + formatDate(ep.date) + '</time>' +
           '</div>' +
           '<h3 class="ep-title">' + title + '</h3>' +
-          '<p class="ep-desc">' + escapeHtml(ep.desc) + '</p>' +
+          '<div class="ep-desc-wrap">' +
+            '<div class="ep-desc">' + escapeHtml(excerptFor(ep)) + '</div>' +
+            (canExpand(ep)
+              ? '<button class="ep-more" type="button" data-more-id="' + ep.id + '" aria-expanded="false">Leer más</button>'
+              : '') +
+          '</div>' +
           '<a class="ep-link" href="' + ep.link + '" target="_blank" rel="noopener">Escuchar en iVoox ' +
             '<i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i>' +
           '</a>' +

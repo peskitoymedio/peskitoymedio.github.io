@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-Actualiza la web de Peskito y Medio con los episodios nuevos del feed de iVoox.
+Actualiza la web de Peskito y Medio con los episodios nuevos del feed del podcast.
 
 Uso:
     python actualizar.py              # actualiza la web
@@ -9,9 +9,10 @@ Uso:
     python actualizar.py --feed RUTA  # usa otro feed local o URL (para pruebas)
 
 Qué hace:
-  - Descarga el feed oficial de iVoox.
+  - Descarga el feed oficial del podcast desde Feedburner.
   - Detecta los episodios que aún no están en js/episodes.js.
   - Descarga su portada en img/episodes/ (con nombre estable por ID de iVoox).
+  - Guarda la descripción completa en HTML (sin imágenes) y un resumen recortado.
   - Añade los episodios y regenera js/episodes.js.
   - Guarda feed.xml y episodes-raw.json como copia de referencia.
 
@@ -31,11 +32,12 @@ import urllib.error
 import urllib.request
 import xml.etree.ElementTree as ET
 from email.utils import parsedate_to_datetime
-from html import unescape
+from html import escape, unescape
+from html.parser import HTMLParser
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent
-FEED_URL = "https://feeds.ivoox.com/feed_fg_f1661614_filtro_1.xml"
+FEED_URL = "https://feeds.feedburner.com/PeskitoYMedio"
 EPISODES_JS = ROOT / "js" / "episodes.js"
 IMG_DIR = ROOT / "img" / "episodes"
 RAW_JSON = ROOT / "episodes-raw.json"
@@ -47,7 +49,18 @@ USER_AGENT = (
     "AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36"
 )
 
-PROMO_PREFIX = re.compile(r"^\s*¡Vótame en los Premios iVoox[^!]*!\s*", re.IGNORECASE)
+PROMO_HTML_PREFIX = re.compile(
+    r"^\s*(?:<a\b[^>]*>\s*)?¡Vótame en los Premios iVoox.*?!\s*(?:</a>)?\s*(?:<br\s*/?>\s*)*",
+    re.IGNORECASE | re.DOTALL,
+)
+
+# Etiquetas que se conservan en las descripciones completas. Todo lo demás
+# (imágenes, scripts, iframes…) se descarta.
+ALLOWED_DESCRIPTION_TAGS = {
+    "a", "b", "blockquote", "br", "em", "h3", "h4", "i", "li",
+    "ol", "p", "span", "strong", "u", "ul",
+}
+VOID_DESCRIPTION_TAGS = {"br"}
 
 
 # ---------------------------------------------------------------------------
@@ -147,12 +160,86 @@ def episode_key(link: str, audio: str) -> str:
     return hashlib.sha1(((link or "") + "|" + (audio or "")).encode("utf-8")).hexdigest()[:12]
 
 
-def clean_description(raw: str, limit: int = 190) -> str:
-    """Limpia el HTML, quita la promo de los premios y recorta con puntos suspensivos."""
-    text = re.sub(r"<[^>]+>", " ", raw or "")
+class _DescriptionHTMLParser(HTMLParser):
+    """Reconstruye una descripción conservando solo etiquetas y enlaces seguros."""
+
+    def __init__(self) -> None:
+        super().__init__(convert_charrefs=True)
+        self.parts: list[str] = []
+        self.stack: list[str] = []
+
+    def handle_starttag(self, tag: str, attrs) -> None:
+        tag = tag.lower()
+        if tag not in ALLOWED_DESCRIPTION_TAGS:
+            return
+        if tag == "br":
+            self.parts.append("<br>")
+            return
+        if tag == "a":
+            href = ""
+            for name, value in attrs:
+                if name.lower() == "href":
+                    href = (value or "").strip()
+                    break
+            if not re.match(r"^(?:https?://|mailto:)", href, re.IGNORECASE):
+                return
+            self.parts.append(
+                '<a href="' + escape(href, quote=True) + '" target="_blank" rel="noopener">'
+            )
+            self.stack.append("a")
+            return
+        self.parts.append("<" + tag + ">")
+        self.stack.append(tag)
+
+    def handle_startendtag(self, tag: str, attrs) -> None:
+        self.handle_starttag(tag, attrs)
+        if tag.lower() not in VOID_DESCRIPTION_TAGS and tag.lower() in self.stack:
+            self.handle_endtag(tag)
+
+    def handle_endtag(self, tag: str) -> None:
+        tag = tag.lower()
+        if tag in VOID_DESCRIPTION_TAGS or tag not in ALLOWED_DESCRIPTION_TAGS:
+            return
+        if tag not in self.stack:
+            return
+        while self.stack:
+            open_tag = self.stack.pop()
+            self.parts.append("</" + open_tag + ">")
+            if open_tag == tag:
+                break
+
+    def handle_data(self, data: str) -> None:
+        self.parts.append(escape(data, quote=False))
+
+    def result(self) -> str:
+        while self.stack:
+            self.parts.append("</" + self.stack.pop() + ">")
+        return "".join(self.parts)
+
+
+def sanitize_description_html(raw: str) -> str:
+    """Devuelve el HTML de la descripción sin imágenes ni contenido peligroso."""
+    parser = _DescriptionHTMLParser()
+    parser.feed(raw or "")
+    parser.close()
+    return parser.result()
+
+
+def clean_description_html(raw: str) -> str:
+    """Descripción completa en HTML, sin imágenes ni la promo de los premios."""
+    html = sanitize_description_html(raw)
+    html = PROMO_HTML_PREFIX.sub("", html)
+    html = re.sub(r"^(?:\s|<br\s*/?>)+", "", html, flags=re.IGNORECASE)
+    html = re.sub(r"(?:\s|<br\s*/?>)+$", "", html, flags=re.IGNORECASE)
+    html = re.sub(r"(?:<br\s*/?>\s*){3,}", "<br><br>", html, flags=re.IGNORECASE)
+    return html.strip()
+
+
+def summarize_html(html: str, limit: int = 190) -> str:
+    """Convierte el HTML en texto plano y lo recorta con puntos suspensivos."""
+    text = re.sub(r"<[^>]+>", " ", html or "")
     text = unescape(text)
     text = re.sub(r"\s+", " ", text).strip()
-    text = PROMO_PREFIX.sub("", text)
 
     if len(text) > limit:
         cut = text[:limit]
@@ -211,6 +298,7 @@ def write_episodes(episodes: list[dict]) -> None:
                 "img": episode["img"],
                 "audio": episode["audio"],
                 "desc": episode["desc"],
+                "descHtml": episode.get("descHtml", ""),
             }
         )
 
@@ -338,6 +426,24 @@ def main() -> int:
             episode["type"] = expected
             reclassified += 1
 
+    # Refrescar las descripciones completas con el contenido actual del feed
+    feed_by_key = {
+        episode_key(item["link"], item["audio"]): item for item in feed_episodes
+    }
+    descriptions_updated = 0
+    for episode in existing:
+        item = feed_by_key.get(
+            episode_key(episode.get("link", ""), episode.get("audio", ""))
+        )
+        if not item:
+            continue
+        desc_html = clean_description_html(item["desc"])
+        desc_text = summarize_html(desc_html)
+        if episode.get("descHtml") != desc_html or episode.get("desc") != desc_text:
+            episode["descHtml"] = desc_html
+            episode["desc"] = desc_text
+            descriptions_updated += 1
+
     known_keys = {
         episode_key(episode.get("link", ""), episode.get("audio", ""))
         for episode in existing
@@ -350,6 +456,7 @@ def main() -> int:
         if key in known_keys:
             continue
 
+        desc_html = clean_description_html(item["desc"])
         new_episodes.append(
             (
                 key,
@@ -363,7 +470,8 @@ def main() -> int:
                     "link": item["link"],
                     "img": "img/episodes/ep-" + key + ".jpg",
                     "audio": item["audio"],
-                    "desc": clean_description(item["desc"]),
+                    "desc": summarize_html(desc_html),
+                    "descHtml": desc_html,
                     "_image_url": item["image"],
                 },
             )
@@ -372,22 +480,35 @@ def main() -> int:
         next_id += 1
 
     if not new_episodes:
-        if reclassified and args.dry_run:
-            print(
-                "Episodios que se reclasificarían con las reglas actuales: "
-                + str(reclassified)
-            )
-        elif reclassified:
+        changed = reclassified + descriptions_updated
+        if changed and args.dry_run:
+            if reclassified:
+                print(
+                    "Episodios que se reclasificarían con las reglas actuales: "
+                    + str(reclassified)
+                )
+            if descriptions_updated:
+                print(
+                    "Descripciones que se actualizarían desde el feed: "
+                    + str(descriptions_updated)
+                )
+        elif changed:
             try:
                 write_episodes(existing)
             except OSError as error:
                 print("ERROR: no se pudo escribir js/episodes.js.")
                 print("  " + str(error))
                 return 1
-            print(
-                "Episodios reclasificados con las reglas actuales: "
-                + str(reclassified)
-            )
+            if reclassified:
+                print(
+                    "Episodios reclasificados con las reglas actuales: "
+                    + str(reclassified)
+                )
+            if descriptions_updated:
+                print(
+                    "Descripciones actualizadas desde el feed: "
+                    + str(descriptions_updated)
+                )
         print("Todo al día: no hay episodios nuevos en el feed.")
         print("Episodios en la web: " + str(len(existing)))
         return 0
@@ -463,10 +584,11 @@ def main() -> int:
     print("")
     print("Listo. La web ya tiene " + str(len(merged)) + " episodios.")
     print("Portadas nuevas descargadas: " + str(downloaded))
+    if descriptions_updated:
+        print("Descripciones actualizadas desde el feed: " + str(descriptions_updated))
     print("Archivo actualizado: js/episodes.js")
     print("")
-    print("Si la web está publicada, sube js/episodes.js y las portadas nuevas")
-    print("de img/episodes/ a tu hosting (o despliega la carpeta completa).")
+    print("El workflow de GitHub Actions publicará los cambios automáticamente.")
     return 0
 
 
