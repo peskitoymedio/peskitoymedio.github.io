@@ -1527,14 +1527,15 @@ ul { list-style: none; }
 }
 .social-row {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 10px;
 }
+
 .social-link {
   display: flex;
   align-items: center;
-  gap: 10px;
-  padding: 10px 14px 10px 10px;
+  gap: 9px;
+  padding: 9px 12px 9px 9px;
   background: rgba(255, 246, 233, 0.07);
   border: 2px solid rgba(255, 246, 233, 0.2);
   border-radius: 14px;
@@ -1893,6 +1894,8 @@ ul { list-style: none; }
   .listen-deco { display: none; }
   .listen-links { gap: 6px 12px; }
   .listen-links-promo { margin-left: 0; }
+  .social-row { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .social-row > :last-child { grid-column: 1 / -1; }
   .player-progress-wrap { order: 6; flex-basis: 100%; }
   .player-inner { flex-wrap: wrap; row-gap: 8px; }
   .player-info { flex-basis: 0; }
@@ -1912,6 +1915,8 @@ ul { list-style: none; }
   .sticker { font-size: 1rem; padding: 6px 13px; }
   .float-emoji { font-size: 1.35rem; }
   .platform-grid { grid-template-columns: 1fr; }
+  .social-row { grid-template-columns: 1fr; }
+  .social-row > :last-child { grid-column: auto; }
   .podlink-card { flex-wrap: wrap; }
   .podlink-cta { width: 100%; justify-content: center; margin-left: 0; }
   .footer-grid { grid-template-columns: 1fr; gap: 28px; }
