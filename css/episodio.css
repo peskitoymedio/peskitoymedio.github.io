@@ -104,20 +104,8 @@
 .ep-detail-cover img {
   width: 100%;
   aspect-ratio: 1;
-  object-fit: cover;
+  object-fit: contain;
   border-radius: 21px;
-}
-.ep-detail-cover .ep-badge {
-  top: 16px;
-  left: 16px;
-  font-size: 1.1rem;
-  padding: 6px 15px;
-}
-.ep-detail-cover .ep-duration {
-  right: 16px;
-  bottom: 16px;
-  font-size: 0.82rem;
-  padding: 6px 12px;
 }
 
 .ep-detail-copy { min-width: 0; }

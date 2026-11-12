@@ -965,8 +965,6 @@ def build_episode_page(episode: dict, episodes: list[dict], latest: dict | None)
       <div class="container ep-detail-grid">
         <figure class="ep-detail-cover reveal">
           <img src="{attr(cover_url(episode, '../'))}" alt="{attr('Portada del episodio: ' + title)}" width="600" height="600">
-          <figcaption class="ep-badge">{escape(badge)}</figcaption>
-          <span class="ep-duration"><i class="fa-regular fa-clock" aria-hidden="true"></i> {escape(episode.get('duration', ''))}</span>
         </figure>
 
         <div class="ep-detail-copy">
