@@ -14,6 +14,7 @@ Qué hace:
   - Descarga su portada en img/episodes/ (con nombre estable por ID de iVoox).
   - Guarda la descripción completa en HTML (sin imágenes) y un resumen recortado.
   - Añade los episodios y regenera js/episodes.js.
+  - Sincroniza la fecha <lastmod> de sitemap.xml con el último episodio.
   - Guarda feed.xml y episodes-raw.json como copia de referencia.
 
 No necesita dependencias externas: solo Python 3.9 o superior.
@@ -42,6 +43,8 @@ EPISODES_JS = ROOT / "js" / "episodes.js"
 IMG_DIR = ROOT / "img" / "episodes"
 RAW_JSON = ROOT / "episodes-raw.json"
 FEED_XML = ROOT / "feed.xml"
+SITEMAP_XML = ROOT / "sitemap.xml"
+SITE_URL = "https://peskitoymedio.github.io/"
 FALLBACK_IMG = "img/logo-800.jpg"
 
 USER_AGENT = (
@@ -311,6 +314,82 @@ def write_episodes(episodes: list[dict]) -> None:
 
 
 # ---------------------------------------------------------------------------
+# Sitemap
+# ---------------------------------------------------------------------------
+
+def latest_feed_date(episodes: list[dict]) -> str:
+    """Fecha ISO del episodio más reciente del feed."""
+    dates = [
+        episode.get("_iso", "")
+        for episode in episodes
+        if re.fullmatch(r"\d{4}-\d{2}-\d{2}", episode.get("_iso", ""))
+    ]
+    return max(dates) if dates else ""
+
+
+def build_sitemap(lastmod: str) -> str:
+    return (
+        '<?xml version="1.0" encoding="UTF-8"?>\n'
+        '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
+        "  <url>\n"
+        "    <loc>" + SITE_URL + "</loc>\n"
+        "    <lastmod>" + lastmod + "</lastmod>\n"
+        "    <changefreq>weekly</changefreq>\n"
+        "    <priority>1.0</priority>\n"
+        "  </url>\n"
+        "</urlset>\n"
+    )
+
+
+def update_sitemap(lastmod: str, dry_run: bool = False) -> bool:
+    """Sincroniza <lastmod> de sitemap.xml. Devuelve True si hay cambios."""
+    if not lastmod:
+        return False
+
+    old = SITEMAP_XML.read_text(encoding="utf-8") if SITEMAP_XML.exists() else ""
+    if old:
+        new, replacements = re.subn(
+            r"<lastmod>[^<]*</lastmod>",
+            "<lastmod>" + lastmod + "</lastmod>",
+            old,
+            count=1,
+        )
+        if replacements == 0:
+            new = re.sub(
+                r"(<loc>[^<]*</loc>)",
+                lambda match: match.group(1)
+                + "\n    <lastmod>" + lastmod + "</lastmod>",
+                old,
+                count=1,
+            )
+    else:
+        new = build_sitemap(lastmod)
+
+    if new == old:
+        return False
+    if not dry_run:
+        SITEMAP_XML.write_text(new, encoding="utf-8")
+    return True
+
+
+def sync_sitemap(episodes: list[dict], dry_run: bool = False) -> None:
+    lastmod = latest_feed_date(episodes)
+    try:
+        changed = update_sitemap(lastmod, dry_run)
+    except OSError as error:
+        print("AVISO: no se pudo actualizar sitemap.xml.")
+        print("  " + str(error))
+        return
+
+    if not changed:
+        return
+    if dry_run:
+        print("Sitemap que se actualizaría: lastmod " + lastmod)
+    else:
+        print("Sitemap actualizado: lastmod " + lastmod)
+
+
+# ---------------------------------------------------------------------------
 # Portadas
 # ---------------------------------------------------------------------------
 
@@ -509,6 +588,7 @@ def main() -> int:
                     "Descripciones actualizadas desde el feed: "
                     + str(descriptions_updated)
                 )
+        sync_sitemap(feed_episodes, args.dry_run)
         print("Todo al día: no hay episodios nuevos en el feed.")
         print("Episodios en la web: " + str(len(existing)))
         return 0
@@ -581,12 +661,14 @@ def main() -> int:
         encoding="utf-8",
     )
 
+    sync_sitemap(feed_episodes, args.dry_run)
+
     print("")
     print("Listo. La web ya tiene " + str(len(merged)) + " episodios.")
     print("Portadas nuevas descargadas: " + str(downloaded))
     if descriptions_updated:
         print("Descripciones actualizadas desde el feed: " + str(descriptions_updated))
-    print("Archivo actualizado: js/episodes.js")
+    print("Archivos actualizados: js/episodes.js y sitemap.xml")
     print("")
     print("El workflow de GitHub Actions publicará los cambios automáticamente.")
     return 0

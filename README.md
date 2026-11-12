@@ -56,7 +56,7 @@ En las ejecuciones programadas y manuales:
 
 1. Descarga el feed oficial del podcast desde Feedburner.
 2. Ejecuta `actualizar.py`, que detecta los episodios que aún no están en la web.
-3. Descarga y optimiza las portadas nuevas y regenera `js/episodes.js`.
+3. Descarga y optimiza las portadas nuevas, regenera `js/episodes.js` y actualiza el `<lastmod>` de `sitemap.xml` con la fecha del último episodio.
 4. Si hay cambios, hace commit y push de los datos actualizados.
 5. Publica el sitio en GitHub Pages con `actions/deploy-pages`.
 
@@ -87,6 +87,8 @@ En Windows, `actualizar.bat` abre el mismo script con doble clic.
 
 ```
 index.html              Página principal
+robots.txt              Directrices para buscadores
+sitemap.xml             Mapa del sitio (el lastmod se sincroniza con el último episodio)
 css/styles.css          Estilos, variables de diseño y adaptación a móvil
 js/main.js              Renderizado, filtros, buscador, navegación y reproductor
 js/episodes.js          Datos de los episodios (generado automáticamente)
