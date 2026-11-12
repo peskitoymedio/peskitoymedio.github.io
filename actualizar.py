@@ -259,11 +259,16 @@ def clean_description_html(raw: str) -> str:
     return html.strip()
 
 
-def summarize_html(html: str, limit: int = 190) -> str:
-    """Convierte el HTML en texto plano y lo recorta con puntos suspensivos."""
+def plain_text_html(html: str) -> str:
+    """Convierte HTML en texto plano de una sola línea (sin etiquetas)."""
     text = re.sub(r"<[^>]+>", " ", html or "")
     text = unescape(text)
-    text = re.sub(r"\s+", " ", text).strip()
+    return re.sub(r"\s+", " ", text).strip()
+
+
+def summarize_html(html: str, limit: int = 190) -> str:
+    """Convierte el HTML en texto plano y lo recorta con puntos suspensivos."""
+    text = plain_text_html(html)
 
     if len(text) > limit:
         cut = text[:limit]
@@ -732,13 +737,20 @@ def player_html(episode: dict) -> str:
   </div>"""
 
 
-def episode_card(episode: dict, index: int = 0) -> str:
+def episode_card(episode: dict, index: int = 0, with_search_text: bool = False) -> str:
     title = escape(episode.get("title", ""), quote=True)
     link = episode["slug"] + ".html"
     badge = escape(episode_badge(episode))
     type_name = episode.get("type", "programa")
     type_label = TYPE_LABEL.get(type_name, "Episodio")
     image = cover_url(episode, "../")
+    search_text = ""
+    if with_search_text:
+        search_text = (
+            '\n          <div class="ep-search-text" hidden>'
+            + escape(plain_text_html(episode.get("descHtml") or episode.get("desc", "")))
+            + "</div>"
+        )
     return f"""      <article class="ep-card" style="--i:{index % 12}" data-type="{attr(type_name)}">
         <div class="ep-cover">
           <a class="ep-cover-link" href="{link}" aria-label="Ver la ficha de {title}">
@@ -753,7 +765,7 @@ def episode_card(episode: dict, index: int = 0) -> str:
             <time datetime="{attr(episode.get('date', ''))}">{escape(format_date_es(episode.get('date', '')))}</time>
           </div>
           <h3 class="ep-title"><a class="ep-title-link" href="{link}">{escape(episode.get('title', ''))}</a></h3>
-          <p class="ep-desc">{escape(episode.get('desc', ''))}</p>
+          <p class="ep-desc">{escape(episode.get('desc', ''))}</p>{search_text}
           <a class="ep-link" href="{link}">Ver el episodio <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a>
         </div>
       </article>"""
@@ -1041,7 +1053,10 @@ def build_archive_page(episodes: list[dict], latest: dict | None) -> str:
         "colaboraciones y promos del podcast friki. Escucha cada programa y sus notas."
     )
 
-    cards = "\n".join(episode_card(episode, index) for index, episode in enumerate(episodes))
+    cards = "\n".join(
+        episode_card(episode, index, with_search_text=True)
+        for index, episode in enumerate(episodes)
+    )
     type_counts = {"all": len(episodes)}
     for episode in episodes:
         type_name = episode.get("type", "programa")

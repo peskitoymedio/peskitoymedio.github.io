@@ -15,7 +15,7 @@ Es una web estática: no hay servidor, base de datos ni proceso de compilación.
 - Datos estructurados `PodcastEpisode`, `BreadcrumbList` y `CollectionPage` para mejorar el SEO y los resultados enriquecidos.
 - Archivo estático navegable en `episodios/index.html`, con enlaces reales a todas las fichas.
 - Descripciones completas en HTML que se muestran recortadas y se pueden desplegar bajo demanda.
-- Filtros por **programas**, **especiales**, **promos** y **colaboraciones**, además de buscador por texto, tanto en la portada como en el archivo completo.
+- Filtros por **programas**, **especiales**, **promos** y **colaboraciones**, además de buscador por texto, tanto en la portada como en el archivo completo. El buscador del archivo incluye las notas completas de cada episodio (ocultas visualmente) para encontrar cualquier tema mencionado.
 - Reproductor integrado que usa los MP3 publicados en el feed.
 - Vídeo de presentación incrustado desde YouTube.
 - Sección de reconocimientos con los premios de la Asociación Podcast y los rankings de Goodpods.
