@@ -61,6 +61,7 @@ jobs:
         run: |
           mkdir -p _site
           cp -r index.html css js img _site/
+          find . -maxdepth 1 -type f \( -iname "*.html" -o -iname "*.txt" \) -exec cp {} _site/ \;
           touch _site/.nojekyll
 
       - name: Configurar GitHub Pages
