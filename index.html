@@ -36,16 +36,19 @@
 
   <link rel="stylesheet" href="css/styles.css">
 
+
+  <!-- Podcast -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
     "@type": "PodcastSeries",
+    "@id": "https://peskitoymedio.github.io/#podcast",
     "name": "Peskito y Medio - Tu Podcast Friki",
     "description": "Podcast buenrollero de un grupo de amig@s frikis que hablan de series, cómics, ciencia ficción, fantasía, juegos de mesa, doramas, bandas sonoras, rol, Marvel y DC, Star Wars, Cthulhu y muchas cosas más.",
-    "image": "img/logo-800.jpg",
+    "url": "https://peskitoymedio.github.io/",
+    "image": "https://peskitoymedio.github.io/img/logo-800.jpg",
     "webFeed": "https://feeds.feedburner.com/PeskitoYMedio",
     "inLanguage": "es-ES",
-    "author": { "@type": "Organization", "name": "Peskito y Medio" },
     "sameAs": [
       "https://www.ivoox.com/podcast-peskito-medio-tu-podcast-friki_sq_f1661614_1.html",
       "https://open.spotify.com/show/3dxYih3F7UfO4Oeser3W0I",
@@ -59,6 +62,27 @@
     ]
   }
   </script>
+  
+  <!-- Web oficial del podcast -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "@id": "https://peskitoymedio.github.io/#website",
+    "name": "Peskito y Medio",
+    "alternateName": [
+      "Peskito y Medio - Tu Podcast Friki",
+      "PYM"
+    ],
+    "url": "https://peskitoymedio.github.io/",
+    "inLanguage": "es-ES",
+    "about": {
+      "@id": "https://peskitoymedio.github.io/#podcast"
+    }
+  }
+  </script>
+
+ 
 </head>
 <body>
   <a class="skip-link" href="#main">Saltar al contenido</a>
