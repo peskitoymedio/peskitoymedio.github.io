@@ -1125,6 +1125,25 @@ ul { list-style: none; }
   transition: gap .15s ease, color .15s ease;
 }
 .ep-link:hover { gap: 10px; color: var(--ink); }
+.ep-links {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px 16px;
+  margin-top: auto;
+  padding-top: 8px;
+}
+.ep-links .ep-link { margin-top: 0; padding-top: 0; }
+.ep-cover-link {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+.ep-title-link {
+  color: inherit;
+  transition: color .15s ease;
+}
+.ep-title-link:hover { color: var(--orange-dark); }
 
 .empty-state {
   grid-column: 1 / -1;

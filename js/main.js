@@ -75,6 +75,9 @@
 
   const shortTitle = (ep) => ep.title.replace(/^PYM\s+\d+\.\s*/, "");
 
+  const episodePage = (ep) =>
+    ep.slug ? "episodios/" + encodeURIComponent(ep.slug) + ".html" : ep.link;
+
   /* ---------- Elementos ---------- */
   const grid = $("#episode-grid");
   const countEl = $("#episode-count");
@@ -292,10 +295,13 @@
 
   const cardHTML = (ep, index) => {
     const title = escapeHtml(ep.title);
+    const page = episodePage(ep);
     return (
       '<article class="ep-card" style="--i:' + (index % PAGE_SIZE) + '">' +
         '<div class="ep-cover">' +
-          '<img src="' + ep.img + '" alt="Portada del episodio: ' + title + '" loading="lazy" width="400" height="400">' +
+          '<a class="ep-cover-link" href="' + page + '" aria-label="Ver la ficha de ' + title + '">' +
+            '<img src="' + ep.img + '" alt="Portada del episodio: ' + title + '" loading="lazy" width="400" height="400">' +
+          '</a>' +
           '<span class="ep-badge">' + badgeFor(ep) + '</span>' +
           '<button class="ep-play" type="button" data-play-id="' + ep.id + '" aria-label="Reproducir: ' + title + '">' +
             '<i class="fa-solid fa-play" aria-hidden="true"></i>' +
@@ -307,16 +313,21 @@
             '<span class="ep-type ep-type--' + ep.type + '">' + TYPE_LABEL[ep.type] + '</span>' +
             '<time datetime="' + ep.date + '">' + formatDate(ep.date) + '</time>' +
           '</div>' +
-          '<h3 class="ep-title">' + title + '</h3>' +
+          '<h3 class="ep-title"><a class="ep-title-link" href="' + page + '">' + title + '</a></h3>' +
           '<div class="ep-desc-wrap">' +
             '<div class="ep-desc">' + escapeHtml(excerptFor(ep)) + '</div>' +
             (canExpand(ep)
               ? '<button class="ep-more" type="button" data-more-id="' + ep.id + '" aria-expanded="false">Leer más</button>'
               : '') +
           '</div>' +
-          '<a class="ep-link" href="' + ep.link + '" target="_blank" rel="noopener">Escuchar en iVoox ' +
-            '<i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i>' +
-          '</a>' +
+          '<div class="ep-links">' +
+            '<a class="ep-link" href="' + page + '">Ver el episodio ' +
+              '<i class="fa-solid fa-arrow-right" aria-hidden="true"></i>' +
+            '</a>' +
+            '<a class="ep-link" href="' + ep.link + '" target="_blank" rel="noopener">iVoox ' +
+              '<i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i>' +
+            '</a>' +
+          '</div>' +
         '</div>' +
       '</article>'
     );
