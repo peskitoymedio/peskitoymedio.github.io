@@ -801,7 +801,7 @@ const EPISODES = [
     {
         "id": 56,
         "n": 11,
-        "type": "programa",
+        "type": "especial",
         "title": "PYM 11.2 Vive y sé feliz. Star Wars Special - CON Spoilers Episodio IX",
         "date": "2020-01-14",
         "duration": "53:28",
@@ -815,7 +815,7 @@ const EPISODES = [
     {
         "id": 57,
         "n": 11,
-        "type": "programa",
+        "type": "especial",
         "title": "PYM 11.1 Vive y sé feliz. Star Wars Special",
         "date": "2020-01-14",
         "duration": "01:18:21",
@@ -857,7 +857,7 @@ const EPISODES = [
     {
         "id": 60,
         "n": 8,
-        "type": "especial",
+        "type": "programa",
         "title": "PYM 8. Hay un peskito en mi | Tres enanos y pico - Dorama: Full House Thai (+Bibimbap) - BSOs, especial Ciencia-Ficción.",
         "date": "2019-10-06",
         "duration": "01:28:37",
@@ -1011,7 +1011,7 @@ const EPISODES = [
     {
         "id": 71,
         "n": 1,
-        "type": "especial",
+        "type": "programa",
         "title": "PYM 1. Todo es especial hoy | Veneno INC. - Mansiones de la Locura - Elantris",
         "date": "2019-02-12",
         "duration": "01:55:40",

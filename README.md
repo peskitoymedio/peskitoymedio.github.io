@@ -57,7 +57,7 @@ Ese archivo se regenera automáticamente desde el feed; no se edita a mano. Las 
 |---|---|
 | Promo | El título empieza por «Promo» |
 | Colaboración | El título no empieza por `PYM` (y no es una promo) |
-| Especial | El título empieza por `PYM` y contiene «Especial» |
+| Especial | El título empieza por `PYM` y contiene la palabra «Especial» con la E mayúscula (distingue mayúsculas de minúsculas) o la expresión «Star Wars Special» |
 | Programa | Cualquier otro episodio de `PYM` |
 
 ### Descripciones

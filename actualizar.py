@@ -277,7 +277,12 @@ def classify(title: str) -> str:
         return "promo"
     if not re.match(r"^PYM\b", title, re.IGNORECASE):
         return "colaboracion"
-    if "especial" in title.lower():
+    # Solo es un especial si la palabra aparece con la E mayúscula. Así títulos
+    # como "Todo es especial hoy" no se clasifican como especial por error.
+    if re.search(r"\bEspecial\b", title):
+        return "especial"
+    # "Star Wars Special" también identifica a los especiales de Star Wars.
+    if re.search(r"\bStar Wars Special\b", title):
         return "especial"
     return "programa"
 
