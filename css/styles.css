@@ -1187,6 +1187,35 @@ ul { list-style: none; }
   padding: clamp(64px, 8.5vw, 108px) 0;
   background: var(--white);
 }
+.presentation-videos {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 40px;
+  align-items: start;
+}
+.video-block {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  min-width: 0;
+}
+.video-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  align-self: center;
+  padding: 6px 12px;
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--ink);
+  background: var(--yellow);
+  border: 2px solid var(--ink);
+  border-radius: 999px;
+  box-shadow: 2px 2px 0 var(--ink);
+}
 .video-frame {
   position: relative;
   overflow: hidden;
@@ -1196,6 +1225,18 @@ ul { list-style: none; }
   border-radius: 24px;
   box-shadow: 7px 7px 0 var(--ink);
 }
+.video-frame--short {
+  aspect-ratio: 9 / 16;
+  max-width: 360px;
+  width: 100%;
+  margin: 0 auto;
+  box-shadow: 6px 6px 0 var(--teal);
+}
+.video-block--short {
+  max-width: 420px;
+  width: 100%;
+  margin: 0 auto;
+}
 .video-frame iframe {
   position: absolute;
   inset: 0;
@@ -1203,11 +1244,14 @@ ul { list-style: none; }
   height: 100%;
   border: 0;
 }
-.video-link {
-  margin: 18px 0 0;
+.video-caption {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
   text-align: center;
 }
-.video-link a {
+.video-caption a {
   display: inline-flex;
   align-items: center;
   gap: 8px;
@@ -1216,7 +1260,18 @@ ul { list-style: none; }
   color: var(--orange-dark);
   transition: gap .15s ease, color .15s ease;
 }
-.video-link a:hover { gap: 11px; color: var(--ink); }
+.video-caption a:hover { gap: 11px; color: var(--ink); }
+.video-caption-note {
+  font-size: 0.88rem;
+  line-height: 1.45;
+  color: var(--muted);
+  font-style: italic;
+}
+.video-block--short .video-caption a {
+  font-size: 0.84rem;
+  color: var(--teal-dark);
+}
+.video-block--short .video-caption a:hover { color: var(--ink); }
 
 /* ===========================
    Equipo
@@ -2196,6 +2251,8 @@ ul { list-style: none; }
   .about-grid { grid-template-columns: 1fr; gap: 44px; }
   .about-pillars { grid-template-columns: repeat(3, 1fr); }
   .awards-trophy { display: none; }
+  .presentation-videos { gap: 36px; }
+  .video-block--short { max-width: 380px; }
   .platform-grid { grid-template-columns: repeat(2, 1fr); }
   .section-head { flex-direction: column; align-items: flex-start; gap: 20px; }
   .footer-grid { grid-template-columns: 1fr 1fr; }
@@ -2256,6 +2313,8 @@ ul { list-style: none; }
   .logo-stage { width: min(84vw, 340px); }
   .sticker { font-size: 1rem; padding: 6px 13px; }
   .float-emoji { font-size: 1.35rem; }
+  .video-frame--short { max-width: 320px; }
+  .video-block--short { max-width: 320px; }
   .platform-grid { grid-template-columns: 1fr; }
   .filter { padding: 8px 10px; font-size: 0.76rem; }
   .social-row { grid-template-columns: 1fr; }
