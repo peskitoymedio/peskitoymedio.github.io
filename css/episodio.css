@@ -149,13 +149,6 @@
 }
 .ep-detail-meta .ep-type { font-size: 0.7rem; }
 .ep-detail-meta i { color: var(--orange-dark); }
-.ep-detail-lead {
-  max-width: 62ch;
-  margin: 0 0 24px;
-  font-size: clamp(1rem, 1.4vw, 1.12rem);
-  line-height: 1.66;
-  color: var(--ink-soft);
-}
 .ep-detail-actions {
   display: flex;
   flex-wrap: wrap;
@@ -395,7 +388,6 @@
   .ep-detail-copy .eyebrow,
   .ep-detail-actions,
   .ep-detail-meta { justify-content: center; }
-  .ep-detail-lead { margin-inline: auto; }
   .ep-notes-layout { grid-template-columns: 1fr; }
   .ep-facts { position: static; }
   .ep-pager-grid { grid-template-columns: 1fr; }

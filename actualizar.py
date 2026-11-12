@@ -979,8 +979,6 @@ def build_episode_page(episode: dict, episodes: list[dict], latest: dict | None)
             <span><i class="fa-regular fa-clock" aria-hidden="true"></i> {escape(episode.get('duration', ''))}</span>
           </div>
 
-          <p class="ep-detail-lead">{escape(episode.get('desc', ''))}</p>
-
           <div class="ep-detail-actions">
             <button class="btn btn-primary btn-lg" type="button" data-episode-play>
               <span class="btn-play-icon"><i class="fa-solid fa-play" aria-hidden="true"></i></span>
