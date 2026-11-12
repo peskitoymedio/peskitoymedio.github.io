@@ -146,10 +146,12 @@ def parse_feed(xml_bytes: bytes) -> list[dict]:
                     break
 
         audio = ""
+        social_uri = ""
         for child in item:
             if local_name(child.tag) == "enclosure":
                 audio = (child.get("url") or "").strip()
-                break
+            elif local_name(child.tag) == "socialinteract":
+                social_uri = (child.get("uri") or "").strip()
 
         try:
             iso_date = parsedate_to_datetime(pub_date).date().isoformat()
@@ -164,6 +166,7 @@ def parse_feed(xml_bytes: bytes) -> list[dict]:
                 "duration": duration,
                 "image": image,
                 "audio": audio,
+                "socialUri": social_uri,
                 "desc": description,
                 "_iso": iso_date,
             }
@@ -290,6 +293,17 @@ def classify(title: str) -> str:
 def episode_number(title: str):
     match = re.match(r"^PYM\s+(\d+)", title, re.IGNORECASE)
     return int(match.group(1)) if match else None
+
+
+def social_uri_for(episode: dict) -> str:
+    """URL de conversación del episodio en X (feed o hashtag por número)."""
+    uri = str(episode.get("socialUri") or "").strip()
+    if uri:
+        return uri
+    number = episode.get("n")
+    if number is not None:
+        return "https://x.com/search?q=%23PYM" + str(number)
+    return ""
 
 
 # ---------------------------------------------------------------------------
@@ -452,6 +466,7 @@ def write_episodes(episodes: list[dict]) -> None:
                 "link": episode["link"],
                 "img": episode["img"],
                 "audio": episode["audio"],
+                "socialUri": episode.get("socialUri", ""),
                 "desc": episode["desc"],
                 "descHtml": episode.get("descHtml", ""),
                 "slug": episode.get("slug", ""),
@@ -724,7 +739,7 @@ def episode_card(episode: dict, index: int = 0) -> str:
     type_name = episode.get("type", "programa")
     type_label = TYPE_LABEL.get(type_name, "Episodio")
     image = cover_url(episode, "../")
-    return f"""      <article class="ep-card" style="--i:{index % 12}">
+    return f"""      <article class="ep-card" style="--i:{index % 12}" data-type="{attr(type_name)}">
         <div class="ep-cover">
           <a class="ep-cover-link" href="{link}" aria-label="Ver la ficha de {title}">
             <img src="{attr(image)}" alt="Portada del episodio: {title}" loading="lazy" width="400" height="400">
@@ -765,6 +780,7 @@ def build_episode_page(episode: dict, episodes: list[dict], latest: dict | None)
     type_label = TYPE_LABEL.get(type_name, "Episodio")
     date_es = format_date_es(episode.get("date", ""))
     duration_iso = iso_duration(episode.get("duration", ""))
+    social_uri = social_uri_for(episode)
 
     index = next(
         (position for position, item in enumerate(episodes) if item.get("slug") == episode.get("slug")),
@@ -869,6 +885,12 @@ def build_episode_page(episode: dict, episodes: list[dict], latest: dict | None)
       </div>
     </section>"""
 
+    facts_social = ""
+    if social_uri:
+        facts_social = f"""          <a class="ep-facts-link ep-facts-link--x" href="{attr(social_uri)}" target="_blank" rel="noopener">
+            Comenta en X <i class="fa-brands fa-x-twitter" aria-hidden="true"></i>
+          </a>"""
+
     cta = (
         '<button class="btn btn-primary btn-sm nav-cta" type="button" data-episode-play>'
         '<i class="fa-solid fa-play" aria-hidden="true"></i> Dale al play</button>'
@@ -968,8 +990,6 @@ def build_episode_page(episode: dict, episodes: list[dict], latest: dict | None)
               Escuchar en iVoox <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i>
             </a>
           </div>
-
-          <p class="ep-detail-note"><i class="fa-solid fa-heart" aria-hidden="true"></i> Un Peskito más para tu colección. Dale al play y únete a la comunidad peskiter.</p>
         </div>
       </div>
     </section>
@@ -993,8 +1013,9 @@ def build_episode_page(episode: dict, episodes: list[dict], latest: dict | None)
             <div><dt>Duración</dt><dd>{escape(episode.get('duration', ''))}</dd></div>
           </dl>
           <a class="ep-facts-link" href="{attr(episode.get('link', '#'))}" target="_blank" rel="noopener">
-            Abrir en iVoox <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i>
+            Comenta en iVoox <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i>
           </a>
+{facts_social}
           <a class="ep-facts-link ep-facts-link--soft" href="index.html">
             Ver todos los episodios <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
           </a>
@@ -1025,6 +1046,10 @@ def build_archive_page(episodes: list[dict], latest: dict | None) -> str:
     )
 
     cards = "\n".join(episode_card(episode, index) for index, episode in enumerate(episodes))
+    type_counts = {"all": len(episodes)}
+    for episode in episodes:
+        type_name = episode.get("type", "programa")
+        type_counts[type_name] = type_counts.get(type_name, 0) + 1
 
     collection_ld = {
         "@context": "https://schema.org",
@@ -1138,8 +1163,26 @@ def build_archive_page(episodes: list[dict], latest: dict | None) -> str:
     <section class="episodes" id="episodios">
       <div class="episodes-bg" aria-hidden="true"></div>
       <div class="container">
-        <div class="episode-grid">
+        <div class="episode-controls reveal">
+          <div class="filters" role="group" aria-label="Filtrar episodios">
+            <button class="filter is-active" type="button" data-filter="all">Todos <span class="filter-count" data-count="all">{type_counts.get('all', 0)}</span></button>
+            <button class="filter" type="button" data-filter="programa">Programas normales <span class="filter-count" data-count="programa">{type_counts.get('programa', 0)}</span></button>
+            <button class="filter" type="button" data-filter="especial">Especiales <span class="filter-count" data-count="especial">{type_counts.get('especial', 0)}</span></button>
+            <button class="filter" type="button" data-filter="promo">Promos <span class="filter-count" data-count="promo">{type_counts.get('promo', 0)}</span></button>
+            <button class="filter" type="button" data-filter="colaboracion">Colaboraciones <span class="filter-count" data-count="colaboracion">{type_counts.get('colaboracion', 0)}</span></button>
+          </div>
+          <label class="search">
+            <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
+            <span class="sr-only">Buscar episodios</span>
+            <input type="search" id="archive-search" placeholder="Buscar por título o tema…" autocomplete="off">
+          </label>
+        </div>
+
+        <p class="episode-count" id="archive-count" aria-live="polite">Mostrando {len(episodes)} de {len(episodes)} episodios</p>
+
+        <div class="episode-grid" id="archive-grid">
 {cards}
+          <div class="empty-state" id="archive-empty" hidden><strong>No hay resultados</strong>Prueba con otra búsqueda o cambia el filtro. ¡Seguro que hay un Peskito para ti!</div>
         </div>
       </div>
     </section>
@@ -1338,6 +1381,7 @@ def main() -> int:
         episode_key(item["link"], item["audio"]): item for item in feed_episodes
     }
     descriptions_updated = 0
+    social_updated = 0
     for episode in existing:
         item = feed_by_key.get(
             episode_key(episode.get("link", ""), episode.get("audio", ""))
@@ -1350,6 +1394,10 @@ def main() -> int:
             episode["descHtml"] = desc_html
             episode["desc"] = desc_text
             descriptions_updated += 1
+        social_uri = item.get("socialUri", "")
+        if (episode.get("socialUri") or "") != social_uri:
+            episode["socialUri"] = social_uri
+            social_updated += 1
 
     slugs_updated = ensure_slugs(existing)
 
@@ -1379,6 +1427,7 @@ def main() -> int:
                     "link": item["link"],
                     "img": "img/episodes/ep-" + key + ".jpg",
                     "audio": item["audio"],
+                    "socialUri": item.get("socialUri", ""),
                     "desc": summarize_html(desc_html),
                     "descHtml": desc_html,
                     "_image_url": item["image"],
@@ -1389,7 +1438,7 @@ def main() -> int:
         next_id += 1
 
     if not new_episodes:
-        changed = reclassified + descriptions_updated + slugs_updated
+        changed = reclassified + descriptions_updated + social_updated + slugs_updated
         if changed and args.dry_run:
             if reclassified:
                 print(
@@ -1400,6 +1449,11 @@ def main() -> int:
                 print(
                     "Descripciones que se actualizarían desde el feed: "
                     + str(descriptions_updated)
+                )
+            if social_updated:
+                print(
+                    "Enlaces sociales que se actualizarían desde el feed: "
+                    + str(social_updated)
                 )
             if slugs_updated:
                 print("Páginas de episodio a las que se asignaría slug: " + str(slugs_updated))
@@ -1419,6 +1473,11 @@ def main() -> int:
                 print(
                     "Descripciones actualizadas desde el feed: "
                     + str(descriptions_updated)
+                )
+            if social_updated:
+                print(
+                    "Enlaces sociales actualizados desde el feed: "
+                    + str(social_updated)
                 )
             if slugs_updated:
                 print("Slugs asignados: " + str(slugs_updated))
@@ -1505,6 +1564,8 @@ def main() -> int:
     print("Portadas nuevas descargadas: " + str(downloaded))
     if descriptions_updated:
         print("Descripciones actualizadas desde el feed: " + str(descriptions_updated))
+    if social_updated:
+        print("Enlaces sociales actualizados desde el feed: " + str(social_updated))
     print("Archivos actualizados: js/episodes.js, episodios/ y sitemap.xml")
     print("")
     print("El workflow de GitHub Actions publicará los cambios automáticamente.")

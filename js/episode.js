@@ -65,6 +65,68 @@
     revealEls.forEach((el) => el.classList.add("is-visible"));
   }
 
+  /* ---------- Filtros del archivo ---------- */
+  const archiveGrid = $("#archive-grid");
+  const archiveSearch = $("#archive-search");
+  const archiveCount = $("#archive-count");
+  const archiveEmpty = $("#archive-empty");
+
+  if (archiveGrid) {
+    const archiveCards = $$(".ep-card", archiveGrid);
+    const archiveFilters = $$(".filter");
+    let archiveType = "all";
+    let archiveQuery = "";
+
+    const normalize = (value) =>
+      String(value || "")
+        .toLowerCase()
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "");
+
+    const applyArchiveFilters = () => {
+      const query = normalize(archiveQuery.trim());
+      let shown = 0;
+
+      archiveCards.forEach((card) => {
+        const matchesType =
+          archiveType === "all" || card.dataset.type === archiveType;
+        const matchesQuery =
+          !query || normalize(card.textContent).includes(query);
+        const visible = matchesType && matchesQuery;
+        card.hidden = !visible;
+        if (visible) shown += 1;
+      });
+
+      if (archiveEmpty) archiveEmpty.hidden = shown > 0;
+      if (archiveCount) {
+        archiveCount.textContent = shown
+          ? "Mostrando " +
+            shown +
+            " de " +
+            archiveCards.length +
+            (archiveCards.length === 1 ? " episodio" : " episodios")
+          : "0 episodios encontrados";
+      }
+    };
+
+    archiveFilters.forEach((button) => {
+      button.addEventListener("click", () => {
+        archiveType = button.dataset.filter || "all";
+        archiveFilters.forEach((other) => {
+          other.classList.toggle("is-active", other === button);
+        });
+        applyArchiveFilters();
+      });
+    });
+
+    if (archiveSearch) {
+      archiveSearch.addEventListener("input", () => {
+        archiveQuery = archiveSearch.value;
+        applyArchiveFilters();
+      });
+    }
+  }
+
   /* ---------- Reproductor ---------- */
   const player = $("#player");
   const audio = $("#audio");

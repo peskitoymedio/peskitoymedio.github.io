@@ -11,11 +11,11 @@ Es una web estática: no hay servidor, base de datos ni proceso de compilación.
 ## Características
 
 - Archivo completo de episodios con portada, número, tipo, fecha, duración y descripción.
-- Una **página propia por episodio** (`episodios/<slug>.html`) con sus notas completas, ficha rápida, reproductor, navegación anterior/siguiente y episodios relacionados.
+- Una **página propia por episodio** (`episodios/<slug>.html`) con sus notas completas, ficha rápida, reproductor, navegación anterior/siguiente y episodios relacionados. La ficha rápida incluye enlaces para comentar en iVoox y en X.
 - Datos estructurados `PodcastEpisode`, `BreadcrumbList` y `CollectionPage` para mejorar el SEO y los resultados enriquecidos.
 - Archivo estático navegable en `episodios/index.html`, con enlaces reales a todas las fichas.
 - Descripciones completas en HTML que se muestran recortadas y se pueden desplegar bajo demanda.
-- Filtros por **programas**, **especiales**, **promos** y **colaboraciones**, además de buscador por texto.
+- Filtros por **programas**, **especiales**, **promos** y **colaboraciones**, además de buscador por texto, tanto en la portada como en el archivo completo.
 - Reproductor integrado que usa los MP3 publicados en el feed.
 - Vídeo de presentación incrustado desde YouTube.
 - Sección de reconocimientos con los premios de la Asociación Podcast y los rankings de Goodpods.

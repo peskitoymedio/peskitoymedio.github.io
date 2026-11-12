@@ -161,17 +161,6 @@
   flex-wrap: wrap;
   gap: 14px;
 }
-.ep-detail-note {
-  display: flex;
-  align-items: flex-start;
-  gap: 9px;
-  margin: 20px 0 0;
-  font-size: 0.84rem;
-  font-weight: 500;
-  color: var(--muted);
-}
-.ep-detail-note i { color: var(--orange); margin-top: 4px; }
-
 /* ---------- Notas y ficha rápida ---------- */
 .ep-notes-section {
   padding: clamp(46px, 6vw, 74px) 0;
@@ -291,9 +280,15 @@
   background: var(--white);
 }
 .ep-facts-link--soft:hover { background: var(--cream-deep); }
+.ep-facts-link--x {
+  margin-top: 8px;
+  background: var(--ink);
+  color: var(--cream);
+}
+.ep-facts-link--x:hover { background: #1d334d; }
 
 /* ---------- Navegación anterior / siguiente ---------- */
-.ep-pager { padding: 0 0 clamp(40px, 6vw, 64px); }
+.ep-pager { padding: clamp(38px, 5vw, 56px) 0 clamp(40px, 6vw, 64px); }
 .ep-pager-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -343,6 +338,9 @@
 .ep-related .ep-card { animation: none; }
 
 /* ---------- Archivo completo ---------- */
+.ep-card[hidden],
+.empty-state[hidden] { display: none; }
+
 .archive-intro {
   position: relative;
   padding: clamp(34px, 5vw, 56px) 0 clamp(38px, 5vw, 56px);
@@ -398,7 +396,6 @@
   .ep-detail-actions,
   .ep-detail-meta { justify-content: center; }
   .ep-detail-lead { margin-inline: auto; }
-  .ep-detail-note { justify-content: center; text-align: left; }
   .ep-notes-layout { grid-template-columns: 1fr; }
   .ep-facts { position: static; }
   .ep-pager-grid { grid-template-columns: 1fr; }
