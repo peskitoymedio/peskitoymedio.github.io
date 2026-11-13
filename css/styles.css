@@ -1375,7 +1375,10 @@ ul { list-style: none; }
 .team-card {
   position: relative;
   overflow: hidden;
-  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+  min-height: 200px;
   background: var(--white);
   border: 3px solid var(--ink);
   border-radius: 24px;
@@ -1395,12 +1398,32 @@ ul { list-style: none; }
   transform: translateY(-5px);
   box-shadow: 9px 9px 0 var(--ink);
 }
+.team-main {
+  position: relative;
+  flex: 1 1 auto;
+  padding: 0 46% 22px 22px;
+}
+.team-figure {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 44%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center bottom;
+  z-index: 1;
+  pointer-events: none;
+  user-select: none;
+  -webkit-user-drag: none;
+}
 .team-top {
   position: relative;
   z-index: 1;
   display: flex;
   align-items: center;
   gap: 14px;
+  padding: 22px 22px 0;
   margin-bottom: 14px;
 }
 .team-avatar {
@@ -2416,6 +2439,9 @@ ul { list-style: none; }
   .stat-num { font-size: 2.4rem; }
   .video-frame { border-radius: 18px; box-shadow: 5px 5px 0 var(--ink); }
   .team-avatar { width: 58px; height: 58px; font-size: 1.7rem; }
+  .team-top { padding: 18px 18px 0; margin-bottom: 12px; }
+  .team-main { padding: 0 44% 18px 18px; }
+  .team-figure { width: 42%; }
   .about-quote p { font-size: 1.3rem; }
   .award-body { flex-direction: column; align-items: stretch; }
   .award-stamp { width: 140px; margin: 0 auto 18px; }
