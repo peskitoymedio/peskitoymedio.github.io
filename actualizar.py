@@ -78,6 +78,31 @@ PROMO_HTML_PREFIX = re.compile(
     re.IGNORECASE | re.DOTALL,
 )
 
+# Minutajes dentro de una descripción: 01:15, 1:02:30…
+DESCRIPTION_TIMESTAMP_RE = re.compile(r"(?<![\d:])(\d{1,2}:\d{2}(?::\d{2})?)(?![\d:])")
+DESCRIPTION_LINE_BREAK_RE = re.compile(r"(<br\s*/?>)", re.IGNORECASE)
+
+# Texto promocional que algunos episodios repiten al final de la descripción.
+_DESCRIPTION_ANCHOR_OR_URL = r"(?:<a\b[^>]*>.*?</a>|https?://[^\s<]+)"
+_TRAILING_DESCRIPTION_PATTERNS = (
+    r"Enlace al programa en iVoox\s*:\s*" + _DESCRIPTION_ANCHOR_OR_URL,
+    r"S[íi]guenos en nuestras redes sociales\s*:\s*" + _DESCRIPTION_ANCHOR_OR_URL,
+    r"(?:<a\b[^>]*>\s*)?Suscr[íi]bete en iVoox(?:\s*</a>)?"
+    r"(?:\s*y\s*dale\s+a\s*(?:<a\b[^>]*>\s*)?Me gusta(?:\s*</a>)?)?[.!]?",
+)
+TRAILING_DESCRIPTION_BOILERPLATE = re.compile(
+    r"(?:(?:\s|<br\s*/?>)*)(?:"
+    + "|".join(_TRAILING_DESCRIPTION_PATTERNS)
+    + r")(?:(?:\s|<br\s*/?>)*)$",
+    re.IGNORECASE | re.DOTALL,
+)
+
+# Invitación al canal de Telegram que aparece en mitad del bloque final.
+TELEGRAM_DESCRIPTION_BLOCK = re.compile(
+    r"Te recordamos que si quieres[^<]*(?:<a\b[^>]*>[^<]*</a>|https?://[^\s<]+)",
+    re.IGNORECASE,
+)
+
 # Etiquetas que se conservan en las descripciones completas. Todo lo demás
 # (imágenes, scripts, iframes…) se descarta.
 ALLOWED_DESCRIPTION_TAGS = {
@@ -306,13 +331,94 @@ def sanitize_description_html(raw: str) -> str:
 
 
 def clean_description_html(raw: str) -> str:
-    """Descripción completa en HTML, sin imágenes ni la promo de los premios."""
+    """Descripción completa en HTML, sin imágenes, promo ni autopromoción final."""
     html = sanitize_description_html(raw)
+    html = html.replace("\r\n", "\n").replace("\r", "\n")
     html = PROMO_HTML_PREFIX.sub("", html)
+    html = TELEGRAM_DESCRIPTION_BLOCK.sub("", html)
+    html = strip_trailing_description_boilerplate(html)
     html = re.sub(r"^(?:\s|<br\s*/?>)+", "", html, flags=re.IGNORECASE)
     html = re.sub(r"(?:\s|<br\s*/?>)+$", "", html, flags=re.IGNORECASE)
     html = re.sub(r"(?:<br\s*/?>\s*){3,}", "<br><br>", html, flags=re.IGNORECASE)
+    html = linkify_timestamp_lines(html)
     return html.strip()
+
+
+def strip_trailing_description_boilerplate(html: str) -> str:
+    """Elimina el bloque final de autopromoción (iVoox, redes y suscripción)."""
+    previous = None
+    while previous != html:
+        previous = html
+        html = TRAILING_DESCRIPTION_BOILERPLATE.sub("", html)
+    return html
+
+
+def timestamp_line_html(line: str) -> str:
+    """Convierte una línea con minutaje en un control para saltar al audio."""
+    match = DESCRIPTION_TIMESTAMP_RE.search(line)
+    if not match:
+        return line
+
+    stamp = match.group(1)
+    seconds = chapter_seconds(stamp)
+    label = chapter_time_label(stamp)
+    before = line[:match.start()]
+    after = line[match.end():]
+    text = plain_text_html(line)
+    aria = "Escuchar desde " + label + (": " + text if text else "")
+    role_attrs = "" if re.search(r"<a\b", line, re.IGNORECASE) else ' role="button" tabindex="0"'
+
+    return (
+        '<span class="ep-desc-line"'
+        + role_attrs
+        + ' data-desc-seek="'
+        + str(seconds)
+        + '" aria-label="'
+        + attr(aria)
+        + '">'
+        + '<span class="ep-desc-line-text">'
+        + before
+        + '<span class="ep-desc-line-time"><i class="fa-solid fa-play" aria-hidden="true"></i>'
+        + escape(label)
+        + "</span>"
+        + after
+        + "</span>"
+        + '<i class="fa-solid fa-headphones ep-desc-line-icon" aria-hidden="true"></i>'
+        + "</span>"
+    )
+
+
+def linkify_timestamp_lines(html: str) -> str:
+    """Hace clicables las líneas de la descripción que contienen un minutaje."""
+    if not DESCRIPTION_TIMESTAMP_RE.search(html):
+        return html
+
+    result: list[str] = []
+    for part in DESCRIPTION_LINE_BREAK_RE.split(html):
+        if DESCRIPTION_LINE_BREAK_RE.fullmatch(part):
+            result.append(part)
+            continue
+        if not DESCRIPTION_TIMESTAMP_RE.search(part):
+            result.append(part)
+            continue
+
+        rendered: list[str] = []
+        for line in part.split("\n"):
+            if DESCRIPTION_TIMESTAMP_RE.search(line):
+                rendered.append(timestamp_line_html(line.strip()))
+            else:
+                rendered.append(line)
+        result.append("\n".join(rendered))
+
+    cleaned = "".join(result)
+    card_end = (
+        r'(<i class="fa-solid fa-headphones ep-desc-line-icon" aria-hidden="true"></i></span>)'
+    )
+    card_start = r'(<span class="ep-desc-line")'
+    # Las tarjetas ya son bloques: los <br> y saltos que las rodean solo añaden aire.
+    cleaned = re.sub(card_end + r"(?:\s|<br\s*/?>)+", r"\1", cleaned, flags=re.IGNORECASE)
+    cleaned = re.sub(r"(?:\s|<br\s*/?>)+" + card_start, r"\1", cleaned, flags=re.IGNORECASE)
+    return cleaned
 
 
 def plain_text_html(html: str) -> str:
@@ -986,6 +1092,16 @@ def build_episode_page(episode: dict, episodes: list[dict], latest: dict | None)
     }
 
     notes = episode.get("descHtml") or "<p>" + escape(episode.get("desc", "")) + "</p>"
+    ivoox_cta = (
+        '<div class="ep-notes-cta">'
+        '<a class="btn btn-primary btn-sm ep-notes-ivoox" href="'
+        + attr(episode.get("link") or "#")
+        + '" target="_blank" rel="noopener">'
+        '<i class="fa-solid fa-headphones" aria-hidden="true"></i> '
+        "Episodio en iVoox "
+        '<i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i>'
+        "</a></div>"
+    )
 
     pager = ""
     if newer or older:
@@ -1036,6 +1152,10 @@ def build_episode_page(episode: dict, episodes: list[dict], latest: dict | None)
     if social_uri:
         facts_social = f"""          <a class="ep-facts-link ep-facts-link--x" href="{attr(social_uri)}" target="_blank" rel="noopener">
             Comenta en X <i class="fa-brands fa-x-twitter" aria-hidden="true"></i>
+          </a>"""
+
+    facts_telegram = """          <a class="ep-facts-link ep-facts-link--telegram" href="https://t.me/peskiters3" target="_blank" rel="noopener">
+            Comenta en Telegram <i class="fa-brands fa-telegram" aria-hidden="true"></i>
           </a>"""
 
     chapters = chapters_html(episode)
@@ -1147,6 +1267,7 @@ def build_episode_page(episode: dict, episodes: list[dict], latest: dict | None)
           <div class="ep-notes-body">
             {notes}
           </div>
+          {ivoox_cta}
         </article>
 
         <aside class="ep-sidebar reveal{' ep-sidebar--chapters' if chapters else ''}" aria-label="Información del episodio">
@@ -1162,6 +1283,7 @@ def build_episode_page(episode: dict, episodes: list[dict], latest: dict | None)
               Comenta en iVoox <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i>
             </a>
 {facts_social}
+{facts_telegram}
             <a class="ep-facts-link ep-facts-link--soft" href="index.html">
               Ver todos los episodios <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
             </a>

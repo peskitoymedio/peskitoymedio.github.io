@@ -197,6 +197,14 @@
 .ep-notes-body ul { list-style: disc; }
 .ep-notes-body ol { list-style: decimal; }
 .ep-notes-body li { margin-bottom: 0.35em; }
+.ep-notes-body .ep-desc-line {
+  margin: 4px 0;
+  padding: 7px 10px;
+  font-size: 0.95rem;
+}
+.ep-notes-body .ep-desc-line-time { font-size: 0.7rem; padding: 3px 8px; }
+.ep-notes-cta { margin-top: 24px; }
+.ep-notes-ivoox { text-decoration: none; }
 
 .ep-facts {
   position: sticky;
@@ -267,6 +275,12 @@
   color: var(--cream);
 }
 .ep-facts-link--x:hover { background: #1d334d; }
+.ep-facts-link--telegram {
+  margin-top: 8px;
+  background: #229ed9;
+  color: #fff;
+}
+.ep-facts-link--telegram:hover { background: #1b8ac0; }
 
 .ep-sidebar {
   display: flex;

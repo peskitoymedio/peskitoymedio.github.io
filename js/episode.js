@@ -207,8 +207,9 @@
     }
   };
 
-  /* ---------- Capítulos / secciones ---------- */
+  /* ---------- Capítulos / secciones y minutajes de la descripción ---------- */
   const chapterButtons = $$("[data-chapter-start]");
+  const descLineButtons = $$("[data-desc-seek]");
 
   const setActiveChapter = (time) => {
     if (!chapterButtons.length) return;
@@ -222,31 +223,66 @@
     });
   };
 
+  const setActiveDescLine = (time) => {
+    if (!descLineButtons.length) return;
+    let active = null;
+    descLineButtons.forEach((line) => {
+      const start = Number(line.dataset.descSeek) || 0;
+      if (
+        start <= time + 0.25 &&
+        (!active || start >= (Number(active.dataset.descSeek) || 0))
+      ) {
+        active = line;
+      }
+    });
+    descLineButtons.forEach((line) => {
+      line.classList.toggle("is-active", line === active);
+    });
+  };
+
+  const seekTo = (start) => {
+    if (!audio || !audioSrc) return;
+    const target = Math.max(0, Number(start) || 0);
+
+    const seekAndPlay = () => {
+      try {
+        audio.currentTime = target;
+      } catch (error) {
+        /* Si el audio aún no admite saltos, se intentará en el siguiente evento. */
+      }
+      openPlayer();
+      audio.play().catch(() => {});
+      setActiveChapter(target);
+      setActiveDescLine(target);
+    };
+
+    if (!audio.src) {
+      audio.src = audioSrc;
+      audio.addEventListener("loadedmetadata", seekAndPlay, { once: true });
+      audio.load();
+    } else if (audio.readyState >= 1) {
+      seekAndPlay();
+    } else {
+      audio.addEventListener("loadedmetadata", seekAndPlay, { once: true });
+    }
+  };
+
   chapterButtons.forEach((button) => {
     button.addEventListener("click", () => {
-      if (!audio || !audioSrc) return;
-      const start = Math.max(0, Number(button.dataset.chapterStart) || 0);
+      seekTo(button.dataset.chapterStart);
+    });
+  });
 
-      const seekAndPlay = () => {
-        try {
-          audio.currentTime = start;
-        } catch (error) {
-          /* Si el audio aún no admite saltos, se intentará en el siguiente evento. */
-        }
-        openPlayer();
-        audio.play().catch(() => {});
-        setActiveChapter(start);
-      };
-
-      if (!audio.src) {
-        audio.src = audioSrc;
-        audio.addEventListener("loadedmetadata", seekAndPlay, { once: true });
-        audio.load();
-      } else if (audio.readyState >= 1) {
-        seekAndPlay();
-      } else {
-        audio.addEventListener("loadedmetadata", seekAndPlay, { once: true });
-      }
+  descLineButtons.forEach((line) => {
+    line.addEventListener("click", (event) => {
+      if (event.target.closest("a")) return;
+      seekTo(line.dataset.descSeek);
+    });
+    line.addEventListener("keydown", (event) => {
+      if (event.key !== "Enter" && event.key !== " ") return;
+      if (event.target.closest("a")) return;
+      event.preventDefault();
+      seekTo(line.dataset.descSeek);
     });
   });
 
@@ -277,6 +313,7 @@
       setProgressFill(pct);
       if (currentEl) currentEl.textContent = fmtTime(audio.currentTime);
       setActiveChapter(audio.currentTime);
+      setActiveDescLine(audio.currentTime);
     });
     audio.addEventListener("ended", () => {
       syncPlayIcons(false);
@@ -285,6 +322,7 @@
       setProgressFill(0);
       if (currentEl) currentEl.textContent = "0:00";
       setActiveChapter(-1);
+      setActiveDescLine(-1);
     });
     audio.addEventListener("error", () => {
       if (playerSub && audio.currentSrc) {

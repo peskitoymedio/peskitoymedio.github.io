@@ -11,8 +11,9 @@ Es una web estática: no hay servidor, base de datos ni proceso de compilación.
 ## Características
 
 - Archivo completo de episodios con portada, número, tipo, fecha, duración y descripción.
-- Una **página propia por episodio** (`episodios/<slug>.html`) con sus notas completas, ficha rápida, reproductor, navegación anterior/siguiente y episodios relacionados. La ficha rápida incluye enlaces para comentar en iVoox y en X.
+- Una **página propia por episodio** (`episodios/<slug>.html`) con sus notas completas, ficha rápida, reproductor, navegación anterior/siguiente y episodios relacionados. La ficha rápida incluye enlaces para comentar en iVoox, en X y en Telegram.
 - **Secciones con minutaje** en las fichas de episodio, leídas de los capítulos Podlove (`psc:chapters`) del feed. Al pulsar una sección, el reproductor salta a ese instante y empieza a sonar. Si el capítulo trae enlace o imagen, también se muestran junto a la sección.
+- **Minutajes dentro de las descripciones**: las líneas que incluyen una marca de tiempo se destacan y, al pulsarlas, el reproductor salta a ese instante. Al final de las notas aparece un botón **Escucha el episodio en iVoox**.
 - Datos estructurados `PodcastEpisode`, `BreadcrumbList` y `CollectionPage` para mejorar el SEO y los resultados enriquecidos.
 - Archivo estático navegable en `episodios/index.html`, con enlaces reales a todas las fichas.
 - Descripciones completas en HTML que se muestran recortadas y se pueden desplegar bajo demanda.
@@ -66,6 +67,8 @@ Ese archivo se regenera automáticamente desde el feed; no se edita a mano. Las 
 ### Descripciones
 
 El feed entrega las descripciones en HTML. El actualizador conserva una versión completa y segura en `descHtml`: elimina las imágenes, los scripts y cualquier etiqueta no permitida, y retira la promo de los Premios iVoox que encabeza algunas descripciones. Los enlaces se mantienen y se abren en una pestaña nueva.
+
+También limpia el bloque final de autopromoción (**Enlace al programa en iVoox**, **Síguenos en nuestras redes sociales** y **Suscríbete en iVoox y dale a Me gusta**) y convierte cada línea con minutaje en un control que salta al instante correspondiente del reproductor. En la ficha del episodio, ese bloque se sustituye por el botón **Escucha el episodio en iVoox**.
 
 También genera `desc`, un resumen en texto plano de unas 190 letras. La web muestra ese resumen recortado y, si la descripción tiene más contenido o enlaces, añade un botón **Leer más** para desplegar el HTML completo sin salir de la tarjeta.
 

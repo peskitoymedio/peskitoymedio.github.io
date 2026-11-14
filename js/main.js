@@ -144,13 +144,31 @@
     document.body.classList.remove("player-open");
   };
 
-  const playEpisode = (rawId) => {
+  const playEpisode = (rawId, start = 0) => {
     const id = Number(rawId);
     const ep = EPISODES.find((item) => item.id === id);
     if (!ep) return;
+    const target = Math.max(0, Number(start) || 0);
+
+    const seekAndPlay = () => {
+      if (target > 0) {
+        try {
+          audio.currentTime = target;
+        } catch (error) {
+          /* Si el audio aún no admite saltos, se intentará al cargar los metadatos. */
+        }
+      }
+      audio.play().catch(() => {});
+    };
 
     if (state.currentId === ep.id) {
-      if (audio.paused) {
+      if (target > 0) {
+        if (audio.readyState >= 1) {
+          seekAndPlay();
+        } else {
+          audio.addEventListener("loadedmetadata", seekAndPlay, { once: true });
+        }
+      } else if (audio.paused) {
         audio.play().catch(() => {});
       } else {
         audio.pause();
@@ -175,8 +193,12 @@
     document.body.classList.add("player-open");
 
     audio.load();
-    const promise = audio.play();
-    if (promise && promise.catch) promise.catch(() => {});
+    if (target > 0) {
+      audio.addEventListener("loadedmetadata", seekAndPlay, { once: true });
+    } else {
+      const promise = audio.play();
+      if (promise && promise.catch) promise.catch(() => {});
+    }
   };
 
   if (audio) {
@@ -256,6 +278,26 @@
     playEpisode(trigger.dataset.playId);
   });
 
+  /* Delegación: líneas de descripción con minutaje */
+  document.addEventListener("click", (event) => {
+    const line = event.target.closest("[data-desc-seek]");
+    if (!line || event.target.closest("a")) return;
+    const card = line.closest(".ep-card");
+    if (!card) return;
+    event.preventDefault();
+    playEpisode(card.dataset.episodeId, Number(line.dataset.descSeek) || 0);
+  });
+
+  document.addEventListener("keydown", (event) => {
+    if (event.key !== "Enter" && event.key !== " ") return;
+    const line = event.target.closest("[data-desc-seek]");
+    if (!line || event.target.closest("a")) return;
+    const card = line.closest(".ep-card");
+    if (!card) return;
+    event.preventDefault();
+    playEpisode(card.dataset.episodeId, Number(line.dataset.descSeek) || 0);
+  });
+
   /* Delegación: mostrar u ocultar la descripción completa */
   document.addEventListener("click", (event) => {
     const button = event.target.closest("[data-more-id]");
@@ -297,7 +339,7 @@
     const title = escapeHtml(ep.title);
     const page = episodePage(ep);
     return (
-      '<article class="ep-card" style="--i:' + (index % PAGE_SIZE) + '">' +
+      '<article class="ep-card" data-episode-id="' + ep.id + '" style="--i:' + (index % PAGE_SIZE) + '">' +
         '<div class="ep-cover">' +
           '<a class="ep-cover-link" href="' + page + '" aria-label="Ver la ficha de ' + title + '">' +
             '<img src="' + ep.img + '" alt="Portada del episodio: ' + title + '" loading="lazy" width="400" height="400">' +
