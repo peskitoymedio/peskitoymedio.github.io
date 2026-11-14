@@ -97,6 +97,9 @@ TRAILING_DESCRIPTION_BOILERPLATE = re.compile(
     re.IGNORECASE | re.DOTALL,
 )
 
+# Expresión regular para detectar URLs en texto plano
+URL_RE = re.compile(r"https?://[^\s<\"\']+", re.IGNORECASE)
+
 # Invitación al canal de Telegram que aparece en mitad del bloque final.
 TELEGRAM_DESCRIPTION_BLOCK = re.compile(
     r"Te recordamos que si quieres[^<]*(?:<a\b[^>]*>[^<]*</a>|https?://[^\s<]+)",
@@ -314,7 +317,39 @@ class _DescriptionHTMLParser(HTMLParser):
                 break
 
     def handle_data(self, data: str) -> None:
-        self.parts.append(escape(data, quote=False))
+        if "a" in self.stack:
+            self.parts.append(escape(data, quote=False))
+            return
+
+        last_idx = 0
+        for match in URL_RE.finditer(data):
+            start, end = match.span()
+            if start > last_idx:
+                self.parts.append(escape(data[last_idx:start], quote=False))
+
+            url = match.group(0)
+            trailing = ""
+            while url and url[-1] in ".,;:?!)]":
+                if url[-1] == ")" and "(" in url:
+                    break
+                trailing = url[-1] + trailing
+                url = url[:-1]
+
+            if url:
+                self.parts.append(
+                    '<a href="'
+                    + escape(url, quote=True)
+                    + '" target="_blank" rel="noopener">'
+                    + escape(url, quote=False)
+                    + "</a>"
+                )
+            if trailing:
+                self.parts.append(escape(trailing, quote=False))
+
+            last_idx = end - len(trailing)
+
+        if last_idx < len(data):
+            self.parts.append(escape(data[last_idx:], quote=False))
 
     def result(self) -> str:
         while self.stack:
