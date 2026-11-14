@@ -12,6 +12,7 @@ Es una web estática: no hay servidor, base de datos ni proceso de compilación.
 
 - Archivo completo de episodios con portada, número, tipo, fecha, duración y descripción.
 - Una **página propia por episodio** (`episodios/<slug>.html`) con sus notas completas, ficha rápida, reproductor, navegación anterior/siguiente y episodios relacionados. La ficha rápida incluye enlaces para comentar en iVoox y en X.
+- **Secciones con minutaje** en las fichas de episodio, leídas de los capítulos Podlove (`psc:chapters`) del feed. Al pulsar una sección, el reproductor salta a ese instante y empieza a sonar. Si el capítulo trae enlace o imagen, también se muestran junto a la sección.
 - Datos estructurados `PodcastEpisode`, `BreadcrumbList` y `CollectionPage` para mejorar el SEO y los resultados enriquecidos.
 - Archivo estático navegable en `episodios/index.html`, con enlaces reales a todas las fichas.
 - Descripciones completas en HTML que se muestran recortadas y se pueden desplegar bajo demanda.
@@ -47,7 +48,9 @@ El `slug` se guarda en `js/episodes.js`. Mientras el título no cambie, la URL s
 
 ## Contenido de los episodios
 
-Los datos viven en `js/episodes.js`, en el array `EPISODES`. Cada entrada incluye el identificador de iVoox, el número de programa, el tipo, el título, la fecha, la duración, el enlace, la portada local, la URL del audio, un resumen corto (`desc`), la descripción completa en HTML (`descHtml`) y el `slug` de su página.
+Los datos viven en `js/episodes.js`, en el array `EPISODES`. Cada entrada incluye el identificador de iVoox, el número de programa, el tipo, el título, la fecha, la duración, el enlace, la portada local, la URL del audio, un resumen corto (`desc`), la descripción completa en HTML (`descHtml`), los capítulos Podlove (`chapters`) y el `slug` de su página.
+
+Cada capítulo guarda su `start`, su `title` y, cuando el feed los incluye, su `href` e `image`. Las imágenes de capítulos se descargan a `img/chapters/` para servirlas desde el propio sitio.
 
 Ese archivo se regenera automáticamente desde el feed; no se edita a mano. Las páginas de `episodios/` también se generan desde el mismo proceso.
 
@@ -121,6 +124,7 @@ js/main.js              Renderizado, filtros, buscador, navegación y reproducto
 js/episode.js           Reproductor y navegación de las fichas de episodio
 js/episodes.js          Datos de los episodios (generado automáticamente)
 img/episodes/           Portadas de los episodios
+img/chapters/           Imágenes asociadas a capítulos (generado)
 img/                    Logo, iconos y favicons
 actualizar.py           Actualizador desde el feed del podcast (datos y páginas)
 actualizar.bat          Lanzador para Windows

@@ -207,6 +207,49 @@
     }
   };
 
+  /* ---------- Capítulos / secciones ---------- */
+  const chapterButtons = $$("[data-chapter-start]");
+
+  const setActiveChapter = (time) => {
+    if (!chapterButtons.length) return;
+    let active = null;
+    chapterButtons.forEach((button) => {
+      const start = Number(button.dataset.chapterStart) || 0;
+      if (start <= time + 0.25) active = button;
+    });
+    chapterButtons.forEach((button) => {
+      button.classList.toggle("is-active", button === active);
+    });
+  };
+
+  chapterButtons.forEach((button) => {
+    button.addEventListener("click", () => {
+      if (!audio || !audioSrc) return;
+      const start = Math.max(0, Number(button.dataset.chapterStart) || 0);
+
+      const seekAndPlay = () => {
+        try {
+          audio.currentTime = start;
+        } catch (error) {
+          /* Si el audio aún no admite saltos, se intentará en el siguiente evento. */
+        }
+        openPlayer();
+        audio.play().catch(() => {});
+        setActiveChapter(start);
+      };
+
+      if (!audio.src) {
+        audio.src = audioSrc;
+        audio.addEventListener("loadedmetadata", seekAndPlay, { once: true });
+        audio.load();
+      } else if (audio.readyState >= 1) {
+        seekAndPlay();
+      } else {
+        audio.addEventListener("loadedmetadata", seekAndPlay, { once: true });
+      }
+    });
+  });
+
   $$("[data-episode-play]").forEach((button) => {
     button.addEventListener("click", (event) => {
       event.preventDefault();
@@ -233,6 +276,7 @@
       progress.value = pct;
       setProgressFill(pct);
       if (currentEl) currentEl.textContent = fmtTime(audio.currentTime);
+      setActiveChapter(audio.currentTime);
     });
     audio.addEventListener("ended", () => {
       syncPlayIcons(false);
@@ -240,6 +284,7 @@
       if (progress) progress.value = 0;
       setProgressFill(0);
       if (currentEl) currentEl.textContent = "0:00";
+      setActiveChapter(-1);
     });
     audio.addEventListener("error", () => {
       if (playerSub && audio.currentSrc) {

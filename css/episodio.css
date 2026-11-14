@@ -268,6 +268,168 @@
 }
 .ep-facts-link--x:hover { background: #1d334d; }
 
+.ep-sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  min-width: 0;
+}
+.ep-sidebar--chapters .ep-facts { position: static; }
+
+.ep-chapters {
+  padding: 22px 22px 20px;
+  border: 3px solid var(--ink);
+  border-radius: 22px;
+  background: var(--white);
+  box-shadow: var(--shadow-sm);
+}
+.ep-chapters-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+.ep-chapters h2 {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-weight: 400;
+  letter-spacing: 0.03em;
+}
+.ep-chapters h2 i { color: var(--orange-dark); font-size: 1rem; }
+.ep-chapters-count {
+  display: inline-flex;
+  align-items: center;
+  padding: 3px 10px;
+  border: 2px solid var(--ink);
+  border-radius: 999px;
+  background: var(--yellow);
+  font-size: 0.62rem;
+  font-weight: 800;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+.ep-chapters-hint {
+  margin: 10px 0 0;
+  font-size: 0.78rem;
+  line-height: 1.45;
+  color: var(--muted);
+}
+.ep-chapters-list {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  margin: 16px 0 0;
+  padding: 0;
+  list-style: none;
+}
+.ep-chapter-item { min-width: 0; }
+.ep-chapter {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  padding: 8px 10px;
+  border: 2px solid transparent;
+  border-radius: 12px;
+  background: transparent;
+  color: var(--ink);
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+  transition: background .15s ease, border-color .15s ease, transform .15s ease;
+}
+.ep-chapter:hover,
+.ep-chapter:focus-visible {
+  border-color: var(--ink);
+  background: var(--cream);
+  transform: translateX(2px);
+}
+.ep-chapter-time {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 3px 8px;
+  border: 2px solid var(--ink);
+  border-radius: 999px;
+  background: var(--orange);
+  font-size: 0.68rem;
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+.ep-chapter-time i { font-size: 0.52rem; }
+.ep-chapter-title {
+  font-size: 0.82rem;
+  font-weight: 700;
+  line-height: 1.35;
+  overflow-wrap: anywhere;
+}
+.ep-chapter-icon {
+  font-size: 0.66rem;
+  color: var(--orange-dark);
+  opacity: 0;
+  transition: opacity .15s ease;
+}
+.ep-chapter:hover .ep-chapter-icon,
+.ep-chapter:focus-visible .ep-chapter-icon,
+.ep-chapter.is-active .ep-chapter-icon { opacity: 1; }
+.ep-chapter.is-active {
+  border-color: var(--orange-dark);
+  background: var(--cream-deep);
+}
+.ep-chapter.is-active .ep-chapter-time {
+  background: var(--ink);
+  color: var(--cream);
+}
+.ep-chapter-extra {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 2px 0 2px 14px;
+  padding: 4px 0 4px 12px;
+  border-left: 3px dashed rgba(11, 27, 45, 0.24);
+}
+.ep-chapter-thumb {
+  display: block;
+  flex: 0 0 auto;
+  width: 64px;
+  height: 64px;
+  overflow: hidden;
+  border: 2px solid var(--ink);
+  border-radius: 10px;
+  background: var(--cream);
+  box-shadow: 2px 2px 0 var(--ink);
+  transition: transform .15s ease, box-shadow .15s ease;
+}
+.ep-chapter-thumb img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+a.ep-chapter-thumb:hover {
+  transform: translate(-1px, -1px);
+  box-shadow: 4px 4px 0 var(--ink);
+}
+.ep-chapter-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.72rem;
+  font-weight: 800;
+  color: var(--orange-dark);
+  text-decoration: underline;
+  text-decoration-thickness: 1.5px;
+  text-underline-offset: 3px;
+}
+.ep-chapter-link:hover { color: var(--ink); }
+
 /* ---------- Navegación anterior / siguiente ---------- */
 .ep-pager { padding: clamp(38px, 5vw, 56px) 0 clamp(40px, 6vw, 64px); }
 .ep-pager-grid {
@@ -389,6 +551,10 @@
   .ep-detail-actions .btn { width: 100%; }
   .ep-notes-body { font-size: 0.96rem; }
   .ep-facts { padding: 20px; }
+  .ep-chapters { padding: 18px; }
+  .ep-chapter { gap: 8px; padding: 8px; }
+  .ep-chapter-time { font-size: 0.62rem; padding: 3px 7px; }
+  .ep-chapter-title { font-size: 0.78rem; }
   .ep-pager-link { padding: 17px 18px; }
   .ep-related .section-head .btn { width: 100%; }
 }

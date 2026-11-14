@@ -48,7 +48,7 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add js/episodes.js img/episodes feed.xml episodes-raw.json sitemap.xml episodios
+          git add js/episodes.js img/episodes img/chapters feed.xml episodes-raw.json sitemap.xml episodios
           if git diff --cached --quiet; then
             echo "No hay episodios nuevos. No se crea commit."
           else

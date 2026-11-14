@@ -13,6 +13,7 @@ Qué hace:
   - Detecta los episodios que aún no están en js/episodes.js.
   - Descarga su portada en img/episodes/ (con nombre estable por ID de iVoox).
   - Guarda la descripción completa en HTML (sin imágenes) y un resumen recortado.
+  - Lee los capítulos Podlove (psc:chapters) y descarga sus imágenes si las hay.
   - Añade los episodios y regenera js/episodes.js.
   - Genera una página HTML por episodio en episodios/ con datos estructurados
     PodcastEpisode, además del archivo completo en episodios/index.html.
@@ -33,6 +34,7 @@ import subprocess
 import sys
 import unicodedata
 import urllib.error
+import urllib.parse
 import urllib.request
 import xml.etree.ElementTree as ET
 from datetime import date
@@ -45,6 +47,7 @@ ROOT = Path(__file__).resolve().parent
 FEED_URL = "https://feeds.feedburner.com/PeskitoYMedio"
 EPISODES_JS = ROOT / "js" / "episodes.js"
 IMG_DIR = ROOT / "img" / "episodes"
+CHAPTER_IMG_DIR = ROOT / "img" / "chapters"
 EPISODES_DIR = ROOT / "episodios"
 RAW_JSON = ROOT / "episodes-raw.json"
 FEED_XML = ROOT / "feed.xml"
@@ -120,6 +123,58 @@ def child_attr(element: ET.Element, name: str, attribute: str) -> str:
     return ""
 
 
+def chapter_seconds(value: str) -> int:
+    """Convierte un minutaje Podlove ('HH:MM:SS', 'MM:SS' o segundos) a segundos."""
+    raw = str(value or "").strip().replace(",", ".")
+    if not raw:
+        return 0
+    parts = raw.split(":")
+    try:
+        numbers = [float(part) for part in parts]
+    except ValueError:
+        return 0
+    if not numbers:
+        return 0
+    total = 0.0
+    for number in numbers:
+        total = total * 60 + number
+    return max(0, int(total))
+
+
+def chapter_time_label(value: str) -> str:
+    """Minutaje compacto para mostrar: 00:00, 06:50 o 1:32:25."""
+    total = chapter_seconds(value)
+    hours, remainder = divmod(total, 3600)
+    minutes, seconds = divmod(remainder, 60)
+    if hours:
+        return str(hours) + ":" + f"{minutes:02d}" + ":" + f"{seconds:02d}"
+    return f"{minutes:02d}:{seconds:02d}"
+
+
+def parse_chapters(item: ET.Element) -> list[dict]:
+    """Lee los capítulos Podlove (psc:chapters) de un episodio del feed."""
+    chapters: list[dict] = []
+    for container in item:
+        if container.tag != "{http://podlove.org/simple-chapters}chapters":
+            continue
+        for chapter in container:
+            if local_name(chapter.tag) != "chapter":
+                continue
+            start = (chapter.get("start") or "").strip()
+            title = (chapter.get("title") or "").strip()
+            if not start or not title:
+                continue
+            entry = {"start": start, "title": title}
+            href = (chapter.get("href") or "").strip()
+            image = (chapter.get("image") or "").strip()
+            if re.match(r"^https?://", href, re.IGNORECASE):
+                entry["href"] = href
+            if re.match(r"^https?://", image, re.IGNORECASE):
+                entry["image"] = image
+            chapters.append(entry)
+    return chapters
+
+
 # ---------------------------------------------------------------------------
 # Feed
 # ---------------------------------------------------------------------------
@@ -167,6 +222,7 @@ def parse_feed(xml_bytes: bytes) -> list[dict]:
                 "image": image,
                 "audio": audio,
                 "socialUri": social_uri,
+                "chapters": parse_chapters(item),
                 "desc": description,
                 "_iso": iso_date,
             }
@@ -472,6 +528,7 @@ def write_episodes(episodes: list[dict]) -> None:
                 "img": episode["img"],
                 "audio": episode["audio"],
                 "socialUri": episode.get("socialUri", ""),
+                "chapters": episode.get("chapters", []),
                 "desc": episode["desc"],
                 "descHtml": episode.get("descHtml", ""),
                 "slug": episode.get("slug", ""),
@@ -782,6 +839,84 @@ def related_episodes(episodes: list[dict], current: dict, limit: int = 3) -> lis
     return chosen[:limit]
 
 
+def chapters_html(episode: dict) -> str:
+    """Sección de capítulos Podlove con enlace al minuto correspondiente."""
+    chapters = episode.get("chapters") or []
+    if not chapters:
+        return ""
+
+    items: list[str] = []
+    for chapter in chapters:
+        title = str(chapter.get("title") or "")
+        start = str(chapter.get("start") or "")
+        seconds = chapter_seconds(start)
+        label = chapter_time_label(start)
+        href = str(chapter.get("href") or "")
+        media = local_chapter_image(episode, chapter) or str(chapter.get("image") or "")
+
+        extra_parts: list[str] = []
+        if media:
+            thumb_src = "../" + media if media.startswith("img/") else media
+            thumb = (
+                '<img src="'
+                + attr(thumb_src)
+                + '" alt="'
+                + attr("Imagen de la sección: " + title)
+                + '" loading="lazy" width="72" height="72">'
+            )
+            if href:
+                extra_parts.append(
+                    '<a class="ep-chapter-thumb" href="'
+                    + attr(href)
+                    + '" target="_blank" rel="noopener" aria-label="'
+                    + attr("Abrir el enlace de " + title)
+                    + '">'
+                    + thumb
+                    + "</a>"
+                )
+            else:
+                extra_parts.append('<span class="ep-chapter-thumb">' + thumb + "</span>")
+        if href:
+            extra_parts.append(
+                '<a class="ep-chapter-link" href="'
+                + attr(href)
+                + '" target="_blank" rel="noopener">Ver enlace '
+                + '<i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i></a>'
+            )
+
+        extra = ""
+        if extra_parts:
+            extra = (
+                '\n              <div class="ep-chapter-extra">'
+                + "".join(extra_parts)
+                + "</div>"
+            )
+
+        items.append(
+            f"""            <li class="ep-chapter-item">
+              <button class="ep-chapter" type="button" data-chapter-start="{seconds}"
+                      aria-label="{attr('Escuchar desde ' + label + ': ' + title)}">
+                <span class="ep-chapter-time"><i class="fa-solid fa-play" aria-hidden="true"></i> {escape(label)}</span>
+                <span class="ep-chapter-title">{escape(title)}</span>
+                <i class="fa-solid fa-headphones ep-chapter-icon" aria-hidden="true"></i>
+              </button>{extra}
+            </li>"""
+        )
+
+    count = len(chapters)
+    count_label = str(count) + (" sección" if count == 1 else " secciones")
+    return f"""          <section class="ep-chapters" aria-labelledby="chapters-title">
+            <div class="ep-chapters-head">
+              <h2 id="chapters-title"><i class="fa-solid fa-list-ul" aria-hidden="true"></i> Secciones</h2>
+              <span class="ep-chapters-count">{count_label}</span>
+            </div>
+            <p class="ep-chapters-hint">Pincha en una sección para escucharla desde ese minuto.</p>
+            <ol class="ep-chapters-list">
+{chr(10).join(items)}
+            </ol>
+          </section>"""
+
+
 def build_episode_page(episode: dict, episodes: list[dict], latest: dict | None) -> str:
     url = episode_url(episode)
     image = absolute_url(episode.get("img") or FALLBACK_IMG)
@@ -903,6 +1038,8 @@ def build_episode_page(episode: dict, episodes: list[dict], latest: dict | None)
             Comenta en X <i class="fa-brands fa-x-twitter" aria-hidden="true"></i>
           </a>"""
 
+    chapters = chapters_html(episode)
+
     cta = (
         '<button class="btn btn-primary btn-sm nav-cta" type="button" data-episode-play>'
         '<i class="fa-solid fa-play" aria-hidden="true"></i> Dale al play</button>'
@@ -1012,21 +1149,24 @@ def build_episode_page(episode: dict, episodes: list[dict], latest: dict | None)
           </div>
         </article>
 
-        <aside class="ep-facts reveal" aria-labelledby="facts-title">
-          <h2 id="facts-title">Ficha rápida</h2>
-          <dl>
-            <div><dt>Programa</dt><dd>{escape(badge)}</dd></div>
-            <div><dt>Tipo</dt><dd>{escape(type_label)}</dd></div>
-            <div><dt>Publicado</dt><dd>{escape(date_es)}</dd></div>
-            <div><dt>Duración</dt><dd>{escape(episode.get('duration', ''))}</dd></div>
-          </dl>
-          <a class="ep-facts-link" href="{attr(episode.get('link', '#'))}" target="_blank" rel="noopener">
-            Comenta en iVoox <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i>
-          </a>
+        <aside class="ep-sidebar reveal{' ep-sidebar--chapters' if chapters else ''}" aria-label="Información del episodio">
+          <div class="ep-facts">
+            <h2 id="facts-title">Ficha rápida</h2>
+            <dl>
+              <div><dt>Programa</dt><dd>{escape(badge)}</dd></div>
+              <div><dt>Tipo</dt><dd>{escape(type_label)}</dd></div>
+              <div><dt>Publicado</dt><dd>{escape(date_es)}</dd></div>
+              <div><dt>Duración</dt><dd>{escape(episode.get('duration', ''))}</dd></div>
+            </dl>
+            <a class="ep-facts-link" href="{attr(episode.get('link', '#'))}" target="_blank" rel="noopener">
+              Comenta en iVoox <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i>
+            </a>
 {facts_social}
-          <a class="ep-facts-link ep-facts-link--soft" href="index.html">
-            Ver todos los episodios <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
-          </a>
+            <a class="ep-facts-link ep-facts-link--soft" href="index.html">
+              Ver todos los episodios <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+            </a>
+          </div>
+{chapters}
         </aside>
       </div>
     </section>
@@ -1338,6 +1478,67 @@ def download_cover(url: str, destination: Path) -> str | None:
 
 
 # ---------------------------------------------------------------------------
+# Imágenes de los capítulos
+# ---------------------------------------------------------------------------
+
+def chapter_image_name(episode: dict, chapter: dict) -> str:
+    """Nombre estable y local para la imagen de un capítulo."""
+    extension = Path(urllib.parse.urlparse(str(chapter.get("image") or "")).path).suffix.lower()
+    if extension in {".jpeg"}:
+        extension = ".jpg"
+    if extension not in {".jpg", ".png", ".gif", ".webp", ".avif"}:
+        extension = ".jpg"
+    key = episode_key(episode.get("link", ""), episode.get("audio", ""))
+    return (
+        "ch-"
+        + key
+        + "-"
+        + str(chapter_seconds(chapter.get("start", "")))
+        + extension
+    )
+
+
+def local_chapter_image(episode: dict, chapter: dict) -> str:
+    """Ruta local de la imagen del capítulo si ya se ha descargado."""
+    name = chapter_image_name(episode, chapter)
+    if (CHAPTER_IMG_DIR / name).exists():
+        return "img/chapters/" + name
+    return ""
+
+
+def sync_chapter_images(episodes: list[dict], dry_run: bool = False) -> int:
+    """Descarga las imágenes asociadas a capítulos para servirlas desde el sitio."""
+    if dry_run:
+        return 0
+
+    downloaded = 0
+    for episode in episodes:
+        for chapter in episode.get("chapters") or []:
+            image = str(chapter.get("image") or "")
+            if not re.match(r"^https?://", image, re.IGNORECASE):
+                continue
+
+            destination = CHAPTER_IMG_DIR / chapter_image_name(episode, chapter)
+            if destination.exists() and destination.stat().st_size > 1000:
+                continue
+
+            try:
+                data = fetch_bytes(image)
+                if len(data) < 1000:
+                    raise ValueError("la imagen descargada es demasiado pequeña")
+                destination.parent.mkdir(parents=True, exist_ok=True)
+                destination.write_bytes(data)
+                optimize_cover(destination, max_size=360)
+                downloaded += 1
+            except (urllib.error.URLError, TimeoutError, OSError, ValueError) as error:
+                print("  AVISO: no se pudo descargar la imagen del capítulo «" + chapter.get("title", "") + "»")
+                print("         " + str(error))
+
+    return downloaded
+
+
+
+# ---------------------------------------------------------------------------
 # Programa principal
 # ---------------------------------------------------------------------------
 
@@ -1393,6 +1594,7 @@ def main() -> int:
     }
     descriptions_updated = 0
     social_updated = 0
+    chapters_updated = 0
     for episode in existing:
         item = feed_by_key.get(
             episode_key(episode.get("link", ""), episode.get("audio", ""))
@@ -1409,6 +1611,10 @@ def main() -> int:
         if (episode.get("socialUri") or "") != social_uri:
             episode["socialUri"] = social_uri
             social_updated += 1
+        chapters = item.get("chapters", [])
+        if (episode.get("chapters") or []) != chapters:
+            episode["chapters"] = chapters
+            chapters_updated += 1
 
     slugs_updated = ensure_slugs(existing)
 
@@ -1439,6 +1645,7 @@ def main() -> int:
                     "img": "img/episodes/ep-" + key + ".jpg",
                     "audio": item["audio"],
                     "socialUri": item.get("socialUri", ""),
+                    "chapters": item.get("chapters", []),
                     "desc": summarize_html(desc_html),
                     "descHtml": desc_html,
                     "_image_url": item["image"],
@@ -1449,7 +1656,13 @@ def main() -> int:
         next_id += 1
 
     if not new_episodes:
-        changed = reclassified + descriptions_updated + social_updated + slugs_updated
+        changed = (
+            reclassified
+            + descriptions_updated
+            + social_updated
+            + chapters_updated
+            + slugs_updated
+        )
         if changed and args.dry_run:
             if reclassified:
                 print(
@@ -1465,6 +1678,11 @@ def main() -> int:
                 print(
                     "Enlaces sociales que se actualizarían desde el feed: "
                     + str(social_updated)
+                )
+            if chapters_updated:
+                print(
+                    "Capítulos que se actualizarían desde el feed: "
+                    + str(chapters_updated)
                 )
             if slugs_updated:
                 print("Páginas de episodio a las que se asignaría slug: " + str(slugs_updated))
@@ -1490,8 +1708,13 @@ def main() -> int:
                     "Enlaces sociales actualizados desde el feed: "
                     + str(social_updated)
                 )
+            if chapters_updated:
+                print("Capítulos actualizados desde el feed: " + str(chapters_updated))
             if slugs_updated:
                 print("Slugs asignados: " + str(slugs_updated))
+        chapter_images = sync_chapter_images(existing, args.dry_run)
+        if chapter_images:
+            print("Imágenes de capítulos descargadas: " + str(chapter_images))
         generate_site(existing, args.dry_run)
         sync_sitemap(existing, args.dry_run)
         print("Todo al día: no hay episodios nuevos en el feed.")
@@ -1559,6 +1782,7 @@ def main() -> int:
                 "duration": item["duration"],
                 "image": item["image"],
                 "audio": item["audio"],
+                "chapters": item.get("chapters", []),
                 "desc": item["desc"],
             }
         )
@@ -1566,6 +1790,10 @@ def main() -> int:
         json.dumps(raw, ensure_ascii=False, indent=4),
         encoding="utf-8",
     )
+
+    chapter_images = sync_chapter_images(merged, args.dry_run)
+    if chapter_images:
+        print("Imágenes de capítulos descargadas: " + str(chapter_images))
 
     sync_sitemap(merged, args.dry_run)
     generate_site(merged, args.dry_run)
@@ -1577,6 +1805,8 @@ def main() -> int:
         print("Descripciones actualizadas desde el feed: " + str(descriptions_updated))
     if social_updated:
         print("Enlaces sociales actualizados desde el feed: " + str(social_updated))
+    if chapters_updated:
+        print("Capítulos actualizados desde el feed: " + str(chapters_updated))
     print("Archivos actualizados: js/episodes.js, episodios/ y sitemap.xml")
     print("")
     print("El workflow de GitHub Actions publicará los cambios automáticamente.")
