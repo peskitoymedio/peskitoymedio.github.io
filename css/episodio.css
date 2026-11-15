@@ -221,6 +221,157 @@
   color: #fff;
 }
 
+/* ---------- Transcripción ---------- */
+.ep-transcript-section {
+  padding: clamp(40px, 5vw, 64px) 0;
+  background: var(--cream);
+  border-bottom: 3px solid var(--ink);
+}
+.ep-transcript-card {
+  padding: clamp(24px, 4vw, 40px);
+  border: 3px solid var(--ink);
+  border-radius: 26px;
+  background: var(--white);
+  box-shadow: var(--shadow-sm);
+}
+.ep-transcript-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+}
+.ep-transcript-card h2 {
+  margin: 8px 0 0;
+  font-family: var(--font-display);
+  font-size: clamp(1.8rem, 3vw, 2.5rem);
+  font-weight: 400;
+  line-height: 1.05;
+  letter-spacing: 0.015em;
+}
+.ep-transcript-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 5px 12px;
+  border: 2px solid var(--ink);
+  border-radius: 999px;
+  background: var(--yellow);
+  font-size: 0.66rem;
+  font-weight: 800;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+.ep-transcript-tools {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+}
+.ep-transcript-download {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 14px;
+  border: 2px solid var(--ink);
+  border-radius: 999px;
+  background: var(--white);
+  color: var(--ink);
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  text-decoration: none;
+  box-shadow: 3px 3px 0 var(--ink);
+  transition: background 0.15s ease, box-shadow 0.15s ease, transform 0.15s ease;
+}
+.ep-transcript-download:hover {
+  background: var(--yellow);
+  box-shadow: 1px 1px 0 var(--ink);
+  transform: translate(2px, 2px);
+}
+.ep-transcript-download i { color: var(--orange-dark); }
+.ep-transcript-meta {
+  display: inline-block;
+  margin-left: 6px;
+  padding: 1px 8px;
+  border-radius: 999px;
+  background: rgba(11, 27, 45, 0.07);
+  font-size: 0.78rem;
+  font-weight: 700;
+  white-space: nowrap;
+}
+.ep-transcript-note {
+  margin: 14px 0 22px;
+  color: var(--ink-soft);
+  font-size: 0.92rem;
+  line-height: 1.6;
+}
+.ep-transcript {
+  padding-top: 18px;
+  border-top: 2px dashed rgba(11, 27, 45, 0.2);
+}
+.ep-transcript summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  cursor: pointer;
+  color: var(--ink);
+  font-weight: 700;
+  list-style: none;
+}
+.ep-transcript summary::-webkit-details-marker { display: none; }
+.ep-transcript summary:hover { color: var(--orange-dark); }
+.ep-transcript summary i {
+  color: var(--orange-dark);
+  transition: transform 0.2s ease;
+}
+.ep-transcript[open] summary i { transform: rotate(180deg); }
+.ep-transcript-body {
+  max-width: 82ch;
+  margin-top: 20px;
+  color: var(--ink-soft);
+  font-size: 0.98rem;
+  line-height: 1.8;
+}
+.ep-transcript-seg {
+  position: relative;
+  margin: 0 -10px 1em;
+  padding: 8px 10px;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+.ep-transcript-seg:last-child { margin-bottom: 0; }
+.ep-transcript-seg:hover,
+.ep-transcript-seg:focus-visible {
+  background: rgba(255, 214, 0, 0.22);
+  color: var(--ink);
+  outline: none;
+}
+.ep-transcript-seg.is-active {
+  background: rgba(255, 214, 0, 0.38);
+  color: var(--ink);
+}
+.ep-transcript-time {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  margin-right: 8px;
+  padding: 1px 8px;
+  border: 1.5px solid var(--ink);
+  border-radius: 999px;
+  background: var(--yellow);
+  color: var(--ink);
+  font-size: 0.72rem;
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+  vertical-align: 2px;
+  white-space: nowrap;
+}
+.ep-transcript-time i { font-size: 0.6rem; }
+
 .ep-facts {
   position: sticky;
   top: 100px;
@@ -302,6 +453,11 @@
   color: #fff;
 }
 .ep-facts-link--spotify:hover { background: var(--spotify-green-hover); }
+.ep-facts-link--transcript {
+  margin-top: 8px;
+  background: var(--yellow);
+}
+.ep-facts-link--transcript:hover { background: var(--orange-2); }
 
 .ep-sidebar {
   display: flex;

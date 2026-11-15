@@ -1,0 +1,6883 @@
+1
+00:00:00,000 --> 00:00:03,020
+Bueno, estamos ready que yo veo a la gente muy dispersa.
+
+2
+00:00:03,140 --> 00:00:03,840
+Venga, croquetas.
+
+3
+00:00:03,900 --> 00:00:04,200
+¿Verdad?
+
+4
+00:00:04,220 --> 00:00:05,240
+La croqueta es importante.
+
+5
+00:00:05,440 --> 00:00:08,100
+Venga, se lo damos en 3, 2, 1.
+
+6
+00:00:08,320 --> 00:00:11,900
+Bienvenidos y bienvenidas a Peskito y Medio, tu podcast Friki...
+
+7
+00:00:15,600 --> 00:00:16,120
+Preferido.
+
+8
+00:00:16,360 --> 00:00:23,000
+En esta ocasión os traemos un programa especial de robots, Muffinger Joy, Ukelele Abajo.
+
+9
+00:01:21,580 --> 00:01:23,200
+Bueno, nunca mejor dicho, ¿eh?
+
+10
+00:01:23,480 --> 00:01:24,500
+¿Cómo están los máquinas?
+
+11
+00:01:24,520 --> 00:01:25,200
+Lo primero de todo.
+
+12
+00:01:27,060 --> 00:01:27,920
+No has decepcionado.
+
+13
+00:01:27,980 --> 00:01:30,640
+A ver, es que, que menos, que menos.
+
+14
+00:01:31,280 --> 00:01:33,480
+Seidon lo dudó esta semana.
+
+15
+00:01:34,020 --> 00:01:35,080
+Que menos, este programa.
+
+16
+00:01:35,100 --> 00:01:38,280
+Había que decirle, esta nueva muletilla que yo me...
+
+17
+00:01:38,540 --> 00:01:39,880
+que yo he adquirido, que yo he...
+
+18
+00:01:39,900 --> 00:01:40,720
+Pero este es el último, ¿no?
+
+19
+00:01:40,920 --> 00:01:42,500
+Pues me lo estoy planteando que sea el último.
+
+20
+00:01:42,520 --> 00:01:43,180
+Sí, es que pegaba.
+
+21
+00:01:43,560 --> 00:01:44,360
+O puede que no.
+
+22
+00:01:44,380 --> 00:01:45,620
+El fanservice del fanservice.
+
+23
+00:01:47,160 --> 00:01:56,340
+Bueno, antes de presentar a nuestros pesquitos, yo quiero que Seidon ponga un audio que le he mandado porque es la mejor canción cantada por un robot en una serie de televisión.
+
+24
+00:01:56,600 --> 00:01:57,340
+Va por Mildred.
+
+25
+00:01:57,740 --> 00:01:58,700
+No, ¿la de Bender?
+
+26
+00:01:59,540 --> 00:02:02,800
+Una ramita y va caminando, ajá, ajá.
+
+27
+00:02:10,520 --> 00:02:15,400
+Todo esto lo hago para que Mildred arranque con mucha gana, con mucha ilusión, porque esto mejora su vida.
+
+28
+00:02:15,420 --> 00:02:17,940
+Tenés que ver la cara, siempre te escuchando es la mejor canción para Mildred.
+
+29
+00:02:18,240 --> 00:02:19,800
+Por cierto, te lo podías plantear para el mundo.
+
+30
+00:02:19,820 --> 00:02:21,640
+Hombre, ¡abogada soltera está ahí!
+
+31
+00:02:21,820 --> 00:02:22,520
+También te digo.
+
+32
+00:02:22,660 --> 00:02:23,880
+También, también.
+
+33
+00:02:23,880 --> 00:02:24,780
+Ostras, verdad, verdad.
+
+34
+00:02:24,800 --> 00:02:27,200
+Pero es que esta tiene algo especial para nosotros.
+
+35
+00:02:28,000 --> 00:02:31,680
+Bueno, pues aquí estamos con un especial de robots.
+
+36
+00:02:32,000 --> 00:02:41,500
+Y antes de presentar a los pesquitos, porque es verdad, y que presenta porque, oye, es verdad que ahora, un poquito raro, no estamos todos los que solemos estar las últimas veces que estamos.
+
+37
+00:02:42,120 --> 00:02:42,540
+Pero bueno.
+
+38
+00:02:43,260 --> 00:02:43,900
+¡Tramalenguas!
+
+39
+00:02:44,200 --> 00:02:44,840
+Tiempo al tiempo.
+
+40
+00:02:44,900 --> 00:02:51,020
+Pero mira, que menos, igualmente, que menos que en este programa, porque nos damos la definición de lo que es robot.
+
+41
+00:02:51,200 --> 00:02:57,240
+Y entonces a mí se me ocurrió que el más tecnológico de nuestros pesquitos es Seidon Mufflite.
+
+42
+00:02:57,240 --> 00:03:01,800
+Así que Seidon, tu le has preguntado a ChasGPT que nos dé una definición de robot, ¿verdad?
+
+43
+00:03:01,820 --> 00:03:02,460
+¿Qué es lo que te ha dicho?
+
+44
+00:03:02,940 --> 00:03:19,920
+Pues mira, ChasGPT, o Puri para nosotros, me ha dicho, Un robot es una máquina programable capaz de llevar a cabo una serie de acciones de manera automatizada, generalmente imitando o reemplazando a los seres humanos en tareas peligrosas, repetitivas o complejas.
+
+45
+00:03:20,360 --> 00:03:21,800
+Bueno, creo que está bastante bien, ¿no?
+
+46
+00:03:21,820 --> 00:03:24,040
+¿Qué os parece?
+
+47
+00:03:24,040 --> 00:03:24,720
+Es puntual, ChasGPT.
+
+48
+00:03:24,740 --> 00:03:26,260
+Claro, yo no me iré en contra de Chas.
+
+49
+00:03:26,380 --> 00:03:26,940
+Yo tampoco.
+
+50
+00:03:28,040 --> 00:03:29,880
+Y menos en el programa de hoy que la que nos puede liar.
+
+51
+00:03:30,300 --> 00:03:35,400
+Bueno, cuando decimos que un especial de robot, no solamente va a ser robot propiamente dicho.
+
+52
+00:03:35,960 --> 00:03:36,900
+De robots.
+
+53
+00:03:36,920 --> 00:03:38,240
+Para nosotros, robots o robotes, ¿no?
+
+54
+00:03:39,440 --> 00:03:48,360
+Pueden ser Cyborg, pueden ser Android, pueden ser IA, precisamente, que hemos utilizado HGPT o Mechaz, o bueno, o la Thermomix, un robot de cocina, también.
+
+55
+00:03:48,380 --> 00:04:01,220
+Así que aquí podéis esperar cualquier cosa, lo que vamos a recomendar hoy en nuestro programa que son mini secciones de mini recomendaciones y luego tendremos un juego que nunca decepciona, de Malcolm.
+
+56
+00:04:01,420 --> 00:04:02,800
+Pero bueno, yo me estoy adelantando.
+
+57
+00:04:02,920 --> 00:04:03,680
+Qué tal, ¿Mildred?
+
+58
+00:04:03,760 --> 00:04:04,420
+¿Cómo va la cosa?
+
+59
+00:04:11,420 --> 00:04:12,260
+Ya está, ya está, ya está.
+
+60
+00:04:12,280 --> 00:04:13,900
+Eso, no vienes de más precio.
+
+61
+00:04:13,920 --> 00:04:14,680
+Voy con el siguiente.
+
+62
+00:04:14,980 --> 00:04:19,300
+Malcolm, tú que nunca decepcionas, hoy tenemos una mala noticia para nuestros oyentes, ¿no?
+
+63
+00:04:19,600 --> 00:04:19,920
+¿Cuál?
+
+64
+00:04:21,740 --> 00:04:23,340
+Que de Sevilla hoy viene solo.
+
+65
+00:04:23,780 --> 00:04:28,040
+Ah, sí, el sector sevillano, sí, hoy llega un solitario, sí.
+
+66
+00:04:28,620 --> 00:04:33,840
+No, que por un momento me criqué algo del juego y me he quedado en shock.
+
+67
+00:04:33,980 --> 00:04:35,740
+Digo que, pero si yo el juego lo tengo, no sé.
+
+68
+00:04:35,760 --> 00:04:37,820
+Que he hecho mal, que he hecho mal.
+
+69
+00:04:38,080 --> 00:04:38,360
+Sí.
+
+70
+00:04:38,380 --> 00:04:40,020
+Bueno, que tenemos a Phoebe de baja, ¿no?
+
+71
+00:04:40,080 --> 00:04:42,740
+Y no nos puede acompañar hoy, ¿no?
+
+72
+00:04:43,300 --> 00:04:43,880
+Bueno, qué pena.
+
+73
+00:04:44,040 --> 00:04:46,560
+Un saludito para Phoebe, ¿eh?
+
+74
+00:04:46,580 --> 00:04:54,800
+Por cierto, me han metido una idea en la cabeza y si no hacéis ninguno una mini recomendación del robot de cocina, me decepcionáis ahora mismo, ¿eh?
+
+75
+00:04:54,940 --> 00:04:57,200
+Ostras, pues yo ya, yo lo dejo ahí.
+
+76
+00:04:58,520 --> 00:04:59,980
+En realidad, yo hoy es la que hace...
+
+77
+00:05:00,120 --> 00:05:00,560
+Receta.
+
+78
+00:05:00,580 --> 00:05:01,760
+La que da receta, así que yo no...
+
+79
+00:05:02,260 --> 00:05:02,580
+Es que...
+
+80
+00:05:03,440 --> 00:05:06,700
+Pues vamos a quedar re-bulinchi, si no, bueno, porque algunos de nuestros pesquiters...
+
+81
+00:05:06,720 --> 00:05:08,640
+Tenga, hay que dar la receta de Sarmorejo, aunque sea.
+
+82
+00:05:08,720 --> 00:05:09,040
+Claro.
+
+83
+00:05:09,400 --> 00:05:09,780
+¿Lo va a dar?
+
+84
+00:05:10,000 --> 00:05:10,180
+No.
+
+85
+00:05:14,280 --> 00:05:15,180
+Bueno, pues seguimos, Joy.
+
+86
+00:05:15,340 --> 00:05:15,680
+¿Tú qué?
+
+87
+00:05:16,220 --> 00:05:18,580
+Aparte de esa decepción, bueno, tenemos que decir algo, ¿no?
+
+88
+00:05:18,940 --> 00:05:19,960
+No nos hemos puesto de acuerdo.
+
+89
+00:05:19,960 --> 00:05:21,700
+Yo no sabía la canción que tú ibas a cantar hoy.
+
+90
+00:05:21,720 --> 00:05:23,680
+Sí, es genial eso.
+
+91
+00:05:23,700 --> 00:05:24,440
+¿Verdad?
+
+92
+00:05:24,460 --> 00:05:25,520
+La hemos grabado hoy.
+
+93
+00:05:25,940 --> 00:05:27,100
+En extremis, totalmente.
+
+94
+00:05:29,180 --> 00:05:32,320
+Me parece impresionante que hayamos puesto de acuerdo.
+
+95
+00:05:32,360 --> 00:05:34,020
+Y a las agudas llegó súper bien.
+
+96
+00:05:36,620 --> 00:05:40,220
+Esto para gente como yo que no tiene oído y que no tiene idea de música, para mí las ha hecho fenomenal.
+
+97
+00:05:41,100 --> 00:05:44,140
+Bueno, y Seidon Maflai, ¿tú qué tal?
+
+98
+00:05:44,260 --> 00:05:47,680
+Pues yo vengo muy contento y muy protegido contra la lluvia.
+
+99
+00:05:50,920 --> 00:05:52,040
+¿Y se puede revelar por qué?
+
+100
+00:05:53,320 --> 00:05:55,160
+Al final del programa lo revelaré.
+
+101
+00:05:55,180 --> 00:05:57,620
+Ahora mismo digo que mi outfit es muy amarillo.
+
+102
+00:05:58,700 --> 00:05:59,920
+Me parece genial.
+
+103
+00:06:00,420 --> 00:06:01,300
+Bueno, en último lugar...
+
+104
+00:06:01,320 --> 00:06:03,500
+El galerón, ella dice outfit y esas cosas.
+
+105
+00:06:03,760 --> 00:06:05,200
+Me he cambiado de bando.
+
+106
+00:06:05,540 --> 00:06:06,240
+Está volviendo.
+
+107
+00:06:07,120 --> 00:06:08,620
+Hace muchos programas ya cambió.
+
+108
+00:06:08,640 --> 00:06:10,640
+Un Yellow Chubasquering, ahora mismo.
+
+109
+00:06:12,140 --> 00:06:15,080
+Oye, que a mí me parece bien, a mí me gustan mucho los...
+
+110
+00:06:15,100 --> 00:06:16,340
+¿Cómo se dice chubasco en inglés?
+
+111
+00:06:16,460 --> 00:06:16,960
+¿Chubasco?
+
+112
+00:06:17,760 --> 00:06:18,800
+Que lo busquen en chat gpd.
+
+113
+00:06:19,880 --> 00:06:21,000
+Impermeable.
+
+114
+00:06:24,920 --> 00:06:31,680
+Bueno, que aparte de estos cuatro que he presentado, también está el servidor, como siempre, aquí, Alecrombie, a los mandos de la presentación del programa.
+
+115
+00:06:31,700 --> 00:06:32,420
+¿Se puede decir eso?
+
+116
+00:06:32,440 --> 00:06:33,800
+Oye, eres servidor informático.
+
+117
+00:06:34,380 --> 00:06:35,660
+Sí, bueno, sí, es verdad.
+
+118
+00:06:37,840 --> 00:06:38,360
+¿Qué iba a decir yo?
+
+119
+00:06:38,380 --> 00:06:39,220
+Ah, yo quería hacer una...
+
+120
+00:06:39,240 --> 00:06:39,840
+Se me ha olvidado.
+
+121
+00:06:40,020 --> 00:06:41,060
+Una pregunta, Mildre.
+
+122
+00:06:41,260 --> 00:06:42,880
+Voy a preguntar a cada uno de los pesquitos.
+
+123
+00:06:43,620 --> 00:06:46,120
+A ver, ¿cuál es el primer robo que te viene a la cabeza?
+
+124
+00:06:46,140 --> 00:06:46,280
+O.
+
+125
+00:06:46,300 --> 00:06:47,200
+¿cuál es tu robo preferido?
+
+126
+00:06:47,860 --> 00:06:49,920
+El primero que se me viene a la cabeza no es el mismo que el preferido.
+
+127
+00:06:50,560 --> 00:06:51,980
+Pues venga, ¿el primero que se te viene a la cabeza?
+
+128
+00:06:52,180 --> 00:06:52,640
+El no, no.
+
+129
+00:06:52,900 --> 00:06:54,080
+No, no.
+
+130
+00:06:54,100 --> 00:06:54,460
+De Ulises.
+
+131
+00:06:54,480 --> 00:06:54,880
+De Ulises.
+
+132
+00:06:55,100 --> 00:06:55,440
+No, no.
+
+133
+00:06:55,520 --> 00:06:56,000
+El robot...
+
+134
+00:06:56,720 --> 00:06:57,140
+Más o menos.
+
+135
+00:06:57,160 --> 00:06:58,020
+Casi te clavas, ¿eh?
+
+136
+00:06:58,740 --> 00:06:59,480
+Qué guay, Ulises.
+
+137
+00:06:59,500 --> 00:06:59,900
+Qué guay.
+
+138
+00:06:59,920 --> 00:07:00,500
+No, no.
+
+139
+00:07:00,720 --> 00:07:01,380
+Marcos, venga.
+
+140
+00:07:01,400 --> 00:07:03,880
+Cuál es el primer, sin pensar, ¿primer robo que te viene a la cabeza?
+
+141
+00:07:04,060 --> 00:07:04,840
+Optimus Prime.
+
+142
+00:07:05,880 --> 00:07:06,760
+Maravilla, por favor.
+
+143
+00:07:07,480 --> 00:07:09,440
+¡Tos nuevecitos!
+
+144
+00:07:09,460 --> 00:07:10,480
+Sí, pues, es que somos...
+
+145
+00:07:11,700 --> 00:07:13,520
+Vamos mejorando.
+
+146
+00:07:13,540 --> 00:07:14,900
+A ver si alguien pasa de los 90.
+
+147
+00:07:15,100 --> 00:07:17,180
+Que todavía se hacen películas de Transformers.
+
+148
+00:07:17,760 --> 00:07:18,340
+Que lo mío es peor.
+
+149
+00:07:18,360 --> 00:07:18,920
+Lo que iba a decir.
+
+150
+00:07:19,160 --> 00:07:20,540
+Claro, el tuyo no había renovaciones ni cosas de esas.
+
+151
+00:07:23,280 --> 00:07:24,160
+Hombre, por favor.
+
+152
+00:07:24,720 --> 00:07:25,560
+R2D2.
+
+153
+00:07:25,880 --> 00:07:28,140
+Que es el mejor droide de la historia.
+
+154
+00:07:28,160 --> 00:07:29,980
+Te lo dedico a Fibi.
+
+155
+00:07:30,080 --> 00:07:32,700
+Te lo prometí que lo diría varias veces en este programa y así.
+
+156
+00:07:32,740 --> 00:07:36,240
+Y además es mejor porque es que incluso ha venido aquí a grabar con nosotros.
+
+157
+00:07:36,260 --> 00:07:36,620
+¿A que sí?
+
+158
+00:07:36,640 --> 00:07:36,920
+R2.
+
+159
+00:07:42,220 --> 00:07:42,860
+Que íbamos un camión.
+
+160
+00:07:42,880 --> 00:07:44,000
+Tenía mucho que decir.
+
+161
+00:07:45,240 --> 00:07:46,200
+Todo lo que ha soltado por la boca.
+
+162
+00:07:46,220 --> 00:07:46,820
+Se ha playado.
+
+163
+00:07:47,260 --> 00:07:48,740
+¿La pena que no tenemos el nervio de que nos traduzcas?
+
+164
+00:07:48,920 --> 00:07:51,360
+Bueno, Joy, ¿y tú cuál es el primer robo que te viene a la cabeza?
+
+165
+00:07:51,860 --> 00:07:52,260
+Vender.
+
+166
+00:07:52,520 --> 00:07:52,900
+Vender.
+
+167
+00:07:53,140 --> 00:07:53,520
+Vale.
+
+168
+00:07:53,820 --> 00:07:54,400
+Pues genial.
+
+169
+00:07:54,420 --> 00:07:55,860
+No te has visto influenciada por la canción.
+
+170
+00:07:55,860 --> 00:07:56,740
+Para nada, absoluto.
+
+171
+00:07:56,760 --> 00:07:58,100
+Ha sido totalmente azar.
+
+172
+00:07:58,160 --> 00:07:59,760
+Es natural.
+
+173
+00:07:59,780 --> 00:08:00,300
+Es espontáneo.
+
+174
+00:08:01,640 --> 00:08:03,640
+Y su animal favorito ahora mismo es la ranita.
+
+175
+00:08:06,280 --> 00:08:08,240
+Y no sé por qué iba caminando en vez de saltando.
+
+176
+00:08:08,660 --> 00:08:10,020
+¿Tú no lo entiendes?
+
+177
+00:08:11,160 --> 00:08:13,280
+A saber si es un tema de traducción, a saber.
+
+178
+00:08:14,160 --> 00:08:14,700
+De doblaje.
+
+179
+00:08:15,100 --> 00:08:16,220
+Y bueno, faltó yo.
+
+180
+00:08:16,340 --> 00:08:19,820
+Yo siempre, por excelencia, el robo que me viene a la cabeza es Mazinger Z.
+
+181
+00:08:21,000 --> 00:08:22,100
+Que no puede ser de otra manera.
+
+182
+00:08:22,120 --> 00:08:26,580
+Y no me he visto influenciado por la canción de Joy, porque es que realmente es así.
+
+183
+00:08:26,600 --> 00:08:29,220
+Yo solo pienso en Mazinger Z cuando me levanto y cuando me acuesto.
+
+184
+00:08:29,860 --> 00:08:35,220
+En fin, pues después de esta presentación, pues voy a mirar la escaladita.
+
+185
+00:08:35,240 --> 00:08:41,120
+Y vamos a pasar a la sección de las mini recomendaciones, que vamos a ir uno por uno.
+
+186
+00:08:41,540 --> 00:08:43,220
+Las mini recomendaciones droídicas.
+
+187
+00:08:43,860 --> 00:08:47,380
+Y empezamos por Seidon Mothly, Adelante Entradilla.
+
+188
+00:08:48,420 --> 00:08:49,740
+Se se seidon Mothly.
+
+189
+00:09:28,920 --> 00:09:30,460
+Se maravilla, por favor.
+
+190
+00:09:30,480 --> 00:09:31,620
+Lo peor es que hasta me suena y todo.
+
+191
+00:09:31,740 --> 00:09:33,940
+Pues sí, porque todos la conocéis.
+
+192
+00:09:34,320 --> 00:09:36,060
+Enrapé a ver a Daisy Ridley, rey.
+
+193
+00:09:39,740 --> 00:09:40,480
+Cierto, ¡cierto!
+
+194
+00:09:40,500 --> 00:09:41,280
+Está bastante bien.
+
+195
+00:09:46,360 --> 00:09:49,360
+En 2019, calculo.
+
+196
+00:09:55,620 --> 00:10:01,600
+Yo, 2019 estuvo promocionando el episodio 9, la polémica película, y estuvo en el programa de Jimmy Fallon.
+
+197
+00:10:01,760 --> 00:10:10,100
+Y entonces hicieron esto que empezaron a contar toda la saga con cartelitos, y ya estuvo rapeando y la verdad que lo hizo muy guay.
+
+198
+00:10:10,220 --> 00:10:11,380
+Daisy Ridley tiene flow.
+
+199
+00:10:11,500 --> 00:10:14,100
+Y bueno, entonces con esta entradilla ya sabéis lo que toca.
+
+200
+00:10:14,120 --> 00:10:17,900
+Voy a hacer un ranking de los mejores droides de Star Trek.
+
+201
+00:10:18,020 --> 00:10:19,240
+Ah no, perdón.
+
+202
+00:10:20,480 --> 00:10:22,700
+No, hombre, voy a hacer una sección entretenida.
+
+203
+00:10:22,800 --> 00:10:24,680
+Era broma, era broma.
+
+204
+00:10:26,220 --> 00:10:28,540
+¿Por qué te tiene poner a la gente de Star Trek en contra?
+
+205
+00:10:28,560 --> 00:10:32,140
+Eso de la batalla entre Star Trek y Star Wars es una cosa de Estados Unidos.
+
+206
+00:10:32,160 --> 00:10:37,440
+Pero si a yo les gusta las cosas relajadas, así tranquilitas.
+
+207
+00:10:37,720 --> 00:10:42,560
+¿Cómo se dice eso de que la opinión de este test túliano no tiene nada que ver con el resto del programa?
+
+208
+00:10:42,580 --> 00:10:43,540
+No nos hacemos responsables.
+
+209
+00:10:45,020 --> 00:10:45,540
+Eso, eso.
+
+210
+00:10:45,560 --> 00:10:46,840
+Se dice, le pongo un 6.
+
+211
+00:10:47,660 --> 00:10:54,720
+Tú no dejes que te perdonemos nunca, Malcolm, por eso.
+
+212
+00:10:54,740 --> 00:10:55,380
+Tú no lo dejes.
+
+213
+00:10:55,500 --> 00:10:57,300
+Tengo novedades, pero este no es el programa.
+
+214
+00:10:57,800 --> 00:10:58,120
+¡Ostras!
+
+215
+00:11:00,320 --> 00:11:02,780
+La cuestión es que no dejas hablar hasta el momento.
+
+216
+00:11:03,680 --> 00:11:04,920
+Luego nos trolleamos la otra vez.
+
+217
+00:11:04,940 --> 00:11:11,080
+De todas formas, que es lo peor que te pueda hacer un fan de Star Trek, sentarse en una silla y hablar, es que no te vas a...
+
+218
+00:11:11,100 --> 00:11:11,940
+No te puedas reír mucho.
+
+219
+00:11:14,160 --> 00:11:20,680
+Bueno, yo estaba dando muchas vueltas que recomendar y no lo tenía nada claro, la verdad.
+
+220
+00:11:20,860 --> 00:11:24,580
+Y Joy me recomendó la semana pasada, porque no hace un listado...
+
+221
+00:11:24,600 --> 00:11:26,020
+Me sugirió, me sugirió.
+
+222
+00:11:26,840 --> 00:11:28,040
+Me sugirió, me obligó.
+
+223
+00:11:29,220 --> 00:11:36,880
+Por qué no haces una sección, si te apetece, ¿sobre Droidel de Star Wars y haces un ranking así?
+
+224
+00:11:36,900 --> 00:11:39,340
+Y yo dije, uy sí, Joy, lo voy a hacer si me obligas.
+
+225
+00:11:41,180 --> 00:11:46,680
+Esto es, si gusta, ha sido idea de Seidon, y si no gusta, ha sido idea de Joy.
+
+226
+00:11:46,700 --> 00:11:50,360
+No, porque al final no voy a hacer eso exactamente.
+
+227
+00:11:50,380 --> 00:11:57,600
+Entonces le he dado una vuelta y he dicho, ¿pa qué voy a hacer un listado de Droidel favoritos?
+
+228
+00:11:57,620 --> 00:11:58,920
+Y eso todo el mundo ya los conoce.
+
+229
+00:11:58,980 --> 00:12:02,520
+Si se los puedo decir un momento, venga, Ganarredof, spoiler.
+
+230
+00:12:02,540 --> 00:12:05,260
+De tres peores está y venga, BB-8, venga, sí.
+
+231
+00:12:06,980 --> 00:12:08,020
+BB-8, también.
+
+232
+00:12:08,360 --> 00:12:13,620
+BD-1 de Forerunnerde mola mucho, Chopper de Revetta, K2SO también es guay.
+
+233
+00:12:13,920 --> 00:12:15,540
+Mortadera, Chopper y Mortadera.
+
+234
+00:12:15,560 --> 00:12:17,740
+También mortadera.
+
+235
+00:12:18,580 --> 00:12:18,940
+HK algo, ¿no?
+
+236
+00:12:18,960 --> 00:12:20,400
+El del Kotor creo.
+
+237
+00:12:20,420 --> 00:12:21,620
+Espera, espera, no te adelantes.
+
+238
+00:12:21,680 --> 00:12:22,580
+No te adelantes.
+
+239
+00:12:23,640 --> 00:12:24,480
+Ah, vale, vale.
+
+240
+00:12:24,860 --> 00:12:27,100
+Esto todo el mundo estaba aportando, lo siento.
+
+241
+00:12:30,680 --> 00:12:32,520
+Entonces, digo, voy a hacer el listado.
+
+242
+00:12:34,920 --> 00:12:36,880
+No, porque a mí me gusta Star Trek, ¿vale?
+
+243
+00:12:36,900 --> 00:12:42,520
+Nosotros aquí somos pro JJ, habrán aquí, así que...
+
+244
+00:12:42,740 --> 00:12:53,140
+Claro, entonces digo, ¿para qué voy a hacer un listado de los hechos que conoce todo el mundo cuando puedo traeros a tres droides especiales del antiguo universo expandido y que sean así rarunos y que a mí me molen?
+
+245
+00:12:53,400 --> 00:12:54,280
+Y entonces he traído tres.
+
+246
+00:12:54,300 --> 00:12:54,920
+Y el primero...
+
+247
+00:12:55,000 --> 00:12:56,140
+Especiales y espaciales.
+
+248
+00:12:57,200 --> 00:12:58,120
+Especiales y espaciales.
+
+249
+00:12:58,240 --> 00:12:59,560
+Ya está otra vez interviniendo.
+
+250
+00:12:59,580 --> 00:13:01,240
+Sí, es verdad, me callo.
+
+251
+00:13:01,260 --> 00:13:06,220
+Y el primero del que voy a hablar, no os lo vais a creer, pero es el droide HK-47.
+
+252
+00:13:08,320 --> 00:13:09,400
+Hoy estamos todos conectados.
+
+253
+00:13:10,220 --> 00:13:11,000
+Cazarallada, cazarallada.
+
+254
+00:13:12,340 --> 00:13:15,500
+Pues sí, es un droide muy especial.
+
+255
+00:13:15,860 --> 00:13:23,840
+Es un droide asesino, bueno, el Kotor, para los que no sean muy gamers o no estén familiarizados con Star Wars.
+
+256
+00:13:24,480 --> 00:13:38,860
+Es un videojuego que Kotor son las siglas de Knights of the Old Republic, juego que salió en 2003, tiene ya sus añitos de rol y probablemente yo creo que es el mejor juego de Star Wars que se ha hecho bajo mi punto de vista.
+
+257
+00:13:38,880 --> 00:13:42,480
+Y yo, el Jedi Power Battle, tío.
+
+258
+00:13:43,020 --> 00:13:43,940
+Te ríe, pero eso...
+
+259
+00:13:43,960 --> 00:13:47,340
+Yo me vicié muchísimo a ese juego, pero sí, sí.
+
+260
+00:13:47,360 --> 00:13:54,220
+Yo jugaba, es que yo me vicié al Master of Terras casi, que es el peor juego de la historia de Star Wars y creo que es sin de Star Wars también.
+
+261
+00:13:54,820 --> 00:13:55,280
+Marísimo.
+
+262
+00:13:55,480 --> 00:13:57,840
+Era como un Tekken, pero de Star Wars.
+
+263
+00:13:58,320 --> 00:14:00,180
+Bueno, que me estoy liando.
+
+264
+00:14:00,800 --> 00:14:01,360
+Pues...
+
+265
+00:14:02,240 --> 00:14:03,560
+El Droid este está guay, ¿por qué?
+
+266
+00:14:03,580 --> 00:14:11,900
+Porque es un Droid asesino, que es un poco sádico y que no oculta sus sentimientos.
+
+267
+00:14:11,920 --> 00:14:17,740
+Entonces yo he apuntado aquí tres citas suyas del juego, tres frases para que hagáis una idea de cómo es.
+
+268
+00:14:18,540 --> 00:14:23,160
+En una de ellas dice, Soy un Droid de maestro, estoy programado para matar aunque no me gustara.
+
+269
+00:14:23,480 --> 00:14:25,240
+Afortunadamente, lo disfruto mucho.
+
+270
+00:14:25,800 --> 00:14:28,660
+Y otra frase, buscamos algo que matar para animarnos.
+
+271
+00:14:29,380 --> 00:14:37,460
+Y otra que tengo apuntada por aquí es, Maestro, como parte de mi programación original, soy capaz de comunicarme en más de 600 idiomas.
+
+272
+00:14:37,700 --> 00:14:45,000
+Por lo general, solo para breves advertencias verbales cuando mato a objetivos que no hablan básico, lo que me da una pequeña dosis de satisfacción.
+
+273
+00:14:46,700 --> 00:14:49,160
+Este es uno de los tres droides que os quería traer.
+
+274
+00:14:49,180 --> 00:14:51,560
+Os recomiendo que juguéis al Kotor.
+
+275
+00:14:52,120 --> 00:14:53,560
+No recuerdo si salían en el Kotor 2.
+
+276
+00:14:54,160 --> 00:14:54,760
+Puede que sí.
+
+277
+00:14:54,840 --> 00:14:55,280
+No me acuerdo.
+
+278
+00:14:55,300 --> 00:14:57,360
+Hace muchos años y los me acuerdo.
+
+279
+00:14:57,500 --> 00:15:03,840
+Y el segundo droide que os voy a hablar es un droide especial porque es una réplica humana.
+
+280
+00:15:03,860 --> 00:15:06,820
+Yo creo que es el único droide de Star Wars que yo conozca.
+
+281
+00:15:07,260 --> 00:15:11,740
+Después mirando informándome para la sección, he visto que había más, que es un droide.
+
+282
+00:15:13,400 --> 00:15:15,180
+Sí, la verdad que sí.
+
+283
+00:15:15,460 --> 00:15:19,580
+He ido un poco en extremis esta semana, he hecho una Alecrombie, terminándolo esta tarde.
+
+284
+00:15:20,220 --> 00:15:27,200
+Pues eso que es un droide tipo Terminator, para que me entendáis, que tiene piel sintética por fuera y tal, y de aspecto aparentemente humana.
+
+285
+00:15:27,420 --> 00:15:28,200
+Y es Guri.
+
+286
+00:15:29,400 --> 00:15:32,860
+Es un personaje que se creó en la novela de Sombras del Imperio.
+
+287
+00:15:33,280 --> 00:15:41,120
+Era una novela que salió en 1996, que cubría un poco el hueco entre el Imperio contraataca y el retorno del Jedi.
+
+288
+00:15:42,520 --> 00:15:45,040
+Y una novela escrita por Steve Perry, por cierto.
+
+289
+00:15:45,560 --> 00:15:47,980
+Y bueno, era como el episodio 5 y medio.
+
+290
+00:15:48,240 --> 00:15:49,740
+Para entendernos ya, eso no es canon.
+
+291
+00:15:49,960 --> 00:15:58,920
+Y bueno, pues esta tal Guri, era una asesina también, como HK-47, y trabajaba para Sithor, un Fallen.
+
+292
+00:15:59,120 --> 00:16:05,300
+Un Fallen es como un bicho verde, como reptiliano, calvo, pero con cola.
+
+293
+00:16:05,760 --> 00:16:07,320
+Poco cola de pelo.
+
+294
+00:16:09,480 --> 00:16:12,020
+Con coleta, sí.
+
+295
+00:16:12,040 --> 00:16:13,320
+También conocido como Coleta.
+
+296
+00:16:16,180 --> 00:16:19,980
+Pues era líder del Sol Negro, y era villano principal de la novela.
+
+297
+00:16:20,000 --> 00:16:22,060
+El Sol Negro es una organización criminal.
+
+298
+00:16:22,140 --> 00:16:25,120
+Y luego está el Tol Rauko, ¿no?
+
+299
+00:16:25,200 --> 00:16:27,840
+Es verdad, para los fans de juegos de cartas de anime.
+
+300
+00:16:29,140 --> 00:16:31,320
+Eso es muy de nicho, es un chiste solo para los soleros.
+
+301
+00:16:31,340 --> 00:16:35,800
+Siempre que salía lo del Sol Negro en la anima, yo he pensado en Star Wars.
+
+302
+00:16:35,820 --> 00:16:36,440
+Y, bueno, pues...
+
+303
+00:16:36,460 --> 00:16:37,340
+Pues nunca lo dijiste.
+
+304
+00:16:37,800 --> 00:16:40,240
+Sí, pero no me escucháis.
+
+305
+00:16:40,260 --> 00:16:40,800
+Lo decía.
+
+306
+00:16:41,260 --> 00:16:45,640
+Ahora si fuera una sitcom se verían los flashbacks de todas las veces que lo he dicho.
+
+307
+00:16:45,900 --> 00:16:46,160
+Bueno.
+
+308
+00:16:48,120 --> 00:16:49,260
+Le podría currar y lo re.
+
+309
+00:16:49,380 --> 00:16:49,880
+No, que va.
+
+310
+00:16:51,320 --> 00:16:52,860
+He dicho que tengo un churrascar amarillo.
+
+311
+00:16:53,240 --> 00:16:53,500
+Bueno.
+
+312
+00:16:53,980 --> 00:16:55,220
+De todas maneras, yo creo que todavía...
+
+313
+00:16:55,760 --> 00:16:56,840
+Que todavía levantan las sesiones.
+
+314
+00:16:57,320 --> 00:16:58,620
+Me queda uno, me queda uno todavía.
+
+315
+00:16:58,800 --> 00:16:59,680
+La selección.
+
+316
+00:16:59,700 --> 00:17:01,340
+Gracias, Alecrombie, por confiar en mí.
+
+317
+00:17:01,440 --> 00:17:05,800
+Pues bueno, que es una asesina que da muy mal rollo.
+
+318
+00:17:05,820 --> 00:17:13,780
+Y de hecho, en la novela, le mandan ir a por Luke Skywalker, que claro, tú sabes que está vivo en el retorno de Jedi, que después, que no le va a pasar nada.
+
+319
+00:17:13,800 --> 00:17:15,000
+Y aún así, te da mal rollo.
+
+320
+00:17:15,140 --> 00:17:16,320
+Pero guay escrita que está.
+
+321
+00:17:16,440 --> 00:17:20,400
+Y a diferencia de HK-47, pues Guri no se siente tan bien con lo que hace.
+
+322
+00:17:20,640 --> 00:17:25,140
+De hecho, he traído otra frase de ella, en la novela, y dice, soy lo que soy Jedi.
+
+323
+00:17:25,380 --> 00:17:27,240
+No creo que pueda haber salvación para mí.
+
+324
+00:17:27,540 --> 00:17:46,000
+Pero bueno, tal vez, puede que sí la tuviera, porque después de la novela hubo también unos cómics, porque Sombra del Imperio fue un proyecto que salió en varias plataformas, lo promovió Lucasfilm, había videojuegos y tal, que Alecrombie me spoileó el final de la novela, cuando me la estaba leyendo, por cierto.
+
+325
+00:17:46,140 --> 00:17:48,220
+Eso ya se dijo en otro Peskito.
+
+326
+00:17:48,860 --> 00:17:58,300
+El primer día que conocí a Alecrombie, sería 2000 o así, lo conocí, y me contó el final del videojuego, que coincidía con el final, bueno, el final, con una parte importante de la novela.
+
+327
+00:17:59,500 --> 00:18:02,560
+Y iba a contarlo ahora mismo, pero no, me ha aguantado.
+
+328
+00:18:02,580 --> 00:18:04,180
+Por si acaso.
+
+329
+00:18:04,520 --> 00:18:15,100
+Y bueno, el caso es que en el cómide, después, Guri, una de las tramas que tiene es que intenta reprogramarse, para dejar de ser asesina y ser granjera y plantar papas como lo que querrías hacer Mildred.
+
+330
+00:18:15,560 --> 00:18:17,260
+¿Verdad?
+
+331
+00:18:17,280 --> 00:18:18,760
+Es que te conozco.
+
+332
+00:18:19,660 --> 00:18:23,920
+Así que nada, en Star Wars, las inteligencias artificiales están más avanzadas que las nuestras.
+
+333
+00:18:24,060 --> 00:18:28,900
+Chúpate esa HGPT que Guri tiene como conciencia, y tú no tienes de eso.
+
+334
+00:18:29,020 --> 00:18:30,760
+Bueno, tú dale un par de añitos.
+
+335
+00:18:30,780 --> 00:18:32,060
+El ritmo que llevas.
+
+336
+00:18:32,480 --> 00:18:33,460
+También es verdad.
+
+337
+00:18:34,100 --> 00:18:34,500
+A ver.
+
+338
+00:18:34,660 --> 00:18:35,580
+Y bueno, el último droide.
+
+339
+00:18:35,600 --> 00:18:36,320
+Ya voy a poner el último.
+
+340
+00:18:36,500 --> 00:18:39,340
+No tiene conciencia, pero la han creado conciencia.
+
+341
+00:18:39,520 --> 00:18:40,680
+Para que tú veas, he disparado.
+
+342
+00:18:43,700 --> 00:18:45,620
+que tu resección todavía se levantaba y mira.
+
+343
+00:18:45,940 --> 00:18:47,860
+¿Te puedes creer que estoy aquí callado?
+
+344
+00:18:48,260 --> 00:18:49,740
+Porque he dicho ya no aporto nada más.
+
+345
+00:18:49,760 --> 00:18:51,160
+Y voy y aporto eso.
+
+346
+00:18:52,640 --> 00:18:53,800
+¿Pudiendo seguir callado?
+
+347
+00:18:53,820 --> 00:18:54,800
+No pasa nada.
+
+348
+00:18:55,800 --> 00:18:57,320
+Yo he ido a reírla en postproducción.
+
+349
+00:18:58,860 --> 00:19:04,220
+Que el último droide, venga, el último droide del que voy a hablar va un paso más allá de la conciencia todavía.
+
+350
+00:19:04,400 --> 00:19:05,560
+Se llama Skippy.
+
+351
+00:19:06,040 --> 00:19:07,600
+Lo más friki puede que lo conozcan.
+
+352
+00:19:08,020 --> 00:19:08,420
+No sé.
+
+353
+00:19:08,480 --> 00:19:09,060
+¿El canguro?
+
+354
+00:19:09,080 --> 00:19:09,640
+Sí, os sonerá.
+
+355
+00:19:10,200 --> 00:19:10,640
+Canguro.
+
+356
+00:19:10,660 --> 00:19:11,360
+No es un canguro.
+
+357
+00:19:12,260 --> 00:19:14,020
+Conozco a una persona que era el Skippy.
+
+358
+00:19:14,040 --> 00:19:14,380
+También.
+
+359
+00:19:14,480 --> 00:19:16,180
+Por el canguro, por el canguro.
+
+360
+00:19:17,560 --> 00:19:19,100
+No es ni nuestro amigo ni el canguro.
+
+361
+00:19:19,140 --> 00:19:19,960
+Nuestro amigo, bueno.
+
+362
+00:19:19,980 --> 00:19:25,260
+Bueno, los Frik intermedios puede que lo conozcan, pero con su nombre oficial que es R5D4.
+
+363
+00:19:25,440 --> 00:19:32,080
+Os voy a hablar de un cómic de Dark Horse de 1999, con el episodio 1 recién estrenado, para que os ubiquéis un poco.
+
+364
+00:19:32,720 --> 00:19:34,780
+Y bueno, yo lo compré en pesetas, ojo.
+
+365
+00:19:34,980 --> 00:19:37,720
+Lo tengo aquí, 795 pesetas.
+
+366
+00:19:40,020 --> 00:19:43,320
+Sí, es una pasta, pero ahora si lo piensas es 4 euro y pico.
+
+367
+00:19:43,480 --> 00:19:48,220
+Que para un cómic, ahora sería barato, pero en la época, claro, tú lo escuchas en pesetas y te parece caro.
+
+368
+00:19:49,180 --> 00:19:52,540
+Y, además, que no es que fuera especialmente gordo, sabes, el cómic.
+
+369
+00:19:52,920 --> 00:19:53,500
+Era un dinero.
+
+370
+00:19:53,520 --> 00:19:55,220
+Todo lo que fuera de Star Wars era caro.
+
+371
+00:19:55,540 --> 00:19:58,340
+Y, bueno, es el Tomo 1 de Star Wars Relator.
+
+372
+00:19:58,720 --> 00:20:01,400
+Es un cómic que trae varias historias cortas y una es la de Skippy.
+
+373
+00:20:01,560 --> 00:20:02,820
+Son ocho páginas nada más.
+
+374
+00:20:03,020 --> 00:20:07,060
+Es una historia en tono de humor con muchos metachistes sobre la saga y tal.
+
+375
+00:20:07,080 --> 00:20:10,340
+Y, en general, nunca se consideró canon, por lo que sea.
+
+376
+00:20:11,020 --> 00:20:13,060
+Pero en mi corazón sigue siendo canon.
+
+377
+00:20:13,320 --> 00:20:18,040
+Y, bueno, como es muy breve y esos cómics leyendas ya ni se publican, no lo vais a leer ni nada.
+
+378
+00:20:18,260 --> 00:20:19,340
+Yo lo voy a leer o near.
+
+379
+00:20:19,600 --> 00:20:21,720
+Os voy a contar la historia de Skippy.
+
+380
+00:20:21,980 --> 00:20:22,600
+Es rapidito.
+
+381
+00:20:22,620 --> 00:20:27,220
+O sea, yo no puedo spoilear de Shadow of the Empire y tú sí puedes...
+
+382
+00:20:27,580 --> 00:20:31,260
+Es que Skippy no se puede conseguir ahora.
+
+383
+00:20:31,280 --> 00:20:31,980
+Es complicado.
+
+384
+00:20:32,000 --> 00:20:33,360
+El Star Wars relato es difícil.
+
+385
+00:20:33,560 --> 00:20:35,300
+Y, además, son ocho páginas.
+
+386
+00:20:35,320 --> 00:20:39,240
+Lo otro, en cambio, es leerte un libro para saber ya al final lo mejor.
+
+387
+00:20:39,480 --> 00:20:40,360
+Siempre habíos clases.
+
+388
+00:20:41,600 --> 00:20:47,120
+Bueno, que si no queréis escuchar la historia de Skippy y Peskiter, dadle para adelante unos minutillos.
+
+389
+00:20:47,380 --> 00:20:47,920
+Eran pocos.
+
+390
+00:20:49,260 --> 00:20:51,460
+Y no os la chafáis, pero os perderéis una gran historia.
+
+391
+00:20:52,560 --> 00:20:57,240
+Skippy era un Droid astromecánico que vivía en Tatooine, trabajando en el Palacio de Java.
+
+392
+00:20:58,100 --> 00:21:04,040
+Un día estaba trabajando ahí en el Palacio y se le cayó, estaba en plan de camarero, como R2 estuvo aquella vez.
+
+393
+00:21:04,560 --> 00:21:05,840
+Y se le cayó una bebida.
+
+394
+00:21:06,020 --> 00:21:11,060
+Y él sabía lo que implicaba, caerse en una bebida en el Palacio de Java, que era que lo desintegraban.
+
+395
+00:21:11,660 --> 00:21:23,980
+Así que tuvo como un instinto de intentar evitar que se cayera, pero como pensándolo muy fuerte, y de repente el vaso se quedó flotando en el aire y fue capaz de recuperarlo.
+
+396
+00:21:24,280 --> 00:21:26,280
+Chan Chan, era sensible a la fuerza.
+
+397
+00:21:26,300 --> 00:21:28,420
+Skippy era sensible a la fuerza, señores.
+
+398
+00:21:28,800 --> 00:21:29,760
+Se ha caído la palmera.
+
+399
+00:21:32,040 --> 00:21:32,760
+En directo.
+
+400
+00:21:32,780 --> 00:21:34,560
+Lo estaba diciendo y se ha caído.
+
+401
+00:21:36,380 --> 00:21:38,020
+Es que el señor me ha salido igual, qué mal, tío.
+
+402
+00:21:41,020 --> 00:21:46,960
+Así que él nota que es sensible a la fuerza y tiene un cometido importante en la vida, así que decide huir del Palacio de Java.
+
+403
+00:21:46,980 --> 00:21:53,740
+Y bueno, una noche usa la fuerza para quitarse una pieza que lo bloquea y se va hacia la salida donde había un par de gamorreanos.
+
+404
+00:21:53,760 --> 00:21:57,880
+Y a través de la fuerza le hace pensar que no es el droide que buscan.
+
+405
+00:21:57,900 --> 00:22:00,320
+Y empieza a vagar por el desierto.
+
+406
+00:22:00,640 --> 00:22:12,160
+Pero claro, en el desierto, por muy Jedi que seas, te entra arena, está mal, no tiene dónde ir, está muriéndose, pero llegan unos jaguars que lo capturan.
+
+407
+00:22:12,260 --> 00:22:15,820
+Y ahí, capturado por los jaguars, conoce a C3PO y R2D2.
+
+408
+00:22:16,180 --> 00:22:19,900
+Ellos le cuentan su historia de cómo habían llegado hasta ahí.
+
+409
+00:22:20,060 --> 00:22:23,620
+Y bueno, un poco para que ubiquéis justo donde empieza la saga de Star Wars.
+
+410
+00:22:23,840 --> 00:22:33,660
+Y Skippy, R5D4, empieza a tener visiones de, con lo que le cuenta, se imagina una princesa con dos ensaimadas en la cabeza, literalmente.
+
+411
+00:22:34,480 --> 00:22:36,680
+Y bueno, todas esas historias sobre la galaxia.
+
+412
+00:22:36,880 --> 00:22:38,640
+Y al final llegan a la granja de los Lars.
+
+413
+00:22:38,940 --> 00:22:43,000
+Y Skippy detecta con la fuerza a Luke y dice, este es sensible como yo.
+
+414
+00:22:43,320 --> 00:22:53,040
+Y empieza a imaginarse su vida con él, como ambos estaban hecho el uno para el otro, y juntos, siendo ambos Jedi, pues, como podrían salvar la galaxia.
+
+415
+00:22:55,440 --> 00:22:59,380
+Así que, eso seguro que tiene un nombre, pero bueno.
+
+416
+00:22:59,400 --> 00:23:00,120
+Pues sí.
+
+417
+00:23:00,560 --> 00:23:13,980
+El caso es que usa la fuerza para que Owen lo elija él, porque no sé si recordáis la película cuando están buscando los droides, pues elige a C3P o porque necesitaba un traductor y tal, y luego elige a R5, que todo el espectador quería que eligiera R2, claro.
+
+418
+00:23:14,180 --> 00:23:17,840
+Así que él le transmite a Owen que él sí es el droide que está buscando.
+
+419
+00:23:18,240 --> 00:23:23,840
+Y bueno, en el momento que lo elige, en ese trayecto que va hacia sus nuevos dueños, él tiene una visión de futuro.
+
+420
+00:23:23,960 --> 00:23:29,220
+Él ve con la fuerza que R2 de 2, sin la ayuda de Luke, pues sería capturado por los Stormtroopers.
+
+421
+00:23:29,480 --> 00:23:33,640
+Volvería con Vader que averiguaría dónde está la base rebelde.
+
+422
+00:23:34,100 --> 00:23:36,700
+Acabaría con todos ellos usando la Estrella de la Muerte.
+
+423
+00:23:37,220 --> 00:23:39,240
+También acabaría con R2, con Leia.
+
+424
+00:23:39,660 --> 00:23:42,260
+Obi-Wan nunca llegaría a entrenar a Luke Skywalker.
+
+425
+00:23:42,500 --> 00:23:44,580
+Total, el imperio ganaría la guerra.
+
+426
+00:23:45,020 --> 00:23:55,020
+Así que R5, Skippy, el droide Jedi, se dio cuenta de que había llegado su momento para hacer algo grande y usar la fuerza para romper una pieza propia y estropearse.
+
+427
+00:23:55,080 --> 00:23:57,000
+Eso que vimos en la película es que el droide explotaba.
+
+428
+00:23:57,580 --> 00:24:00,320
+Lo hizo él queriendo, Skippy, droide Jedi.
+
+429
+00:24:00,560 --> 00:24:06,980
+Así que, por última vez, usó la fuerza y ordenó a C3PO que sugiriera a Owen que se llevara a R2.
+
+430
+00:24:07,260 --> 00:24:15,920
+Posteriormente, los Stormtroopers asaltaron a los Jaguars y Skippy, que estaba sin reparar todavía, fue abatido por uno de los disparos, uniéndose así con la fuerza.
+
+431
+00:24:19,640 --> 00:24:22,480
+En verdad, es que querían disparar a Owen y le dieron mal.
+
+432
+00:24:23,360 --> 00:24:29,480
+Y, de hecho, en la última viñeta del cómic lo podemos ver con el aura azul de Fantasma de la Fuerza.
+
+433
+00:24:29,500 --> 00:24:36,680
+Y en dicha viñeta, el narrador concluye la historia diciendo Se amable con tus droides y con tus electrodomésticos.
+
+434
+00:24:37,000 --> 00:24:45,560
+La próxima vez que, estando solo, te parezca sentir algo, oír un sutil beep en tu cabeza o el ruido de un motor funcionando, puede que le sientas a él.
+
+435
+00:24:45,660 --> 00:24:46,800
+Ahora es uno con la fuerza.
+
+436
+00:24:46,900 --> 00:24:49,420
+Y está siempre presente, buscando a otros como él.
+
+437
+00:24:49,640 --> 00:24:53,620
+Otros que puede que estén en tu cocina, en tu escritorio o en tu maletín.
+
+438
+00:24:53,780 --> 00:24:59,080
+Donde quiera que las máquinas sean despreciadas, donde puedan encontrarse seres conscientes, allí estará.
+
+439
+00:24:59,480 --> 00:25:01,280
+Skippy, el Droid de Jedi.
+
+440
+00:25:01,800 --> 00:25:02,420
+¡Aplausos!
+
+441
+00:25:03,940 --> 00:25:04,940
+¿Es lo robo de cocina?
+
+442
+00:25:04,960 --> 00:25:06,680
+Lo que hemos hablado antes, robo de cocina.
+
+443
+00:25:06,700 --> 00:25:07,060
+Sí, ¿verdad?
+
+444
+00:25:07,360 --> 00:25:08,860
+Todo nos cuadra, todo nos cuadra.
+
+445
+00:25:09,880 --> 00:25:19,560
+Así que bueno, si estáis un poco tristes con esta historia, que sepáis que en el nuevo canon de Disney está vivo y coleando, porque diez años después de este momento, que es el Mandaloriano, él sale en la serie.
+
+446
+00:25:19,800 --> 00:25:21,200
+Vale, él sale en el Mandaloriano.
+
+447
+00:25:21,220 --> 00:25:23,640
+No le llaman Skippy, le llaman R5 y sigue en Tatooine.
+
+448
+00:25:23,820 --> 00:25:25,720
+Con la mecánica Pelimoto.
+
+449
+00:25:25,740 --> 00:25:26,980
+Y no tiene poderes Jedi.
+
+450
+00:25:27,560 --> 00:25:28,240
+Que es horrible.
+
+451
+00:25:28,260 --> 00:25:32,640
+Y encima, en la última temporada, que se va con Mando por ahí a Mandalore, encima es un cobarde.
+
+452
+00:25:32,660 --> 00:25:35,540
+El tío no quería ir a detectar si era habitable aquello.
+
+453
+00:25:35,560 --> 00:25:37,180
+Porque le han quitado los poderes de la...
+
+454
+00:25:37,200 --> 00:25:38,460
+ya no tiene la fuerza, entonces...
+
+455
+00:25:38,920 --> 00:25:40,060
+O sea, no es un héroe.
+
+456
+00:25:40,840 --> 00:25:42,160
+No Disney, ¿por qué?
+
+457
+00:25:42,160 --> 00:25:42,800
+No es un héroe.
+
+458
+00:25:42,820 --> 00:25:46,220
+Encima, si tenía Midi-Chlorianos, era en su lubricante.
+
+459
+00:25:46,240 --> 00:25:47,100
+Lo ponen en el cómic.
+
+460
+00:25:47,120 --> 00:25:48,060
+Es impresionante.
+
+461
+00:25:49,040 --> 00:25:52,200
+Que acaba de estrenarse el episodio 1 y bueno, era duro.
+
+462
+00:25:52,460 --> 00:25:53,840
+Así que nada, esa era mi sección.
+
+463
+00:25:53,860 --> 00:25:55,820
+Y voy a poner canción de despedida.
+
+464
+00:25:56,100 --> 00:25:59,620
+Bueno, la canción de despedida es la intro de la serie de dibujos Droidz.
+
+465
+00:25:59,900 --> 00:26:01,560
+Lo digo así, del tirón.
+
+466
+00:26:01,580 --> 00:26:02,100
+Muy nueva también.
+
+467
+00:26:03,760 --> 00:26:08,620
+Bueno, la versión original está titulada Travel Again, Problemas Otra Vez.
+
+468
+00:26:08,780 --> 00:26:15,980
+La compuso y cantó Stewart Copeland, que a lo mejor por el nombre no suena, pero era el batería de Police.
+
+469
+00:26:16,260 --> 00:26:20,680
+Y bueno, en España la tradujo Emilio Aragón, pero no la cantaba él.
+
+470
+00:26:20,740 --> 00:26:22,600
+Y es imposible averiguar quién la canta.
+
+471
+00:26:22,620 --> 00:26:27,300
+Yo no la he encontrado, he buscado en todos lados durante 10 minutos esta tarde.
+
+472
+00:26:27,320 --> 00:26:28,520
+Y era imposible.
+
+473
+00:26:30,320 --> 00:26:30,880
+Así que...
+
+474
+00:26:31,000 --> 00:26:32,220
+¿Has sin cacha GPD?
+
+475
+00:26:32,800 --> 00:26:33,600
+No, no he caído.
+
+476
+00:26:33,620 --> 00:26:37,320
+Pero bueno, si alguien sabe quién canta esta canción, pues que nos lo diga en comentarios.
+
+477
+00:26:38,060 --> 00:26:39,880
+Así que, hay que bajar un temazo, ¿eh?
+
+478
+00:26:40,200 --> 00:26:41,900
+Travel Again, en español, es...
+
+479
+00:26:42,880 --> 00:26:43,280
+¿cómo era?
+
+480
+00:26:43,440 --> 00:26:44,980
+Lío otra vez, o algo así creo que era.
+
+481
+00:26:45,280 --> 00:26:46,200
+Un Lío otra vez.
+
+482
+00:26:46,740 --> 00:26:47,840
+Un Lío otra vez, ahí chao.
+
+483
+00:27:07,720 --> 00:27:08,360
+Estoy en.
+
+484
+00:27:46,840 --> 00:27:48,200
+Que buena esa canción.
+
+485
+00:27:48,220 --> 00:27:48,640
+Madre mía.
+
+486
+00:27:48,960 --> 00:27:49,560
+Qué guay.
+
+487
+00:27:49,580 --> 00:27:50,500
+Que recuerdos, por favor.
+
+488
+00:27:50,520 --> 00:27:51,540
+Somos unos viejos, tío.
+
+489
+00:27:52,280 --> 00:27:52,940
+Bueno, pues genial.
+
+490
+00:27:53,000 --> 00:27:54,260
+Muchas gracias Seidon Mafflime.
+
+491
+00:27:54,280 --> 00:27:56,200
+Y un programa sin recordar nuestra edad, por favor.
+
+492
+00:27:56,420 --> 00:27:57,000
+Totalmente.
+
+493
+00:27:57,200 --> 00:27:57,880
+Y genial, hombre.
+
+494
+00:27:57,900 --> 00:27:58,680
+Seidon trayendo...
+
+495
+00:27:59,020 --> 00:28:04,540
+Y por cierto, antes de que siga, recordad que Redos D2 es el mejor droide de la historia.
+
+496
+00:28:04,560 --> 00:28:05,780
+Un saludo para Phoebe.
+
+497
+00:28:05,800 --> 00:28:08,320
+Phoebe, nos acordamos de ti.
+
+498
+00:28:08,340 --> 00:28:08,940
+¿Qué estaba diciendo yo?
+
+499
+00:28:08,960 --> 00:28:15,960
+Así que encima Seidon nos ha venido con uno de sus temas originales, que es Star Wars, hombre, que él sigue siendo el especialista de Star Wars de Peskito y Medio.
+
+500
+00:28:16,420 --> 00:28:17,300
+A pesar de lo que él diga.
+
+501
+00:28:17,920 --> 00:28:21,520
+Y nada atrás de esto, vamos a pasar la mini recomendación de Mildred.
+
+502
+00:28:21,780 --> 00:28:23,080
+Adelante en tradilla.
+
+503
+00:28:25,240 --> 00:28:26,500
+Vaya, esto no me lo esperaba.
+
+504
+00:29:00,060 --> 00:29:01,340
+Son Zeta, Gana y Rosalía, ¿no?
+
+505
+00:29:01,360 --> 00:29:06,740
+Los que cantan.
+
+506
+00:29:06,760 --> 00:29:10,320
+Mi cuña termina por los juventud y yo empiezo por la juventud, eso es así.
+
+507
+00:29:11,600 --> 00:29:20,980
+Bueno, pues hemos escuchado los Silver Work, los Alcones Galácticos, que se traduce así porque Silver es Platón, ¿verdad?
+
+508
+00:29:21,000 --> 00:29:21,920
+Pero no se traduce así.
+
+509
+00:29:22,500 --> 00:29:26,940
+Y no voy a hablaros de ellos, sino de los humanos biónicos, los Cíbores en este caso.
+
+510
+00:29:28,260 --> 00:29:31,840
+Y no me voy a adelantar y voy a hacer la ficha como te gusta a ti, Alecrombie.
+
+511
+00:29:31,860 --> 00:29:32,620
+Toma, toma, toma.
+
+512
+00:29:32,640 --> 00:29:35,880
+Muy fan de la ficha, que Seidon ha hecho fichas en condiciones de los droides, bravo.
+
+513
+00:29:36,000 --> 00:29:37,420
+Bueno, mi ficha también va a ser...
+
+514
+00:29:39,740 --> 00:29:41,320
+He dicho los años de las cosas.
+
+515
+00:29:41,580 --> 00:29:42,340
+Es verdad, verdad.
+
+516
+00:29:43,620 --> 00:29:44,880
+¿Qué te gusta a ti siempre decir?
+
+517
+00:29:44,900 --> 00:29:45,880
+Pero cuánto es el...
+
+518
+00:29:46,720 --> 00:29:48,800
+El gramaje, el gramaje del cíborg, cuánto era.
+
+519
+00:29:48,820 --> 00:29:49,920
+Eso no lo ha dicho.
+
+520
+00:29:49,940 --> 00:29:53,200
+Uy, del cíborg, digo yo, del droide, cuánto era Seidon.
+
+521
+00:29:53,220 --> 00:29:54,460
+Siga usted adelante, me diré.
+
+522
+00:29:57,900 --> 00:29:59,060
+Yo tampoco te he hablado de gramaje.
+
+523
+00:30:00,080 --> 00:30:05,440
+Voy a hablaros de la famosa saga de las crónicas lunares de Marissa Meyer, por si alguien todavía no la conoce.
+
+524
+00:30:05,580 --> 00:30:09,380
+Pero la verdad es que se publicó en 2012 a 2015.
+
+525
+00:30:09,400 --> 00:30:11,300
+Es que sabe lo que me pasó.
+
+526
+00:30:12,920 --> 00:30:13,760
+Yo hice esto, ¿no?
+
+527
+00:30:14,040 --> 00:30:16,920
+Y dije, mira, algo más modernito.
+
+528
+00:30:16,940 --> 00:30:21,320
+Y luego me doy cuenta de que es 2012 y han pasado 11 años.
+
+529
+00:30:21,600 --> 00:30:22,900
+Casi 12 años va a pasar.
+
+530
+00:30:23,140 --> 00:30:24,240
+Pero para nosotros está bien.
+
+531
+00:30:24,420 --> 00:30:26,560
+Claro, para mí es juventud eso.
+
+532
+00:30:26,580 --> 00:30:30,100
+Hemos traído cosas de 80 y cosas de esas hace un momento, canciones.
+
+533
+00:30:30,160 --> 00:30:31,220
+Claro, todo lo que pase.
+
+534
+00:30:31,280 --> 00:30:33,620
+A partir de 2010, eso ya es juventud para nosotros.
+
+535
+00:30:33,640 --> 00:30:34,160
+De 2000, de 2000.
+
+536
+00:30:34,500 --> 00:30:35,160
+Incluso, ¿no?
+
+537
+00:30:35,180 --> 00:30:35,680
+Claro.
+
+538
+00:30:35,880 --> 00:30:51,080
+Bueno, en realidad voy a acusarme un poco porque de 2012 a 2015 la sacó la Editorial Montana, pero en noviembre de 2020 la Editorial Hydra la volvió a sacar con nuevas portadas, que no sé yo cuál de las dos versiones de las dos portadas me gusta más.
+
+539
+00:30:51,620 --> 00:30:58,900
+Así que si la habéis visto vosotros, Peskitos, y queréis votar cuál os gusta más, os dejamos nuestras redes abiertas, los tuiteres abiertos.
+
+540
+00:30:58,940 --> 00:31:04,460
+A mí se puede poner, cuando pongamos el programa, se puede poner una encuesta en Twitter para ver cuál de las dos mola más.
+
+541
+00:31:04,740 --> 00:31:06,860
+Yo creo que tengo una favorita, pero bueno.
+
+542
+00:31:06,880 --> 00:31:08,340
+Yo me encargo, pero recordármelo.
+
+543
+00:31:08,360 --> 00:31:10,820
+Seguro puedo tantas personas, por lo menos.
+
+544
+00:31:10,840 --> 00:31:14,160
+Yo no me acuerda que tenga una favorita y puede que tenga que ver con la gata.
+
+545
+00:31:14,740 --> 00:31:16,460
+La nostalgia me lleve pa hablar.
+
+546
+00:31:17,260 --> 00:31:19,260
+Voy a hablar de Marissa Meyer.
+
+547
+00:31:19,380 --> 00:31:23,580
+Nació el 19 de febrero de 1984 en Tacoma, Washington.
+
+548
+00:31:23,740 --> 00:31:24,760
+Vea cómo mola, ¿eh?
+
+549
+00:31:24,780 --> 00:31:25,380
+Nació en Tacoma.
+
+550
+00:31:25,640 --> 00:31:32,660
+Se tituló en Escritura Creativa, y antes de escribir Las Crónicas Lunares, trabajó como editora de libros durante 5 años.
+
+551
+00:31:32,700 --> 00:31:38,060
+Pero lo más guay de ella es que también escribía relatos de ficción basado en el manga de Sailor Moon.
+
+552
+00:31:38,460 --> 00:31:40,020
+Totalmente.
+
+553
+00:31:40,040 --> 00:31:40,520
+¡Pricazza!
+
+554
+00:31:40,540 --> 00:31:42,000
+Totalmente, contigo, Marissa.
+
+555
+00:31:42,600 --> 00:31:49,220
+La saga está compuesta por 4 libros, como trama principal, pero luego tienen como unos 12 o así, es que yo ya me pierdo, la verdad.
+
+556
+00:31:49,560 --> 00:31:50,360
+Que nos va explicando...
+
+557
+00:31:50,460 --> 00:31:52,940
+No, son unos 12 que yo me he documentado.
+
+558
+00:31:52,960 --> 00:31:54,420
+¿Tenemos un puente de flores?
+
+559
+00:31:54,440 --> 00:31:54,920
+Claro.
+
+560
+00:31:55,080 --> 00:31:57,440
+No es como Seidon que se ha preparado buscando 10 minutos.
+
+561
+00:31:57,460 --> 00:31:57,780
+Claro, no.
+
+562
+00:31:57,800 --> 00:32:06,680
+Yo esto me documenta a día de hoy, por la wikipedia, a día de hoy, a 27 de octubre de momento hay 12 libros.
+
+563
+00:32:06,940 --> 00:32:17,300
+Y entonces esto, o sea, hemos dicho cuatro principales y otros 12, que lo que añaden es el universo, el antes y el después, profundiza más en algunos personajes.
+
+564
+00:32:17,520 --> 00:32:20,480
+Yo tengo que decir que solo e exclusivamente me he leído la saga principal, ¿vale?
+
+565
+00:32:20,620 --> 00:32:29,720
+Pero por internet tenéis un montón de guías de cómo ir intercalando y cómo leer esta saga, incluyendo también los 12 libros extra.
+
+566
+00:32:30,020 --> 00:32:31,180
+Que está todo en español entonces.
+
+567
+00:32:31,300 --> 00:32:32,900
+Sí, bueno, yo sepa así.
+
+568
+00:32:33,260 --> 00:32:34,640
+Eso no me documenta tanto, fíjate.
+
+569
+00:32:37,600 --> 00:32:40,460
+Bueno, os voy a leer un poquito de las sinopsis.
+
+570
+00:32:41,480 --> 00:32:56,620
+Dice, bienvenidos a Nueva Pekín, metrópoli central de un mundo futuro donde humanos, cíbor y androides coexisten en precaria convivencia amenazados todos por una extraña y caprichosa plaga mortal 2012 para la que los científicos no encuentran cura.
+
+571
+00:32:57,060 --> 00:33:11,000
+Bueno, Cinder es el primer libro de la saga publicado en 2012 y además el nombre de nuestra protagonista, una cíbor, y a pesar de ser la mejor mecánica de Nueva Pekín, por ser cíbor, es ciudadana de segunda.
+
+572
+00:33:11,980 --> 00:33:16,780
+Nueva Pekín es una de las cinco zonas en las que está dividida la Tierra después de la Cuarta Guerra Mundial.
+
+573
+00:33:17,800 --> 00:33:26,100
+Bueno, la vida de Cinder no es fácil y a eso tenemos que añadirle la situación en la que se encuentra la Tierra en estos momentos, bueno, en los momentos del libro.
+
+574
+00:33:26,120 --> 00:33:31,340
+Tenemos una pandemia que está razando con la población una enfermedad súper contagiosa y mortal.
+
+575
+00:33:31,520 --> 00:33:32,120
+Qué fuerte.
+
+576
+00:33:32,980 --> 00:33:41,880
+La letumosis se llama, vuelvo a decir que el libro es de 2012, pero lo vas leyendo y tú dices, Dios mío, Dios mío, qué estoy leyendo, me suena.
+
+577
+00:33:42,380 --> 00:33:46,400
+Parece increíble, pero ahora podemos decir que leyendo ese tipo de cosas te pueden sonar.
+
+578
+00:33:46,580 --> 00:33:47,540
+Increíble, pero es cierto.
+
+579
+00:33:48,160 --> 00:33:51,700
+Y además también la paz con la Luna está en la cuerda floja.
+
+580
+00:33:52,280 --> 00:34:00,820
+Por primera vez, que a mí me encanta y tú ya sabes que yo lo digo siempre, no puedo decir que el libro es muy bonito, que es lo que a mí me gusta decir siempre de mis libros.
+
+581
+00:34:01,280 --> 00:34:12,020
+Este no lo puedo decir, pero ya sabéis, pandemia, ya nada más que con eso, no puedo decir que sea bonito, pero no es un green dark, lo he leído yo.
+
+582
+00:34:12,520 --> 00:34:19,060
+Bueno, pues en este primer libro, aparte de la historia de Cinder, nos va contando cómo es este nuevo en un mundo y no paran de pasar cosas.
+
+583
+00:34:19,580 --> 00:34:25,820
+Y aunque desde el principio a veces se intuyen algunas, como no paran de pasar cosas, pues no te aburres en ningún momento.
+
+584
+00:34:25,960 --> 00:34:34,220
+Pues eso que nos encontramos con una nueva distribución del mundo, cívor, androides, plaga, tensión entre la tierra y la luna, una especie de magia.
+
+585
+00:34:34,240 --> 00:34:48,200
+Y por si no tuviéramos los suficientes ingredientes, porque todo esto es el primer libro, son una 250 páginas, el primer libro Cinder son una 250 páginas, Marissa añade también otro elemento más.
+
+586
+00:34:48,620 --> 00:34:52,060
+Y es que nos encontramos con una revisión de los cuentos clásicos.
+
+587
+00:34:52,400 --> 00:34:57,540
+Que si te parece una tontería, pues no dejes de leerlo porque digas, ¿por qué iría a los cuentos clásicos?
+
+588
+00:34:57,820 --> 00:34:58,960
+No, porque no te afecta.
+
+589
+00:34:59,500 --> 00:35:04,200
+Pero si te mola, pues la verdad es que le da un toque, un toque simplemente, pero es curioso.
+
+590
+00:35:05,020 --> 00:35:18,820
+Entonces, los libros son Cinder, que es Cenicienta, primer libro, el segundo libro tenemos a Scarlett, que es Caperucita, el tercer libro es Cress, que es Rapunzel y Winter, que es Blancanieve.
+
+591
+00:35:19,120 --> 00:35:25,680
+Cada libro es el nombre de una protagonista y voy a hacer una especie de spoiler, bueno, es que no sé cómo llamarlo.
+
+592
+00:35:25,700 --> 00:35:26,660
+Alerón, alerón.
+
+593
+00:35:26,960 --> 00:35:29,480
+Un adelanto, un adelanto indiscreto.
+
+594
+00:35:29,780 --> 00:35:32,960
+No, es que yo no suelo hacer esto, pero lo voy a hacer, sí.
+
+595
+00:35:33,200 --> 00:35:33,620
+Venga.
+
+596
+00:35:34,740 --> 00:35:36,140
+No, porque en realidad no voy a hablar.
+
+597
+00:35:36,200 --> 00:35:38,040
+Con provocar.
+
+598
+00:35:40,000 --> 00:35:43,040
+No, no, porque no voy a hablar del contenido de los libros en realidad.
+
+599
+00:35:43,060 --> 00:35:43,980
+De el continente.
+
+600
+00:35:44,160 --> 00:35:45,760
+No sé, claro, entonces no sé cómo...
+
+601
+00:35:45,920 --> 00:35:46,680
+Una indirecta.
+
+602
+00:35:47,260 --> 00:35:48,820
+La sinosia de tercer libro.
+
+603
+00:35:48,840 --> 00:35:49,200
+No, no.
+
+604
+00:35:50,880 --> 00:35:52,140
+No tiene que ver con el contenido.
+
+605
+00:35:52,180 --> 00:35:52,880
+Tiene que ver con...
+
+606
+00:35:53,140 --> 00:35:54,800
+A ver, lo voy ya directamente.
+
+607
+00:35:55,380 --> 00:35:59,000
+No os preocupéis, podéis seguir escuchando si no lo habéis leído, porque no os va a afectar en nada.
+
+608
+00:35:59,140 --> 00:36:06,740
+Pero si vais a leer la saga, la principal, ya lo he dicho, que sepáis que no termina, que no son libros autoconclusivos.
+
+609
+00:36:07,180 --> 00:36:12,560
+Que cada libro lo que nos hace es introducir un nuevo personaje principal, pero sigue con los anteriores.
+
+610
+00:36:12,740 --> 00:36:18,040
+Es decir, que cuando tú termines Tinder, el libro no se ha cerrado nada.
+
+611
+00:36:18,060 --> 00:36:21,560
+O sea, de hecho termina como si fuera un capítulo normal y corriente.
+
+612
+00:36:21,920 --> 00:36:28,220
+Scarlett empieza donde terminó Tinder, igual, pero se incorpora esta nueva protagonista.
+
+613
+00:36:28,400 --> 00:36:33,140
+Entonces ya tenemos dos líneas de historia, así con cada uno de los libros.
+
+614
+00:36:33,540 --> 00:36:49,660
+Entonces, la saga va aumentando el número de páginas, el primer libro ya hemos dicho que tenía unas 250, y el último tiene unas 650 páginas, pero no se hace para nada pesadas porque es que no paran, o sea, porque estamos metiendo todo el tiempo tramas nuevas cada una de las protagonistas.
+
+615
+00:36:49,940 --> 00:37:00,960
+Yo, por lo ameno que es, por lo especial de cada uno de los personajes, que son espectaculares, por los temas que tratan, increíbles para esa época también, le doy a la saga.
+
+616
+00:37:00,980 --> 00:37:03,800
+De verónica Lunare, 8, 25 tutanitos.
+
+617
+00:37:04,460 --> 00:37:06,160
+Bueno, he puesto 23, sumado.
+
+618
+00:37:06,620 --> 00:37:07,780
+Bueno, puedes cambiar de idea.
+
+619
+00:37:07,800 --> 00:37:08,640
+Me venía arriba.
+
+620
+00:37:08,660 --> 00:37:09,860
+Me venía arriba.
+
+621
+00:37:09,880 --> 00:37:10,740
+Como la sección de Seidon.
+
+622
+00:37:11,140 --> 00:37:17,920
+Que por cierto, se supone que Warner va a sacar una película animada, pero no se sabe si va a ser un resumen de las cuatro, solo la primera y tal.
+
+623
+00:37:18,600 --> 00:37:19,080
+Y no sé.
+
+624
+00:37:19,320 --> 00:37:22,020
+Como lo compré en Netflix, te hace la primera y te corta.
+
+625
+00:37:22,480 --> 00:37:22,880
+Totalmente.
+
+626
+00:37:26,700 --> 00:37:27,460
+Hasta aquí tu sección.
+
+627
+00:37:27,560 --> 00:37:27,600
+Adiós.
+
+628
+00:37:54,710 --> 00:37:55,910
+Terminaron por todo lo harto, ¿eh?
+
+629
+00:37:56,130 --> 00:37:56,930
+Por todo lo harto.
+
+630
+00:37:59,190 --> 00:38:00,870
+Y Metal Alchemist, muy buen anime.
+
+631
+00:38:01,290 --> 00:38:01,750
+Pues sí.
+
+632
+00:38:01,830 --> 00:38:03,170
+Manga también, pero como...
+
+633
+00:38:03,190 --> 00:38:03,350
+No, no, no.
+
+634
+00:38:03,410 --> 00:38:03,850
+Pero anime.
+
+635
+00:38:04,630 --> 00:38:05,090
+O anime.
+
+636
+00:38:05,690 --> 00:38:06,230
+O anime.
+
+637
+00:38:07,330 --> 00:38:08,510
+Pues genial.
+
+638
+00:38:08,810 --> 00:38:17,910
+Pues tras la sección de una de las nonas, bueno, sección, mini recomendación o notas mini, yo que sé, pasamos a la mini recomendación de la otra nona, de Joy.
+
+639
+00:38:18,050 --> 00:38:18,930
+Adelante, entradilla.
+
+640
+00:39:08,310 --> 00:39:10,530
+Bueno, pues yo traigo un videojuego.
+
+641
+00:39:10,670 --> 00:39:27,390
+Sorprendentemente traigo un videojuego yo y se llama Planet of Lana, que es un que tengo que decir, porque ya lo terminamos hace ya un tiempito y escuchar la música del videojuego de verdad te da calorcito en el corazón.
+
+642
+00:39:27,410 --> 00:39:28,210
+Me encanta.
+
+643
+00:39:28,970 --> 00:39:36,470
+Es un videojuego de plataformas y puzzles de 2023, es de este año, y el género se puede englobar en acción y aventuras.
+
+644
+00:39:37,330 --> 00:39:52,750
+Está desarrollado por, atención, Wishfully Studios y publicado por Thunderful Publishing para Microsoft Windows, Xbox One, Xbox Series X y S.
+
+645
+00:39:53,870 --> 00:39:59,690
+Y bueno, como he dicho, es un juego de plataformas y puzzles y también tiene un componente de sigilo.
+
+646
+00:40:00,470 --> 00:40:14,770
+El movimiento tiene una perspectiva de desplazamiento lateral, que para mí es maravilla, porque no hay peligro de perderte en mapas ni para las personas que puedan sufrir de mareos y náuseas, que tiene un nombre, eso, con los que nos mareamos con los videojuegos.
+
+647
+00:40:15,090 --> 00:40:16,110
+Cinetosis, se llama.
+
+648
+00:40:16,770 --> 00:40:17,870
+Pues en este juego nada.
+
+649
+00:40:17,930 --> 00:40:19,830
+¿Se oye que te huele mal el aliento?
+
+650
+00:40:20,270 --> 00:40:22,870
+No, eso se llama de otra forma, creo.
+
+651
+00:40:22,930 --> 00:40:23,830
+¿En los cines?
+
+652
+00:40:23,890 --> 00:40:24,870
+Tú lo sabrás, a lo mejor.
+
+653
+00:40:29,130 --> 00:40:31,890
+Ha puesto trichas alrededor.
+
+654
+00:40:32,050 --> 00:40:34,710
+Tú por qué te crees que yo quería tener otro micro, ¿Seidon?
+
+655
+00:40:35,190 --> 00:40:39,550
+¿Es que se lo ha buscado?
+
+656
+00:40:42,590 --> 00:40:44,890
+Bueno, ¿de qué va Planet of Lana?
+
+657
+00:40:45,510 --> 00:40:47,530
+Pues va de Lana y de su planeta.
+
+658
+00:40:48,470 --> 00:40:48,790
+Y fin.
+
+659
+00:40:57,210 --> 00:41:05,530
+Pues no, en el juego el jugador toma el control de una niña o una chica joven que se llama Lana.
+
+660
+00:41:05,990 --> 00:41:10,450
+Y va explorando su planeta que ha sido invadido por robots alienígenas.
+
+661
+00:41:10,690 --> 00:41:13,250
+Tiene robots, por eso traigo yo el juego.
+
+662
+00:41:13,270 --> 00:41:15,430
+Y los robots son malos.
+
+663
+00:41:15,690 --> 00:41:20,290
+Y se han dedicado a secuestrar a todos los habitantes del planeta, incluida a su hermana Hilo.
+
+664
+00:41:21,070 --> 00:41:24,610
+Sí, son dos hermanas, una se llama Lana y la otra se llama Hilo.
+
+665
+00:41:25,010 --> 00:41:26,390
+Son muy textiles, las dos.
+
+666
+00:41:27,850 --> 00:41:35,650
+En realidad Hilo no se escribe como Hilo de aquí de Cosé, sino que se escribe como Né y Sinachi.
+
+667
+00:41:36,910 --> 00:41:37,530
+¡Qué desastre!
+
+668
+00:41:38,810 --> 00:41:46,050
+Pues, a lo largo de su aventura...
+
+669
+00:41:46,170 --> 00:41:48,890
+El Marco tiene tela.
+
+670
+00:41:48,930 --> 00:41:49,470
+¿En serio?
+
+671
+00:41:57,090 --> 00:41:58,850
+Bueno, venga, dale, y que luego pierdes el Hilo.
+
+672
+00:41:58,870 --> 00:42:00,410
+Cada uno que se mete a llanzar...
+
+673
+00:42:00,990 --> 00:42:12,870
+Pues eso, que a lo largo de su aventura, en busca de su hermana, se encuentra con un bichito monérrimo que recuerda mucho a un gato que se llama Muy.
+
+674
+00:42:13,130 --> 00:42:14,010
+¿Cómo que recuerda?
+
+675
+00:42:14,030 --> 00:42:14,850
+Para mí es un gato.
+
+676
+00:42:15,230 --> 00:42:17,690
+Sí, para mí también es un gato.
+
+677
+00:42:17,710 --> 00:42:20,930
+Pero no es un gato porque es de otro planeta extraño, pero bueno, que sí.
+
+678
+00:42:21,290 --> 00:42:24,730
+Con mucha pinta de gato chiquitito y negro y bonísimo.
+
+679
+00:42:25,510 --> 00:42:31,790
+Este compañero adorable la acompaña y le ayuda a resolver diferentes acertijos a lo largo del juego, que eso está muy guay.
+
+680
+00:42:32,270 --> 00:42:36,990
+Tiene características especiales que son necesarias para poder avanzar en la trama.
+
+681
+00:42:37,230 --> 00:42:43,190
+Como por ejemplo puede dar saltos súper grandes o hipnotizar criaturas hostiles que van apareciendo.
+
+682
+00:42:43,210 --> 00:42:49,270
+Que aparecen bichos súper enormes y el gatito este lo hipnotiza y lo puede controlar.
+
+683
+00:42:50,310 --> 00:42:53,530
+Es un juego visualmente preciosísimo.
+
+684
+00:42:54,210 --> 00:42:58,290
+El arte y los colores y los escenarios son súper bonitos.
+
+685
+00:42:59,010 --> 00:43:04,590
+Y he leído, aunque yo cuando lo jugué no me di cuenta o no lo asocié.
+
+686
+00:43:05,050 --> 00:43:10,890
+Pero he leído en muchos sitios además, en varios sitios, que está inspirado en películas del estudio Ghibli.
+
+687
+00:43:11,650 --> 00:43:18,590
+Es un juego que es totalmente independiente del idioma, apenas tiene diálogo y lo poco que tiene es en un idioma inventado.
+
+688
+00:43:19,290 --> 00:43:25,230
+Además, bastante corto, que para mí también eso es bien, porque yo me suelo agobillar cuando los juegos son muy largos.
+
+689
+00:43:25,530 --> 00:43:27,450
+Y dura eso, dura como unas cinco horas.
+
+690
+00:43:28,130 --> 00:43:37,490
+Y es verdad que he leído que si habéis jugado juegos de este estilo, y digo los nombres que a lo mejor vosotros lo conocéis, Inside y Limbo, yo como no tengo ni idea, pues nada.
+
+691
+00:43:37,990 --> 00:43:42,810
+Pues dicen que este concretamente no es muy innovador y que los puzzles pueden ser repetitivos.
+
+692
+00:43:43,450 --> 00:43:52,010
+Pero para mí que yo no tengo cultura ni experiencia de videojuegos, pues pareció súper original y la verdad que no se me ha hecho para nada pesado.
+
+693
+00:43:52,650 --> 00:43:59,010
+Y encima, aunque sea corto, nosotros que somos jugadores casuales, pues todavía se hace mucho menos repetitivo, claro.
+
+694
+00:43:59,030 --> 00:44:02,970
+Al menos si lo juegas seguido, pues sí que puede ser, pues eso, más repetitivo.
+
+695
+00:44:04,010 --> 00:44:13,190
+Y nada, como curiosidad, el desarrollo del juego se originó a partir de una imagen que el director, que se llama, pues fui, no sé por qué lo he puesto.
+
+696
+00:44:13,670 --> 00:44:16,770
+Adam, a ver cómo se pronuncia el apellido de este hombre.
+
+697
+00:44:20,810 --> 00:44:22,910
+Adam, star-lu-ju-s, star-lu-ju-s, star-ju-s.
+
+698
+00:44:23,370 --> 00:44:26,890
+Hay muchas consonantes por ahí y hay dos.
+
+699
+00:44:26,910 --> 00:44:27,510
+¿Como de estrellas?
+
+700
+00:44:27,770 --> 00:44:30,730
+No, que va, que va.
+
+701
+00:44:30,830 --> 00:44:33,870
+Mira, la J transforma las N's y ya es pronunciable.
+
+702
+00:44:34,110 --> 00:44:36,350
+Eso, pero es que una es S-T-J-A-R-N-L-J-U-S, ¿vale?
+
+703
+00:44:36,370 --> 00:44:37,690
+Yo me quedo de agua.
+
+704
+00:44:46,350 --> 00:44:47,570
+Es el nombre de tribujina.
+
+705
+00:44:47,590 --> 00:44:49,430
+Perdón, perdón.
+
+706
+00:44:51,150 --> 00:45:05,210
+Pues este hombre, con ese apellido tan fantástico, hizo un dibujo en 2017 que se veía a una niña mirando a una criatura robótica y eso hizo que esa imagen se convirtiera en la base del juego después.
+
+707
+00:45:05,370 --> 00:45:14,370
+Y nada, como conclusión, que es un juego precioso, de un disfrute visual con una ambientación cautivadora y que yo recomiendo muchísimo.
+
+708
+00:45:15,770 --> 00:45:17,950
+Termina el juego y yo aplaudí.
+
+709
+00:45:18,830 --> 00:45:20,270
+Es maravilloso, de verdad, me encantó.
+
+710
+00:45:20,950 --> 00:45:30,270
+Y de los últimos que hemos jugado, sin duda, mis favoritos, que tampoco los tenía complicados porque los últimos que hemos jugado es para tirarte por el barcón.
+
+711
+00:45:30,790 --> 00:45:32,310
+Es muy fuerte, es increíble.
+
+712
+00:45:32,330 --> 00:45:34,130
+Pero las historias, no los juegos.
+
+713
+00:45:34,150 --> 00:45:35,170
+Las historias, las historias.
+
+714
+00:45:35,190 --> 00:45:37,490
+Pero últimamente todos los juegos terminen con historias chungas.
+
+715
+00:45:37,670 --> 00:45:39,810
+No, pero, o sea, exagerado.
+
+716
+00:45:40,130 --> 00:45:43,370
+Este no, este te dan ganas de vivir, de verdad, está muy bien.
+
+717
+00:45:44,430 --> 00:45:47,270
+Y nada, eso que yo le voy a dar, 8, 9 Tutanitos.
+
+718
+00:45:48,630 --> 00:45:49,750
+¿Tú Seidon que lo has jugado?
+
+719
+00:45:49,750 --> 00:45:54,370
+Así de forma espontánea te pregunto, ¿tienes algo que decir?
+
+720
+00:45:55,470 --> 00:45:58,830
+¿Quieres añadir algo a mi maravillosa sección?
+
+721
+00:45:58,850 --> 00:45:59,550
+No, para nada.
+
+722
+00:46:00,330 --> 00:46:01,250
+Ha sido perfecta.
+
+723
+00:46:09,410 --> 00:46:13,310
+A veces decimos Tutanito, pero no importa.
+
+724
+00:46:13,330 --> 00:46:13,670
+No pasa nada.
+
+725
+00:46:13,670 --> 00:46:15,150
+Se quita y se pone después.
+
+726
+00:46:15,170 --> 00:46:16,670
+Es fuerte que no estás compenetrado.
+
+727
+00:46:18,010 --> 00:46:18,830
+El troleador.
+
+728
+00:46:22,330 --> 00:46:24,130
+Los tutanitos, simplemente como se suelen dar.
+
+729
+00:46:24,150 --> 00:46:25,090
+Yo también le doy una nota alta.
+
+730
+00:46:29,350 --> 00:46:30,610
+Y esto no lo pongas si quieres.
+
+731
+00:46:30,790 --> 00:46:30,850
+Pile ellos.
+
+732
+00:47:30,220 --> 00:47:34,640
+No te preocupes Seidon, que el programa de hoy también va a acabar por lo harto.
+
+733
+00:47:51,270 --> 00:47:51,630
+Va, no te preocupes.
+
+734
+00:47:51,650 --> 00:47:51,990
+Te lo van a tirar por lo harto.
+
+735
+00:47:52,010 --> 00:47:52,050
+Poledeluxe.
+
+736
+00:47:52,070 --> 00:47:53,170
+Pues venga, aprovechamos la pausa para dar la frase que tienen que poner nuestros oyentes en el programa para conseguir la Poledeluxe de este Pimp 47.
+
+737
+00:47:53,190 --> 00:47:57,980
+Y como no, se le ha ocurrido a Malcolm, que nos la va a decir a continuación.
+
+738
+00:47:58,980 --> 00:48:00,920
+Voy a intentar poner voz de Arnold.
+
+739
+00:48:01,880 --> 00:48:03,720
+Ven conmigo si quieres, pole.
+
+740
+00:48:04,960 --> 00:48:08,080
+Pues ya sabéis, Peskiter.
+
+741
+00:48:08,520 --> 00:48:09,860
+Ven conmigo si quieres, pole.
+
+742
+00:48:10,480 --> 00:48:13,680
+Ponerlo en e-box o donde queráis, en Spotify.
+
+743
+00:48:13,720 --> 00:48:14,640
+Donde quiera ir, no.
+
+744
+00:48:14,660 --> 00:48:16,220
+O sea, te lo ponen en un cuaderno en tu casa.
+
+745
+00:48:16,240 --> 00:48:17,500
+Además me lo puedo poner, pero...
+
+746
+00:48:17,520 --> 00:48:18,360
+Va a quedar feo.
+
+747
+00:48:18,380 --> 00:48:19,300
+Me harás una foto.
+
+748
+00:48:20,200 --> 00:48:21,140
+Yo no lo prohíbo.
+
+749
+00:48:21,160 --> 00:48:21,800
+Yo no lo prohíbo.
+
+750
+00:48:21,820 --> 00:48:24,760
+Ya que ganes la pole, a lo mejor no la ganas, pero...
+
+751
+00:48:26,180 --> 00:48:27,940
+Lo escribes en tiza en el suelo.
+
+752
+00:48:32,660 --> 00:48:33,440
+Increíble.
+
+753
+00:48:36,200 --> 00:48:37,880
+Pues genial, vamos intercambiando temas.
+
+754
+00:48:37,900 --> 00:48:41,520
+Hemos empezado con Droid.
+
+755
+00:48:41,520 --> 00:48:42,740
+Ha sido Droid de lo primero, ¿verdad?
+
+756
+00:48:42,760 --> 00:48:43,240
+Hoy estoy fada.
+
+757
+00:48:43,600 --> 00:48:46,960
+Vamos con Droid, hemos intercambiado novelas, ahora videojuegos.
+
+758
+00:48:46,980 --> 00:48:51,480
+Y bueno, ahora le toca al servidor con otra sección y yo voy a repetir.
+
+759
+00:48:51,660 --> 00:48:53,160
+Yo vengo con un libro.
+
+760
+00:48:53,680 --> 00:48:54,180
+Entradilla.
+
+761
+00:49:01,680 --> 00:49:06,400
+Bueno, pues yo tengo que decir que el libro que traigo hoy tiene mucho en común con el que ha traído Mildre.
+
+762
+00:49:06,720 --> 00:49:10,240
+Porque yo, por lo que tú has dicho, tiene pinta que el tuyo también es novela juvenil, ¿verdad?
+
+763
+00:49:10,620 --> 00:49:11,420
+Yo creo que no lo has dicho.
+
+764
+00:49:11,560 --> 00:49:13,800
+Estabas medio atento a tu sección.
+
+765
+00:49:14,780 --> 00:49:15,600
+Pues sí, yo voy a traerlo.
+
+766
+00:49:15,620 --> 00:49:16,980
+Yo lo he dicho porque no hacía falta decirlo.
+
+767
+00:49:17,320 --> 00:49:18,200
+Porque se notaba, ¿no?
+
+768
+00:49:22,020 --> 00:49:23,760
+Es que Alecrombie no sabe leer entre líneas.
+
+769
+00:49:23,880 --> 00:49:24,180
+Claro.
+
+770
+00:49:24,560 --> 00:49:29,620
+Pues yo voy a traer, aunque no es mi target, mi target, una novela juvenil, ¿vale?
+
+771
+00:49:30,020 --> 00:49:34,300
+Y el título del libro es La viuda de hierro, Iron Widow.
+
+772
+00:49:34,400 --> 00:49:34,840
+¿Widow?
+
+773
+00:49:35,220 --> 00:49:36,680
+Widow.
+
+774
+00:49:36,700 --> 00:49:37,300
+¿Para qué me meto?
+
+775
+00:49:37,320 --> 00:49:37,960
+¿Para qué me meto?
+
+776
+00:49:40,500 --> 00:49:41,540
+Es una superheroína, ¿no?
+
+777
+00:49:41,560 --> 00:49:43,320
+La serie no tanto, pero la película es toda muy chula.
+
+778
+00:49:43,400 --> 00:49:43,640
+¿Cuál?
+
+779
+00:49:43,960 --> 00:49:44,320
+Widow.
+
+780
+00:49:44,540 --> 00:49:45,020
+Ah, ¿Widow?
+
+781
+00:49:45,040 --> 00:49:46,040
+Sí, la serie, bueno.
+
+782
+00:49:47,260 --> 00:49:50,340
+Una superheroína se llama Iron Widow, ¿o cómo sea?
+
+783
+00:49:51,080 --> 00:49:54,580
+No, era por la coincidencia entre Iron Man y Black Widow.
+
+784
+00:49:54,600 --> 00:49:56,120
+Sí, pues esto es una mezcla.
+
+785
+00:49:56,700 --> 00:50:00,420
+Bueno, la autora, estáis preparados, ¿no?
+
+786
+00:50:00,900 --> 00:50:11,160
+Es Xiran Jay Zhao, el título salió en España, el libro se publicó en 2022, y la editorial que la saca en España es Molino.
+
+787
+00:50:12,940 --> 00:50:20,600
+Son unas 512 páginas y tenemos tanto en tapa blanda como en digital, 18 euros más o menos, y la digital a unos 8.
+
+788
+00:50:21,000 --> 00:50:22,540
+La tapa dura no la tenemos en español.
+
+789
+00:50:23,420 --> 00:50:32,660
+Y decir que es una biología y que el segundo libro todavía no ha salido ni siquiera en inglés, que está ya preparado para abril de 2024 más o menos.
+
+790
+00:50:33,260 --> 00:50:37,380
+Y ya sabéis, he hecho la pequeña ficha del libro, vamos a hablar un poquito de la autora, ¿vale?
+
+791
+00:50:37,600 --> 00:50:39,420
+El Mildred ha hecho muy bien hoy su sección.
+
+792
+00:50:39,440 --> 00:50:41,220
+Estamos muy encantados de cómo la ha organizado.
+
+793
+00:50:42,540 --> 00:50:45,440
+Bueno, no he dicho el precio, no he dicho de tapa, no he dicho el gramaje.
+
+794
+00:50:45,500 --> 00:50:46,680
+Demasiado, demasiado.
+
+795
+00:50:48,260 --> 00:50:50,020
+Con mis capacidades te refiero.
+
+796
+00:50:50,860 --> 00:50:51,920
+Bueno, sobre la autora.
+
+797
+00:50:52,380 --> 00:50:55,780
+Nació en el 97, tiene 26 añitos, ¿vale?
+
+798
+00:50:56,320 --> 00:50:56,860
+En China.
+
+799
+00:50:58,140 --> 00:51:08,000
+Ella emigró a Canadá junto con su familia desde una aldea y se creó, esto lo pone literalmente en su, ella en su, te comillas biografía, del libro, se creó con internet.
+
+800
+00:51:08,880 --> 00:51:13,040
+Graduada en la universidad, bueno, en Vancouver y...
+
+801
+00:51:13,060 --> 00:51:14,240
+Pensé que vas a decir de la vida.
+
+802
+00:51:14,420 --> 00:51:19,560
+No, no, en la universidad Simon Fraser, de Vancouver, digo que más verá, yo no conozco la universidad.
+
+803
+00:51:19,880 --> 00:51:27,040
+Cuando debería haber estado empollando sobre vías biometabólicas, se dedicaba a escribir relatos de ciencia, ficción y fantasía.
+
+804
+00:51:27,080 --> 00:51:27,880
+Que guay, tío.
+
+805
+00:51:28,460 --> 00:51:36,500
+Mira, búscale en Twitter para disfrutar de sus memes, en Instagram de sus cosplays y ropa molona, y en YouTube para sus vídeos sobre historia y culturas chinas.
+
+806
+00:51:37,420 --> 00:51:37,740
+¿Vale?
+
+807
+00:51:37,920 --> 00:51:40,140
+O sea, esta es una fricaza, ¿vale?
+
+808
+00:51:40,700 --> 00:51:45,320
+Y encima hace también vídeos, en plan, en graciosos, y tipo memes y cosas de esas.
+
+809
+00:51:45,360 --> 00:51:46,060
+Está graciosa.
+
+810
+00:51:47,140 --> 00:51:51,080
+Y decir que Iron, o sea, la viuda de...
+
+811
+00:51:51,100 --> 00:51:53,020
+La viuda de Iron es su primera novela, ¿vale?
+
+812
+00:51:53,580 --> 00:51:54,500
+Centro Música Seidon.
+
+813
+00:52:04,230 --> 00:52:09,630
+Una heroína temeraria e indomable que si no puede cambiar el mundo le prenderá fuego.
+
+814
+00:52:10,510 --> 00:52:23,290
+Los chicos de Waxia sueñan con ser emparejados con una chica para poder convertirse en pilotos de crisálidas, los gigantes mecanizados que se usan para luchar contra las criaturas que acechan al otro lado de la gran muralla.
+
+815
+00:52:24,230 --> 00:52:31,750
+El mayor honor para una chica de Waxia es que la seleccionen como piloto con cubina, aunque eso signifique una muerte segura.
+
+816
+00:52:32,470 --> 00:52:37,270
+Cuando su hermana muere en una crisálida, Cetian le toma el relevo para vengarla.
+
+817
+00:52:37,970 --> 00:52:44,610
+La revancha es rápida, brutal e inesperada, y Cetian se gana el apelativo de la viuda de hierro.
+
+818
+00:52:45,970 --> 00:52:51,730
+Una temida mujer piloto que sacrifica a los hombres y no al revés para propulsar las crisálidas.
+
+819
+00:52:52,510 --> 00:53:00,790
+Para domar su inquietante pero valiosísima fuerza mental, la emparejan con Li Ximin, el piloto más fuerte y controvertido de todo el país.
+
+820
+00:53:01,450 --> 00:53:06,530
+Pero ahora que ha aprobado el poder, Cetian no se doblegará tan fácilmente.
+
+821
+00:53:07,410 --> 00:53:13,610
+Aprovechará sus dones y su infamia para sobrevivir a un intento tras otro de acabar con su vida.
+
+822
+00:53:14,170 --> 00:53:21,510
+Hasta averiguar por qué el sistema de pilotos depende tanto de destruir la vida de las chicas y arrasarlo para siempre.
+
+823
+00:53:35,320 --> 00:53:50,380
+Tras la sinopsis, quiero, lo primero que tengo que hacer es dar la gracia a Javier Muñoz, porque este libro yo lo conozco por una recomendación que él nos dio en uno de los comentarios de hace un año, en PIN 35, en el Peskito y Medio del verano pasado.
+
+824
+00:53:51,160 --> 00:53:57,660
+Resulta que en ese hicimos un montón de recomendación y él, cuando nos dio la opinión del programa, pues dice mira que me ley este libro y que mola mucho que lo recomiendo.
+
+825
+00:53:58,060 --> 00:54:04,720
+Y bueno, yo aquí no solamente recomendamos cosas, sino también tomamos notas de Peskitos.
+
+826
+00:54:05,260 --> 00:54:08,980
+Que tomamos notas, que realmente la tenemos en cuenta.
+
+827
+00:54:09,000 --> 00:54:10,100
+Aunque yo voy un poquito tarde.
+
+828
+00:54:10,120 --> 00:54:13,420
+Mira, ha pasado un año y pico, pero oye, ahí lo llevo.
+
+829
+00:54:13,780 --> 00:54:18,680
+Así que nada, Javier, que aquí va mi reseña de esta recomendación tuya.
+
+830
+00:54:18,920 --> 00:54:22,580
+El tema es que, como he dicho, es una recomendación rapidita.
+
+831
+00:54:22,680 --> 00:54:26,640
+Entonces vamos a pensar en algunos conceptos y vamos a hacer una especie de...
+
+832
+00:54:26,660 --> 00:54:31,420
+Lo metemos como si fueran los ingredientes y lo metemos en el robot de cocina que hemos hablado antes.
+
+833
+00:54:31,640 --> 00:54:34,880
+Ambientación futurista inspirada en la china medieval.
+
+834
+00:54:35,300 --> 00:54:40,000
+Un protagonista que es una antiheroína.
+
+835
+00:54:40,000 --> 00:54:41,000
+¿Se puede decir antiheroína?
+
+836
+00:54:41,020 --> 00:54:41,320
+Sí, ¿no?
+
+837
+00:54:41,540 --> 00:54:43,040
+Que busca venganza a toda costa.
+
+838
+00:54:43,420 --> 00:54:44,600
+Situaciones sorprendentes.
+
+839
+00:54:45,100 --> 00:54:51,040
+Pilotos que tienen grados de poder, que lo llaman Qi, al más puro estilo bola de dragón.
+
+840
+00:54:51,360 --> 00:54:56,880
+Cuando llega Vegeta con los con los radares estos que tienen en la en la cabeza.
+
+841
+00:54:57,480 --> 00:55:00,920
+O los midiclorianos precisamente que ha hablado Seidon McFly, ¿vale?
+
+842
+00:55:01,300 --> 00:55:02,080
+Tiene romance.
+
+843
+00:55:02,280 --> 00:55:10,060
+Tiene mecas enormes, estas crisálidas, en combates contra hundunes, que son unos kaijus alienígenas super tochos.
+
+844
+00:55:10,900 --> 00:55:12,200
+Tiene capítulos super cortos.
+
+845
+00:55:12,400 --> 00:55:15,960
+Esto es como a Joy le encantan los videojuegos cortos.
+
+846
+00:55:15,980 --> 00:55:17,680
+A mí me encantan los libros con capítulos cortos.
+
+847
+00:55:18,580 --> 00:55:32,740
+Una sociedad demasiado machista, pero hasta el extremo de sacrificar a las mujeres, con la prota luchando y sobreviviendo para conseguir un cambio, escritura ágil sin descripciones pesadas, que yo también soy muy fan de descripciones ligeras, y un final totalmente inesperado.
+
+848
+00:55:32,920 --> 00:55:35,500
+Vamos, realmente el final te vuelve la cabeza, ¿vale?
+
+849
+00:55:35,680 --> 00:55:40,100
+Pues mira, lo mezclamos todo, le damos a velocidad 4 y como resultado sale este libro.
+
+850
+00:55:40,220 --> 00:55:45,360
+Que por cierto, cuando Mildred está escribiendo algunas cosillas del suyo, a mí me ha recordado algunas cosas, ¿vale?
+
+851
+00:55:46,560 --> 00:55:50,520
+Así que creo que incluso pueden ir al mismo target ambos libros, puede ser.
+
+852
+00:55:50,780 --> 00:55:57,080
+No, porque tú este me has dicho que es un chungo, y este hombre el mío ya te he dicho que no es bonito, pero no.
+
+853
+00:55:57,480 --> 00:56:01,500
+O sea, pasan algunas cosas, pero no te quieres quitar la vida.
+
+854
+00:56:01,720 --> 00:56:02,200
+Bueno, bueno.
+
+855
+00:56:02,900 --> 00:56:04,040
+El tuyo sí es chungo.
+
+856
+00:56:05,060 --> 00:56:17,140
+Pues nada, teniendo en cuenta esto, pues decir que el libro me ha gustado, o sea que yo lo recomiendo, que me ha alegrado de leerlo, me ha entretenido mucho y la verdad que me lo he leído bastante rápido.
+
+857
+00:56:17,740 --> 00:56:19,280
+He tenido en cuenta que son 500 páginas.
+
+858
+00:56:20,560 --> 00:56:26,120
+Sobre lo que como siempre hago, voy a dar unos pros y unos contras y doy los tutanitos, que tampoco me quiero enrollar mucho, sino entre spoiler y tal.
+
+859
+00:56:27,660 --> 00:56:28,740
+Los pros, las cosas buenas.
+
+860
+00:56:29,020 --> 00:56:32,220
+Que es verdad que ocurren cosas casi todo el tiempo y se te pasa volando.
+
+861
+00:56:32,240 --> 00:56:35,300
+Ve eso, también me ha recordado a los libros de Mildred, que es muy entretenido.
+
+862
+00:56:36,360 --> 00:56:41,800
+Es verdad que muchas de las cosas que pasan no te las esperas, o será que yo soy muy nocentón y yo digo, esto no va a pasar.
+
+863
+00:56:42,320 --> 00:56:43,080
+Y eso está guay.
+
+864
+00:56:43,560 --> 00:56:48,100
+Que la tía también va, la protagonista es que es súper bruta, vamos, va a saco.
+
+865
+00:56:48,280 --> 00:56:56,240
+Y el final, que por un lado, eso puede decir que estamos cerrados, las tramas que se abren en el propio libro se cierran todas, yo creo, prácticamente todas.
+
+866
+00:56:56,640 --> 00:56:59,060
+Yo he terminado y me he quedado bien.
+
+867
+00:56:59,340 --> 00:57:12,680
+Pero es verdad que te deja un final con un grijander súper grande y te entran ganas de leerte el siguiente libro para ver ese melón tan grande que han abierto, pero que no lo necesitas, como bueno, cuando a veces hay una peli o un libro que termina con un final abierto y te lo dejan ahí.
+
+868
+00:57:13,300 --> 00:57:19,200
+Está guay, pero es verdad que yo tomo nota y me imagino que me lo acabaré leyendo por curiosidad, porque es bastante interesante.
+
+869
+00:57:19,660 --> 00:57:20,820
+Pero no tienes esa necesidad.
+
+870
+00:57:21,380 --> 00:57:32,280
+Y el tema de los contras, pues es verdad que se nota que es muy jovencita y que es su primer libro, porque pegaba que estuviera un poquito mejor escrito.
+
+871
+00:57:32,680 --> 00:57:36,380
+Como tiene algunas cosas son muy simples y no sé si también será algún tema de traducción.
+
+872
+00:57:36,860 --> 00:57:40,160
+No lo sé, pero le pegaba una huertecita.
+
+873
+00:57:41,660 --> 00:57:42,840
+Pero bueno, bien.
+
+874
+00:57:43,640 --> 00:57:46,500
+Y me ha faltado un poquito de profundidad en los personajes.
+
+875
+00:57:46,520 --> 00:57:49,080
+Me han quedado un poquito planos y un poquito simple.
+
+876
+00:57:49,100 --> 00:57:56,080
+Hay como tres, está la prota y otros dos chicos, que ese triángulo amoroso que tienen ahí.
+
+877
+00:57:56,480 --> 00:57:57,980
+Y esto me falta un poquito de posibilidad.
+
+878
+00:58:00,200 --> 00:58:01,120
+Pues eso no lo digo.
+
+879
+00:58:01,140 --> 00:58:01,540
+Córtamelo.
+
+880
+00:58:02,460 --> 00:58:25,600
+Y bueno, el tema es que si tú venías por los mecas, al final, aunque bueno son importantes lógicamente porque se utilizan bastante y está chulo, el tema es que se quedan en segundo plano y al final lo importante es esa lucha que tiene ella, ese objetivo que tiene ella contra la sociedad y lo mal que lo pasa y también, por no decirlo, el romance también es muy importante en el libro.
+
+881
+00:58:25,740 --> 00:58:28,000
+Entonces claro, lo otro se queda como en un segundo plano.
+
+882
+00:58:29,120 --> 00:58:36,020
+Pero molan, son muy originales, son bicharracos, son robots así con forma de animales, pero que también se transforman en Power Rangers.
+
+883
+00:58:36,680 --> 00:58:43,980
+Bueno, Power Rangers no era esto, que se transformaban, podían ser robots, también animales, eso puede ser, eran animales y luego robots, ¿no?
+
+884
+00:58:44,000 --> 00:58:49,140
+Bueno, se transformaban en robots con forma de animales, estaba la delfín, tigre y el...
+
+885
+00:58:49,160 --> 00:58:58,760
+Esto es un robot y el pájaro de no sé cuánto y tiene como forma tipo robot, o sea, como con brazos y piernas, pero con pinta de pájaro, pero también se puede transformar en pájaro.
+
+886
+00:58:58,780 --> 00:59:01,200
+Hay otro que un tigre, otro una tortuga, bueno, de ese estilo.
+
+887
+00:59:01,800 --> 00:59:06,180
+Pero te lo explican porque tienen tipo de poderes que si el ki de agua, el ki de tierra, pues tiene más carácter.
+
+888
+00:59:06,200 --> 00:59:08,780
+Si no te has acurrado el tema, ese vamos, está gracioso.
+
+889
+00:59:09,940 --> 00:59:16,300
+El tema es que bueno, que está bien, está guay, está entretenido y yo le voy a dar 7 tutanitos.
+
+890
+00:59:16,860 --> 00:59:27,380
+Así que bueno, si hay alguien que se lo lee o que se la ley o lo que sea, que nos dé opinión y lo que digo siempre, que nos deis recomendaciones y nos deis opiniones, que a nosotros eso nos da vida, como siempre dice Seidon Malfoy, ¿vale?
+
+891
+00:59:28,000 --> 00:59:34,260
+Y si nadie tiene nada más que decir, vamos a pasar entonces a la siguiente sección del programa, que es la de Malcolm.
+
+892
+00:59:34,480 --> 00:59:38,860
+Vamos a conectar con el estudio sevillano, pero yo nunca recuerdo si conecto ahora o después de la entradilla.
+
+893
+00:59:38,900 --> 00:59:40,120
+Así que, entradilla que mola mucho.
+
+894
+00:59:40,140 --> 00:59:40,500
+Mola mucho.
+
+895
+00:59:40,520 --> 00:59:40,680
+Muchas gracias.
+
+896
+00:59:48,280 --> 00:59:50,000
+El concurso de Malcolm.
+
+897
+01:00:05,650 --> 01:00:08,350
+Pues adelante con el juego, un especial Robores.
+
+898
+01:00:08,370 --> 01:00:09,330
+Como allá.
+
+899
+01:00:09,350 --> 01:00:11,990
+Yo creo que voy a decir Robores todo el rato.
+
+900
+01:00:12,010 --> 01:00:12,770
+No me parece bien.
+
+901
+01:00:13,090 --> 01:00:15,470
+El juego tiene el mismo formato que el resto de especiales.
+
+902
+01:00:15,710 --> 01:00:20,110
+Jugaremos por equipo y durante su turno cada equipo elegirá uno de los seis sobres.
+
+903
+01:00:20,130 --> 01:00:25,870
+En esta ocasión son seis que tienen los colores rojo, amarillo, verde, azul, naranja y rosa.
+
+904
+01:00:26,610 --> 01:00:29,970
+Todos tienen una temática dentro del tema general de Robores.
+
+905
+01:00:30,970 --> 01:00:37,790
+Los sobres contienen una banda sonora, dos preguntas, un verdadero o falso y un fragmento de audio o banda sonora.
+
+906
+01:00:38,030 --> 01:00:40,890
+Cada uno tendrá una de esas dos opciones al final.
+
+907
+01:00:40,910 --> 01:00:48,070
+Y el juego, como siempre, incluye obras del cine, la televisión, la literatura, los cómics, los videojuegos, todo, ¿vale?
+
+908
+01:00:48,890 --> 01:00:51,110
+Como siempre, tenéis 20 segundos para dar la respuesta.
+
+909
+01:00:51,130 --> 01:00:56,770
+Y si consumís ese tiempo, la respuesta es incorrecta, habrá rebote, salvo en la pregunta de verdadero falso.
+
+910
+01:00:57,550 --> 01:01:00,530
+Para evitar confusiones, la respuesta hay que darla con el formato...
+
+911
+01:01:00,830 --> 01:01:02,130
+La robo respuesta correcta.
+
+912
+01:01:02,210 --> 01:01:03,950
+Y yo la robo respuesta correcta.
+
+913
+01:01:04,210 --> 01:01:08,750
+Nuestra robo respuesta correcta es, seguido de la respuesta que queráis dar.
+
+914
+01:01:10,030 --> 01:01:12,730
+Así podéis hablar entre vosotros sin que nos confundamos.
+
+915
+01:01:13,350 --> 01:01:14,990
+Cada respuesta acertada valdrá un punto.
+
+916
+01:01:15,010 --> 01:01:18,170
+Y al final del juego, el equipo con más puntos será el ganador.
+
+917
+01:01:18,710 --> 01:01:25,630
+Los equipos de hoy serán Mildre y Alecrombie, Contra Joy y Seidon McFly, equipos clásicos.
+
+918
+01:01:25,990 --> 01:01:27,910
+¿Qué nombres vais a utilizar para vuestros equipos?
+
+919
+01:01:28,350 --> 01:01:28,910
+Mildcrombie.
+
+920
+01:01:29,210 --> 01:01:31,450
+Los Mildcrombie de hoy, que algo de robot.
+
+921
+01:01:31,470 --> 01:01:32,430
+Nosotros nunca ponemos nada.
+
+922
+01:01:32,450 --> 01:01:33,850
+Nosotros los Mildcrombie.
+
+923
+01:01:33,870 --> 01:01:35,550
+Los Mildcrombie.
+
+924
+01:01:35,970 --> 01:01:36,350
+Muy bien.
+
+925
+01:01:36,590 --> 01:01:37,430
+Y Joyfly.
+
+926
+01:01:37,950 --> 01:01:46,290
+Yo he pensado, bueno, yo no he pensado, lo ha pensado Chad GPT, que por el tema de robots, pues pega manzana por Apple.
+
+927
+01:01:46,510 --> 01:01:47,030
+En serio.
+
+928
+01:01:47,050 --> 01:01:50,050
+Que pega una empresa que podría tener temas de robótica.
+
+929
+01:01:50,390 --> 01:01:53,430
+Pero le ponéis robo, no, robo fresa y ya está.
+
+930
+01:01:53,630 --> 01:01:55,130
+Cyber, Cyberplátano.
+
+931
+01:01:55,170 --> 01:01:56,090
+Ostras, esto es chungo.
+
+932
+01:02:07,530 --> 01:02:08,110
+Ahí lo llevas.
+
+933
+01:02:08,830 --> 01:02:09,690
+Joyfly de pomelo.
+
+934
+01:02:09,710 --> 01:02:10,330
+Ahí está.
+
+935
+01:02:10,630 --> 01:02:11,310
+Perfecto.
+
+936
+01:02:11,470 --> 01:02:12,910
+Pues ya lo tengo aquí apuntado todo.
+
+937
+01:02:13,670 --> 01:02:19,370
+Por supuesto, todos nuestros pesquiters también están invitados a participar, ya que comenten cómo les ha ido en el juego.
+
+938
+01:02:19,990 --> 01:02:20,730
+¿Estáis preparados?
+
+939
+01:02:23,570 --> 01:02:28,090
+Pues activad vuestros cerebros positrónicos y engrasad los engranajes que empezamos.
+
+940
+01:02:28,110 --> 01:02:32,130
+Y va a empezar el equipo Milkrombie, como siempre, eligiendo color de sobre.
+
+941
+01:02:32,570 --> 01:02:33,350
+Que un matiz, ¿eh?
+
+942
+01:02:33,450 --> 01:02:34,610
+Nosotros ni engrasáis.
+
+943
+01:02:34,630 --> 01:02:38,170
+Nosotros hemos dado vuelta la manivela, hemos dado cuerda, que es lo máximo que llegamos.
+
+944
+01:02:42,390 --> 01:02:42,870
+Color.
+
+945
+01:02:43,130 --> 01:02:43,490
+¿Tú dices?
+
+946
+01:02:45,690 --> 01:02:46,230
+Naranja.
+
+947
+01:02:46,630 --> 01:02:47,410
+Muy bien, pues abro el sobre.
+
+948
+01:02:47,550 --> 01:02:48,650
+Casi tiempo que no hacía esto.
+
+949
+01:02:50,150 --> 01:02:51,050
+Ahí está.
+
+950
+01:02:52,090 --> 01:02:55,570
+Y el tema es Robores de los 80.
+
+951
+01:02:58,810 --> 01:03:01,090
+Y empezamos con la banda sonora de una película.
+
+952
+01:03:01,250 --> 01:03:02,230
+Tenéis que adivinar cuál es.
+
+953
+01:03:24,470 --> 01:03:30,150
+Nuestra robo respuesta correcta es, bueno, esperamos que sea correcta, Robocop.
+
+954
+01:03:32,030 --> 01:03:34,230
+Y es incorrecto.
+
+955
+01:03:37,630 --> 01:03:40,870
+Robocop de los 80 era la, ¿no?
+
+956
+01:03:40,890 --> 01:03:41,870
+¿Cómo se llamaba el robot?
+
+957
+01:03:43,730 --> 01:03:44,990
+Y luego Wally si parecía él.
+
+958
+01:03:46,750 --> 01:03:47,570
+¿Cortocircuito?
+
+959
+01:03:47,770 --> 01:03:51,870
+No me suena la música, o sea, la música me suena, no que sea de esa película.
+
+960
+01:03:52,030 --> 01:03:53,790
+Pero Robocop de los 80, hay con otra.
+
+961
+01:03:56,690 --> 01:03:56,950
+Vale.
+
+962
+01:03:57,090 --> 01:03:59,890
+Nuestra respuesta correcta es cortocircuito.
+
+963
+01:04:00,250 --> 01:04:02,130
+Y es incorrecto.
+
+964
+01:04:02,650 --> 01:04:04,670
+La respuesta correcta es Blade Runner.
+
+965
+01:04:06,970 --> 01:04:08,210
+Por eso no sonaba tanto.
+
+966
+01:04:08,230 --> 01:04:10,390
+Lo iba a decir, pero te he visto súper insegura.
+
+967
+01:04:10,450 --> 01:04:11,330
+Pero si te he dicho que...
+
+968
+01:04:12,030 --> 01:04:13,670
+Lo prometo, lo prometo.
+
+969
+01:04:13,690 --> 01:04:17,630
+Pero si te he dicho que no, porque era un robot de los 80.
+
+970
+01:04:17,650 --> 01:04:20,550
+De todas maneras hubiera sido incorrecta, porque no he dicho robo respuesta.
+
+971
+01:04:20,570 --> 01:04:22,610
+O sea, que me da igual, ¿eh?
+
+972
+01:04:22,610 --> 01:04:24,150
+Esto no lo hemos hecho nunca.
+
+973
+01:04:24,530 --> 01:04:25,910
+Podemos empezar de nuevo, por favor.
+
+974
+01:04:25,930 --> 01:04:26,230
+¿Cómo?
+
+975
+01:04:26,630 --> 01:04:27,830
+Nosotros le cedemos otro punto.
+
+976
+01:04:27,850 --> 01:04:29,130
+Pero, ¿de verdad?
+
+977
+01:04:30,090 --> 01:04:30,790
+¿Estás diciendo de verdad?
+
+978
+01:04:31,010 --> 01:04:31,950
+Ay, Dios mío, claro que no.
+
+979
+01:04:33,890 --> 01:04:36,790
+Venga, animaros que esto irá mejor, seguro.
+
+980
+01:04:36,830 --> 01:04:37,490
+A peor no puede.
+
+981
+01:04:37,990 --> 01:04:39,390
+Estamos con la primera pregunta.
+
+982
+01:04:41,570 --> 01:04:46,350
+¿Cómo se llama el agente de policía al que convierten en Robocop?
+
+983
+01:04:52,130 --> 01:04:53,230
+El nombre me vale agente.
+
+984
+01:04:53,410 --> 01:04:54,150
+¿Cómo agente?
+
+985
+01:04:54,770 --> 01:04:55,430
+¿Apellido Murphy?
+
+986
+01:04:57,330 --> 01:05:00,750
+Nuestra robo respuesta incorrecta es el agente Murphy.
+
+987
+01:05:02,130 --> 01:05:05,650
+¿Y es correcto?
+
+988
+01:05:06,490 --> 01:05:07,130
+No me digas.
+
+989
+01:05:07,150 --> 01:05:07,610
+Toma, choca.
+
+990
+01:05:07,630 --> 01:05:08,310
+Me vale el apellido.
+
+991
+01:05:08,910 --> 01:05:10,830
+El nombre es Alex, no es agente.
+
+992
+01:05:15,210 --> 01:05:15,690
+Es correcto.
+
+993
+01:05:15,710 --> 01:05:16,450
+Lo tenía ahí metido.
+
+994
+01:05:17,990 --> 01:05:18,770
+Siguiente pregunta.
+
+995
+01:05:20,170 --> 01:05:28,510
+Qué serie de animación japonesa de los 80 nos presenta a un robot creado por el doctor Tenma, ¿a semejanza de su difunto hijo?
+
+996
+01:05:35,400 --> 01:05:37,320
+Es el de un robot que un niño.
+
+997
+01:05:39,520 --> 01:05:40,300
+Cómo se llama, ¿tío?
+
+998
+01:05:41,060 --> 01:05:42,640
+Es que un niño que tiene el pelo negro.
+
+999
+01:05:50,600 --> 01:05:51,380
+Se ha agotado el tiempo.
+
+1000
+01:05:51,400 --> 01:05:54,940
+Nuestra respuesta, nuestra robo respuesta incorrecta es…
+
+1001
+01:05:55,460 --> 01:05:57,860
+un robotito.
+
+1002
+01:05:59,560 --> 01:05:59,960
+Y es…
+
+1003
+01:06:00,560 --> 01:06:01,240
+incorrecto.
+
+1004
+01:06:01,420 --> 01:06:01,880
+Rebote.
+
+1005
+01:06:07,360 --> 01:06:09,560
+Nuestra robo respuesta correcta es…
+
+1006
+01:06:10,420 --> 01:06:11,260
+es Astroboy.
+
+1007
+01:06:12,140 --> 01:06:12,580
+Y es…
+
+1008
+01:06:13,460 --> 01:06:13,980
+correcto.
+
+1009
+01:06:14,000 --> 01:06:15,160
+Eso era Astroboy.
+
+1010
+01:06:15,800 --> 01:06:17,220
+Toda la respuesta no puede ser Robo algo.
+
+1011
+01:06:17,240 --> 01:06:19,640
+Tú sabes que estamos fallando en esta que no sabemos, de los 80.
+
+1012
+01:06:19,680 --> 01:06:20,880
+No vamos a estar calmados, ¿no?
+
+1013
+01:06:20,900 --> 01:06:22,140
+Esto es de hacer la paliza más grande.
+
+1014
+01:06:22,160 --> 01:06:23,140
+Imagínate la de los 2000.
+
+1015
+01:06:23,880 --> 01:06:25,320
+Vamos con el verdadero o falso.
+
+1016
+01:06:26,480 --> 01:06:33,880
+Megatron, Starscream y Soundwave son nombres de Decepticons de la serie de los 80 Transformers.
+
+1017
+01:06:34,340 --> 01:06:35,880
+¿Verdadero o falso?
+
+1018
+01:06:41,180 --> 01:06:44,840
+Pero Megatron es el planeta, no está tangando.
+
+1019
+01:06:44,960 --> 01:06:47,900
+Nuestra robo respuesta correcta es falso.
+
+1020
+01:06:49,340 --> 01:06:49,740
+Y es...
+
+1021
+01:06:50,980 --> 01:06:51,640
+Incorrecto.
+
+1022
+01:06:51,920 --> 01:06:52,460
+Es verdadero.
+
+1023
+01:06:53,240 --> 01:06:56,700
+Megatron es el antagonista de Optimus Prime, es el villano.
+
+1024
+01:06:56,720 --> 01:06:57,800
+Pero me suena más a los otros.
+
+1025
+01:06:57,960 --> 01:06:59,380
+Ostras, ¿y cómo se llama el planeta?
+
+1026
+01:06:59,400 --> 01:07:00,720
+Pues me he rayado...
+
+1027
+01:07:00,980 --> 01:07:01,580
+Cybertron.
+
+1028
+01:07:01,660 --> 01:07:02,860
+Cybertron, ostras, mire.
+
+1029
+01:07:04,160 --> 01:07:04,640
+Fallando, fallando.
+
+1030
+01:07:13,060 --> 01:07:15,160
+Terminamos con un fragmento de audio de una película.
+
+1031
+01:07:15,280 --> 01:07:16,500
+Venga, que ésta la acertáis seguro.
+
+1032
+01:07:26,720 --> 01:07:27,760
+Tienen muchas fotografías.
+
+1033
+01:07:32,140 --> 01:07:34,820
+Mira esto, es una foto de una cebra.
+
+1034
+01:07:34,840 --> 01:07:36,440
+Aquí está.
+
+1035
+01:07:37,040 --> 01:07:38,700
+Una cebra es un mamífero.
+
+1036
+01:07:49,400 --> 01:07:51,160
+Tantos, mas tantos.
+
+1037
+01:07:51,460 --> 01:07:52,120
+No te preocupes.
+
+1038
+01:07:54,840 --> 01:07:58,040
+Nuestra robo respuesta correcta es cortocircuito.
+
+1039
+01:07:59,440 --> 01:08:01,100
+Y es correcto.
+
+1040
+01:08:02,040 --> 01:08:05,480
+Me hace gracia como aspira porque se queda sin ir leyendo.
+
+1041
+01:08:11,460 --> 01:08:15,100
+Bueno, vamos con Joyfly de Pomelo que tienen que elegir color de sobre.
+
+1042
+01:08:16,460 --> 01:08:17,100
+El amarillo.
+
+1043
+01:08:17,620 --> 01:08:20,180
+Y el tema es robots de animación.
+
+1044
+01:08:21,600 --> 01:08:23,700
+Comenzamos con la banda sonora de una película.
+
+1045
+01:08:48,280 --> 01:08:50,100
+Pero ha cogido un trocito raro.
+
+1046
+01:08:54,300 --> 01:08:57,300
+Nuestra respuesta correcta es Wall-E.
+
+1047
+01:08:58,120 --> 01:09:00,160
+Y es correcto.
+
+1048
+01:09:02,220 --> 01:09:10,380
+Sí, he cogido un trocito raro porque ya ha salido al menos otras dos veces en juegos y ya tocaba otro tema.
+
+1049
+01:09:12,200 --> 01:09:13,360
+Vamos con la primera pregunta.
+
+1050
+01:09:14,080 --> 01:09:18,520
+¿En qué película y cómics homónimos aparece el robot Baymax?
+
+1051
+01:09:32,620 --> 01:09:34,300
+Y es correcto.
+
+1052
+01:09:35,600 --> 01:09:39,020
+Aquí lo difícil no son las preguntas, es decir, lo de la robot respuesta.
+
+1053
+01:09:40,800 --> 01:09:42,040
+Trabalengua para andaluces.
+
+1054
+01:09:43,200 --> 01:09:44,040
+Siguiente pregunta.
+
+1055
+01:09:44,640 --> 01:09:50,560
+¿Cómo se llama la videoconsola robótica que vive con Finn y Jake en Hora de Aventuras?
+
+1056
+01:10:01,280 --> 01:10:03,860
+Se llama Consoling.
+
+1057
+01:10:03,880 --> 01:10:06,220
+Nuestra robot respuesta correcta es Consoling.
+
+1058
+01:10:06,760 --> 01:10:08,900
+Y es incorrecting.
+
+1059
+01:10:09,460 --> 01:10:10,080
+Rebote.
+
+1060
+01:10:10,100 --> 01:10:12,080
+No me acuerdo, Mingrey.
+
+1061
+01:10:12,800 --> 01:10:13,320
+No me acuerdo.
+
+1062
+01:10:13,340 --> 01:10:14,700
+Es que yo no la vemos.
+
+1063
+01:10:15,040 --> 01:10:17,420
+Nuestra robot respuesta incorrecta es...
+
+1064
+01:10:21,280 --> 01:10:21,700
+Gary.
+
+1065
+01:10:23,540 --> 01:10:25,620
+Y es incorrecto.
+
+1066
+01:10:26,820 --> 01:10:28,700
+La respuesta correcta es Vimo.
+
+1067
+01:10:33,660 --> 01:10:34,620
+Que no lo tengan en cuenta...
+
+1068
+01:10:35,140 --> 01:10:35,940
+¿Qué les va a tener en cuenta?
+
+1069
+01:10:36,200 --> 01:10:36,540
+Nadie.
+
+1070
+01:10:37,480 --> 01:10:41,040
+En verdad, ya han dicho que nosotros los vimos hace mucho tiempo.
+
+1071
+01:10:41,080 --> 01:10:42,260
+No sé si eso contaría.
+
+1072
+01:10:42,620 --> 01:10:44,840
+No, porque no ha dicho la robot respuesta correcta a eso.
+
+1073
+01:10:46,440 --> 01:10:47,680
+Para eso es la fórmula.
+
+1074
+01:10:47,700 --> 01:10:48,420
+Para que puedan hablar.
+
+1075
+01:10:48,440 --> 01:10:48,940
+Lo he pensado.
+
+1076
+01:10:52,340 --> 01:10:53,200
+Siguiente pregunta.
+
+1077
+01:10:54,120 --> 01:11:00,940
+Los imanes tienen un extraño efecto sobre Bender, el robot de Futurama, ya que le hacen cantar Folk.
+
+1078
+01:11:01,400 --> 01:11:03,080
+¿Verdadero o falso?
+
+1079
+01:11:13,700 --> 01:11:17,440
+Venga, nuestra respuesta, robot respuesta correcta es verdadero.
+
+1080
+01:11:18,500 --> 01:11:18,900
+Y es…
+
+1081
+01:11:19,900 --> 01:11:20,440
+correcto.
+
+1082
+01:11:23,760 --> 01:11:26,140
+Y terminamos con el fragmento de audio de una película.
+
+1083
+01:11:26,580 --> 01:11:27,580
+Tenéis que adivinar cuál es.
+
+1084
+01:11:33,620 --> 01:11:36,080
+Estoy hablando de tu maldita seguridad, Hoggart.
+
+1085
+01:11:36,220 --> 01:11:40,180
+Mientras tú durmés plácidamente con tu pijamita, en Washington estamos en vela y muy preocupados.
+
+1086
+01:11:40,280 --> 01:11:40,600
+¿Por qué?
+
+1087
+01:11:40,780 --> 01:11:43,040
+Porque todo el mundo quiere lo que nosotros tenemos, Hoggart.
+
+1088
+01:11:43,180 --> 01:11:43,600
+Todos.
+
+1089
+01:11:43,740 --> 01:11:45,300
+¿Tú crees que ese hombre de metal es un juguete?
+
+1090
+01:11:45,460 --> 01:11:46,320
+¿Pero quién lo ha construido?
+
+1091
+01:11:46,340 --> 01:11:46,760
+¿Los rusos?
+
+1092
+01:11:46,780 --> 01:11:47,180
+¿Los chinos?
+
+1093
+01:11:47,200 --> 01:11:47,700
+¿Los marcianos?
+
+1094
+01:11:47,720 --> 01:11:48,400
+¿Los canadienses?
+
+1095
+01:11:49,620 --> 01:11:50,620
+Lo que sé es que nosotros no.
+
+1096
+01:11:50,740 --> 01:11:54,500
+Y esa es razón suficiente para presuponer lo peor y volarlo hasta que no quede nada.
+
+1097
+01:11:54,520 --> 01:11:57,580
+Y ahora, me vas a contar todo de esa cosa.
+
+1098
+01:11:57,740 --> 01:12:01,240
+Me vas a llevar hasta él y juntos vamos a destruirle antes de que él nos destruye nosotros.
+
+1099
+01:12:04,480 --> 01:12:06,420
+Un aplauso para ese actor de doblaje, por cierto.
+
+1100
+01:12:10,980 --> 01:12:13,740
+Nuestra robo respuesta correcta es El Gigante de Hierro.
+
+1101
+01:12:14,480 --> 01:12:16,760
+Y es correcto.
+
+1102
+01:12:18,980 --> 01:12:24,580
+Primera ronda y la puntuación es Milcrombie 2 puntos, Joyfly de Pomelo 5.
+
+1103
+01:12:24,920 --> 01:12:26,500
+Pero esto no ha terminado, ni mucho menos.
+
+1104
+01:12:26,880 --> 01:12:28,660
+Milcrombie, oportunidad para remontar.
+
+1105
+01:12:28,680 --> 01:12:29,560
+Elegís color.
+
+1106
+01:12:30,360 --> 01:12:30,840
+Amarillo.
+
+1107
+01:12:31,400 --> 01:12:32,760
+Amarillo es el que acaba de elegir.
+
+1108
+01:12:33,000 --> 01:12:34,960
+Buen intento, tendríais todas las respuestas, ¿no?
+
+1109
+01:12:36,060 --> 01:12:37,300
+Pero es el que acaba de elegir.
+
+1110
+01:12:37,500 --> 01:12:38,900
+Naranja es el primero que elegisteis.
+
+1111
+01:12:38,920 --> 01:12:40,120
+El que ha elegido antes, ¿en serio?
+
+1112
+01:12:41,720 --> 01:12:44,080
+El naranja la ha dicho a propósito, pero el amarillo no lo ha dicho.
+
+1113
+01:12:44,100 --> 01:12:47,380
+El amarillo no lo ha dicho, de verdad.
+
+1114
+01:12:47,400 --> 01:12:48,520
+¿Eso no le rechazd punto?
+
+1115
+01:12:49,620 --> 01:12:51,200
+Voy a decir rojo.
+
+1116
+01:12:53,380 --> 01:12:53,760
+Robótica.
+
+1117
+01:12:53,780 --> 01:12:54,640
+Y el tema es...
+
+1118
+01:12:55,620 --> 01:12:57,660
+Mecas y robots tripulados.
+
+1119
+01:12:58,060 --> 01:12:58,540
+Muy bien.
+
+1120
+01:12:58,960 --> 01:13:01,360
+Empezamos con la sintonía de una serie de televisión.
+
+1121
+01:13:01,980 --> 01:13:02,880
+A ver si sabéis cuál es.
+
+1122
+01:13:07,100 --> 01:13:07,740
+Y es correcto.
+
+1123
+01:13:28,540 --> 01:13:30,420
+Qué montón de tutanitos tiene esa serie, maravilla.
+
+1124
+01:13:33,460 --> 01:13:34,320
+Huele a remontada.
+
+1125
+01:13:37,500 --> 01:13:42,060
+En qué película de Guillermo del Toro los Jaggers luchan contra los Kaiju.
+
+1126
+01:13:42,080 --> 01:13:44,980
+¿Usted sabe a lo que tiene la película Punta de la Lengua?
+
+1127
+01:13:51,300 --> 01:13:52,000
+¿Cómo se llama?
+
+1128
+01:13:55,340 --> 01:13:56,900
+¿Cómo es el fondo del mar?
+
+1129
+01:14:00,880 --> 01:14:01,640
+Es fatal.
+
+1130
+01:14:01,660 --> 01:14:02,660
+¿Cómo no huele a remontada?
+
+1131
+01:14:04,740 --> 01:14:06,240
+Se ha agotado el tiempo.
+
+1132
+01:14:06,920 --> 01:14:10,900
+Robo respuesta incorrecta es el cráter del Neste.
+
+1133
+01:14:13,700 --> 01:14:17,980
+Y es, por muchos motivos incorrectos, rebote.
+
+1134
+01:14:23,680 --> 01:14:26,140
+Nuestra robo respuesta correcta es Pacific Rim.
+
+1135
+01:14:26,280 --> 01:14:28,520
+Y es correcto.
+
+1136
+01:14:28,800 --> 01:14:29,820
+El rinden pacífico.
+
+1137
+01:14:29,840 --> 01:14:31,260
+Yo buscaba el ring.
+
+1138
+01:14:31,480 --> 01:14:33,560
+Podríamos titular el episodio así.
+
+1139
+01:14:33,600 --> 01:14:35,500
+Yo buscaba el ring.
+
+1140
+01:14:35,520 --> 01:14:36,480
+La grieta, la grieta.
+
+1141
+01:14:37,040 --> 01:14:37,800
+Siguiente pregunta.
+
+1142
+01:14:38,140 --> 01:14:45,020
+¿Cómo se llama el gigantesco mecha en el que se combinan los cinco dinos de Power Rangers?
+
+1143
+01:14:47,780 --> 01:14:50,220
+Nuestra robo respuesta correcta es Megazord.
+
+1144
+01:14:51,500 --> 01:14:53,900
+Y es correcto.
+
+1145
+01:14:56,100 --> 01:14:56,940
+No me lo he esperado.
+
+1146
+01:15:00,600 --> 01:15:05,780
+¿Mobile Suite Gundam fue un anime antes de convertirse en manga?
+
+1147
+01:15:06,260 --> 01:15:07,680
+¿Verdadero o falso?
+
+1148
+01:15:17,000 --> 01:15:19,700
+Nuestra robo respuesta correcta es verdadero.
+
+1149
+01:15:21,300 --> 01:15:24,080
+Y es correcto, es verdadero.
+
+1150
+01:15:24,100 --> 01:15:25,620
+Buena, es una midre.
+
+1151
+01:15:26,260 --> 01:15:27,920
+Ahí os habéis olido la tostada.
+
+1152
+01:15:28,120 --> 01:15:28,660
+Ella, ella.
+
+1153
+01:15:33,820 --> 01:15:39,740
+Venga, vamos a terminar con otra sintonía de serie de televisión y tenéis que adivinar de qué se trata.
+
+1154
+01:15:58,930 --> 01:16:02,550
+Sí, nuestra respuesta correcta es Mazinger Z.
+
+1155
+01:16:03,930 --> 01:16:05,530
+Y es correcto.
+
+1156
+01:16:06,210 --> 01:16:06,690
+¡Bieeeen!
+
+1157
+01:16:07,170 --> 01:16:11,830
+Es el turno de Joyfly de Pomelo para que nos cojan ventaja.
+
+1158
+01:16:13,470 --> 01:16:15,850
+Y el tema es Grandes Sagas.
+
+1159
+01:16:17,710 --> 01:16:20,630
+Empezamos con la sintonía de otra serie de televisión.
+
+1160
+01:16:21,150 --> 01:16:22,110
+Venga, a que esta la acertáis.
+
+1161
+01:16:44,150 --> 01:16:45,330
+¿Era Galactica el Antiguo?
+
+1162
+01:16:57,380 --> 01:16:59,380
+Nuestra respuesta correcta es Galáctica.
+
+1163
+01:17:00,200 --> 01:17:01,960
+Y es correcto.
+
+1164
+01:17:02,420 --> 01:17:03,640
+¡Qué maquina!
+
+1165
+01:17:03,660 --> 01:17:06,140
+Battle Star Galáctica, de 1978.
+
+1166
+01:17:12,000 --> 01:17:12,840
+Vamos con las preguntas.
+
+1167
+01:17:13,660 --> 01:17:20,920
+Cómo se llama el androide, parte de la tripulación y tercero al mando del Enterprise, ¿en Star Trek La Nueva Generación?
+
+1168
+01:17:24,220 --> 01:17:24,660
+¡Qué asco!
+
+1169
+01:17:24,680 --> 01:17:29,860
+Me tenía que tocar Star Trek, tío.
+
+1170
+01:17:29,880 --> 01:17:32,360
+Siempre tienes un enemigo en todos los programas.
+
+1171
+01:17:35,420 --> 01:17:36,560
+La primera la vimos, ¿no?
+
+1172
+01:17:50,460 --> 01:17:52,520
+Si lo escuchamos, no va a sonar, ¿verdad?
+
+1173
+01:17:52,540 --> 01:17:52,860
+A mí no.
+
+1174
+01:17:53,220 --> 01:17:56,080
+Nuestra respuesta, nuestra robo respuesta correcta es...
+
+1175
+01:17:57,400 --> 01:17:57,900
+Lagarto.
+
+1176
+01:18:02,700 --> 01:18:03,360
+Incorrecto.
+
+1177
+01:18:04,220 --> 01:18:05,500
+La respuesta correcta es...
+
+1178
+01:18:05,880 --> 01:18:06,260
+Data.
+
+1179
+01:18:06,380 --> 01:18:07,380
+Claro, ¡data!
+
+1180
+01:18:07,400 --> 01:18:08,360
+¡Data es lo que es!
+
+1181
+01:18:08,380 --> 01:18:09,300
+¡Súper conocido!
+
+1182
+01:18:09,320 --> 01:18:09,760
+¡Qué desastre!
+
+1183
+01:18:10,980 --> 01:18:11,720
+Siguiente pregunta.
+
+1184
+01:18:12,140 --> 01:18:20,580
+En qué famosa saga interpreta a un androide el actor Ian Holm, ¿conocido por ser Bilbo Bolsón en El Señor de los Anillos?
+
+1185
+01:18:25,280 --> 01:18:26,660
+Ah, ¿verdad?
+
+1186
+01:18:28,220 --> 01:18:30,120
+Nuestra respuesta correcta es...
+
+1187
+01:18:30,220 --> 01:18:30,580
+¿Alien?
+
+1188
+01:18:31,100 --> 01:18:31,540
+Y es...
+
+1189
+01:18:32,220 --> 01:18:32,640
+¡Correcto!
+
+1190
+01:18:32,660 --> 01:18:43,600
+En la escena post-creditor de Men in Black descubrimos que el agente K, interpretado por Tommy Lee Jones, es en realidad un robot.
+
+1191
+01:18:44,120 --> 01:18:45,520
+¿Verdadero o falso?
+
+1192
+01:18:50,200 --> 01:18:52,700
+Nuestra robo-respuesta correcta es falso.
+
+1193
+01:18:53,720 --> 01:18:54,200
+¿Y es?
+
+1194
+01:18:55,820 --> 01:18:56,360
+Correcto.
+
+1195
+01:18:56,380 --> 01:18:57,900
+Me lo he inventado todo, vilmente.
+
+1196
+01:19:01,060 --> 01:19:03,360
+Y terminamos con un fragmento de audio de una película.
+
+1197
+01:19:03,700 --> 01:19:05,760
+Tenéis que decirme exactamente cuál es.
+
+1198
+01:19:07,000 --> 01:19:08,620
+Babu, ¿puedes hacer que lo traduzca?
+
+1199
+01:19:08,700 --> 01:19:09,880
+Ute bala tipta.
+
+1200
+01:19:12,720 --> 01:19:14,340
+Sí, pero provocará un borrado.
+
+1201
+01:19:14,360 --> 01:19:16,060
+Un borrado completo de memoria.
+
+1202
+01:19:16,080 --> 01:19:19,480
+Espera, si le pedimos que lo traduzca, no recordará nada.
+
+1203
+01:19:19,880 --> 01:19:22,260
+Droid en memoria queda en blanco.
+
+1204
+01:19:22,280 --> 01:19:22,960
+Blanco, blanco.
+
+1205
+01:19:28,360 --> 01:19:33,200
+Nuestra respuesta correcta es Star Wars, Episodio 9, El Ascenso de Skywalker.
+
+1206
+01:19:34,180 --> 01:19:35,840
+Y es correcto.
+
+1207
+01:19:35,860 --> 01:19:35,960
+Correcto.
+
+1208
+01:19:37,780 --> 01:19:41,240
+Cómo te da una de cada y otra de arena poniéndote de Star Trek y de Star Wars en la misma.
+
+1209
+01:19:41,640 --> 01:19:42,480
+Es el mismo sobre.
+
+1210
+01:19:42,500 --> 01:19:43,620
+Pero es que era grande sagas.
+
+1211
+01:19:43,640 --> 01:19:44,300
+Es el karma, es el karma.
+
+1212
+01:19:45,480 --> 01:19:45,820
+Claro.
+
+1213
+01:19:46,680 --> 01:19:50,480
+Es que claro, el que pone Star Trek y no pone Star Wars es que no te hablo más en la vida.
+
+1214
+01:19:51,780 --> 01:19:52,580
+Otro enemigo más.
+
+1215
+01:19:54,680 --> 01:19:59,500
+La puntuación actual es 6 puntos para Bill Crombie, 10 para Joyfly de Pomelo.
+
+1216
+01:20:00,280 --> 01:20:04,040
+Las distancias se han recortado, bueno, en realidad no, porque han tirado a 5.
+
+1217
+01:20:04,480 --> 01:20:05,800
+Se han ensanchado, sí.
+
+1218
+01:20:06,660 --> 01:20:09,240
+Quería daros ánimo, pero, pero es muy difícil.
+
+1219
+01:20:09,480 --> 01:20:11,840
+Y seguirán en aumento.
+
+1220
+01:20:13,180 --> 01:20:18,680
+Ahora viene la sorpresión, porque vamos con una ronda intermedia en la que esto puede darse la vuelta.
+
+1221
+01:20:19,680 --> 01:20:21,260
+Vamos a hacer unos mini roscos.
+
+1222
+01:20:22,280 --> 01:20:30,520
+En esta prueba ya sabéis que jugáis de forma individual y os iré haciendo preguntas cuya respuesta empieza por cada una de las cinco primeras letras de la becedario.
+
+1223
+01:20:31,200 --> 01:20:33,560
+La A, la B, la C, la D y la E.
+
+1224
+01:20:34,480 --> 01:20:41,500
+Si os atascáis en una pregunta podéis pasar para que lea la siguiente y una vez lea la última, si quedan por responder, la retomo desde arriba.
+
+1225
+01:20:41,920 --> 01:20:48,380
+Si se falla una pregunta no hay ningún tipo de eliminación, por lo que podéis probar varias respuestas sin miedo a fallar.
+
+1226
+01:20:49,120 --> 01:20:53,460
+Bueno, así hasta que contestéis las cinco preguntas o bien se agote el tiempo que va a ser de un minuto.
+
+1227
+01:20:54,480 --> 01:20:57,280
+Cada respuesta acertada va a sumar un punto extra para el equipo.
+
+1228
+01:20:57,300 --> 01:20:59,080
+Recuerdo que vais 6 a 10.
+
+1229
+01:20:59,100 --> 01:21:00,100
+Puedo enterar tu luego.
+
+1230
+01:21:00,580 --> 01:21:04,340
+¡Qué buen ishue!
+
+1231
+01:21:05,220 --> 01:21:08,220
+Vamos a ir por orden alfabético y empieza Alecrombie.
+
+1232
+01:21:08,340 --> 01:21:09,960
+Ay, ¡qué bien!
+
+1233
+01:21:10,180 --> 01:21:12,800
+Tengo cuatro listas, elige una de ellas.
+
+1234
+01:21:12,920 --> 01:21:14,060
+Elijo la que tiene...
+
+1235
+01:21:14,080 --> 01:21:14,700
+Ah, ¡por números!
+
+1236
+01:21:14,720 --> 01:21:16,100
+Es que si no te iba a decir, coge la de la izquierda.
+
+1237
+01:21:20,380 --> 01:21:21,840
+La número uno, venga.
+
+1238
+01:21:22,020 --> 01:21:22,940
+Pues, ¿estás listo?
+
+1239
+01:21:25,580 --> 01:21:26,200
+Pues, adelante.
+
+1240
+01:21:28,520 --> 01:21:32,020
+Nombre del robot con aspecto femenino que aparece en Mazinger Z.
+
+1241
+01:21:32,620 --> 01:21:33,620
+Afrodita A.
+
+1242
+01:21:34,660 --> 01:21:35,160
+Correcto.
+
+1243
+01:21:35,820 --> 01:21:36,680
+Robin Williams.
+
+1244
+01:21:36,820 --> 01:21:37,620
+¿Fue el hombre?
+
+1245
+01:21:43,660 --> 01:21:44,180
+Con la C.
+
+1246
+01:21:44,380 --> 01:21:47,760
+Nombre del robot de Futurama que es estrella de las telenovelas.
+
+1247
+01:21:48,980 --> 01:21:49,840
+¿No es correcto?
+
+1248
+01:21:49,860 --> 01:21:50,140
+Por la C.
+
+1249
+01:21:51,520 --> 01:21:52,920
+Paso Peskito.
+
+1250
+01:21:54,320 --> 01:21:54,860
+Con la D.
+
+1251
+01:21:55,040 --> 01:21:58,260
+Apellido del escritor de Sueñan los androides con ovejas eléctricas.
+
+1252
+01:22:04,100 --> 01:22:04,800
+Correcto.
+
+1253
+01:22:07,560 --> 01:22:12,400
+Nombre con el que se conoce a los robots gigantes biomecánicos de la serie Neon Genesis Evangelion.
+
+1254
+01:22:14,940 --> 01:22:15,340
+Correcto.
+
+1255
+01:22:15,900 --> 01:22:16,400
+Con la B.
+
+1256
+01:22:16,640 --> 01:22:18,160
+Robin Williams fue el hombre.
+
+1257
+01:22:18,840 --> 01:22:19,560
+Bicentenario.
+
+1258
+01:22:20,460 --> 01:22:20,960
+Correcto.
+
+1259
+01:22:21,320 --> 01:22:21,860
+Con la C.
+
+1260
+01:22:22,140 --> 01:22:26,340
+Nombre del robot de Futurama que es estrella de las telenovelas.
+
+1261
+01:22:26,560 --> 01:22:27,300
+No es correcto.
+
+1262
+01:22:30,680 --> 01:22:31,480
+Se ha agotado el tiempo.
+
+1263
+01:22:31,500 --> 01:22:33,240
+Son cuatro respuestas acertadas.
+
+1264
+01:22:33,420 --> 01:22:34,660
+Nos faltaba Calculón.
+
+1265
+01:22:34,740 --> 01:22:37,900
+Ah, Calculón, claro.
+
+1266
+01:22:37,920 --> 01:22:40,940
+Que se note que en esta pareja, ¿por qué no funciona el tema de los robots?
+
+1267
+01:22:40,960 --> 01:22:42,720
+Que se note por qué va a ser, ya verá, ya verá.
+
+1268
+01:22:45,580 --> 01:22:46,740
+Va a ser el turno de Joy.
+
+1269
+01:22:47,220 --> 01:22:49,040
+Quedan la lista 2, 3 y 4.
+
+1270
+01:22:54,700 --> 01:22:56,460
+Voy a decir la 2.
+
+1271
+01:22:57,160 --> 01:22:57,560
+La 2.
+
+1272
+01:22:58,080 --> 01:22:58,740
+¿Estás preparada?
+
+1273
+01:23:00,320 --> 01:23:06,820
+Pues con la A, por sus siglas en inglés, nombre de la película de robots dirigida por Steven Spielberg en 2001.
+
+1274
+01:23:12,960 --> 01:23:18,040
+Con la B, nombre del videojuego donde aparece el robot Claptrap, considerado mascota de la franquicia.
+
+1275
+01:23:20,960 --> 01:23:27,720
+Con la C, término con el que se denomina los humanos con implantes electrónicos y o mecánicos.
+
+1276
+01:23:29,100 --> 01:23:29,360
+Sí.
+
+1277
+01:23:32,700 --> 01:23:33,100
+Correcto.
+
+1278
+01:23:33,200 --> 01:23:38,420
+Con la D, título de la famosa serie de ciencia ficción británica que arrancó su temporada 12 con un robot.
+
+1279
+01:23:45,510 --> 01:23:46,050
+No es correcto.
+
+1280
+01:23:48,250 --> 01:23:48,630
+Con la E.
+
+1281
+01:23:48,930 --> 01:23:53,030
+Película en la que aparece Ava, una robot mujer con inteligencia artificial.
+
+1282
+01:23:58,990 --> 01:23:59,550
+Con la A.
+
+1283
+01:23:59,570 --> 01:24:02,130
+Por sus siglas en inglés, nombre de la película de robots dirigida.
+
+1284
+01:24:04,830 --> 01:24:06,250
+Pues tenemos un acierto.
+
+1285
+01:24:06,490 --> 01:24:10,990
+La película dirigida por Spielberg es AI, inteligencia artificial.
+
+1286
+01:24:12,070 --> 01:24:15,230
+El videojuego con el robot Claptrap es Borderlands.
+
+1287
+01:24:16,050 --> 01:24:20,230
+La serie británica que arrancó con un robot en la temporada 12 es Doctor Who.
+
+1288
+01:24:21,050 --> 01:24:23,810
+Y la película en la que aparece Ava es Ex Machina.
+
+1289
+01:24:27,910 --> 01:24:29,770
+Es el turno de Mildre.
+
+1290
+01:24:30,930 --> 01:24:31,550
+El 3.
+
+1291
+01:24:32,590 --> 01:24:33,050
+El 3.
+
+1292
+01:24:33,390 --> 01:24:34,370
+Por ahora vamos por orden.
+
+1293
+01:24:34,370 --> 01:24:37,330
+Bueno, vamos a terminar por orden, de hecho, porque Seidon se quedará con el 4.
+
+1294
+01:24:38,430 --> 01:24:39,370
+Estás preparada, ¿Mildre?
+
+1295
+01:24:43,090 --> 01:24:43,410
+Venga.
+
+1296
+01:24:43,990 --> 01:24:44,510
+Con la A.
+
+1297
+01:24:44,930 --> 01:24:47,770
+Apellido del escritor que creó las tres leyes de la robótica.
+
+1298
+01:24:49,810 --> 01:24:50,190
+Correcto.
+
+1299
+01:24:50,290 --> 01:24:50,790
+Con la B.
+
+1300
+01:24:50,990 --> 01:24:54,510
+Nombre del androide esférico de Star Wars, el Despertar de la Fuerza.
+
+1301
+01:24:55,190 --> 01:24:56,790
+BB-8.
+
+1302
+01:24:56,810 --> 01:24:57,230
+Correcto.
+
+1303
+01:24:57,470 --> 01:24:58,050
+Con la C.
+
+1304
+01:24:58,390 --> 01:25:02,450
+Nombre que reciben las máquinas asesinas con forma de calamar en la saga Matrix.
+
+1305
+01:25:09,050 --> 01:25:09,590
+Con la D.
+
+1306
+01:25:09,770 --> 01:25:12,210
+Ciudad en la que se desarrolla la película Robocop.
+
+1307
+01:25:15,250 --> 01:25:15,890
+No es correcto.
+
+1308
+01:25:16,010 --> 01:25:16,450
+Detroit.
+
+1309
+01:25:17,010 --> 01:25:17,510
+Correcto.
+
+1310
+01:25:17,910 --> 01:25:18,490
+Con la E.
+
+1311
+01:25:18,890 --> 01:25:23,150
+Nombre de la líder de las autobots femeninas de la generación 1 de Transformers.
+
+1312
+01:25:25,150 --> 01:25:25,390
+No.
+
+1313
+01:25:25,410 --> 01:25:25,750
+Ni idea.
+
+1314
+01:25:26,430 --> 01:25:26,890
+Con la C.
+
+1315
+01:25:27,190 --> 01:25:30,830
+Nombre que reciben las máquinas asesinas con forma de calamar de la saga Matrix.
+
+1316
+01:25:32,450 --> 01:25:33,090
+No es correcto.
+
+1317
+01:25:33,530 --> 01:25:34,070
+Centollos.
+
+1318
+01:25:34,910 --> 01:25:36,070
+Divertido, pero incorrecto.
+
+1319
+01:25:37,810 --> 01:25:38,530
+Ciprianos.
+
+1320
+01:25:39,210 --> 01:25:39,930
+No es correcto.
+
+1321
+01:25:48,070 --> 01:25:49,910
+Se llamaban centirelas.
+
+1322
+01:25:52,390 --> 01:25:53,250
+Coraje midado, ¡tío!
+
+1323
+01:25:54,490 --> 01:25:55,590
+Es que la otra no me la sabía.
+
+1324
+01:25:55,610 --> 01:25:57,030
+La otra no tenía ni idea.
+
+1325
+01:25:57,050 --> 01:25:57,670
+Gracias, midre.
+
+1326
+01:25:57,710 --> 01:25:58,170
+Tenutrious.
+
+1327
+01:26:00,950 --> 01:26:02,610
+A ver si diciendo los nombres me acuerdo.
+
+1328
+01:26:02,630 --> 01:26:05,370
+Claro, esa es la técnica mía en los juegos estos.
+
+1329
+01:26:05,390 --> 01:26:06,890
+Tío, centirelas, tío, me cago en la maz.
+
+1330
+01:26:07,590 --> 01:26:10,730
+Y la líder de las Autobots es Elita Uno.
+
+1331
+01:26:12,830 --> 01:26:15,390
+Bueno, pues Seidon, te queda la lista cuatro.
+
+1332
+01:26:15,890 --> 01:26:16,530
+¿Estás listo?
+
+1333
+01:26:19,050 --> 01:26:23,190
+Pues con la A, nombre de la protagonista del videojuego, Horizon Zero Dawn.
+
+1334
+01:26:27,110 --> 01:26:31,350
+Con la B, nombre del autobot que se transforma en un camaro amarillo en la versión de Michael Bay.
+
+1335
+01:26:33,370 --> 01:26:33,910
+Correcto.
+
+1336
+01:26:34,030 --> 01:26:38,730
+Con la C, número de robot, Johnny, que cobra vida en cortocircuito.
+
+1337
+01:26:41,310 --> 01:26:41,670
+Inco.
+
+1338
+01:26:42,150 --> 01:26:42,670
+Correcto.
+
+1339
+01:26:42,730 --> 01:26:46,910
+Con la D, grupo de música electrónica que ocultó su identidad disfrazados de robots.
+
+1340
+01:26:48,750 --> 01:26:49,270
+Correcto.
+
+1341
+01:26:49,450 --> 01:26:52,650
+Con la E, nombre de la robot exploradora de la película WALL-E.
+
+1342
+01:26:53,790 --> 01:26:54,070
+Eva.
+
+1343
+01:26:54,510 --> 01:26:55,010
+Correcto.
+
+1344
+01:26:55,070 --> 01:26:58,810
+Con la A, nombre de la protagonista del videojuego Horizon Zero Dawn.
+
+1345
+01:27:00,810 --> 01:27:01,230
+Aria.
+
+1346
+01:27:01,830 --> 01:27:02,510
+No es correcto.
+
+1347
+01:27:03,810 --> 01:27:04,570
+Alejandra.
+
+1348
+01:27:04,850 --> 01:27:05,530
+No es correcto.
+
+1349
+01:27:06,430 --> 01:27:07,010
+Alexia.
+
+1350
+01:27:07,530 --> 01:27:11,510
+No es correcto.
+
+1351
+01:27:12,510 --> 01:27:12,850
+Ava.
+
+1352
+01:27:13,330 --> 01:27:14,010
+No es correcto.
+
+1353
+01:27:14,570 --> 01:27:15,150
+Andrea.
+
+1354
+01:27:15,730 --> 01:27:16,350
+No es correcto.
+
+1355
+01:27:19,390 --> 01:27:20,010
+Antonio.
+
+1356
+01:27:20,050 --> 01:27:21,010
+No es correcto.
+
+1357
+01:27:22,810 --> 01:27:24,430
+La pregunta más larga de tu vida, Julio.
+
+1358
+01:27:26,610 --> 01:27:27,850
+El nombre es Aloy.
+
+1359
+01:27:28,830 --> 01:27:37,810
+Tengo que decir que la banda sonora que he puesto para la lectura de la sinopsis de mi libro es de ese juego.
+
+1360
+01:27:38,070 --> 01:27:38,990
+Todo no es cuadra, ¿eh?
+
+1361
+01:27:39,510 --> 01:27:40,730
+Conexión Peskito.
+
+1362
+01:27:41,430 --> 01:27:42,470
+Al final todo cuadra.
+
+1363
+01:27:43,510 --> 01:27:48,690
+Y ahora mismo la puntuación es 13 para Millcrombie, 15 para Joyfly de Pomelo.
+
+1364
+01:27:49,310 --> 01:27:51,570
+Para la distancia sí que se ha recortado realmente.
+
+1365
+01:27:52,290 --> 01:27:54,550
+Y vamos a terminar con los dos últimos sobres.
+
+1366
+01:27:54,770 --> 01:27:56,050
+Primero eligen Millcrombie.
+
+1367
+01:27:56,130 --> 01:27:58,110
+Os recuerdo, queda verde y azul.
+
+1368
+01:27:58,450 --> 01:27:58,870
+Azul.
+
+1369
+01:28:00,710 --> 01:28:02,990
+Y el tema es Robores duros.
+
+1370
+01:28:05,170 --> 01:28:07,650
+Empezamos con la sintonía de una serie de televisión.
+
+1371
+01:28:27,470 --> 01:28:28,630
+No tengo ni idea de qué me estás hablando.
+
+1372
+01:28:28,930 --> 01:28:30,190
+Estaba así, sí, sí, super.
+
+1373
+01:28:31,710 --> 01:28:34,330
+Ostras, tío, esta me va a doler muchísimo.
+
+1374
+01:28:34,470 --> 01:28:36,270
+Esta me va a dar un coraje que me va a dar algo.
+
+1375
+01:28:44,350 --> 01:28:46,350
+Se ha agotado el tiempo, no sé si tenés alguna respuesta.
+
+1376
+01:28:46,370 --> 01:28:50,770
+Nuestra robo respuesta incorrecta es El Show de la Tarde.
+
+1377
+01:28:51,790 --> 01:28:53,390
+Y es incorrecto.
+
+1378
+01:28:53,650 --> 01:28:54,210
+Rebote.
+
+1379
+01:28:55,790 --> 01:28:58,750
+Nuestra robo respuesta correcta es Westworld.
+
+1380
+01:29:00,050 --> 01:29:02,590
+Y es correcto.
+
+1381
+01:29:03,090 --> 01:29:04,910
+Ve ahí, ahí es cuando ellos siempre nos ganan.
+
+1382
+01:29:05,750 --> 01:29:06,670
+Porque tienen memoria, tío.
+
+1383
+01:29:06,690 --> 01:29:07,910
+Pues son los reboteros, tío.
+
+1384
+01:29:07,930 --> 01:29:09,730
+Y porque tienen memoria, tío.
+
+1385
+01:29:10,950 --> 01:29:12,310
+Ahora que le ha dicho sí, pero no.
+
+1386
+01:29:12,710 --> 01:29:14,690
+Sí, sí, ahora con el caballo.
+
+1387
+01:29:14,710 --> 01:29:15,470
+Pero no.
+
+1388
+01:29:15,830 --> 01:29:16,710
+Además, un temazo.
+
+1389
+01:29:17,090 --> 01:29:22,010
+Si no recuerdo mal, es de Ramindy Awaddy, el mismo de Juego de Tronos.
+
+1390
+01:29:23,650 --> 01:29:24,850
+Vamos con la primera pregunta.
+
+1391
+01:29:25,890 --> 01:29:30,210
+¿Cómo se llama el modelo de robot de metal líquido de Terminator 2?
+
+1392
+01:29:35,670 --> 01:29:36,250
+¿T13?
+
+1393
+01:29:36,870 --> 01:29:37,470
+Era un T algo.
+
+1394
+01:29:40,190 --> 01:29:40,310
+No.
+
+1395
+01:29:41,350 --> 01:29:42,390
+Terminator T.
+
+1396
+01:29:42,550 --> 01:29:43,550
+No sé cuánto.
+
+1397
+01:29:46,290 --> 01:29:48,330
+Nuestra robot respuesta incorrecta es...
+
+1398
+01:29:53,070 --> 01:29:53,530
+13.
+
+1399
+01:29:54,830 --> 01:29:56,950
+Y es incorrecto.
+
+1400
+01:29:57,070 --> 01:29:57,450
+Rebote.
+
+1401
+01:29:57,470 --> 01:30:02,070
+Rebote 1000.
+
+1402
+01:30:04,470 --> 01:30:07,250
+Nuestra robot respuesta es T12.
+
+1403
+01:30:08,210 --> 01:30:10,570
+Y es incorrecto.
+
+1404
+01:30:11,570 --> 01:30:14,010
+La respuesta correcta es T1000.
+
+1405
+01:30:14,430 --> 01:30:15,090
+¿Era T1000?
+
+1406
+01:30:18,250 --> 01:30:19,430
+Más liado, más liado.
+
+1407
+01:30:19,430 --> 01:30:20,290
+Tengo que ser muy instinto.
+
+1408
+01:30:20,690 --> 01:30:24,930
+Si yo contaba que no cojas rebote, lo que hagas falta.
+
+1409
+01:30:25,590 --> 01:30:26,450
+Siguiente pregunta.
+
+1410
+01:30:27,450 --> 01:30:31,590
+¿A qué malvado androide se enfrentan los Vengadores en su segunda película?
+
+1411
+01:30:33,850 --> 01:30:36,330
+Ya lo que es tener todas las cosas en la lengua y no te salen.
+
+1412
+01:30:39,870 --> 01:30:40,470
+¿Cómo se llama?
+
+1413
+01:30:42,050 --> 01:30:43,690
+Yo la mente nublada realmente hago.
+
+1414
+01:30:46,470 --> 01:30:47,610
+Otro rebote de cojete.
+
+1415
+01:30:52,270 --> 01:30:56,050
+Nuestra robo-respuesta incorrecta es F5.
+
+1416
+01:30:57,250 --> 01:30:58,950
+Y es incorrecto.
+
+1417
+01:30:59,070 --> 01:31:02,870
+Rebote.
+
+1418
+01:31:04,490 --> 01:31:06,450
+Nuestra robo-respuesta es Ultron.
+
+1419
+01:31:07,610 --> 01:31:09,530
+Y es correcto.
+
+1420
+01:31:11,970 --> 01:31:13,530
+Estáis bloqueados, ¿Milcrombie?
+
+1421
+01:31:14,070 --> 01:31:14,770
+Todo el programa.
+
+1422
+01:31:16,750 --> 01:31:18,070
+Hay preguntas que me han dolido.
+
+1423
+01:31:18,210 --> 01:31:20,010
+No se, no, acuérdame de las respuestas, la verdad.
+
+1424
+01:31:20,250 --> 01:31:22,050
+Claro, como esta, como esta.
+
+1425
+01:31:22,070 --> 01:31:24,570
+A mí esta no, esta no me la sabía, pero la hajo, sí, hajo otra vez.
+
+1426
+01:31:24,590 --> 01:31:28,030
+Claro, cuando te la sabes y no te sale, pues te da chungo, te da chungo.
+
+1427
+01:31:28,190 --> 01:31:30,690
+Pero no porque tengamos mojal perder, eh, lo que yo necesito es un problema.
+
+1428
+01:31:34,830 --> 01:31:36,610
+Ya es con vosotros mismos, eh, frustración.
+
+1429
+01:31:37,510 --> 01:31:40,490
+Esa es la sensación de los exames, cuando no te sale la respuesta y te la sabes.
+
+1430
+01:31:42,750 --> 01:31:44,290
+Vamos con el verdadero o falso.
+
+1431
+01:31:45,290 --> 01:31:53,450
+La película japonesa Alita, Ángel de Combate de 1993, tuvo un remake norteamericano en 2019.
+
+1432
+01:31:54,050 --> 01:31:55,570
+¿Verdadero o falso?
+
+1433
+01:31:59,190 --> 01:32:01,550
+Puede ser, hombre, en 2019 hubo una película americana.
+
+1434
+01:32:02,130 --> 01:32:03,970
+Que hubiera una anterior, había un anime.
+
+1435
+01:32:10,510 --> 01:32:10,750
+Pues sí.
+
+1436
+01:32:11,450 --> 01:32:14,530
+Nuestra respuesta, nuestra robo-respuesta correcta es verdadero.
+
+1437
+01:32:15,230 --> 01:32:16,830
+Y es correcto.
+
+1438
+01:32:18,930 --> 01:32:21,170
+Terminamos con un fragmento de audio de una película.
+
+1439
+01:32:21,190 --> 01:32:23,230
+A ver si adivináis cuál.
+
+1440
+01:32:23,250 --> 01:32:23,810
+Estamos viejos.
+
+1441
+01:32:25,650 --> 01:32:27,090
+Vamos a entrenar.
+
+1442
+01:32:30,250 --> 01:32:31,430
+Bien.
+
+1443
+01:32:35,150 --> 01:32:36,150
+Una serie de tres.
+
+1444
+01:32:37,470 --> 01:32:37,830
+Serie.
+
+1445
+01:32:39,430 --> 01:32:39,830
+Otra vez.
+
+1446
+01:32:47,310 --> 01:32:48,390
+Ni te has despeinado.
+
+1447
+01:32:49,050 --> 01:32:49,650
+Me gusta.
+
+1448
+01:32:49,670 --> 01:32:52,550
+Veo que esta no me da más coraje, ¿no?
+
+1449
+01:32:52,590 --> 01:32:55,770
+Nuestra respuesta, nuestra robo-respuesta incorrecta es...
+
+1450
+01:33:04,570 --> 01:33:04,950
+Robote.
+
+1451
+01:33:28,720 --> 01:33:30,580
+La respuesta correcta es Acero Puro.
+
+1452
+01:33:31,080 --> 01:33:31,360
+Eso.
+
+1453
+01:33:31,380 --> 01:33:32,720
+Yo es que he visto Chappie hace...
+
+1454
+01:33:32,740 --> 01:33:33,320
+Yo no lo había visto.
+
+1455
+01:33:33,340 --> 01:33:34,620
+Le la he visto hace un par de semanas.
+
+1456
+01:33:34,620 --> 01:33:35,400
+Sabía que esa no era.
+
+1457
+01:33:36,020 --> 01:33:39,960
+¿Chappie es la que es un robot policía que lo reprograma o algo así?
+
+1458
+01:33:40,180 --> 01:33:40,460
+Sí.
+
+1459
+01:33:41,540 --> 01:33:44,120
+Y luego estaba Finch, que es la que sale de Tom Hanks.
+
+1460
+01:33:46,240 --> 01:33:46,900
+Sí, ya la he visto.
+
+1461
+01:33:48,000 --> 01:33:52,900
+Bueno, pues vamos con el último sobre, que es el sobre verde para Joyfly de Pomeblo.
+
+1462
+01:33:54,060 --> 01:33:56,660
+Ahora mismo la puntuación ya es 14 a 17.
+
+1463
+01:33:57,020 --> 01:34:03,100
+Así que salvo que dejéis muchos rebotes, que mil cronbis puedan aprovechar, tenéis la victoria amarrada.
+
+1464
+01:34:03,540 --> 01:34:04,520
+Ya depende de vosotros.
+
+1465
+01:34:05,780 --> 01:34:07,920
+Empezamos con una pieza de música clásica.
+
+1466
+01:34:08,380 --> 01:34:10,240
+Me tenéis que decir en qué película suena.
+
+1467
+01:34:30,410 --> 01:34:34,590
+Nuestra respuesta correcta es 2001, una odyssey en el espacio.
+
+1468
+01:34:36,090 --> 01:34:37,410
+Y es correcto.
+
+1469
+01:34:38,070 --> 01:34:39,610
+¿He llegado a decir el tema del sobre?
+
+1470
+01:34:42,010 --> 01:34:43,530
+Vale, el tema es IAS.
+
+1471
+01:34:45,290 --> 01:34:47,350
+Vale, todos recordamos hasta el 9000.
+
+1472
+01:34:49,110 --> 01:34:50,070
+Pues primera pregunta.
+
+1473
+01:34:51,370 --> 01:34:56,570
+Quién creó Al Oráculo, ¿un programa pensante integrado en Matrix?
+
+1474
+01:34:59,210 --> 01:35:00,290
+El arquitecto era, ¿no?
+
+1475
+01:35:02,010 --> 01:35:04,690
+Nuestra respuesta correcta es el arquitecto.
+
+1476
+01:35:05,170 --> 01:35:06,810
+Y es correcto.
+
+1477
+01:35:07,230 --> 01:35:07,950
+Siguiente pregunta.
+
+1478
+01:35:10,910 --> 01:35:15,270
+¿Qué inteligencia artificial condenó a la humanidad en la saga Terminator?
+
+1479
+01:35:26,390 --> 01:35:28,810
+Si, nuestra respuesta correcta es Skynet.
+
+1480
+01:35:29,230 --> 01:35:30,850
+Y es correcto.
+
+1481
+01:35:33,190 --> 01:35:34,610
+Vamos con el verdadero o falso.
+
+1482
+01:35:35,110 --> 01:35:41,410
+En la película Ger, Theodore, un hombre interpretado por Tom Cruise, se enamora de una IA.
+
+1483
+01:35:41,850 --> 01:35:43,150
+¿Verdadero o falso?
+
+1484
+01:35:47,150 --> 01:35:48,270
+Nuestra respuesta es falso.
+
+1485
+01:35:49,550 --> 01:35:51,410
+Y es correcto.
+
+1486
+01:35:52,070 --> 01:35:55,310
+Efectivamente, el actor es Joaquín Phoenix, no Tom Cruise.
+
+1487
+01:35:57,290 --> 01:36:01,330
+Y terminamos con un fragmento de audio de una película donde tenéis que decir cuál es.
+
+1488
+01:36:02,930 --> 01:36:04,130
+Jarvis, ¿estás despierto?
+
+1489
+01:36:04,930 --> 01:36:06,170
+Siempre a su disposición.
+
+1490
+01:36:06,830 --> 01:36:09,290
+Quiero abrir un proyecto nuevo, índice modelo 2.
+
+1491
+01:36:11,850 --> 01:36:16,050
+¿Hago copia en la base de datos central de Industrias Stark?
+
+1492
+01:36:16,070 --> 01:36:17,530
+Ahora no sé quién puedo confiar.
+
+1493
+01:36:18,370 --> 01:36:20,570
+Guárdalo en mi servidor personal hasta nueva orden.
+
+1494
+01:36:21,150 --> 01:36:23,150
+Trabajamos en un proyecto secreto, ¿señor?
+
+1495
+01:36:23,170 --> 01:36:31,330
+Nuestra robo-respuesta correcta es Iron Man.
+
+1496
+01:36:31,350 --> 01:36:31,710
+Y es...
+
+1497
+01:36:33,310 --> 01:36:33,830
+correcto.
+
+1498
+01:36:36,110 --> 01:36:41,970
+Y con ese acierto, además, hacéis un pleno en el sobre y os lleváis la victoria en el juego.
+
+1499
+01:36:42,370 --> 01:36:43,730
+Enhorabuena, Joyfly de Pomelo.
+
+1500
+01:36:46,130 --> 01:36:50,910
+Y ánimo para Milchromy, que seguro que en el siguiente juego ya sabéis cómo va esto.
+
+1501
+01:36:52,250 --> 01:36:53,550
+Y por mi parte, no tengo más.
+
+1502
+01:36:53,850 --> 01:36:55,530
+Pasamos la conexión a Estudios Centrales.
+
+1503
+01:36:56,310 --> 01:36:59,950
+Bueno, pues recibimos la conexión aquí con ánimos renovados, como si no hubiera pasado nada.
+
+1504
+01:37:02,090 --> 01:37:03,410
+Siempre sin ánimos de lucro.
+
+1505
+01:37:06,630 --> 01:37:08,710
+Yo prefiero devolver 20 cajas de Baleariana.
+
+1506
+01:37:13,870 --> 01:37:14,470
+Bueno, pues pasamos a la...
+
+1507
+01:37:14,670 --> 01:37:18,150
+¿Prefieres una pizza o una tortilla de patatas?
+
+1508
+01:37:26,170 --> 01:37:29,550
+Que muchas gracias como siempre por el concurso, que te lo curras mucho.
+
+1509
+01:37:29,570 --> 01:37:31,670
+Y yo el lao a laura más desde que yo hice un concurso.
+
+1510
+01:37:31,690 --> 01:37:35,470
+Y bueno, vamos a pasar enhorabuena a los campeones.
+
+1511
+01:37:35,930 --> 01:37:43,090
+Y vamos a pasar a la última sección del programa, que es la sección del Community Manager favorito de la Robo comunidad.
+
+1512
+01:37:53,830 --> 01:37:56,010
+Ostras, Mildred acaba de hacer un cover de ella misma.
+
+1513
+01:37:56,670 --> 01:37:58,530
+Es yo el que la canta.
+
+1514
+01:38:01,690 --> 01:38:09,010
+Que las recomendaciones de podcasts, como ya sabéis, a veces recomendamos podcasts, y a veces no, recomendamos canales de YouTube.
+
+1515
+01:38:09,370 --> 01:38:17,410
+Pero que eso se pueden, digamos, lo importante es escucharlos, estos canales que recomendamos.
+
+1516
+01:38:17,890 --> 01:38:21,650
+Y el canal de YouTube que vamos a recomendar hoy nos lo trae Marco.
+
+1517
+01:38:22,930 --> 01:38:28,950
+Efectivamente, yo hoy quiero recomendar un canal de YouTube llamado El Robot de Platón.
+
+1518
+01:38:29,730 --> 01:38:33,730
+Como veis, el nombre va acordé a la temática y todo me cuadra.
+
+1519
+01:38:35,610 --> 01:38:44,650
+El YouTuber a cargo de este canal es Aldo Bartra, un divulgador científico peruano de nacimiento y nacionalizado neozelandés, que es donde vive actualmente.
+
+1520
+01:38:45,650 --> 01:39:00,130
+El canal del Robot de Platón es un canal de divulgación científica, como ya os habréis podido imaginar, y toca temas como la robótica, la física, la cosmología, la filosofía, la biología, la zoología y los mitos y leyendas urbanas.
+
+1521
+01:39:01,290 --> 01:39:04,490
+Os pongo algunos ejemplos de videos recientes, por si os pica el gusanillo.
+
+1522
+01:39:05,230 --> 01:39:12,450
+Ha tratado temas tan interesantes como la microbiota, que son las bacterias de nuestro aparato digestivo y cómo nos afecta la alimentación.
+
+1523
+01:39:12,470 --> 01:39:22,110
+Ha hablado sobre el libre albedrío, si realmente lo tenemos o no, tanto desde un punto de vista filosófico, fisiológico y de física cuántica.
+
+1524
+01:39:23,050 --> 01:39:29,470
+Y por supuesto tiene videos donde trata científicamente misterios como el Triángulo de las Bermudas o los Aliens.
+
+1525
+01:39:30,330 --> 01:39:31,630
+Aldo tiene dos canales más.
+
+1526
+01:39:32,550 --> 01:39:34,610
+No sé si los pesquitos lo conocían.
+
+1527
+01:39:35,250 --> 01:39:40,630
+Uno es el robot de Colón, que va sobre animales y está orientado a un público infantil.
+
+1528
+01:39:41,510 --> 01:39:44,150
+En este pone una vocecilla a la que hay que acostumbrarse.
+
+1529
+01:39:46,730 --> 01:39:49,390
+Sí, un acentillo así, algo así como.
+
+1530
+01:39:52,630 --> 01:39:53,870
+Además que empieza siempre los videos igual.
+
+1531
+01:39:54,110 --> 01:39:55,590
+¿Qué pasa con el corre caminos?
+
+1532
+01:39:56,210 --> 01:39:57,090
+Por ejemplo, ¿sabes?
+
+1533
+01:39:57,150 --> 01:39:57,710
+Y siempre.
+
+1534
+01:39:57,730 --> 01:39:58,350
+¿qué pasa con...?
+
+1535
+01:39:58,410 --> 01:40:01,470
+Y una vocecilla así que bueno, una de estas costumbras te hace gracia.
+
+1536
+01:40:01,970 --> 01:40:03,910
+Es como un poco como nosotros, como los pequitos.
+
+1537
+01:40:06,490 --> 01:40:14,710
+El otro canal es un canal de noticias que se llama Noticias Robotitus, donde repasa semanalmente las noticias científicas más interesantes.
+
+1538
+01:40:15,470 --> 01:40:20,370
+También tiene una app con este mismo nombre, Robotitus, donde se pueden leer esas noticias.
+
+1539
+01:40:20,390 --> 01:40:23,210
+Y nada, yo lo sigo desde hace unos años.
+
+1540
+01:40:23,790 --> 01:40:27,310
+Lo veo prácticamente siempre, casi todos sus vídeos.
+
+1541
+01:40:28,030 --> 01:40:34,850
+Y casi siempre durante la cena, pues, voy viendo los vídeos de Aldo, mientras me como un pan con jamón.
+
+1542
+01:40:37,950 --> 01:40:41,930
+Eso es un chiste interno del robot de Platón.
+
+1543
+01:40:45,290 --> 01:40:51,150
+Nada, os recomiendo seguirlo, que son unos vídeos muy interesantes, que dan que pensar y además te mantienen bien informados sobre ciencia.
+
+1544
+01:40:52,090 --> 01:40:55,390
+Y poco más, devuelvo la conexión a SSS y Don McFly.
+
+1545
+01:40:56,070 --> 01:40:58,350
+Pues la conexión recibida.
+
+1546
+01:40:58,370 --> 01:41:02,990
+Y ahora mismo entra la entradilla de la sección favorita de Joy.
+
+1547
+01:41:03,190 --> 01:41:03,890
+Los saluditos.
+
+1548
+01:41:14,520 --> 01:41:17,180
+Aviso que esta sección puede que se alarga.
+
+1549
+01:41:17,680 --> 01:41:18,160
+Lo siento.
+
+1550
+01:41:18,180 --> 01:41:19,060
+¿Cómo que puede?
+
+1551
+01:41:19,640 --> 01:41:20,200
+Puede.
+
+1552
+01:41:20,220 --> 01:41:22,220
+Probablemente se alarga por diversos motivos.
+
+1553
+01:41:22,240 --> 01:41:26,540
+Tengo muchas cosas que contar y tengo que repasar polis.
+
+1554
+01:41:26,560 --> 01:41:27,920
+Tengo capacidad de síntesis.
+
+1555
+01:41:27,940 --> 01:41:28,240
+También.
+
+1556
+01:41:28,560 --> 01:41:29,560
+Todo eso lo tengo yo.
+
+1557
+01:41:31,200 --> 01:41:34,200
+Entonces tengo que contar varias cosas antes de empezar con los saluditos.
+
+1558
+01:41:35,520 --> 01:41:36,420
+Cosa número uno.
+
+1559
+01:41:36,880 --> 01:41:37,600
+Rápidamente.
+
+1560
+01:41:37,900 --> 01:41:56,280
+Hay un podcast que se llama Los Últimos Tefitlipinas, que es un podcast sobre metapodcasting, que ellos tienen una lista de podcasts donde van incluyendo podcasts independientes, amateurs, que tengan fit, como es nuestro caso.
+
+1561
+01:41:56,740 --> 01:41:59,920
+Y esa lista pues ya llevan un tiempo haciéndolas.
+
+1562
+01:42:00,400 --> 01:42:03,080
+Y nos han incluido en ella.
+
+1563
+01:42:04,420 --> 01:42:07,560
+Hemos tenido la suerte de ser fitlipinos.
+
+1564
+01:42:07,580 --> 01:42:08,920
+Somos nombrados fitlipinos.
+
+1565
+01:42:08,960 --> 01:42:18,520
+Somos el podcast fitlipino número 155 en el programa de la temporada 2, episodio 13, que ha sido bastante reciente.
+
+1566
+01:42:18,960 --> 01:42:23,300
+Pues lo comentan, que Peskito y Medio es un podcast fitlipino.
+
+1567
+01:42:23,720 --> 01:42:25,300
+Bien, muchas gracias.
+
+1568
+01:42:25,880 --> 01:42:28,100
+Así que son podcasts, lo recomiendo mucho.
+
+1569
+01:42:28,120 --> 01:42:30,500
+Yo los llevo siguiendo hace un tiempo cuando eran dos.
+
+1570
+01:42:30,520 --> 01:42:33,760
+Estaba Jan Bedell, Julián y Arkaich.
+
+1571
+01:42:33,780 --> 01:42:35,760
+Ahora Arkaich ya no está, está ahora solo Julián.
+
+1572
+01:42:37,340 --> 01:42:39,400
+Y es muy interesante si os gustan los podcasts.
+
+1573
+01:42:41,120 --> 01:42:43,220
+Y con esto voy a enlazar lo siguiente.
+
+1574
+01:42:43,420 --> 01:43:06,460
+En el tweet que anunciaban que Peskito y Medio es un podcast fitlipino, en ese tweet respondió la cuenta de Pescanova y puso el nombre Slomash, haciendo referencia a nuestro nombre de Peskito y Medio, porque Peskito, por si alguien no lo sabe, es un producto de Pescanova que dio origen al nombre de nuestro podcast.
+
+1575
+01:43:07,140 --> 01:43:17,440
+El caso es que interactuamos por twitter con el CM de Pescanova, que además es el mismísimo Capitán Pescanova, que es así, lo lleva en la cuenta el Capitán Pescanova.
+
+1576
+01:43:18,700 --> 01:43:26,700
+Y entonces le dijimos que para llegar a su nivel nos faltaba un toque amarillo.
+
+1577
+01:43:27,640 --> 01:43:33,320
+Si sois fuera de España, el Capitán Pescanova va con un chubasquero, un impermeable amarillo.
+
+1578
+01:43:34,400 --> 01:43:39,240
+El caso es que Cinévoro nos apoyó también en Twitter, nos echó una mano.
+
+1579
+01:43:39,260 --> 01:43:40,100
+Gracias, Cinévoro.
+
+1580
+01:43:40,780 --> 01:43:50,180
+Y han tenido a bien enviarnos, gracias, Capitán, un paquete con un chubasquero de pescanova.
+
+1581
+01:43:50,440 --> 01:43:51,100
+Muchas gracias.
+
+1582
+01:43:52,000 --> 01:43:55,260
+Y no solo eso, sino que además cinco cajas de pesquitos.
+
+1583
+01:43:55,560 --> 01:44:03,520
+No hemos quedado los Joyfly para nuestra hija, porque al ser congelado es complicado que lo podamos mandar.
+
+1584
+01:44:05,560 --> 01:44:06,600
+Es verdad, verdad.
+
+1585
+01:44:06,620 --> 01:44:07,340
+Están congelados.
+
+1586
+01:44:07,360 --> 01:44:12,600
+Si hacemos quedada pesquitera, comeremos pesquitos para celebrarlo.
+
+1587
+01:44:13,400 --> 01:44:15,900
+Así que muchísimas gracias al Capitán.
+
+1588
+01:44:15,920 --> 01:44:18,320
+Además, le prometí que lo comentaríamos en el programa.
+
+1589
+01:44:18,620 --> 01:44:21,440
+Le prometiste que ibas a grabar el programa con el chubasquero puesto.
+
+1590
+01:44:21,600 --> 01:44:22,620
+Y eso, eso he hecho.
+
+1591
+01:44:22,640 --> 01:44:27,500
+De hecho, lo comenté al principio, que estaba con un chubasquero, y aquí estoy aguantando el tipo con el chubasquero.
+
+1592
+01:44:30,660 --> 01:44:36,960
+Pues eso, que además el CM me dijo por privado que había escuchado nuestros últimos dos programas y que la había molado.
+
+1593
+01:44:37,260 --> 01:44:39,380
+Así que muchas gracias para el capitán.
+
+1594
+01:44:40,460 --> 01:44:45,320
+Entonces, ahora es cuando tenemos que poner un pequeño espacio patrocinado por Pescanoba.
+
+1595
+01:44:45,780 --> 01:44:47,380
+Es verdad, es lo que comenté.
+
+1596
+01:44:48,480 --> 01:44:52,920
+Subí a redes un pequeño unboxing con cual youtuber.
+
+1597
+01:44:53,120 --> 01:44:56,260
+Lo tenéis en Twitter o en el Instagram de Peskito.
+
+1598
+01:44:56,740 --> 01:45:02,360
+Y ahí ya lo adelantábamos, que a partir de ahora nuestro podcast va a estar patrocinado claramente por Pescanoba.
+
+1599
+01:45:02,700 --> 01:45:05,340
+Y vamos a cambiar el título como los estadios de fútbol.
+
+1600
+01:45:05,860 --> 01:45:07,720
+Y somos Peskito y Medio by Pescanoba.
+
+1601
+01:45:09,600 --> 01:45:12,940
+Somos el Pescanoba Metropolitano en nuestro estudio de grabación.
+
+1602
+01:45:13,720 --> 01:45:17,520
+Ahí está, desde el Pescanoba Metropolitano para el mundo.
+
+1603
+01:45:20,960 --> 01:45:25,320
+A raíz de que también relaciono con los filipinos, entré en el grupo de Telegram.
+
+1604
+01:45:25,340 --> 01:45:30,980
+Ellos también tienen un grupo de Telegram, donde están casi todos los podcasters filipinos.
+
+1605
+01:45:31,260 --> 01:45:38,940
+Y me escribió Hermes Arjifonte, que tiene un podcast que se llama El Diario de Arjifonte.
+
+1606
+01:45:39,820 --> 01:45:42,120
+Y me comentó que había puesto nuestra cuña.
+
+1607
+01:45:42,560 --> 01:45:49,860
+Como tenemos por ahí una cuña pulvulando por internet, pues nos hizo el favor de ponerla.
+
+1608
+01:45:49,880 --> 01:45:51,800
+Así que quería aprovechar para darle las gracias.
+
+1609
+01:45:51,820 --> 01:45:53,000
+Yo estaba escuchando su podcast.
+
+1610
+01:45:53,020 --> 01:45:54,580
+El podcast lo hace él solo.
+
+1611
+01:45:56,060 --> 01:46:00,400
+Va de tipo de podcaster que va por la calle grabando cosas.
+
+1612
+01:46:01,300 --> 01:46:04,680
+Su pensamiento y bueno, no sabría cómo catalogarlo.
+
+1613
+01:46:04,700 --> 01:46:05,480
+Habla de todo un poco.
+
+1614
+01:46:06,280 --> 01:46:07,800
+Así que muchas gracias, Hermes.
+
+1615
+01:46:09,420 --> 01:46:28,760
+Y lo último que quería comentar es que recientemente fueron los premios de la Asociación Podcast que se entregaron en la J-POD 23 en Gandía y que estuvimos nominados para la final de la categoría de cultura popular, pero no pudimos ganar.
+
+1616
+01:46:29,100 --> 01:46:30,520
+Nos quedamos ahí en las puertas.
+
+1617
+01:46:38,240 --> 01:46:44,820
+Pues el ganador fue el podcast de la EGB, así que darle la enhorabuena y otro año será.
+
+1618
+01:46:46,000 --> 01:46:47,640
+Y ya voy con los saluditos.
+
+1619
+01:46:47,840 --> 01:46:50,100
+Muchas gracias a todos los que nos votaron a nosotros.
+
+1620
+01:46:50,400 --> 01:46:51,860
+Eso efectivamente se me olvida.
+
+1621
+01:46:51,880 --> 01:46:53,820
+Gracias Alecrombie.
+
+1622
+01:46:53,840 --> 01:46:57,220
+A la persona que nos votó.
+
+1623
+01:46:57,700 --> 01:47:00,500
+Que fuera socio de la asociación, que era el requisito.
+
+1624
+01:47:01,220 --> 01:47:02,340
+Eso ya es más complicado.
+
+1625
+01:47:02,740 --> 01:47:03,680
+Y nada, que me enrollo mucho.
+
+1626
+01:47:04,260 --> 01:47:08,180
+Tengo que comentar dos programas, porque los dos últimos los grabamos seguido.
+
+1627
+01:47:08,480 --> 01:47:12,000
+Entonces tenemos aquí una burbuja de poles considerable.
+
+1628
+01:47:12,240 --> 01:47:13,960
+Vale, venga, voy rápido.
+
+1629
+01:47:14,480 --> 01:47:18,340
+Peskito, número 45, PIN 45, hace dos programas.
+
+1630
+01:47:18,380 --> 01:47:19,780
+La pole fue para...
+
+1631
+01:47:22,360 --> 01:47:23,980
+Lux Park, enhorabuena Lux.
+
+1632
+01:47:25,820 --> 01:47:29,040
+La pole de Lux fue para...
+
+1633
+01:47:31,580 --> 01:47:36,060
+la pocilga MDQ, que entiendo que es Ignacio, Ignacio Leal.
+
+1634
+01:47:36,080 --> 01:47:45,020
+Y dijo la frase correcta que era, ese es mi secreto, siempre estoy fresquito, porque era el podcast de Fresquito y Medio, el primero de los dos.
+
+1635
+01:47:45,820 --> 01:47:54,120
+Y, recordamos que tenemos una tercera pole, que es la Cinevo Pole, para el último comentario del programa cuando grabamos el siguiente.
+
+1636
+01:47:54,140 --> 01:47:55,980
+Y en este caso es para...
+
+1637
+01:47:58,440 --> 01:47:59,220
+Pepe Cubero.
+
+1638
+01:47:59,520 --> 01:48:03,280
+Tuvo el último comentario, así que, enhorabuena, primera Cinevo Pole que se lleva.
+
+1639
+01:48:03,660 --> 01:48:08,940
+Eso no se lo esperaba Cinevoro, porque él se ha garantizado ganar otra Cinevo Pole que no era esta.
+
+1640
+01:48:10,000 --> 01:48:10,860
+Spoiler alert.
+
+1641
+01:48:11,400 --> 01:48:29,200
+Así que nada, soy rápido, agradecer a todos los que nos han comentado que han sido Cinevoro precisamente, Luke Spark, Nacho Castro, La Pocilia Medecu, Jossitus, Javier Monyunx y Pepe.
+
+1642
+01:48:30,120 --> 01:48:43,280
+Y en Spotify, en ese mismo programa, también nos comentó Luis Millán, que hizo la pole deluxe de Spotify, que puso ese es mi secreto, siempre estoy fresquito.
+
+1643
+01:48:44,040 --> 01:48:48,500
+Azucena también lo puso, pero el primero, lo siento, el primero fue Ignacio.
+
+1644
+01:48:48,940 --> 01:48:59,740
+Y también lo escribió Álvaro García López, alias Marielena, y nos puso, me encanta el código de descuento, Lalo, déjamelo más barato.
+
+1645
+01:49:00,500 --> 01:49:06,680
+Que ese era el código de descuento para tiendas Tierra Media, que aprovechamos en las ramas, en Cádiz y en Jerez.
+
+1646
+01:49:07,040 --> 01:49:11,260
+Paso a pin 46, pin 46, la pole normal es para...
+
+1647
+01:49:13,600 --> 01:49:16,480
+Lux de nuevo, enhorabuena Lux, ha hecho doblete.
+
+1648
+01:49:17,120 --> 01:49:18,820
+Y la pole deluxe es para...
+
+1649
+01:49:21,100 --> 01:49:26,400
+Luis Millan de Just Leave It, que puso mi pole favorito era el de chocolate.
+
+1650
+01:49:26,500 --> 01:49:29,280
+Esta pole era un poco especial porque cada uno podía elegir el sabor.
+
+1651
+01:49:30,180 --> 01:49:35,680
+No sé si tuvimos más sabores, me suena que había alguno más, pero bueno, ahora cuando salude lo veré.
+
+1652
+01:49:36,600 --> 01:49:38,020
+Y la cinebopole es para...
+
+1653
+01:49:40,080 --> 01:49:42,300
+Para Cineboro, que no ha escrito hace un ratito.
+
+1654
+01:49:42,560 --> 01:49:48,100
+Ha puesto cinebopole no programada, él se acordaba de esa pole en su honor.
+
+1655
+01:49:48,720 --> 01:49:49,920
+Y se la ha asegurado.
+
+1656
+01:49:50,000 --> 01:50:07,320
+Entonces, saludos para Luis Millán y Cineboro, Elux, Nacho Castro de Nuevo Jositus, Flavio Olmos-Kan, que nos explica los poloflans, como se dicen en Argentina, Nacho Castro, que también no ha hablado.
+
+1657
+01:50:09,700 --> 01:50:10,780
+Juguitos congelados.
+
+1658
+01:50:11,000 --> 01:50:12,220
+Pues juguitos congelados.
+
+1659
+01:50:12,240 --> 01:50:13,580
+No tiene más sentido.
+
+1660
+01:50:14,180 --> 01:50:18,400
+Y también había algo similar, que eran las mielcitas, un jarabe dulce con colorantes.
+
+1661
+01:50:18,660 --> 01:50:28,800
+De hecho, Sato, en el grupo de Telegram de los oyentes, los pillover explicó de dónde venía el origen de poloflans, ¿no era algo así?
+
+1662
+01:50:29,240 --> 01:50:35,100
+Sí, de flax, era con X y era como una especie de budocopia de Flash Gordon, el lobo.
+
+1663
+01:50:35,200 --> 01:50:40,160
+Era un personaje, entonces, supongo que vendría de ahí, de flax, en Andalucía.
+
+1664
+01:50:40,840 --> 01:50:46,200
+Quitamos la X, lógicamente se quedó en flax, derivó en flan y todas las variantes.
+
+1665
+01:50:46,540 --> 01:50:58,920
+Y bueno, aprovecho ya que lo has mencionado, recuerdo, tenemos un grupo de telegram, bueno, tenemos no, los pesquiters tienen un grupo de telegram, donde estamos algunos pesquitos y vamos comentando Friki y hacemos más polestos.
+
+1666
+01:50:58,960 --> 01:51:02,160
+Es horrible esa parte, por favor.
+
+1667
+01:51:03,440 --> 01:51:10,760
+Y bueno, tenemos también comentarios de Ignacio Leal, Javier Moñux, Pepe Cubero y ya está.
+
+1668
+01:51:10,780 --> 01:51:14,800
+Siento no parme mucho los comentarios, pero es que si no me matan.
+
+1669
+01:51:15,140 --> 01:51:18,020
+Tengo una pistola apuntándome y nada.
+
+1670
+01:51:18,260 --> 01:51:20,180
+Mentira, mentira.
+
+1671
+01:51:20,200 --> 01:51:22,420
+Estás poniendo de malas a Joey, eh.
+
+1672
+01:51:26,660 --> 01:51:28,640
+Escuchándote atentamente mientras juega al móvil.
+
+1673
+01:51:31,400 --> 01:51:40,520
+Así que nada, suscribíos a las redes sociales, tenemos de todo, hasta las más modernas como Blue Sky y ya está.
+
+1674
+01:51:40,540 --> 01:51:41,900
+Y meteros en el grupo de Telegram.
+
+1675
+01:51:41,940 --> 01:51:43,380
+Arroba pesquiters3.
+
+1676
+01:51:43,520 --> 01:51:44,080
+No lo he dicho.
+
+1677
+01:51:44,100 --> 01:51:45,240
+Arroba pesquiters3.
+
+1678
+01:51:45,840 --> 01:51:47,040
+K de kilo.
+
+1679
+01:51:47,060 --> 01:51:48,200
+Como tiene que ser, hombre.
+
+1680
+01:51:48,300 --> 01:51:50,480
+Como tiene que ser poner 3 ahí.
+
+1681
+01:51:50,740 --> 01:51:52,620
+Bueno, pues muchas gracias Seidon Marfly.
+
+1682
+01:51:53,120 --> 01:51:58,780
+Muchas gracias a los pesquiters por su paciencia y no vamos a enrollarnos más.
+
+1683
+01:51:59,180 --> 01:52:00,700
+Ni mil robo palabras más.
+
+1684
+01:52:01,560 --> 01:52:02,640
+Es que estás robando, ¿sabes?
+
+1685
+01:52:02,660 --> 01:52:04,280
+Sí, pues robo palabras.
+
+1686
+01:52:04,300 --> 01:52:05,180
+Yo robo palabras.
+
+1687
+01:52:05,200 --> 01:52:06,900
+Así que no voy a robarle palabras a nadie más.
+
+1688
+01:52:08,220 --> 01:52:09,020
+Hasta la próxima.
+
+1689
+01:52:14,620 --> 01:52:15,780
+Ukelele abajo.
+
+1690
+01:52:16,820 --> 01:52:17,860
+Me he equivocado, perdón.
+
+1691
+01:52:19,040 --> 01:52:19,520
+No pasa nada.
+
+1692
+01:52:26,490 --> 01:52:27,570
+Ay, no se las jugaba, ¿eh?
+
+1693
+01:52:27,590 --> 01:52:37,010
+Jajajajaja Jajajaja Jajajaja Bueno, un momento, un momento, espera, un momento.
+
+1694
+01:52:37,430 --> 01:52:40,930
+Yo quiero mucho, quiero, de verdad, a nuestros pesquiters, ¿vale?
+
+1695
+01:52:40,950 --> 01:52:43,270
+Entonces ahora vamos a relajarnos todos.
+
+1696
+01:52:43,290 --> 01:52:46,110
+Ah, no, no, ahora no, es la siguiente.
+
+1697
+01:52:46,130 --> 01:52:47,410
+Adelante, adelante, Seidon Mofla.
+
+1698
+01:52:51,090 --> 01:52:52,130
+¿Qué le pasa a Alecrombie?
+
+1699
+01:52:54,610 --> 01:52:56,410
+Está la cosa muy mala, está la cosa muy mala.
+
+1700
+01:52:56,590 --> 01:52:58,390
+Tenemos que hablar, Alecrombie.
+
+1701
+01:52:59,090 --> 01:52:59,790
+Intervention.
+
+1702
+01:53:00,290 --> 01:53:01,270
+Necesito un abrazo.
+
+1703
+01:53:03,790 --> 01:53:04,390
+Ahora, ahora.
+
+1704
+01:53:04,550 --> 01:53:07,230
+A nosotros nos ha pasado también que os escuchábamos a vosotros.
+
+1705
+01:53:07,250 --> 01:53:08,590
+Eso nos pasa a nosotros antes.
+
+1706
+01:53:08,910 --> 01:53:11,670
+Eso acaba de decir mi hermana, Seidon.
+
+1707
+01:53:12,130 --> 01:53:14,170
+Literalmente, de...
+
+1708
+01:53:14,190 --> 01:53:17,710
+Jajajaja Esta es la tuya, no puedes no haberla escuchado.
+
+1709
+01:53:20,030 --> 01:53:22,370
+Es que tengo el auricular puesto del lado de ella.
+
+1710
+01:53:25,490 --> 01:53:29,450
+Es que es el subrayador, subraya la frase de Joey.
+
+1711
+01:53:33,610 --> 01:53:34,930
+Necesitamos hacer una pausa aquí.
+
+1712
+01:53:35,090 --> 01:53:36,490
+Tenemos un ordenado rebelde.
+
+1713
+01:53:36,970 --> 01:53:39,310
+Es que tenemos el ordenado de mi trabajo.
+
+1714
+01:53:39,330 --> 01:53:41,330
+El que se enciende solo y el que hace ruido.
+
+1715
+01:53:41,610 --> 01:53:43,870
+Estoy apagándolo, para que no se escuche el ruido.
+
+1716
+01:53:43,890 --> 01:53:44,790
+¿Cómo se enciende solo?
+
+1717
+01:53:44,810 --> 01:53:45,410
+No sé qué le pasa.
+
+1718
+01:53:46,030 --> 01:53:47,730
+Tres veces se enciende solo.
+
+1719
+01:53:47,750 --> 01:53:48,390
+No lo entiendo.
+
+1720
+01:53:48,510 --> 01:53:49,070
+Es una locura.
+
+1721
+01:53:49,210 --> 01:53:50,290
+La rebelión de las máquinas.

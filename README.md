@@ -14,6 +14,7 @@ Es una web estática: no hay servidor, base de datos ni proceso de compilación.
 - Una **página propia por episodio** (`episodios/<slug>.html`) con sus notas completas, ficha rápida, reproductor, navegación anterior/siguiente y episodios relacionados. La ficha rápida incluye enlaces para comentar en iVoox, en X y en Telegram.
 - Enlace directo a cada episodio en Spotify, guardado en `spotify_cache.json` y actualizado automáticamente.
 - **Secciones con minutaje** en las fichas de episodio, leídas de los capítulos Podlove (`psc:chapters`) del feed. Al pulsar una sección, el reproductor salta a ese instante y empieza a sonar. Si el capítulo trae enlace o imagen, también se muestran junto a la sección.
+- **Transcripciones**: cada ficha muestra, en un bloque desplegable, la transcripción completa del episodio con los minutajes (al pulsar un párrafo, el reproductor salta a ese instante) y ofrece la descarga del fichero SRT.
 - **Minutajes dentro de las descripciones**: las líneas que incluyen una marca de tiempo se destacan y, al pulsarlas, el reproductor salta a ese instante. Al final de las notas aparece un botón **Escucha el episodio en iVoox**.
 - Datos estructurados `PodcastEpisode`, `BreadcrumbList` y `CollectionPage` para mejorar el SEO y los resultados enriquecidos.
 - Archivo estático navegable en `episodios/index.html`, con enlaces reales a todas las fichas.
@@ -40,12 +41,41 @@ Cada ficha incluye:
 - `<title>` y `<meta name="description">` propios.
 - `link rel="canonical"` absoluta y metadatos Open Graph/Twitter.
 - Un bloque JSON-LD `PodcastEpisode` con `partOfSeries`, `episodeNumber`, `datePublished`, `duration` en ISO 8601, `image`, `associatedMedia` y `author`.
+- Cuando hay transcripción, `associatedMedia.transcript` con la URL del fichero SRT y `accessibilityFeature: transcript`.
 - Un `BreadcrumbList` que coincide con las migas de pan visibles.
 - Enlaces de navegación al episodio anterior/siguiente, a otros episodios relacionados y al archivo completo.
 
 `episodios/index.html` es el archivo completo, renderizado como HTML estático (no depende de JavaScript), de modo que los buscadores siempre tienen un camino de enlaces hacia todas las fichas. La parrilla de la portada también enlaza cada tarjeta con su página.
 
 El `slug` se guarda en `js/episodes.js`. Mientras el título no cambie, la URL se mantiene estable entre actualizaciones. Si un episodio nuevo coincide con otro slug, se añade un sufijo numérico.
+
+
+## Transcripciones
+
+Cada ficha incluye la transcripción completa del episodio en un bloque desplegable. El actualizador la integra en el HTML (para que sea indexable y accesible) y declara en el JSON-LD la URL del fichero SRT dentro de `associatedMedia.transcript`.
+
+La fuente es [PodTranscript](https://www.pod-transcript.com/podcast/1453280178), que expone la transcripción completa del programa (la que genera Apple Podcasts) en formato SRT, con los tiempos de cada fragmento.
+
+Cómo funciona:
+
+1. `actualizar.py` consulta el catálogo de episodios de PodTranscript (`/api/podcasts/1453280178/episodes`) y asocia cada episodio con su GUID de iVoox.
+2. Para cada episodio sin fichero local, pide la transcripción (`/api/podcasts/1453280178/transcript?episodeGuid=...`) y la guarda como SRT en `transcripciones/<id>.srt`.
+3. La ficha lee ese SRT, agrupa los fragmentos en párrafos legibles y los pinta con su minutaje. Cada párrafo es un botón: al pulsarlo, el reproductor salta a ese instante.
+4. La ficha ofrece la descarga del SRT (`../transcripciones/<id>.srt`).
+
+El `<id>` es el número que aparece en la URL de iVoox del episodio, después de `_rf_`:
+
+```
+https://www.ivoox.com/pym-63-...-audios-mp3_rf_183682229_1.html
+                                             ^^^^^^^^^
+transcripciones/183682229.srt
+```
+
+Los ficheros SRT **no** se guardan en `js/episodes.js`: así el archivo que carga el navegador no crece con textos largos. El workflow de GitHub Actions añade `transcripciones/` al commit y lo copia a `_site/` para que las descargas funcionen en la web publicada.
+
+Si el fichero ya existe en `transcripciones/`, no se vuelve a descargar. Para regenerarlo basta con borrarlo y ejecutar `python actualizar.py`. Las transcripciones automáticas pueden contener errores de reconocimiento de voz.
+
+Los episodios que no tienen transcripción se anotan en `transcripciones/ausentes.json` con la fecha de la comprobación. Así no se vuelve a preguntar por ellos en cada ejecución; a los 30 días se vuelven a consultar por si el servicio ya los tiene.
 
 
 ## Contenido de los episodios

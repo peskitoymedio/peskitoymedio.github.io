@@ -1,0 +1,5971 @@
+1
+00:00:05,240 --> 00:00:10,660
+En 1995, Pixar revoluciona la historia del cine produciendo el primer largometraje animado enteramente por ordenador.
+
+2
+00:00:13,220 --> 00:00:23,180
+Durante este tiempo nos han hecho descubrir que la animación no tiene ni edad ni límites y puede conmovernos, tal y como lo hace la realidad de carne y hueso.
+
+3
+00:00:25,040 --> 00:00:40,140
+En el marco de Iniciativas Pod, 26 podcasts se han unido para homenajear todas esas horas de diversión, ternura, amistad y grandes momentos que Pixar nos ha ofrecido durante estos 27 años.
+
+4
+00:00:41,860 --> 00:00:47,100
+El día de junio viajaremos hasta el infinito y más allá preparando el camino al estreno de Lightyear.
+
+5
+00:00:47,460 --> 00:00:49,720
+No os perdáis la Iniciativa Pixar en e-box.
+
+6
+00:00:55,490 --> 00:00:58,550
+Bienvenidos y bienvenidas a tu Podcast Friki preferido.
+
+7
+00:00:59,010 --> 00:01:05,270
+Os traemos un especial, más especial de lo normal, con todos ustedes, Pixar y Medio.
+
+8
+00:01:05,550 --> 00:01:06,350
+Adelante, Joy.
+
+9
+00:01:59,500 --> 00:02:00,730
+Bueno, si es la primera vez que nos escuchas, no te pienses que esta canción la ponemos en todos los programas.
+
+10
+00:02:00,750 --> 00:02:01,770
+Aquí, en cada programa nuestro, ponemos una cancioncita nueva, distinta, y esta por primera vez se ha repetido.
+
+11
+00:02:01,830 --> 00:02:02,010
+¿En qué programa anterior?
+
+12
+00:02:02,030 --> 00:02:02,650
+Oye, pues puedes repasarte los programas, pues en cuál de ellos se puso...
+
+13
+00:02:02,670 --> 00:02:02,890
+Hay un pesquito en mí.
+
+14
+00:02:02,910 --> 00:02:03,050
+Yo lo sé.
+
+15
+00:02:03,070 --> 00:02:03,530
+Claro, porque ahí la has sacado tú, ¿no?
+
+16
+00:02:03,550 --> 00:02:03,650
+Sin vergüenza.
+
+17
+00:02:03,930 --> 00:02:16,930
+Bueno, antes de seguir, como me he buscado un especial de Pixar, ahora explicamos un poquito de qué va, me he buscado una frase de la peli Buscando a Nemo que dice, cuando te miro, puedo sentirlo.
+
+18
+00:02:17,030 --> 00:02:18,430
+Te miro y ya estoy en casa.
+
+19
+00:02:18,870 --> 00:02:21,810
+En este caso sería igual, pero en vez de cuando te miro, cuando te oigo.
+
+20
+00:02:21,910 --> 00:02:29,430
+Y es que yo cuando os oigo, pesquitos, os quiero mucho, chicos, todos, a ti también, Mildred, yo estoy como en casa y la verdad que esto es genial y me lo paso pipongo.
+
+21
+00:02:30,250 --> 00:02:32,690
+No, sin duda, literal, estoy grabando desde casa.
+
+22
+00:02:33,010 --> 00:02:33,850
+Te les trabajamos.
+
+23
+00:02:34,550 --> 00:02:36,070
+La verdad que sí.
+
+24
+00:02:36,090 --> 00:02:40,230
+Entonces yo espero que todos los que no escuchen se sienten como en casa y nada.
+
+25
+00:02:40,550 --> 00:02:50,370
+Vamos antes de decir nada, de hecho, antes incluso de presentar a los otros pesquitos, vamos a decir un poquito de qué va el tema, ¿vale?
+
+26
+00:02:50,550 --> 00:02:56,850
+Nosotros que formamos parte de una iniciativa que se llama la Iniciativa Pixar y que aprovechando que dentro de...
+
+27
+00:02:57,190 --> 00:02:58,910
+Bueno, se ha estrenado hoy creo que, ¿no?
+
+28
+00:02:58,930 --> 00:03:00,310
+¿O mañana se ha ido más fly?
+
+29
+00:03:00,990 --> 00:03:01,910
+Dentro de siete días.
+
+30
+00:03:02,070 --> 00:03:02,830
+Dentro de siete días.
+
+31
+00:03:02,850 --> 00:03:04,310
+De la publicación de este programa.
+
+32
+00:03:04,330 --> 00:03:05,870
+Esto no lo hemos grabado hoy.
+
+33
+00:03:05,910 --> 00:03:08,470
+Tú que estás escuchando esto, ¿no?
+
+34
+00:03:08,490 --> 00:03:10,030
+Pero es en directo, en directo.
+
+35
+00:03:10,190 --> 00:03:11,670
+Esto es como Twitch y estas cosas.
+
+36
+00:03:11,970 --> 00:03:16,010
+Esto se publica el día 10 de junio y el estreno es el 17.
+
+37
+00:03:20,110 --> 00:03:21,730
+Tema es crítica, el tema es crítica, no pasa nada.
+
+38
+00:03:21,750 --> 00:03:22,630
+Bienvenidos al caos.
+
+39
+00:03:23,010 --> 00:03:23,790
+Abraza el caos.
+
+40
+00:03:23,850 --> 00:03:32,750
+Pues aprovechando la peli Lightyear, ha habido un grupo de 27 podcasts que hemos hecho un especial en el que van a...
+
+41
+00:03:32,770 --> 00:03:46,090
+Bueno, estamos analizando todas las películas de Pixar desde la primera que hicieron y algunos especiales, por ejemplo, hay uno que es especial de las bandas sonoras, otro especial de los cortometrajes de Pixar y nosotros tenemos un especial Trivial.
+
+42
+00:03:46,330 --> 00:03:49,630
+Y bueno, el Trivial, por supuesto, es el concurso típico que...
+
+43
+00:03:49,650 --> 00:03:52,790
+Bueno, no típico en este caso, que nos va a traer nuestro Super Malcom, ¿vale?
+
+44
+00:03:53,110 --> 00:04:01,370
+Si os fijáis, ahora en Evox hay una lista de reproducción en la que están los 27 programas de los 27 podcasts distintos.
+
+45
+00:04:01,390 --> 00:04:09,750
+Y, hombre, ya que estamos, recomendamos, no sólo una escucha de nosotros, que eso ya lo estáis haciendo, sino que escuchéis el resto que la verdad que está muy guay, que tiene muy buena pinta.
+
+46
+00:04:09,990 --> 00:04:12,290
+Y hasta aquí, yo creo que más o menos no séis de Massfly.
+
+47
+00:04:18,130 --> 00:04:19,170
+Hasta aquí la Iniciativa Pixar.
+
+48
+00:04:19,190 --> 00:04:21,410
+Espero que a los nuevos oyentes les haya gustado nuestro programa.
+
+49
+00:04:21,470 --> 00:04:23,930
+Sí, el más corto, este era un mini-podcast.
+
+50
+00:04:24,750 --> 00:04:26,130
+¿Algo sobre la Iniciativa Pixar?
+
+51
+00:04:26,250 --> 00:04:26,970
+Más o menos, ¿no?
+
+52
+00:04:27,190 --> 00:04:28,970
+Sí, la he explicado perfectamente.
+
+53
+00:04:29,630 --> 00:04:52,330
+Bueno, claro, aquí hay dos tipos de oyentes, los que nos escuchan habitualmente, que están sorprendidos, porque es un programa sin número, con una portada distinta, un título distinto, un programa no canónico, extraño, y después están los que hayan llegado porque se hayan escuchado los 27, 28 programas que hay antes que nosotros y vienen súper preparados para este programa.
+
+54
+00:04:52,410 --> 00:04:55,810
+Sin duda, y van a hacerlo el tribel mucho mejor que nosotros, sin duda.
+
+55
+00:04:55,890 --> 00:04:56,570
+Efectivamente.
+
+56
+00:05:03,310 --> 00:05:03,610
+¿Qué dices?
+
+57
+00:05:03,890 --> 00:05:04,970
+¿Eso es trampa?
+
+58
+00:05:06,350 --> 00:05:07,610
+Perderemos otra vez.
+
+59
+00:05:09,030 --> 00:05:14,090
+Yo digo que Joy ahora ha estado echando un vistacillo a cosas.
+
+60
+00:05:14,410 --> 00:05:14,910
+¿Qué dices?
+
+61
+00:05:15,310 --> 00:05:16,030
+¿Eso es trampa?
+
+62
+00:05:16,050 --> 00:05:19,550
+Pero nada, hace literalmente media hora.
+
+63
+00:05:19,710 --> 00:05:20,570
+¿Media hora?
+
+64
+00:05:21,050 --> 00:05:21,830
+Madre mía.
+
+65
+00:05:22,010 --> 00:05:25,270
+Hace literalmente cuatro meses que está...
+
+66
+00:05:25,290 --> 00:05:26,710
+Desde que supimos la iniciativa...
+
+67
+00:05:26,730 --> 00:05:29,310
+No digas eso porque ahora me voy a quedar aún peor.
+
+68
+00:05:31,330 --> 00:05:33,370
+Bueno, tú luego lo borras, como tú eres la postproductora.
+
+69
+00:05:33,390 --> 00:05:33,770
+Eso, eso.
+
+70
+00:05:33,790 --> 00:05:34,370
+Gracias por recordar.
+
+71
+00:05:34,390 --> 00:05:39,030
+Yo digo que el ladrón piensa que todos son de su condición, no como es eso.
+
+72
+00:05:40,910 --> 00:05:44,950
+La has dicho bien, pero vamos, que se va a notar lo que hemos estudiado nosotros.
+
+73
+00:05:44,970 --> 00:05:48,110
+Nosotros estudiamos otras cosas y mal.
+
+74
+00:05:48,570 --> 00:05:50,090
+Bueno, que listo.
+
+75
+00:05:50,570 --> 00:05:51,250
+Voy a presentar...
+
+76
+00:05:51,270 --> 00:05:54,670
+Mira, precisamente, como habrá algún oyente nuevo, vamos a poner que hay un par.
+
+77
+00:05:54,690 --> 00:05:59,910
+Hola tú, si tú eres nuevo, a partir de ahora te voy a llamar Peskiter y mira, te voy a presentar...
+
+78
+00:05:59,930 --> 00:06:03,510
+Por un lado tenemos a la que siempre interrumpes, que es la fama que tiene, ¿vale?
+
+79
+00:06:03,650 --> 00:06:04,290
+Que es Mildre.
+
+80
+00:06:04,830 --> 00:06:07,090
+¿Fama que tengo que no me ha ganado?
+
+81
+00:06:07,110 --> 00:06:07,810
+No, para nada.
+
+82
+00:06:07,830 --> 00:06:12,330
+Después de treinta y pico programas que llevamos, siempre interrumpes.
+
+83
+00:06:12,350 --> 00:06:13,290
+Y por cierto, Mildre.
+
+84
+00:06:13,410 --> 00:06:15,190
+Y soy la única, por cierto.
+
+85
+00:06:15,190 --> 00:06:16,010
+Sí, la única.
+
+86
+00:06:16,190 --> 00:06:17,990
+Ya que estamos con el tema Pixar.
+
+87
+00:06:18,850 --> 00:06:19,370
+Cuál es tu...
+
+88
+00:06:19,390 --> 00:06:19,790
+No, no.
+
+89
+00:06:20,010 --> 00:06:21,930
+¿Cuál es tu película pizza preferida?
+
+90
+00:06:22,910 --> 00:06:25,190
+Venga, así te conocen un poquito más alguien.
+
+91
+00:06:26,210 --> 00:06:26,670
+Nosotros.
+
+92
+00:06:27,070 --> 00:06:29,090
+Los pesquitos y pesquitas son los oyentes.
+
+93
+00:06:31,370 --> 00:06:31,910
+Puede que sí.
+
+94
+00:06:33,670 --> 00:06:34,110
+Peliculón.
+
+95
+00:06:34,250 --> 00:06:35,430
+Me parece fenomenal.
+
+96
+00:06:36,010 --> 00:06:37,250
+Venga, pues vamos a pasar al siguiente.
+
+97
+00:06:37,250 --> 00:06:38,570
+Vamos a pasar con la hermana, ¿vale?
+
+98
+00:06:38,590 --> 00:06:39,610
+Que son las nonas.
+
+99
+00:06:40,010 --> 00:06:41,010
+La otra nona sister.
+
+100
+00:06:41,250 --> 00:06:41,910
+Joy, ¿qué tal?
+
+101
+00:06:42,290 --> 00:06:42,630
+Hola.
+
+102
+00:06:42,810 --> 00:06:43,490
+Esta es la de Luquelele.
+
+103
+00:06:43,890 --> 00:06:47,630
+Conocida como la de Luquelele y la que lo hace casi todo en el podcast.
+
+104
+00:06:52,110 --> 00:06:53,010
+Si escuchas otra mejor.
+
+105
+00:06:53,490 --> 00:06:54,410
+Respuesta provisional.
+
+106
+00:06:54,430 --> 00:06:56,830
+Estos son mis principios, si no les gustan tengo otros.
+
+107
+00:06:56,950 --> 00:06:58,490
+Tengo otros, sí.
+
+108
+00:06:58,510 --> 00:07:02,910
+Yo tengo que decir que tu hermana, yo creo que sabemos cuál es su película preferida de Pixar.
+
+109
+00:07:02,930 --> 00:07:04,410
+Yo creo que sí también.
+
+110
+00:07:04,430 --> 00:07:04,950
+Cuál es, ¿Joy?
+
+111
+00:07:05,810 --> 00:07:06,550
+Wally, sin duda.
+
+112
+00:07:06,550 --> 00:07:07,170
+Estaba claro.
+
+113
+00:07:07,690 --> 00:07:08,630
+Esa está bien también, Emilio.
+
+114
+00:07:11,550 --> 00:07:15,170
+Bueno, pasamos al siguiente que también está allí en el sector Lébrejano.
+
+115
+00:07:15,550 --> 00:07:18,530
+Tenemos al Community Manager favorito de la comunidad, ¿vale?
+
+116
+00:07:18,550 --> 00:07:20,570
+Esto es un hecho objetivo, ¿vale?
+
+117
+00:07:20,730 --> 00:07:22,330
+Es el favorito de la comunidad.
+
+118
+00:07:22,430 --> 00:07:23,370
+Por lo menos, de la nuestra.
+
+119
+00:07:24,030 --> 00:07:24,770
+¿Se ha ido más fly?
+
+120
+00:07:24,870 --> 00:07:25,310
+¿Qué tal?
+
+121
+00:07:25,330 --> 00:07:25,790
+¿Qué pasa?
+
+122
+00:07:25,810 --> 00:07:29,030
+Estás tú súper crecidito, ¿no?
+
+123
+00:07:29,050 --> 00:07:30,670
+Estás ahí con mucha seguridad.
+
+124
+00:07:30,690 --> 00:07:33,150
+A ver, es que hoy no tengo ya ni...
+
+125
+00:07:33,170 --> 00:07:34,530
+Sinómente, no tengo secciones.
+
+126
+00:07:34,550 --> 00:07:35,850
+Esto ya no tengo nada.
+
+127
+00:07:35,870 --> 00:07:38,390
+Entonces, tengo que alargar ya todo lo que pueda a la presentación.
+
+128
+00:07:38,570 --> 00:07:40,470
+Porque hoy Malcolm nos va a comer...
+
+129
+00:07:40,490 --> 00:07:40,830
+¿Cómo se dice?
+
+130
+00:07:40,850 --> 00:07:41,670
+Come la tostada, ¿no?
+
+131
+00:07:41,970 --> 00:07:42,470
+Sí, claro.
+
+132
+00:07:42,550 --> 00:07:43,250
+Que se quede feo.
+
+133
+00:07:44,690 --> 00:07:46,470
+No, es exactamente así.
+
+134
+00:07:46,490 --> 00:07:48,250
+Queda feo si dices que queda feo.
+
+135
+00:07:50,670 --> 00:07:51,710
+Depende del tono en que lo digas.
+
+136
+00:07:51,730 --> 00:07:55,110
+El humildre me ha mirado, me ha hecho una mirada diciendo, mmm, esto queda chungui.
+
+137
+00:07:55,130 --> 00:07:56,690
+El tono de la frase es importante.
+
+138
+00:07:57,730 --> 00:07:59,450
+Pues mi tono es fenomenal.
+
+139
+00:08:00,610 --> 00:08:01,730
+¿Cuál es tu peli preferida?
+
+140
+00:08:02,510 --> 00:08:05,910
+Pues el tirón, otro punto más para Wall-E.
+
+141
+00:08:05,930 --> 00:08:06,610
+Para Wall-E.
+
+142
+00:08:06,830 --> 00:08:07,650
+Wall-E va ganando.
+
+143
+00:08:07,830 --> 00:08:23,030
+Y quiero aclarar una cosa antes de esta presentación de estas cortas nuestras, que nosotros, como esto está pensado también para los oyentes y tal, que vamos a fallar muchas preguntas hoy queriendo para que la gente que lo escuche pues se anime y se sienta bien, ¿vale?
+
+144
+00:08:23,050 --> 00:08:26,730
+Pero que es todo queriendo, que en realidad sabemos todas las respuestas perfectamente.
+
+145
+00:08:26,750 --> 00:08:27,210
+Sin duda.
+
+146
+00:08:28,410 --> 00:08:31,530
+Es normal que nos ha pasado las respuestas y vamos a fallarlas.
+
+147
+00:08:31,550 --> 00:08:36,250
+Incluso podrán ser respuestas ridículas también, por las risas más que nada, ¿sabes?
+
+148
+00:08:36,270 --> 00:08:37,810
+En plan, cosas ni pizzas, ¿no?
+
+149
+00:08:37,830 --> 00:08:38,170
+¿Qué peliculas?
+
+150
+00:08:38,390 --> 00:08:40,470
+Robocop.
+
+151
+00:08:41,830 --> 00:08:44,330
+Hombre, tú te rías un poco, pero yo este la de pizza y la de Disney.
+
+152
+00:08:47,650 --> 00:08:47,870
+Pero.
+
+153
+00:08:47,890 --> 00:08:48,090
+¿por qué?
+
+154
+00:08:49,530 --> 00:08:50,770
+Claro, claro, por supuesto, por supuesto.
+
+155
+00:08:50,970 --> 00:08:54,750
+Y Malcolm, que es el que casi nunca decepciona.
+
+156
+00:08:54,770 --> 00:08:55,330
+Hola, ¿qué tal?
+
+157
+00:08:55,610 --> 00:08:56,010
+¿Qué tal?
+
+158
+00:08:56,130 --> 00:08:58,130
+Aquí venimos todos muy relajados, menos tú, claro.
+
+159
+00:08:58,250 --> 00:08:59,610
+Tú vienes con mucho trabajo, ¿no?
+
+160
+00:08:59,970 --> 00:09:01,230
+Yo vengo a tope.
+
+161
+00:09:01,370 --> 00:09:03,310
+Claro, porque nosotros encima somos muy guays.
+
+162
+00:09:03,330 --> 00:09:05,270
+Decimos, oye, ¿nos apuntamos a la Iniciativa Pixar?
+
+163
+00:09:05,290 --> 00:09:06,370
+Todo el mundo, sí, sí, sí, sí.
+
+164
+00:09:06,390 --> 00:09:07,530
+Claro, porque no tenemos nada que hacer.
+
+165
+00:09:07,550 --> 00:09:09,730
+Aquí el currante es Malcolm.
+
+166
+00:09:09,850 --> 00:09:11,310
+También me ofrecí yo, ¿eh?
+
+167
+00:09:11,330 --> 00:09:13,230
+Ya, ya.
+
+168
+00:09:13,230 --> 00:09:14,270
+Para nosotros era más fácil.
+
+169
+00:09:14,330 --> 00:09:15,690
+Que tú te lo has currado mogollón.
+
+170
+00:09:15,710 --> 00:09:20,550
+Encima, en el concurso de hoy, el juego va a ser guay guay.
+
+171
+00:09:20,570 --> 00:09:24,810
+No es como la porquería que ha hecho antes.
+
+172
+00:09:26,490 --> 00:09:29,090
+It's been 84 years de presentación.
+
+173
+00:09:29,330 --> 00:09:31,910
+Que sí, cuál es tu película preferida, ¿Malcolm?
+
+174
+00:09:32,230 --> 00:09:33,510
+Mayoría absoluta para Wally.
+
+175
+00:09:35,890 --> 00:09:37,990
+Una absoluta, no porque mildre.
+
+176
+00:09:38,470 --> 00:09:42,190
+Y el último en Discordia soy yo, el servidor.
+
+177
+00:09:42,210 --> 00:09:45,590
+Y yo, así va la vida, yo presento y poco más.
+
+178
+00:09:45,610 --> 00:09:47,750
+Y mi película preferida, Toy Story 2.
+
+179
+00:09:47,930 --> 00:09:53,690
+Que teniendo en cuenta esto, pues bajamos la escaleta y conectamos con los estudios en Sevilla.
+
+180
+00:09:54,110 --> 00:09:54,890
+¡Adelante Malcolm!
+
+181
+00:10:02,910 --> 00:10:04,570
+El concurso de Malcolm.
+
+182
+00:10:04,590 --> 00:10:04,630
+Con.
+
+183
+00:10:15,510 --> 00:10:17,510
+Bueno, pues vamos ya con el concurso.
+
+184
+00:10:17,530 --> 00:10:22,750
+Hoy es un concurso especial, especial, porque es un concurso como el resto de especiales.
+
+185
+00:10:22,770 --> 00:10:25,410
+Y además hoy es un programa especial, así que es especial al cuadrado.
+
+186
+00:10:25,490 --> 00:10:28,150
+Vamos a triangularlo todo para que salga un concurso redondo.
+
+187
+00:10:28,430 --> 00:10:31,910
+La base del concurso de hoy será la misma que en otros especiales de Peskito y Medio.
+
+188
+00:10:31,990 --> 00:10:33,050
+Jugaremos por equipos.
+
+189
+00:10:33,230 --> 00:10:37,390
+Los equipos de hoy serán Mildre y Alecrombie, contra Joy y Seidon McFly.
+
+190
+00:10:37,530 --> 00:10:47,990
+Durante su turno, cada equipo elegirá uno de los ocho sobres que tengo delante y que tienen los colores rojo, amarillo, verde, azul, naranja, rosa, blanco y negro.
+
+191
+00:10:48,170 --> 00:10:51,650
+Cada sobre tiene una temática dentro del tema general de Pixar.
+
+192
+00:10:51,810 --> 00:10:57,630
+Los sobres contienen una banda sonora, dos preguntas, un verdadero o falso y un fragmento de audio.
+
+193
+00:10:57,910 --> 00:10:59,970
+Tenéis 20 segundos para dar una respuesta.
+
+194
+00:10:59,990 --> 00:11:06,470
+Si consumís ese tiempo o la respuesta no es correcta, habrá reboté, excepto en la pregunta de verdadero o falso.
+
+195
+00:11:06,610 --> 00:11:10,390
+Para evitar confusión, hay que dar la respuesta en el formato de nuestra respuesta.
+
+196
+00:11:10,990 --> 00:11:13,710
+Bueno, ya va a decir nuestra respuesta correcta, Alecrombie.
+
+197
+00:11:13,770 --> 00:11:14,410
+¿Cómo tiene que ser?
+
+198
+00:11:14,430 --> 00:11:14,650
+¡Cachuto!
+
+199
+00:11:19,450 --> 00:11:24,290
+Habrás que darla con el formato de nuestra respuesta es, seguido de la respuesta que queráis dar.
+
+200
+00:11:24,490 --> 00:11:26,670
+Así podéis hablar entre vosotros sin confusión.
+
+201
+00:11:26,690 --> 00:11:29,910
+Y Alecrombie, sí, sirve nuestra respuesta correcta es, ¿vale?
+
+202
+00:11:31,590 --> 00:11:33,330
+Ya casi que está acuñado para el concurso.
+
+203
+00:11:34,030 --> 00:11:42,930
+Cada respuesta acertada valdrá un punto, pero, pero, pero, como el programa de hoy es doblemente especial, los sobres no serán la única modalidad de prueba a la que os enfrentaréis.
+
+204
+00:11:43,910 --> 00:11:49,250
+Para este concurso he diseñado otros cuatro tipos de prueba que iré explicando a medida que hagamos.
+
+205
+00:11:52,710 --> 00:11:55,590
+Eso pega para formato podcast un montón, claro.
+
+206
+00:11:57,650 --> 00:12:01,330
+Nosotros jugamos al rol y tenemos imaginación de sobra y eso se puede hacer perfectamente.
+
+207
+00:12:02,850 --> 00:12:04,170
+Hay una prueba que es montar un puzle.
+
+208
+00:12:06,450 --> 00:12:10,370
+Esas pruebas otorgarán puntos extras y las intercalaremos con los sobres.
+
+209
+00:12:10,410 --> 00:12:13,030
+Al final del juego, el equipo con más puntos será el ganador.
+
+210
+00:12:13,330 --> 00:12:15,230
+¿Qué nombre vas a utilizar para vuestros equipos?
+
+211
+00:12:15,350 --> 00:12:17,270
+Mildred y Alecrombie, sorprendednos.
+
+212
+00:12:17,770 --> 00:12:18,870
+¿El equipo Mildred y Alecrombie?
+
+213
+00:12:19,490 --> 00:12:20,110
+Perfecto.
+
+214
+00:12:20,370 --> 00:12:22,030
+¿Y Joy y Satan McFly?
+
+215
+00:12:22,430 --> 00:12:26,030
+Yo tenía una propuesta pero Joy no está de acuerdo.
+
+216
+00:12:26,370 --> 00:12:32,310
+Porque siendo Pixar, somos JoyFly y un sabor JoyFly de lo que sea, pues JoyFly de coco.
+
+217
+00:12:32,390 --> 00:12:33,970
+Es que pega, es una película de coco.
+
+218
+00:12:35,670 --> 00:12:38,090
+Pero es que está repetido.
+
+219
+00:12:38,110 --> 00:12:38,770
+Ya lo ha decido, ¿no?
+
+220
+00:12:38,870 --> 00:12:40,770
+Claro, es que está repetido.
+
+221
+00:12:40,830 --> 00:12:44,050
+Pero la entradilla de hoy también es repetida, es un programa no canónico.
+
+222
+00:12:44,410 --> 00:12:47,690
+Yo creo que es lícito usar el nombre de JoyFly de coco.
+
+223
+00:12:47,710 --> 00:12:50,490
+Pero bueno, dicho esto, que Joy elija que es la que manda.
+
+224
+00:12:50,590 --> 00:12:55,550
+Que sí, que sí, que lo que manda dice, que sí, JoyFly de coco.
+
+225
+00:12:56,230 --> 00:12:57,850
+Vaya, esto no me lo esperaba.
+
+226
+00:12:57,870 --> 00:12:58,710
+Pero si te lo he dicho.
+
+227
+00:12:58,730 --> 00:13:00,250
+Y me está diciendo que no.
+
+228
+00:13:00,490 --> 00:13:02,250
+Escucha a tu mujer, escucha a tu mujer.
+
+229
+00:13:02,490 --> 00:13:03,990
+Bueno, pues guay.
+
+230
+00:13:04,010 --> 00:13:04,470
+Pues guay.
+
+231
+00:13:04,690 --> 00:13:05,850
+JoyFly de coco entonces.
+
+232
+00:13:05,870 --> 00:13:06,090
+Sí.
+
+233
+00:13:06,390 --> 00:13:08,450
+Bueno, si a Joy no le gusta, lo borran postproducción.
+
+234
+00:13:08,530 --> 00:13:09,010
+Ahí está.
+
+235
+00:13:25,230 --> 00:13:32,310
+Hoy más que nunca todos nuestros pesquiters y nuevos pesquiters recién bienvenidos están invitados a participar y a comentar cómo os ha ido en el juego.
+
+236
+00:13:32,690 --> 00:13:33,850
+Estáis preparados, ¿pesquitos?
+
+237
+00:13:36,370 --> 00:13:38,030
+Pues con esta disparidad empezamos.
+
+238
+00:13:39,270 --> 00:13:43,770
+Y lo hará el equipo Joyfly de Coco puesto que ganaron el último programa especial.
+
+239
+00:13:44,230 --> 00:13:45,630
+Os toca elegir color de sobre.
+
+240
+00:13:53,170 --> 00:13:54,970
+Casi nos habíamos librado de esa canción.
+
+241
+00:13:55,430 --> 00:13:58,790
+Bueno, pues el tema del sobre verde es Seres Irreales.
+
+242
+00:13:59,190 --> 00:14:02,910
+Y vamos a empezar con una banda sonora a ver si sabéis a qué película pertenece.
+
+243
+00:14:28,030 --> 00:14:29,390
+Y es correcto.
+
+244
+00:14:29,730 --> 00:14:30,390
+Toma, toma.
+
+245
+00:14:30,590 --> 00:14:31,710
+Vamos con la primera pregunta.
+
+246
+00:14:32,110 --> 00:14:37,070
+¿Qué película de Pixar está protagonizada por un monstruo marino similar a un tritón?
+
+247
+00:14:44,490 --> 00:14:46,090
+Y es correcto.
+
+248
+00:14:47,190 --> 00:14:47,990
+Toma, toma.
+
+249
+00:14:48,510 --> 00:14:49,430
+Yo quería hacer un inciso.
+
+250
+00:14:49,450 --> 00:14:52,030
+Habíamos quedado que íbamos a fallar a posta y todo eso.
+
+251
+00:14:52,130 --> 00:14:54,550
+No te preocupes, hay de sobra para fallar.
+
+252
+00:14:56,130 --> 00:14:57,250
+Vamos con la segunda pregunta.
+
+253
+00:14:57,450 --> 00:15:01,590
+¿Cómo se llama el amigo imaginario de Riley en la película Del Revés?
+
+254
+00:15:10,030 --> 00:15:11,250
+Es que no quería decir nombre.
+
+255
+00:15:12,310 --> 00:15:13,030
+¿Mitchel no sé qué?
+
+256
+00:15:18,030 --> 00:15:20,910
+Ve de muchos colores, pero di tú lo que se te ocurre.
+
+257
+00:15:21,290 --> 00:15:23,290
+Nuestra respuesta es Mitchel Arcoirino.
+
+258
+00:15:24,650 --> 00:15:25,070
+Y es...
+
+259
+00:15:25,990 --> 00:15:26,730
+Incorrecto.
+
+260
+00:15:26,970 --> 00:15:27,450
+Rebote.
+
+261
+00:15:28,670 --> 00:15:29,750
+Es que es una elefante rosa.
+
+262
+00:15:30,650 --> 00:15:34,470
+Cuál era la canción que cantaba cuando se moría, ¿D?
+
+263
+00:15:36,850 --> 00:15:42,890
+No me acuerdo cómo se llamaba.
+
+264
+00:15:47,150 --> 00:15:47,730
+Se ha acabado el tiempo.
+
+265
+00:15:47,750 --> 00:15:48,610
+¿Tenéis alguna respuesta?
+
+266
+00:15:48,730 --> 00:15:51,650
+Nuestra respuesta incorrecta es señor elefante rosa.
+
+267
+00:15:51,670 --> 00:15:51,970
+Y es...
+
+268
+00:15:52,730 --> 00:15:53,910
+Efectivamente incorrecta.
+
+269
+00:15:53,990 --> 00:15:56,010
+La respuesta correcta es Bing Bong.
+
+270
+00:16:04,870 --> 00:16:06,230
+Esa es la canción, efectivamente.
+
+271
+00:16:06,370 --> 00:16:06,890
+Esa, esa.
+
+272
+00:16:10,830 --> 00:16:17,090
+Qué está causando sensación, ¿si?
+
+273
+00:16:17,110 --> 00:16:21,710
+Si algún pesquiter joven se ha incorporado, que abra los libros de historia y que busque la canción.
+
+274
+00:16:21,770 --> 00:16:24,590
+En la enciclopedia Laruz de su padre.
+
+275
+00:16:26,150 --> 00:16:27,830
+Bueno, vamos con el verdadero o falso.
+
+276
+00:16:28,130 --> 00:16:32,270
+En Monstros SA dan una explicación ficticia a la existencia del Yeti.
+
+277
+00:16:32,510 --> 00:16:33,890
+¿Verdadero o falso?
+
+278
+00:16:36,530 --> 00:16:37,590
+El Yeti salía, de luego.
+
+279
+00:16:39,490 --> 00:16:39,870
+verdadero.
+
+280
+00:16:40,310 --> 00:16:40,810
+¿Verdadero?
+
+281
+00:16:41,630 --> 00:16:42,650
+Y qué decir formato.
+
+282
+00:16:47,130 --> 00:16:47,690
+¡Correcto!
+
+283
+00:16:51,070 --> 00:16:52,350
+Gracias por el apunte, Seidon.
+
+284
+00:16:52,370 --> 00:16:54,250
+Si tenemos una norma, tenemos una norma.
+
+285
+00:16:54,270 --> 00:16:55,430
+Sí, hay que cumplirla, sí.
+
+286
+00:16:55,890 --> 00:16:58,090
+Nosotros somos de cumplir las normas, eso está clarísimo.
+
+287
+00:16:58,770 --> 00:17:02,550
+Bueno, pues vamos con el fragmento de audio, que es ya la última pregunta del Sobre Verde.
+
+288
+00:17:02,670 --> 00:17:04,330
+A ver si sabéis a qué película pertenece.
+
+289
+00:17:04,960 --> 00:17:06,960
+Puenteigar Invisia.
+
+290
+00:17:12,950 --> 00:17:13,850
+Puedes hacerlo.
+
+291
+00:17:38,160 --> 00:17:39,920
+Y es correcto.
+
+292
+00:17:40,760 --> 00:17:41,420
+Apalizando.
+
+293
+00:17:45,280 --> 00:17:48,180
+Vamos ahora con la revancha del equipo Milcrombie.
+
+294
+00:17:48,580 --> 00:17:51,040
+Gracias por confiar en nosotros, presentador.
+
+295
+00:17:51,580 --> 00:17:52,440
+Confío en vosotros.
+
+296
+00:17:52,920 --> 00:17:55,900
+Por ahora tenéis que elegir color de sobre, que en eso seguramente no falléis.
+
+297
+00:17:55,920 --> 00:17:58,620
+Eh, no me acuerdo los colores, así me imagínate.
+
+298
+00:18:01,940 --> 00:18:03,460
+Amarillo, hay un sobre amarillo.
+
+299
+00:18:06,440 --> 00:18:06,660
+Sí.
+
+300
+00:18:06,860 --> 00:18:08,340
+El sobre amarillo es correcto.
+
+301
+00:18:09,480 --> 00:18:11,000
+Medio punto, medio punto, ¿eh?
+
+302
+00:18:11,020 --> 00:18:13,580
+El tema del sobre amarillo es animales.
+
+303
+00:18:18,320 --> 00:18:20,040
+Y vamos a empezar con la banda sonora.
+
+304
+00:18:20,320 --> 00:18:23,620
+Vamos a escuchar primero la música, a ver si es la que dice Dildo o no.
+
+305
+00:18:24,060 --> 00:18:25,380
+Pero bueno, es de una peli Pixar.
+
+306
+00:18:25,400 --> 00:18:25,960
+A ver si sabéis cuál.
+
+307
+00:18:26,060 --> 00:18:26,840
+Venga vamos a escucharlo.
+
+308
+00:19:00,920 --> 00:19:02,800
+A parte de Nemo, dices, ¿no?
+
+309
+00:19:07,200 --> 00:19:07,880
+Acaba el tiempo.
+
+310
+00:19:08,580 --> 00:19:09,500
+¿Tenéis alguna respuesta?
+
+311
+00:19:09,720 --> 00:19:13,200
+Nuestra respuesta incorrecta es Buscando a Nemo.
+
+312
+00:19:14,000 --> 00:19:15,800
+¿Y es incorrecto?
+
+313
+00:19:15,960 --> 00:19:16,360
+Rebote.
+
+314
+00:19:21,450 --> 00:19:22,950
+Son animales los dinosaurios.
+
+315
+00:19:23,270 --> 00:19:24,850
+Que yo sepa, los dinosaurios son animales.
+
+316
+00:19:26,370 --> 00:19:28,310
+La técnica que seguimos de decir.
+
+317
+00:19:28,330 --> 00:19:29,030
+¿El viaje de Arlo?
+
+318
+00:19:29,050 --> 00:19:30,070
+Son animales los dinosaurios, ¿no?
+
+319
+00:19:37,090 --> 00:19:39,130
+¿Y es incorrecto?
+
+320
+00:19:40,130 --> 00:19:42,170
+La respuesta correcta es Bichos.
+
+321
+00:19:45,920 --> 00:19:46,900
+No me acuerdo de las películas.
+
+322
+00:19:46,920 --> 00:19:48,160
+Me sonaba una de Pixar, tío.
+
+323
+00:19:48,180 --> 00:19:49,960
+Yo sabía que era una de Pixar, pero no sabía cuál.
+
+324
+00:19:55,860 --> 00:19:57,380
+No lo suficiente, no lo suficiente.
+
+325
+00:19:57,540 --> 00:19:58,700
+Vamos con la primera pregunta.
+
+326
+00:19:59,180 --> 00:20:01,680
+¿Qué tipo de pez es Nemo?
+
+327
+00:20:04,280 --> 00:20:07,000
+Nuestra respuesta correcta es un pez payaso.
+
+328
+00:20:07,520 --> 00:20:09,020
+Y es correcto.
+
+329
+00:20:09,040 --> 00:20:09,400
+Payaso tú.
+
+330
+00:20:11,680 --> 00:20:12,680
+Vamos con la siguiente pregunta.
+
+331
+00:20:12,700 --> 00:20:16,580
+¿En qué animal se transforma la protagonista de Red?
+
+332
+00:20:17,980 --> 00:20:21,000
+Nuestra respuesta correcta es un panda rojo.
+
+333
+00:20:22,200 --> 00:20:23,940
+Y es correcto.
+
+334
+00:20:26,840 --> 00:20:28,220
+Son difíciles las de este sobre.
+
+335
+00:20:28,400 --> 00:20:29,500
+Venga, que ya casi empatáis.
+
+336
+00:20:29,660 --> 00:20:31,020
+Vamos con el verdadero falso.
+
+337
+00:20:31,320 --> 00:20:38,560
+Kevin, el ave gigante de colores de la película Up, está inspirado en un ave extinto llamado Ornitoplastus.
+
+338
+00:20:38,580 --> 00:20:40,520
+¿Plastus verdadero o falso?
+
+339
+00:20:41,820 --> 00:20:43,920
+Nuestra respuesta correcta es verdadero.
+
+340
+00:20:44,800 --> 00:20:47,580
+Y es incorrecto, es falso.
+
+341
+00:20:47,960 --> 00:20:50,400
+De hecho, me he inventado el nombre.
+
+342
+00:20:51,560 --> 00:20:54,860
+Pero está basado en un desto mitológico, ¿no?
+
+343
+00:20:54,860 --> 00:21:00,940
+Bueno, el perfil Ornito sí está relacionado con las aves, pero eso de Plastus...
+
+344
+00:21:01,200 --> 00:21:02,260
+Sonada más a Pokémon.
+
+345
+00:21:02,460 --> 00:21:05,740
+Ornitoplastus, te elijo a ti.
+
+346
+00:21:06,280 --> 00:21:06,980
+A mí me pega, ¿eh?
+
+347
+00:21:07,220 --> 00:21:14,860
+Si nuestros oyentes quieren hacernos un dibujo de cómo se imaginan ellos el Ornitoplastus y compartirlo con nosotros en Twitter, me haría especial ilusión, la verdad.
+
+348
+00:21:15,020 --> 00:21:16,100
+Arroba Peskito3.
+
+349
+00:21:16,720 --> 00:21:19,840
+No vale a jugar con nuestro sentimiento, porque hemos dicho que siempre íbamos a decir verdadero.
+
+350
+00:21:21,160 --> 00:21:22,760
+Y estás inventado ahora el nombre ahí.
+
+351
+00:21:23,860 --> 00:21:25,240
+Hay algunas que son falsas, ¿eh?
+
+352
+00:21:26,600 --> 00:21:27,320
+Por lo que pueda pasar, ¿no?
+
+353
+00:21:27,320 --> 00:21:30,360
+Por cubrirme las espaldas, ¿vale?
+
+354
+00:21:30,540 --> 00:21:35,120
+Solo queda el fragmento de audio, vamos a escucharlo a ver si adivinaís a qué película pertenece.
+
+355
+00:21:37,440 --> 00:21:40,940
+Tómate todo el tiempo que necesites para recuperarte, mamá.
+
+356
+00:21:41,100 --> 00:21:45,060
+Puede que dentro de un rato tengas algo nuevo que decir sobre el matrimonio.
+
+357
+00:21:45,340 --> 00:21:48,380
+¿Qué llevaba a ese pastel?
+
+358
+00:21:52,920 --> 00:21:55,340
+Bueno, voy a decirles que se cancela la boda, entonces.
+
+359
+00:22:03,720 --> 00:22:05,540
+Nuestra respuesta correcta es Brave.
+
+360
+00:22:06,040 --> 00:22:07,820
+Y es correcto.
+
+361
+00:22:08,580 --> 00:22:11,680
+Efectivamente, como dice Mildred, se transforma en un oso.
+
+362
+00:22:12,000 --> 00:22:13,340
+No me acordaba de esa parte.
+
+363
+00:22:13,360 --> 00:22:14,040
+Alerta, alero.
+
+364
+00:22:14,080 --> 00:22:15,040
+Apenas importante.
+
+365
+00:22:15,060 --> 00:22:15,920
+Qué fuerte, ¡tío!
+
+366
+00:22:15,940 --> 00:22:16,800
+Y eso que es lo peor.
+
+367
+00:22:16,840 --> 00:22:18,740
+Me gusta la peli, ¿no?
+
+368
+00:22:18,760 --> 00:22:19,580
+¡Qué desastre!
+
+369
+00:22:19,600 --> 00:22:22,240
+Bueno, ahora mismo con los sobres, vais 4 a 3.
+
+370
+00:22:22,260 --> 00:22:24,180
+Van en cabeza Joyfly de Coco.
+
+371
+00:22:24,700 --> 00:22:31,500
+Pero es momento de dejar los sobres apartados y empezar con una de las novedades, con una de las pruebas nuevas que tenemos en este concurso.
+
+372
+00:22:32,060 --> 00:22:36,780
+Esta prueba se llama Ordena y en ella jugamos por equipos de forma simultánea.
+
+373
+00:22:37,040 --> 00:22:41,940
+Os daré el nombre de tres películas de Pixar y tendréis que ordenarla según un criterio que os voy a indicar.
+
+374
+00:22:42,140 --> 00:22:45,600
+Tenéis 40 segundos para hacerlo y haremos un total de cuatro rondas.
+
+375
+00:22:45,880 --> 00:22:50,020
+Como digo, jugáis los dos equipos a la vez, hay dos puntos en juegos en cada ronda.
+
+376
+00:22:50,260 --> 00:22:53,480
+El equipo que ordene correctamente las películas se llevará los dos puntos.
+
+377
+00:22:53,500 --> 00:22:55,160
+Y si hay empate se repartirán.
+
+378
+00:22:55,600 --> 00:23:01,040
+Las tres películas con las que vamos a jugar son Cars, Los Increíbles y Ratatouille.
+
+379
+00:23:01,400 --> 00:23:05,380
+Y tendréis que ordenarlas por, os recuerdo, los dos equipos a la vez, ¿vale?
+
+380
+00:23:05,820 --> 00:23:08,500
+Fecha de estreno de más antigua a más reciente.
+
+381
+00:23:24,630 --> 00:23:25,010
+Olvides.
+
+382
+00:23:36,570 --> 00:23:36,990
+De suscribirte.
+
+383
+00:23:37,010 --> 00:23:40,410
+El primer largometraje estrenado por Pixar fue Toy Story en 1995.
+
+384
+00:23:40,430 --> 00:23:49,130
+Desde entonces, Pixar ha estrenado un total de 25 películas, una media de 0, 92 películas por año, media que aumentará a 0, 96 con el estreno de Lightyear en junio de este año.
+
+385
+00:23:50,370 --> 00:23:52,430
+¿Cuál es el orden de estreno de estas películas?
+
+386
+00:23:53,610 --> 00:23:55,450
+Cars, Los Increíbles y Ratatouille.
+
+387
+00:23:55,470 --> 00:23:56,010
+¿Y Mill Crombie?
+
+388
+00:23:56,570 --> 00:23:57,810
+Los Increíbles, Cars y Ratatouille.
+
+389
+00:23:57,830 --> 00:23:59,610
+Pues los dos puntos son para los Mill Crombie.
+
+390
+00:24:03,330 --> 00:24:05,230
+Bueno, pues vamos a seguir con otra ronda más.
+
+391
+00:24:05,430 --> 00:24:07,770
+De nuevo hay que ordenar estas tres películas, os recuerdo.
+
+392
+00:24:07,970 --> 00:24:09,910
+Cars, Los Increíbles y Ratatouille.
+
+393
+00:24:09,990 --> 00:24:16,090
+Y esta vez hay que ordenarlas por número de nominaciones a los Oscars, de mayor a menor.
+
+394
+00:24:23,410 --> 00:24:31,970
+Las películas de Pixar acumulan un total de 52 nominaciones a los óscars, siendo la categoría más destacada, mejor película de animación con 16 nominaciones.
+
+395
+00:24:42,390 --> 00:24:44,230
+Muy bien, esta vez empezamos con Milcrombie.
+
+396
+00:24:44,650 --> 00:24:48,070
+¿Qué orden habéis elegido como número de nominaciones a los Oscar de mayor a menor?
+
+397
+00:24:49,010 --> 00:24:51,930
+Ratatouille, Cars y Los Increíbles.
+
+398
+00:24:56,450 --> 00:24:58,870
+Pues en esta ocasión no hay puntos para ninguno de los dos equipos.
+
+399
+00:24:58,890 --> 00:25:05,410
+El orden correcto era Ratatouille con cinco nominaciones, Los Increíbles con cuatro y Cars con dos.
+
+400
+00:25:05,730 --> 00:25:07,710
+Seguimos jugando con las mismas tres películas.
+
+401
+00:25:08,710 --> 00:25:14,770
+Y esta vez hay que ordenar por número de premios Oscar, de mayor a menor.
+
+402
+00:25:19,210 --> 00:25:30,830
+Las películas Pixar han ganado un total de 17 premios Oscar, uno a mejor edición de sonido, tres a mejor canción original, dos a mejor banda sonora y once a mejor película de animación.
+
+403
+00:25:31,370 --> 00:25:34,130
+Es la factoría con más premios en esta categoría.
+
+404
+00:25:42,350 --> 00:25:43,670
+Empezamos con Joyfly de Coco.
+
+405
+00:25:43,890 --> 00:25:46,970
+¿Qué orden habéis elegido para número de premios Oscar de mayor a menor?
+
+406
+00:26:05,520 --> 00:26:05,800
+Ratatouille, Cars y Los Increíbles.
+
+407
+00:26:05,820 --> 00:26:06,400
+Me temo que de nuevo no hay punto para ninguno de los dos equipos.
+
+408
+00:26:06,420 --> 00:26:07,120
+El orden sería Los Increíbles con dos premios Oscar, Ratatouille con uno y Cars con cero.
+
+409
+00:26:07,140 --> 00:26:07,320
+Venga, última ronda.
+
+410
+00:26:07,340 --> 00:26:07,560
+Y terminamos con esta prueba.
+
+411
+00:26:07,580 --> 00:26:09,190
+Son las mismas tres películas, Cars, Los Increíbles y Ratatouille.
+
+412
+00:26:11,430 --> 00:26:15,290
+Y esta vez el orden es Por Duración de Mayor a Menor.
+
+413
+00:26:22,940 --> 00:26:26,160
+Las películas de Pixar han ido aumentando de duración con los años.
+
+414
+00:26:26,180 --> 00:26:33,220
+La más corta fue Toy Story con 80 minutos y la más larga han sido Los Increíbles 2 con 118 minutos.
+
+415
+00:26:33,900 --> 00:26:37,640
+La duración media de las películas Pixar es de 101 minutos.
+
+416
+00:26:50,950 --> 00:26:51,570
+Empezamos con Milcrombie.
+
+417
+00:26:51,590 --> 00:26:54,050
+¿Qué orden habéis elegido para duración de mayor a menor?
+
+418
+00:26:55,110 --> 00:26:59,450
+Hemos elegido Cars, Los Increíbles y en último lugar Ratatouille.
+
+419
+00:26:59,710 --> 00:27:00,130
+Muy bien.
+
+420
+00:27:00,230 --> 00:27:01,130
+¿Y Joyfly de Coco?
+
+421
+00:27:01,490 --> 00:27:03,910
+Ratatouille, Los Increíbles y Cars.
+
+422
+00:27:04,130 --> 00:27:07,050
+Bueno, pues uno de los dos equipos se lleva los dos puntos y es Milcrombie.
+
+423
+00:27:13,650 --> 00:27:18,970
+De mayor a menor Cars dura 116 minutos, Los Increíbles 115 y Ratatouille 110.
+
+424
+00:27:20,090 --> 00:27:21,250
+Qué pregunta, ¡tío!
+
+425
+00:27:21,270 --> 00:27:22,970
+Está súper rando que hemos tirado dado aquí, ¿eh?
+
+426
+00:27:23,670 --> 00:27:24,150
+No, hombre.
+
+427
+00:27:24,390 --> 00:27:25,370
+No, no, por supuesto, tú no.
+
+428
+00:27:25,510 --> 00:27:26,390
+Tú lo has hecho perfecto.
+
+429
+00:27:27,630 --> 00:27:32,650
+La puntuación ahora mismo en el juego es 7 puntos para Milcrombie y 4 para Joyfly de Coco.
+
+430
+00:27:33,610 --> 00:27:34,170
+Madre mía.
+
+431
+00:27:34,350 --> 00:27:35,330
+Volvemos a los sobres.
+
+432
+00:27:35,730 --> 00:27:37,370
+Joyfly de Coco, toca elegir color.
+
+433
+00:27:37,710 --> 00:27:38,090
+Rosa.
+
+434
+00:27:38,250 --> 00:27:42,190
+Por cierto, Malcolm, hoy no se ha escuchado cómo abren los sobres y eso, ¿no?
+
+435
+00:27:42,370 --> 00:27:43,930
+No, ahora mismo abro uno.
+
+436
+00:27:43,950 --> 00:27:44,810
+Venga, ¿cuál elige?
+
+437
+00:27:44,830 --> 00:27:45,170
+¿Cuál elige?
+
+438
+00:27:46,730 --> 00:27:47,150
+El rosa.
+
+439
+00:27:49,630 --> 00:27:51,150
+Hombre, por favor, por favor.
+
+440
+00:27:51,410 --> 00:27:55,690
+Bien, y el tema es, apropiado con el color, Historias de Amor.
+
+441
+00:27:57,610 --> 00:27:59,810
+Empezamos con una banda sonora, a ver si adivináis la película.
+
+442
+00:28:26,090 --> 00:28:27,610
+Y es correcto.
+
+443
+00:28:28,950 --> 00:28:31,890
+La película que te hace llorar en los primeros cinco minutos.
+
+444
+00:28:32,030 --> 00:28:37,490
+Y el resto de la película te hace llorar, pero por lo mala que es la otra parte.
+
+445
+00:28:37,770 --> 00:28:41,390
+Que principio genial, pero el otro no vale nada.
+
+446
+00:28:41,490 --> 00:28:43,030
+Vamos con la primera de las dos preguntas.
+
+447
+00:28:43,190 --> 00:28:47,690
+¿Con qué juguete parece mantener un romance silencioso Bush Lightyear?
+
+448
+00:28:53,210 --> 00:28:54,130
+No, ese...
+
+449
+00:28:54,170 --> 00:28:55,110
+Ah, no, Bush Lightyear.
+
+450
+00:28:55,870 --> 00:28:56,930
+¿Qué están pensando en Boody?
+
+451
+00:29:08,690 --> 00:29:10,970
+Se acabó el tiempo, ¿tenéis alguna respuesta?
+
+452
+00:29:11,790 --> 00:29:11,990
+¿No?
+
+453
+00:29:12,130 --> 00:29:12,750
+Pues rebote.
+
+454
+00:29:12,890 --> 00:29:15,250
+Me acuerdo de Perdigón, pero de ella no me acuerdo el nombre.
+
+455
+00:29:16,510 --> 00:29:17,850
+Me acuerdo del caballo que es Perdigón.
+
+456
+00:29:17,870 --> 00:29:21,030
+Si lo describimos, cuenta no, presentado, medio punto, aunque sea.
+
+457
+00:29:21,050 --> 00:29:24,130
+Y si sabemos que se llama Perdigón su caballo.
+
+458
+00:29:24,190 --> 00:29:26,670
+No cedas, hay que decir el nombre del juguete.
+
+459
+00:29:30,490 --> 00:29:30,970
+Pues ese, ¿no?
+
+460
+00:29:31,830 --> 00:29:32,870
+Algo parecido a eso, ¿no?
+
+461
+00:29:34,290 --> 00:29:35,990
+Se ha agotado el tiempo, ¿tenéis alguna respuesta?
+
+462
+00:29:36,410 --> 00:29:39,870
+Nuestra respuesta correcta es Jane.
+
+463
+00:29:40,510 --> 00:29:42,490
+Y es incorrecto.
+
+464
+00:29:43,090 --> 00:29:44,890
+La respuesta correcta es Jessie.
+
+465
+00:29:44,910 --> 00:29:45,050
+Ay, ¡eso!
+
+466
+00:29:52,830 --> 00:29:54,210
+Y me acordaba de Perdigón, tío.
+
+467
+00:29:54,230 --> 00:29:55,030
+No me acordaba de ella.
+
+468
+00:29:55,050 --> 00:29:55,570
+¿Qué Perdigón?
+
+469
+00:29:55,590 --> 00:29:56,410
+¿Cómo no te vas a acordar?
+
+470
+00:29:56,430 --> 00:29:57,530
+No me acordaba de esa relación.
+
+471
+00:29:57,570 --> 00:29:58,810
+Se hará en Toys Toys y dos, ¿no?
+
+472
+00:29:59,110 --> 00:29:59,830
+Toys Toys y dos.
+
+473
+00:29:59,850 --> 00:30:00,550
+En la dos, ¿en la tres?
+
+474
+00:30:00,590 --> 00:30:01,530
+Y en la tres también.
+
+475
+00:30:02,550 --> 00:30:04,050
+Eso he dicho en la dos o en la tres.
+
+476
+00:30:04,070 --> 00:30:04,930
+Estaba dudándote en la dos.
+
+477
+00:30:05,030 --> 00:30:09,050
+Yo creo que el tema empieza al final de la dos y donde se nota más es en la tres.
+
+478
+00:30:09,090 --> 00:30:09,730
+El temita.
+
+479
+00:30:10,270 --> 00:30:11,250
+El temita, el temita.
+
+480
+00:30:11,550 --> 00:30:13,750
+Bueno, vamos al temita que nos incumbe a nosotros.
+
+481
+00:30:13,770 --> 00:30:14,410
+Segunda pregunta.
+
+482
+00:30:14,730 --> 00:30:20,210
+¿Cómo se llama la princesa de Pixar que trata de romper con el estereotipo de Historia de Amor?
+
+483
+00:30:20,230 --> 00:30:23,350
+Eso es para nosotros, ¿no?
+
+484
+00:30:24,650 --> 00:30:26,370
+La pregunta que ha preguntado la película o la princesa.
+
+485
+00:30:26,390 --> 00:30:27,570
+La princesa Mérida, ¿no?
+
+486
+00:30:27,590 --> 00:30:28,250
+La princesa Mérida.
+
+487
+00:30:28,370 --> 00:30:33,190
+Sí, eso que no hay ninguna otra princesa, ¿no?
+
+488
+00:30:34,510 --> 00:30:35,370
+¿Un hombre de geografía?
+
+489
+00:30:35,410 --> 00:30:36,010
+Correcto.
+
+490
+00:30:36,030 --> 00:30:38,250
+Y su hermano Badajoz.
+
+491
+00:30:38,770 --> 00:30:40,270
+Vamos con el verdadero falso.
+
+492
+00:30:40,450 --> 00:30:46,030
+Colette, quien se convierte en novia de Alfredo en Ratatouille, ¿es la camarera del restaurante Gusteau?
+
+493
+00:30:46,510 --> 00:30:47,830
+¿Verdadero o falso?
+
+494
+00:30:57,870 --> 00:30:58,290
+Y es...
+
+495
+00:30:58,990 --> 00:30:59,570
+Correcto.
+
+496
+00:31:00,150 --> 00:31:02,210
+Efectivamente no era camarera, es cocinera.
+
+497
+00:31:02,590 --> 00:31:05,430
+Y vamos a terminar con el fragmento de audio con el que cerramos este sobre.
+
+498
+00:31:22,500 --> 00:31:23,240
+Se escucha la música.
+
+499
+00:31:24,520 --> 00:31:25,920
+Nuestra respuesta es Wally.
+
+500
+00:31:26,500 --> 00:31:26,920
+Y es...
+
+501
+00:31:27,640 --> 00:31:28,200
+Correcto.
+
+502
+00:31:28,640 --> 00:31:29,160
+Madre mía.
+
+503
+00:31:29,330 --> 00:31:32,590
+Bueno, pues otro sobre muy bien planteado por parte de Joyfly de Coco.
+
+504
+00:31:32,610 --> 00:31:36,750
+Y le toca hacer lo propio a Milprombie, que primero eligen color.
+
+505
+00:31:36,910 --> 00:31:37,450
+Te toca a ti.
+
+506
+00:31:37,610 --> 00:31:38,450
+Antes elegí yo el...
+
+507
+00:31:38,810 --> 00:31:40,370
+Le elegimos el color rojo.
+
+508
+00:31:40,550 --> 00:31:40,930
+Rojo.
+
+509
+00:31:41,310 --> 00:31:44,270
+Venga, voy a abrirlo, que le gusta a Milprombie.
+
+510
+00:31:47,210 --> 00:31:51,430
+A ver, pone aquí que el tema es guiños autoreferenciales.
+
+511
+00:31:55,410 --> 00:31:58,110
+Empezamos con una banda sonora, a ver si sabéis de qué película es.
+
+512
+00:32:28,380 --> 00:32:29,320
+O también puede ser, no.
+
+513
+00:32:29,340 --> 00:32:32,580
+Nuestra respuesta incorrecta es Los Increíbles.
+
+514
+00:32:33,500 --> 00:32:35,260
+Y es incorrecto.
+
+515
+00:32:36,320 --> 00:32:36,760
+Rebote.
+
+516
+00:32:41,800 --> 00:32:42,560
+Puedes decir El Increíble 2.
+
+517
+00:32:45,440 --> 00:32:53,280
+Pues, dilo que tú quieras.
+
+518
+00:32:53,300 --> 00:32:55,220
+Corre, corre bien.
+
+519
+00:33:01,700 --> 00:33:01,960
+Es...
+
+520
+00:33:02,180 --> 00:33:03,440
+El viaje de Arlo otra vez.
+
+521
+00:33:10,000 --> 00:33:12,460
+Y la respuesta es incorrecta.
+
+522
+00:33:12,480 --> 00:33:13,620
+Hasta que salga, hasta que salga.
+
+523
+00:33:13,740 --> 00:33:14,320
+Por ahora no.
+
+524
+00:33:14,840 --> 00:33:16,400
+La respuesta correcta es Toy Story.
+
+525
+00:33:16,420 --> 00:33:16,900
+¿En serio?
+
+526
+00:33:17,160 --> 00:33:18,760
+Es la primera película de Pixar.
+
+527
+00:33:19,040 --> 00:33:21,380
+Tenía ya autorreferencias de sus cortos.
+
+528
+00:33:21,400 --> 00:33:25,080
+Y es por ser la primera la que más autorreferencias ha generado posteriormente.
+
+529
+00:33:28,200 --> 00:33:29,220
+Pues yo nunca le he dicho Toy Story.
+
+530
+00:33:34,340 --> 00:33:38,220
+Concretamente, de la parte, eso no es volar, es caer con estilo.
+
+531
+00:33:39,480 --> 00:33:43,500
+Al final de la película, cuando ya van camino del camión de budanza, que ya se van a salvar.
+
+532
+00:33:44,160 --> 00:33:47,140
+Vamos con las preguntas, que se me da mejor hacer preguntas que implicar.
+
+533
+00:33:51,420 --> 00:33:53,880
+Venga, vamos a darle un poco de tiempo.
+
+534
+00:33:55,160 --> 00:33:56,280
+Vamos a poner música de fondo.
+
+535
+00:33:57,760 --> 00:33:59,120
+Mientras se ríe.
+
+536
+00:33:59,140 --> 00:34:01,220
+La película de Toy Story.
+
+537
+00:34:01,240 --> 00:34:05,660
+Ya estoy, ya estoy.
+
+538
+00:34:05,680 --> 00:34:06,840
+Venga, pues vamos con la pregunta.
+
+539
+00:34:07,420 --> 00:34:12,280
+¿Qué figura geométrica aparece en la omnipresente Pelota de Pixar?
+
+540
+00:34:14,660 --> 00:34:15,040
+¡Pelota!
+
+541
+00:34:30,150 --> 00:34:31,810
+Esa silencia y de Joyfly.
+
+542
+00:34:33,310 --> 00:34:34,010
+Para no dar pistas.
+
+543
+00:34:34,030 --> 00:34:36,050
+La respuesta incorrecta es Rombos.
+
+544
+00:34:36,250 --> 00:34:38,030
+Y es, efectivamente, incorrecta.
+
+545
+00:34:38,830 --> 00:34:39,370
+Rebote.
+
+546
+00:34:40,990 --> 00:34:42,090
+Triángulo, por ejemplo.
+
+547
+00:34:44,110 --> 00:34:45,050
+Pense que lo sabían.
+
+548
+00:34:45,070 --> 00:34:45,790
+Que va, que va.
+
+549
+00:34:46,070 --> 00:34:46,930
+Tenemos ni idea.
+
+550
+00:34:47,470 --> 00:34:54,310
+Yo de Pixar iba a decir otra cosa, pero no quiero dar pistas para posibles futuras preguntas.
+
+551
+00:34:54,330 --> 00:34:55,810
+Nuestra respuesta es Triángulo.
+
+552
+00:34:57,110 --> 00:34:58,850
+Y es, incorrecto.
+
+553
+00:34:59,310 --> 00:35:00,770
+La figura geométrica es una estrella.
+
+554
+00:35:00,930 --> 00:35:02,730
+La pelota de Pixar tiene una estrella dibujada.
+
+555
+00:35:04,490 --> 00:35:06,270
+Es que no sé qué es lo que es la pelota de Pixar.
+
+556
+00:35:06,290 --> 00:35:08,190
+Que siempre sale una pelota, ¿no?
+
+557
+00:35:08,270 --> 00:35:10,530
+Sí, siempre la misma pelota en todas las películas.
+
+558
+00:35:10,910 --> 00:35:12,250
+Vamos con la segunda de las preguntas.
+
+559
+00:35:12,650 --> 00:35:17,250
+¿Qué marca ostentan muchas de las gasolineras de las películas Pixar?
+
+560
+00:35:21,550 --> 00:35:26,810
+No, la marca de lo de Rayo McQueen, de la marca del coche de Rayo McQueen, ¿cómo era?
+
+561
+00:35:31,070 --> 00:35:39,450
+No, esa es la Copa Pistón, era la Codil Confesionera, me sale el...
+
+562
+00:35:39,470 --> 00:35:40,150
+Se ha agotado el tiempo.
+
+563
+00:35:40,170 --> 00:35:40,970
+¿Tenís alguna respuesta?
+
+564
+00:35:41,130 --> 00:35:42,870
+La respuesta incorrecta es Shell.
+
+565
+00:35:43,650 --> 00:35:45,430
+Y es incorrecto.
+
+566
+00:35:45,770 --> 00:35:46,270
+Rebote.
+
+567
+00:35:46,750 --> 00:35:48,650
+Vamos a decir Cepsa o Repsol nosotros.
+
+568
+00:35:48,650 --> 00:35:52,890
+No, venga, que lo que dice esta gente era lo de Rastis, ¿no?
+
+569
+00:35:52,930 --> 00:35:57,170
+La marca esa, pero no me suena a mi gasolinera, sin el patrocinador.
+
+570
+00:36:02,650 --> 00:36:04,550
+Nuestra respuesta es Rastis.
+
+571
+00:36:06,650 --> 00:36:06,870
+No.
+
+572
+00:36:06,910 --> 00:36:08,670
+Y es incorrecto.
+
+573
+00:36:08,930 --> 00:36:10,870
+La respuesta correcta es Dinoco.
+
+574
+00:36:11,310 --> 00:36:12,150
+Eso.
+
+575
+00:36:12,170 --> 00:36:12,750
+Dinoco.
+
+576
+00:36:12,750 --> 00:36:14,450
+Eso sí, ni idea.
+
+577
+00:36:14,630 --> 00:36:15,630
+La primera vez que lo escucho.
+
+578
+00:36:15,650 --> 00:36:16,810
+No, pero a eso me refería.
+
+579
+00:36:16,830 --> 00:36:17,170
+De car, ya.
+
+580
+00:36:17,190 --> 00:36:17,970
+A eso me refería, ¿eh?
+
+581
+00:36:18,790 --> 00:36:19,510
+Sí, claro, claro.
+
+582
+00:36:19,530 --> 00:36:20,030
+Yo también.
+
+583
+00:36:20,110 --> 00:36:21,730
+Aparece por primera vez en Toy Story.
+
+584
+00:36:22,130 --> 00:36:27,370
+Dinoco era la marca del coche mejor, claro, a lo que todos aspiraban.
+
+585
+00:36:27,390 --> 00:36:27,710
+Eso.
+
+586
+00:36:27,790 --> 00:36:29,650
+Sí, sí, claro.
+
+587
+00:36:30,470 --> 00:36:31,830
+Vamos con el verdadero o falso.
+
+588
+00:36:32,410 --> 00:36:34,110
+No me acertan ninguno, mire, de desimpresión.
+
+589
+00:36:34,130 --> 00:36:35,070
+¿Ibamos a decir verdadero?
+
+590
+00:36:35,090 --> 00:36:35,670
+Esa idea de...
+
+591
+00:36:38,510 --> 00:36:45,730
+La primera aparición de Nemo fue en Monstros SA dos años antes del estreno de Buscando a Nemo.
+
+592
+00:36:46,050 --> 00:36:47,390
+¿Verdadero o falso?
+
+593
+00:36:47,510 --> 00:36:53,150
+Yo sé que Nemo apareció en una película antes, en una pecera, en una película, pero no recuerdo si era esta o si era Antoictorio.
+
+594
+00:36:53,170 --> 00:36:53,830
+¿Qué tenemos que perder?
+
+595
+00:36:53,850 --> 00:36:54,790
+Vamos a decir verdadero.
+
+596
+00:36:55,590 --> 00:36:57,930
+Nuestra respuesta correcta es verdadero.
+
+597
+00:36:58,730 --> 00:37:00,170
+Y es correcto.
+
+598
+00:37:00,350 --> 00:37:00,870
+Es verdadero.
+
+599
+00:37:02,370 --> 00:37:09,110
+Nemo es uno de los juguetes de Boo, cuando llegan a su cuarto al final de la película y Boo le enseña sus juguetes, uno de ellos es Nemo.
+
+600
+00:37:09,670 --> 00:37:12,730
+Y yo he dicho que está en una pecera, es perfecto.
+
+601
+00:37:12,750 --> 00:37:15,610
+A lo mejor ella jugaba con él en una pecera, no lo sé.
+
+602
+00:37:15,630 --> 00:37:17,290
+Cuando no se veía la cámara, cuando no enfocaba.
+
+603
+00:37:17,510 --> 00:37:22,590
+Bueno, pues vamos a terminar con el fragmento de audio, a ver si sabéis a qué película pertenece.
+
+604
+00:37:23,050 --> 00:37:23,870
+¿Quién está al mando?
+
+605
+00:37:33,850 --> 00:37:34,870
+Todo esto es absurdo.
+
+606
+00:37:38,170 --> 00:37:40,370
+Nuestra respuesta correcta es Toy Story.
+
+607
+00:37:40,830 --> 00:37:42,190
+Y es correcto.
+
+608
+00:37:43,990 --> 00:37:44,810
+¡El gancho!
+
+609
+00:37:45,010 --> 00:37:51,270
+Toda esta escena transcurre en Pizza Planet, cuya camioneta es otro guiño autoreferencial en muchas de las películas de Pixar.
+
+610
+00:37:52,130 --> 00:37:53,550
+Bueno, ahora se ha igualado un poco la cosa.
+
+611
+00:37:53,570 --> 00:37:57,950
+La puntuación actual es 9 puntos para Mil Crombie y 8 para Joyfly de Coco.
+
+612
+00:37:58,070 --> 00:38:01,710
+Y es momento de pasar a otra prueba, a la que he llamado Patata Caliente.
+
+613
+00:38:04,290 --> 00:38:06,890
+En esta prueba, os enfrentaréis 1 contra 1.
+
+614
+00:38:07,150 --> 00:38:12,790
+Preguntaré por una lista de respuestas y cada jugador por turnos deberá dar una sola respuesta de la lista.
+
+615
+00:38:12,930 --> 00:38:16,650
+Entonces el turno pasa al otro jugador que también dará una sola respuesta.
+
+616
+00:38:16,910 --> 00:38:17,650
+Os pongo un ejemplo.
+
+617
+00:38:17,850 --> 00:38:21,610
+Si pregunto por planetas del sistema solar, un jugador diría Mercurio.
+
+618
+00:38:21,630 --> 00:38:25,450
+Y si es correcto, el turno pasa al otro jugador que tendría que decir otro planeta.
+
+619
+00:38:25,470 --> 00:38:26,350
+Por ejemplo, Júpiter.
+
+620
+00:38:26,850 --> 00:38:30,950
+Y si es correcto, el turno vuelve al jugador inicial que tendrá que decir otro planeta.
+
+621
+00:38:31,190 --> 00:38:36,730
+Así, hasta agotar la lista de respuestas, si un jugador falla o se ataca durante 10 segundos, perderá.
+
+622
+00:38:37,030 --> 00:38:39,030
+El ganador obtendrá dos puntos para su equipo.
+
+623
+00:38:39,630 --> 00:38:43,110
+En el improbable caso de agotar la lista de respuestas, los puntos se repartirán.
+
+624
+00:38:43,330 --> 00:38:44,150
+Improbables.
+
+625
+00:38:45,110 --> 00:38:46,790
+Improbables, ¿sabes?
+
+626
+00:38:49,010 --> 00:38:52,690
+Para ayudar, os diré cuántas respuestas tiene la lista en el momento del enunciado.
+
+627
+00:38:52,970 --> 00:38:57,270
+También indicaré si una respuesta es correcta o incorrecta antes de que el turno pase al otro jugador.
+
+628
+00:38:57,530 --> 00:38:59,170
+Por ejemplo, en el ejemplo anterior.
+
+629
+00:38:59,670 --> 00:39:01,250
+Uno diría Mercurio, yo diría correcto.
+
+630
+00:39:01,270 --> 00:39:02,610
+El otro Júpiter, correcto.
+
+631
+00:39:02,770 --> 00:39:03,850
+Marte, correcto.
+
+632
+00:39:03,850 --> 00:39:04,930
+Tatuín, incorrecto.
+
+633
+00:39:04,970 --> 00:39:05,830
+Y acaba la ronda.
+
+634
+00:39:06,610 --> 00:39:08,070
+Porque no es del sistema solar, claro.
+
+635
+00:39:08,190 --> 00:39:08,750
+Efectivamente.
+
+636
+00:39:09,210 --> 00:39:09,930
+¿Estáis preparados?
+
+637
+00:39:10,150 --> 00:39:10,910
+¿Se puede ayudar?
+
+638
+00:39:11,110 --> 00:39:12,470
+No, es uno contra uno.
+
+639
+00:39:13,690 --> 00:39:14,390
+¿Estáis preparados?
+
+640
+00:39:14,690 --> 00:39:15,330
+Claro que sí.
+
+641
+00:39:15,390 --> 00:39:16,770
+Por supuesto, siempre para perder.
+
+642
+00:39:17,010 --> 00:39:20,610
+Pues Joyfly de Coco, elegid uno de vuestros miembros del equipo para que empiece.
+
+643
+00:39:25,970 --> 00:39:26,650
+Claro que sí.
+
+644
+00:39:26,810 --> 00:39:27,890
+Muy bien, pues empezará Joy.
+
+645
+00:39:27,950 --> 00:39:30,010
+¿Y contra quién jugará Joy y Miltrombie?
+
+646
+00:39:30,090 --> 00:39:31,570
+Contra a su nona, por supuesto.
+
+647
+00:39:31,710 --> 00:39:32,390
+Contra a Mildre.
+
+648
+00:39:32,610 --> 00:39:32,990
+Muy bien.
+
+649
+00:39:33,190 --> 00:39:37,390
+Pues Joy, tienes el honor de elegir una letra, la A, la B, la C o la D.
+
+650
+00:39:37,770 --> 00:39:38,930
+La B.
+
+651
+00:39:39,150 --> 00:39:39,530
+La B.
+
+652
+00:39:39,730 --> 00:39:43,490
+Bien, pues empezará Joy y tendrá que contestar Mildre, ¿vale?
+
+653
+00:39:43,850 --> 00:39:44,890
+Y en ese orden irémos.
+
+654
+00:39:45,270 --> 00:39:53,470
+Las respuestas que buscamos son superpoderes que aparecen en la primera película de Los Increíbles y hay nueve respuestas en la lista.
+
+655
+00:39:54,250 --> 00:39:55,730
+Empezamos, como hemos dicho, con Joy.
+
+656
+00:39:55,830 --> 00:39:56,230
+¿Tiempo?
+
+657
+00:39:58,770 --> 00:39:59,170
+Correcto.
+
+658
+00:40:00,190 --> 00:40:00,870
+Invisibilidad.
+
+659
+00:40:02,470 --> 00:40:03,530
+Superelasticidad.
+
+660
+00:40:15,230 --> 00:40:15,930
+Incorrecto.
+
+661
+00:40:17,910 --> 00:40:20,790
+Supervelocidad.
+
+662
+00:40:20,810 --> 00:40:22,790
+Yo me decía hombre, lobo, después, o sea, camírate.
+
+663
+00:40:32,830 --> 00:40:35,610
+A ver, no hay campos magnéticos, pero sí hay campos de fuerza, ¿eh?
+
+664
+00:40:35,630 --> 00:40:38,050
+Que Violeta, además de invisibilidad, tiene campos de fuerza.
+
+665
+00:40:38,150 --> 00:40:40,490
+Eso es lo que yo quería decir, en verdad, pero no.
+
+666
+00:40:40,510 --> 00:40:43,650
+Hombre, el magnetismo y la fuerza están muy relacionados.
+
+667
+00:40:43,670 --> 00:40:44,810
+No sabía cómo definirlo.
+
+668
+00:40:46,210 --> 00:40:54,970
+Faltaban, efectivamente, supervelocidad de Dash y Jack-Jack, al final de la película, muestra tres poderes que son elemental de fuego, transformarse en metal y se transforma en monstruo.
+
+669
+00:41:00,770 --> 00:41:04,310
+Venga, seguid compitiendo vosotras dos, solo que esta vez empezaremos con Mildre.
+
+670
+00:41:04,570 --> 00:41:06,790
+Mildre, elige A, C o D.
+
+671
+00:41:08,230 --> 00:41:15,350
+Las respuestas que buscamos es títulos de películas Pixar con banda sonora de Randy Newman.
+
+672
+00:41:15,530 --> 00:41:17,770
+Hay nueve respuestas en la lista.
+
+673
+00:41:18,030 --> 00:41:19,050
+Empezamos con Mildre.
+
+674
+00:41:19,450 --> 00:41:19,850
+Tiempo.
+
+675
+00:41:20,390 --> 00:41:21,510
+¿Por qué le traes tantas piezas?
+
+676
+00:41:21,530 --> 00:41:23,230
+Eh, buscando a Nemo.
+
+677
+00:41:23,830 --> 00:41:29,810
+Incorrecto.
+
+678
+00:41:30,390 --> 00:41:31,270
+Qué buena eres, Joy.
+
+679
+00:41:31,330 --> 00:41:32,330
+Imposible ganarte.
+
+680
+00:41:35,310 --> 00:41:37,050
+Mirá, Monstros SA y Toy Story, efectivamente.
+
+681
+00:41:37,690 --> 00:41:44,470
+Pues, los dos puntos más fáciles de su vida, Julio, para Joy, para Joy, y para el equipo JoyFly.
+
+682
+00:41:45,350 --> 00:41:49,610
+Tenemos que haber visto el especial de banda sonora de la lista de reproducción antes.
+
+683
+00:41:50,490 --> 00:41:55,610
+Aparte de las cuatro películas de Toy Story, están Bicho, Monstros SA.
+
+684
+00:41:55,890 --> 00:41:58,710
+Cars 1, Cars 3 y Monstros University.
+
+685
+00:41:58,730 --> 00:42:02,230
+Lo que hubiera molado el duelo de Toy Story 1, Toy Story 2, Toy Story 3, Toy Story 4.
+
+686
+00:42:03,130 --> 00:42:04,310
+Eso no lo hemos perdido, tío.
+
+687
+00:42:04,490 --> 00:42:06,550
+Eso jamás ocurrirá.
+
+688
+00:42:06,650 --> 00:42:11,690
+Pero bueno, lo que sí va a ocurrir es que ahora compite en Seidon McFly con Alecrombie.
+
+689
+00:42:11,710 --> 00:42:12,230
+Ahí lo llevas.
+
+690
+00:42:14,290 --> 00:42:16,370
+Y Seidon elige A o D.
+
+691
+00:42:16,610 --> 00:42:16,830
+A.
+
+692
+00:42:17,070 --> 00:42:20,510
+Y las respuestas que buscamos, y empezaremos por ti Seidon, Ok.
+
+693
+00:42:20,890 --> 00:42:25,810
+Es tipos de bichos del circoambulante de la película Bichos.
+
+694
+00:42:26,590 --> 00:42:27,010
+¿Tiempo?
+
+695
+00:42:33,550 --> 00:42:34,030
+Incorrecto.
+
+696
+00:42:34,250 --> 00:42:34,990
+No puede ser.
+
+697
+00:42:40,030 --> 00:42:46,050
+Es que yo vi Bichos cuando se estrenó, hace como mil años aproximadamente, no la vuelta vez, no tengo ni idea.
+
+698
+00:42:46,190 --> 00:42:49,350
+Sí, más o menos la misma fecha de la canción Bing Bong que has cantado antes.
+
+699
+00:42:52,570 --> 00:42:55,430
+No recordaba ni que hubiera un circo, con eso te lo digo todo.
+
+700
+00:42:55,450 --> 00:43:00,450
+Efectivamente no había ninguna hormiga en el circo, y como tú bien has dicho, Alecrombie, el bicho palo, ¿no?
+
+701
+00:43:01,790 --> 00:43:14,170
+Eso es, mariquita, insecto palo, la oruga, un escarabajo rinoceronte, la pulga PT, una viuda negra, una mantis religiosa, que creo que era mentalista, las cochinillas y una meriposa.
+
+702
+00:43:14,510 --> 00:43:15,350
+Ah, también es verdad.
+
+703
+00:43:15,530 --> 00:43:17,630
+No me suena nada, a ver si es que ni la he visto.
+
+704
+00:43:18,570 --> 00:43:21,130
+Te quedaste dormido en el estreno.
+
+705
+00:43:21,150 --> 00:43:22,510
+No, estoy confiando con hormigas.
+
+706
+00:43:23,090 --> 00:43:24,530
+Eso con ans.
+
+707
+00:43:24,530 --> 00:43:26,450
+Claro, por eso he dicho hormigas, claro, tiene sentido.
+
+708
+00:43:26,670 --> 00:43:29,170
+Bueno, ahora empezaremos con Alicrombie, ya solo queda una lista.
+
+709
+00:43:29,190 --> 00:43:37,670
+Y las respuestas que buscamos es nombres propios de los juguetes de la primera película de Toy Story.
+
+710
+00:43:38,170 --> 00:43:40,310
+Hay 15 respuestas en la lista.
+
+711
+00:43:40,590 --> 00:43:41,150
+Venga ya.
+
+712
+00:43:41,350 --> 00:43:42,470
+Empezamos con Alicrombie.
+
+713
+00:43:42,730 --> 00:43:43,150
+¿Tiempo?
+
+714
+00:43:44,310 --> 00:43:44,790
+Correcto.
+
+715
+00:43:46,870 --> 00:43:47,250
+Correcto.
+
+716
+00:43:55,490 --> 00:43:55,810
+Perdigón.
+
+717
+00:44:00,390 --> 00:44:03,670
+Rex y salió en el Peskito de dinosaurios.
+
+718
+00:44:04,010 --> 00:44:05,870
+Es que se fue hace tanto, estamos en junio, tío.
+
+719
+00:44:06,110 --> 00:44:06,870
+Mister Potato.
+
+720
+00:44:06,890 --> 00:44:08,510
+Mister Potato.
+
+721
+00:44:08,530 --> 00:44:09,870
+Se llama Mister Potato, ¿tío?
+
+722
+00:44:10,190 --> 00:44:12,070
+Se llamaba Señor Patata y Señora Patata.
+
+723
+00:44:12,290 --> 00:44:12,950
+Maldita sea.
+
+724
+00:44:13,190 --> 00:44:14,510
+Slinky era el perro.
+
+725
+00:44:14,930 --> 00:44:18,890
+Pero oye, he acertado infinitamente más que Seidón en la anterior, ¿eh?
+
+726
+00:44:18,910 --> 00:44:20,690
+Eso es cierto.
+
+727
+00:44:20,910 --> 00:44:28,930
+Rex, Ham, que es el cerdito, Bo, es la pastora que mencionabais antes, y luego los demás son anecdóticos prácticamente.
+
+728
+00:44:29,230 --> 00:44:34,970
+Si quiero lo digo, Lenny era uno prismático, Rockin Forzudo, Señora BC, que es un juguete de deletreo.
+
+729
+00:44:36,930 --> 00:44:37,930
+El coche...
+
+730
+00:44:39,030 --> 00:44:39,790
+El coche RC.
+
+731
+00:44:42,670 --> 00:44:44,190
+Correcto, de radio control.
+
+732
+00:44:44,510 --> 00:44:53,570
+Bueno, pues volvemos a los sobres después de esta prueba divertida, pero ineficiente, digamos, en el que los dos equipos han conseguido los cuatro puntos.
+
+733
+00:44:54,210 --> 00:45:00,730
+Sólo uno de ellos considero que ha sido casi por mérito, no porque los otros han sido más por de mérito, pero bueno.
+
+734
+00:45:01,810 --> 00:45:03,810
+Siga la cabeza entonces, Millcrombie, con 13.
+
+735
+00:45:04,190 --> 00:45:05,390
+Joyfly le sigue con 12.
+
+736
+00:45:05,410 --> 00:45:08,510
+Y a Joyfly precisamente le toca elegir color de sobre.
+
+737
+00:45:12,250 --> 00:45:12,930
+Venga, negro.
+
+738
+00:45:12,990 --> 00:45:17,250
+Y el tema, oscuro tema que contiene es el más allá.
+
+739
+00:45:17,450 --> 00:45:20,070
+Y vamos a empezar con una banda sonora, a ver si adivináis la película.
+
+740
+00:45:44,600 --> 00:45:46,040
+Y es correcto.
+
+741
+00:45:47,140 --> 00:45:48,320
+Vamos con la primera pregunta.
+
+742
+00:45:48,740 --> 00:45:53,940
+¿A quién intentan revivir con magia los elfos adolescentes protagonistas de Onward?
+
+743
+00:45:53,960 --> 00:45:55,880
+A su padre.
+
+744
+00:45:55,900 --> 00:45:55,960
+Sí.
+
+745
+00:45:55,980 --> 00:45:57,920
+Nuestra respuesta es a su padre.
+
+746
+00:45:58,780 --> 00:46:00,420
+Y es correcto.
+
+747
+00:46:01,400 --> 00:46:02,420
+Nosotros siempre lo sabemos menos.
+
+748
+00:46:02,440 --> 00:46:03,040
+¿A quién dice el nombre?
+
+749
+00:46:03,060 --> 00:46:04,380
+Porque no dice el nombre del padre.
+
+750
+00:46:04,400 --> 00:46:05,760
+Es una decepción, ¿eh?
+
+751
+00:46:05,760 --> 00:46:07,660
+Sus sobres siempre lo sabemos menos.
+
+752
+00:46:07,680 --> 00:46:08,440
+Claro, claro.
+
+753
+00:46:08,480 --> 00:46:09,700
+Pobeles y un negro, ¿Mildred?
+
+754
+00:46:09,740 --> 00:46:11,140
+No sé, Rick.
+
+755
+00:46:11,380 --> 00:46:12,540
+Vamos con la siguiente pregunta.
+
+756
+00:46:12,800 --> 00:46:16,920
+Con qué gesto, imposible para un robot, ¿revive Eva a Wally?
+
+757
+00:46:38,720 --> 00:46:39,000
+¿Un beso?
+
+758
+00:46:40,940 --> 00:46:42,400
+Se ha acabado el tiempo, ¿tenéis una respuesta?
+
+759
+00:46:42,520 --> 00:46:43,700
+Nuestra respuesta es un beso.
+
+760
+00:46:44,400 --> 00:46:46,000
+Y es correcto.
+
+761
+00:46:46,580 --> 00:46:48,520
+¿No te habrías perdonado fallar esta pregunta?
+
+762
+00:46:48,620 --> 00:46:49,400
+No, no, no.
+
+763
+00:46:49,500 --> 00:46:50,980
+Como rozando el palo, ¿eh?
+
+764
+00:46:51,380 --> 00:46:52,800
+Vamos con el verdadero o falso.
+
+765
+00:46:53,260 --> 00:46:56,720
+Arlo pierde a su madre en una inundación repentina.
+
+766
+00:46:57,340 --> 00:46:58,700
+¿Verdadero o falso?
+
+767
+00:47:00,280 --> 00:47:01,980
+Sí, nuestra respuesta es falso.
+
+768
+00:47:02,960 --> 00:47:05,260
+Y es correcto.
+
+769
+00:47:06,920 --> 00:47:09,160
+Efectivamente, a quien pierdes es a su padre, no a su madre.
+
+770
+00:47:09,360 --> 00:47:11,380
+Y vamos a terminar con un fragmento de audio.
+
+771
+00:47:11,400 --> 00:47:13,660
+Si acertáis, hacéis pleno en el sobre negro.
+
+772
+00:47:13,860 --> 00:47:15,860
+Vamos a escuchar y a ver si adivináis la película.
+
+773
+00:47:38,520 --> 00:47:39,180
+Y es pleno.
+
+774
+00:47:41,360 --> 00:47:42,600
+Segundo pleno que hacen ya.
+
+775
+00:47:45,000 --> 00:47:45,200
+No.
+
+776
+00:47:45,200 --> 00:47:45,940
+No, han hecho cuatro.
+
+777
+00:47:46,020 --> 00:47:46,520
+Cuatro plenos.
+
+778
+00:47:46,540 --> 00:47:47,700
+Efectivamente es Coco.
+
+779
+00:47:48,140 --> 00:47:48,600
+Muy buena.
+
+780
+00:47:49,000 --> 00:47:52,440
+Bueno, pues lo acaba de poner cuesta arriba, Milkromby.
+
+781
+00:47:52,460 --> 00:47:53,940
+A ver si estáis a la altura.
+
+782
+00:47:54,100 --> 00:47:55,900
+Vamos a elegir primero el color del sobre.
+
+783
+00:47:56,100 --> 00:47:57,540
+¿Qué colores quedan que ya no me acuerdo?
+
+784
+00:47:57,640 --> 00:48:00,520
+Pues queda azul, naranja y blanco.
+
+785
+00:48:05,080 --> 00:48:08,080
+Y el tema del sobre es Actores Famosos.
+
+786
+00:48:09,700 --> 00:48:12,240
+La verdad es que estáis teniendo mala suerte con la elección.
+
+787
+00:48:14,400 --> 00:48:17,220
+Vamos a empezar escuchando la banda sonora, a ver si adivináis la película.
+
+788
+00:48:53,570 --> 00:48:54,210
+La de Coco.
+
+789
+00:48:57,730 --> 00:48:59,430
+Se ha acabado el tiempo, ¿tenéis alguna respuesta?
+
+790
+00:48:59,450 --> 00:49:01,190
+Nuestra respuesta es Coco.
+
+791
+00:49:01,210 --> 00:49:02,510
+Y no me voy a decir Coco.
+
+792
+00:49:02,570 --> 00:49:02,790
+Pero.
+
+793
+00:49:02,810 --> 00:49:03,830
+¿por qué no me voy a decir algo?
+
+794
+00:49:03,850 --> 00:49:05,090
+Y es incorrecto.
+
+795
+00:49:05,310 --> 00:49:05,770
+Rebote.
+
+796
+00:49:08,270 --> 00:49:08,750
+¿Qué te parece?
+
+797
+00:49:12,910 --> 00:49:13,870
+A menos que tu tengas algo en vez.
+
+798
+00:49:16,050 --> 00:49:16,730
+Que voy a gedearlo.
+
+799
+00:49:22,070 --> 00:49:25,250
+Creo que voy a gedearlo, no, es mentira, broma, es una broma.
+
+800
+00:49:25,270 --> 00:49:26,510
+Nuestra respuesta es Lucas.
+
+801
+00:49:27,190 --> 00:49:29,270
+Y es incorrecto.
+
+802
+00:49:29,490 --> 00:49:31,950
+La respuesta correcta es Onward.
+
+803
+00:49:33,810 --> 00:49:34,230
+Amigos.
+
+804
+00:49:34,250 --> 00:49:37,870
+Los elfos protagonistas están doblados por Tom Holland y Chris Pratt.
+
+805
+00:49:37,890 --> 00:49:38,650
+MCU a tope.
+
+806
+00:49:39,730 --> 00:49:41,170
+Vamos con la primera de las preguntas.
+
+807
+00:49:41,350 --> 00:49:44,870
+¿Qué famoso actor dobla a Woody en versión original?
+
+808
+00:49:45,490 --> 00:49:48,650
+Nuestra respuesta correcta es Don Hanks.
+
+809
+00:49:49,410 --> 00:49:50,890
+Y es correcto.
+
+810
+00:49:52,090 --> 00:49:52,690
+Me lo sabía.
+
+811
+00:49:53,710 --> 00:49:54,410
+Pa una que me dice.
+
+812
+00:49:54,510 --> 00:49:55,650
+Vamos con la siguiente pregunta.
+
+813
+00:49:55,850 --> 00:49:59,850
+¿Qué famoso actor dobla a Frozono en versión original?
+
+814
+00:50:08,270 --> 00:50:09,650
+Eddie Murphy o algo así.
+
+815
+00:50:11,790 --> 00:50:15,410
+Nuestra respuesta correcta es Denzel Washington.
+
+816
+00:50:16,490 --> 00:50:18,510
+Y es incorrecto.
+
+817
+00:50:18,830 --> 00:50:19,290
+Remote.
+
+818
+00:50:19,310 --> 00:50:22,050
+¿Hacimos Chris Rock por los loles?
+
+819
+00:50:25,690 --> 00:50:27,690
+Incedido.
+
+820
+00:50:30,450 --> 00:50:32,390
+Nuestra respuesta es Chris Rock.
+
+821
+00:50:34,030 --> 00:50:35,910
+Y es incorrecto.
+
+822
+00:50:36,790 --> 00:50:37,770
+La respuesta correcta es...
+
+823
+00:50:37,790 --> 00:50:41,170
+Les iba a decir Will Smith por los loles, pero no.
+
+824
+00:50:42,030 --> 00:50:43,370
+La verdadera es Samuel L.
+
+825
+00:50:43,390 --> 00:50:43,770
+Jackson.
+
+826
+00:50:45,530 --> 00:50:52,870
+De hecho tienen una escena muy graciosa en la que se hace un guiño a sí mismo en la tercera película de Jungla de Cristales y hacen una escena parecida.
+
+827
+00:50:53,550 --> 00:50:54,830
+Vamos con el verdadero o falso.
+
+828
+00:50:55,130 --> 00:51:00,870
+Jill, el pez jefe de la pandilla de la pecera de Buscando Anemo, fue doblado por Willem Dafoe.
+
+829
+00:51:01,330 --> 00:51:02,610
+¿Verdadero o falso?
+
+830
+00:51:11,670 --> 00:51:13,850
+Nuestra respuesta incorrecta es falso.
+
+831
+00:51:14,910 --> 00:51:17,970
+Y es incorrecto, es verdadero.
+
+832
+00:51:18,010 --> 00:51:20,550
+Efectivamente es Willem Dafoe que dobla a ese pez.
+
+833
+00:51:20,730 --> 00:51:24,870
+Y vamos a terminar el sobre con un fragmento de audio, a ver si adivináis la película.
+
+834
+00:51:25,790 --> 00:51:31,130
+Chicos, pedid otra ronda porque nos vamos a quedar aquí.
+
+835
+00:51:33,190 --> 00:51:37,170
+Claro, ¿en qué estaría yo pensando con eso de volver a Isla Obrimira?
+
+836
+00:51:37,570 --> 00:51:42,310
+Acabamos de llegar aquí y tenemos comida más que suficiente para todo el invierno, ¿verdad?
+
+837
+00:51:42,450 --> 00:51:43,470
+¿Para qué volver?
+
+838
+00:51:54,670 --> 00:52:02,250
+Bueno, este impresionante discurso es del villano de la película Hopper, que en versión original está doblado ni más ni menos que por Kevin Spacey.
+
+839
+00:52:03,770 --> 00:52:12,310
+Bueno, pues después de esta ronda de sobres, el marcador muestra 17 puntos para Joyfly de Coco y 15 para Milkromby.
+
+840
+00:52:12,790 --> 00:52:18,890
+Para Joyfly está dos por encima, pero vamos a dejar los sobres a un lado y pasamos a otra prueba que puede que decante de nuevo la balanza.
+
+841
+00:52:19,490 --> 00:52:23,870
+Se llama Las Cinco Vocales y en esta prueba jugaréis de forma individual.
+
+842
+00:52:23,890 --> 00:52:29,270
+Os iré haciendo preguntas cuyas respuestas empiezan por cada una de las cinco vocales.
+
+843
+00:52:29,590 --> 00:52:32,870
+Si os atacáis en una pregunta, podéis pasar para que lea la siguiente.
+
+844
+00:52:33,570 --> 00:52:37,270
+Y una vez lea la última, si quedan preguntas sin responder, las retomaré.
+
+845
+00:52:37,610 --> 00:52:42,630
+Así hasta que un jugador consiga las cinco respuestas o hasta que se agote el tiempo, que será de un minuto.
+
+846
+00:52:42,790 --> 00:52:45,190
+Cada respuesta acertada sumará un punto para su equipo.
+
+847
+00:52:45,690 --> 00:52:49,230
+Joyfly, elige primero con cuál de vuestros miembros jugáis.
+
+848
+00:52:49,350 --> 00:52:52,070
+Y no me refiero a brazos, piernas, si no, porque es participante.
+
+849
+00:52:52,250 --> 00:52:53,150
+Venga, empiezo yo esta vez.
+
+850
+00:52:53,630 --> 00:52:54,070
+Empieza yo.
+
+851
+00:52:54,290 --> 00:52:56,430
+Bien, Seidon, pues elige A, B, C o D.
+
+852
+00:52:56,850 --> 00:52:57,050
+A.
+
+853
+00:52:57,530 --> 00:52:57,790
+Vale.
+
+854
+00:52:57,890 --> 00:53:02,950
+Como digo, son las respuestas, empiezan con las cinco vocales y yo iré leyendo y tú me tienes que dar las respuestas.
+
+855
+00:53:02,970 --> 00:53:04,970
+Si no las sabes, pasas, pasamos a la siguiente, en fin.
+
+856
+00:53:05,070 --> 00:53:05,810
+Y es en orden, ¿no?
+
+857
+00:53:06,050 --> 00:53:07,670
+El orden de las vocales, digamos.
+
+858
+00:53:07,910 --> 00:53:08,150
+Vale.
+
+859
+00:53:08,450 --> 00:53:09,750
+Venga, pues empieza el tiempo.
+
+860
+00:53:10,790 --> 00:53:11,590
+Con la A.
+
+861
+00:53:11,610 --> 00:53:15,710
+Juego al que juega Gery en el corto de Pixar, el juego de Gery.
+
+862
+00:53:15,730 --> 00:53:16,010
+Paso.
+
+863
+00:53:17,170 --> 00:53:17,650
+Con la E.
+
+864
+00:53:17,850 --> 00:53:21,250
+Nombre del hermano de Remy, la rata cocinera de Ratatouille.
+
+865
+00:53:24,970 --> 00:53:25,310
+Con la I.
+
+866
+00:53:25,390 --> 00:53:28,810
+Título de la película del revés en Latinoamérica.
+
+867
+00:53:33,430 --> 00:53:33,990
+Con la O.
+
+868
+00:53:34,010 --> 00:53:37,530
+Título de la película de Pixar, en la que seres fantásticos y mitológicos hacen vida normal.
+
+869
+00:53:42,390 --> 00:53:42,770
+Correcto.
+
+870
+00:53:42,810 --> 00:53:43,330
+Con la U.
+
+871
+00:53:43,410 --> 00:53:46,830
+Título de la primera película de Pixar, que ganó el Oscar a la mejor banda sonora original.
+
+872
+00:53:49,610 --> 00:53:50,070
+Correcto.
+
+873
+00:53:50,090 --> 00:53:50,450
+Con la A.
+
+874
+00:53:50,650 --> 00:53:52,830
+Juego al que juega Gary en el corto de Pixar en el juego de Gary.
+
+875
+00:53:54,190 --> 00:53:54,690
+Con la E.
+
+876
+00:53:54,750 --> 00:53:56,250
+Nombre del hermano de Remy, la rata...
+
+877
+00:53:56,270 --> 00:53:56,590
+Emil.
+
+878
+00:53:56,610 --> 00:53:57,030
+Correcto.
+
+879
+00:53:57,070 --> 00:53:57,570
+Con la I.
+
+880
+00:53:57,850 --> 00:53:59,610
+Título de la película del revés en Latinoamérica.
+
+881
+00:54:00,150 --> 00:54:00,890
+¿Inside Out?
+
+882
+00:54:02,290 --> 00:54:02,870
+No es correcto.
+
+883
+00:54:02,890 --> 00:54:03,250
+Con la A.
+
+884
+00:54:03,290 --> 00:54:05,570
+Juego al que juega Gary en el corto de Pixar en el juego de Gary.
+
+885
+00:54:12,830 --> 00:54:13,250
+¿Ajedrez?
+
+886
+00:54:13,450 --> 00:54:14,470
+Es el ajedrez, efectivamente.
+
+887
+00:54:14,490 --> 00:54:14,830
+Claro.
+
+888
+00:54:15,110 --> 00:54:17,230
+Se acaba del tiempo, pero bueno, tres respuestas.
+
+889
+00:54:17,430 --> 00:54:18,690
+Que buena, tío.
+
+890
+00:54:18,790 --> 00:54:22,830
+El título de la película del revés en Latinoamérica es Intensamente.
+
+891
+00:54:24,390 --> 00:54:24,790
+Julio.
+
+892
+00:54:24,930 --> 00:54:25,930
+Imposible para mí.
+
+893
+00:54:26,350 --> 00:54:29,710
+Bueno, pues seguimos con uno de los participantes del equipo Milchromy.
+
+894
+00:54:29,730 --> 00:54:30,890
+¿Quién quiere tomar la iniciativa?
+
+895
+00:54:32,930 --> 00:54:33,270
+¿Qué vamos a hacer?
+
+896
+00:54:35,010 --> 00:54:35,150
+A la I.
+
+897
+00:54:35,170 --> 00:54:35,350
+Chromie.
+
+898
+00:54:36,450 --> 00:54:37,150
+C o D.
+
+899
+00:54:37,650 --> 00:54:38,330
+La B misma.
+
+900
+00:54:38,930 --> 00:54:39,270
+La B.
+
+901
+00:54:39,570 --> 00:54:41,070
+Venga, pues tiempo.
+
+902
+00:54:42,110 --> 00:54:42,770
+Con la A.
+
+903
+00:54:42,790 --> 00:54:45,730
+Nombre del propietario de los juguetes protagonistas de la saga Toy Story.
+
+904
+00:54:47,190 --> 00:54:47,530
+Andy.
+
+905
+00:54:48,010 --> 00:54:48,450
+Correcto.
+
+906
+00:54:48,470 --> 00:54:49,030
+Con la E.
+
+907
+00:54:49,050 --> 00:54:51,850
+Nombre del robot tipo sonda que coprotagoniza la película Wall-E.
+
+908
+00:54:52,130 --> 00:54:52,410
+Eva.
+
+909
+00:54:53,110 --> 00:54:53,530
+Correcto.
+
+910
+00:54:53,550 --> 00:54:53,890
+Con la I.
+
+911
+00:54:53,930 --> 00:54:56,190
+Nombre de la emoción de color rojo de la película Del Revés.
+
+912
+00:54:57,430 --> 00:54:59,710
+paso pechito.
+
+913
+00:55:00,550 --> 00:55:00,990
+Con la O.
+
+914
+00:55:01,090 --> 00:55:03,590
+Tipo de juguete que es Locho, el villano de Toy Story 3.
+
+915
+00:55:06,310 --> 00:55:06,770
+Correcto.
+
+916
+00:55:06,790 --> 00:55:07,210
+Con la U.
+
+917
+00:55:07,230 --> 00:55:09,850
+Tipo de institución en la que se desarrolla la precuela de monstruos SA.
+
+918
+00:55:10,630 --> 00:55:11,190
+Universidad.
+
+919
+00:55:11,210 --> 00:55:11,870
+University.
+
+920
+00:55:12,230 --> 00:55:12,710
+Correcto.
+
+921
+00:55:12,890 --> 00:55:13,350
+Con la I.
+
+922
+00:55:13,410 --> 00:55:15,450
+Nombre de la emoción de color rojo de la película Del Revés.
+
+923
+00:55:17,690 --> 00:55:21,290
+emoción roja, incansable, infernal.
+
+924
+00:55:21,970 --> 00:55:22,350
+Correcto.
+
+925
+00:55:22,370 --> 00:55:22,690
+Con la I.
+
+926
+00:55:22,710 --> 00:55:24,630
+Nombre de la emoción de color rojo de la película Del Revés.
+
+927
+00:55:38,180 --> 00:55:38,620
+Impulso.
+
+928
+00:55:39,800 --> 00:55:40,360
+No es correcto.
+
+929
+00:55:40,380 --> 00:55:42,820
+Con la I, nombre de la moción de color rojo de la película del revés.
+
+930
+00:55:44,180 --> 00:55:45,380
+Que se enfada, Ira.
+
+931
+00:55:48,200 --> 00:55:49,720
+Qué desastre.
+
+932
+00:55:50,720 --> 00:55:53,780
+Pues cuatro respuestas para Milchromy, que son cuatro puntos que suma a su equipo.
+
+933
+00:55:54,060 --> 00:55:56,960
+Y vamos con Joy, que es la que queda del equipo Joyfly.
+
+934
+00:55:57,240 --> 00:56:00,120
+Queda la tanda de preguntas C y la D.
+
+935
+00:56:00,280 --> 00:56:00,780
+¿Cuál quieres?
+
+936
+00:56:01,040 --> 00:56:01,440
+Las C.
+
+937
+00:56:01,620 --> 00:56:02,440
+La sabe, la sabe.
+
+938
+00:56:02,700 --> 00:56:03,580
+Claro, todas.
+
+939
+00:56:03,680 --> 00:56:05,220
+Muy bien, pues tiempo.
+
+940
+00:56:05,760 --> 00:56:06,140
+Con la A.
+
+941
+00:56:06,160 --> 00:56:08,960
+Nombre de la princesa hormiga heredera al trono en la película Bichos.
+
+942
+00:56:10,400 --> 00:56:10,980
+Ana.
+
+943
+00:56:11,680 --> 00:56:12,240
+No es correcto.
+
+944
+00:56:12,260 --> 00:56:12,740
+Con la E.
+
+945
+00:56:12,760 --> 00:56:16,180
+Nombre propio de la difunta esposa de Carl Freddicksen, el anciano de la película Ab.
+
+946
+00:56:18,640 --> 00:56:19,000
+Correcto.
+
+947
+00:56:19,020 --> 00:56:19,440
+Con la I.
+
+948
+00:56:19,560 --> 00:56:20,720
+Nombre de la madre de Arlo.
+
+949
+00:56:25,660 --> 00:56:26,180
+No es correcto.
+
+950
+00:56:26,200 --> 00:56:26,860
+Con la O.
+
+951
+00:56:26,880 --> 00:56:30,040
+Completa el título de la película del revés en inglés.
+
+952
+00:56:31,400 --> 00:56:31,740
+Correcto.
+
+953
+00:56:31,740 --> 00:56:32,500
+Con la U.
+
+954
+00:56:32,520 --> 00:56:35,260
+Intrumento musical principal que suena en el corto de Pixar, Lava.
+
+955
+00:56:35,740 --> 00:56:36,260
+Ukelele.
+
+956
+00:56:37,160 --> 00:56:37,640
+Correcto.
+
+957
+00:56:37,660 --> 00:56:38,220
+Con la A.
+
+958
+00:56:38,240 --> 00:56:40,800
+Nombre de la princesa hormiga heredera al trono en la película Bichos.
+
+959
+00:56:46,980 --> 00:56:47,560
+No es correcto.
+
+960
+00:56:47,580 --> 00:56:47,940
+Con la I.
+
+961
+00:56:48,140 --> 00:56:49,460
+Nombre de la madre de Arlo.
+
+962
+00:56:53,540 --> 00:56:53,980
+No es correcto.
+
+963
+00:56:54,000 --> 00:56:54,380
+Con la A.
+
+964
+00:56:54,380 --> 00:56:56,720
+Nombre de la princesa hormiga heredera al trono en la película Bichos.
+
+965
+00:56:56,780 --> 00:56:57,400
+Astrid.
+
+966
+00:56:58,440 --> 00:56:58,980
+No es correcto.
+
+967
+00:56:59,000 --> 00:56:59,360
+Con la I.
+
+968
+00:56:59,380 --> 00:57:00,220
+Nombre de la madre de Arlo.
+
+969
+00:57:05,820 --> 00:57:06,360
+No es correcto.
+
+970
+00:57:06,980 --> 00:57:07,280
+Tiempo.
+
+971
+00:57:07,360 --> 00:57:09,000
+Qué bueno, le han quedado los dos nombres.
+
+972
+00:57:09,020 --> 00:57:10,960
+La toca a Lupelele y el viaje de Arlo.
+
+973
+00:57:10,960 --> 00:57:11,600
+Se quejarán.
+
+974
+00:57:13,760 --> 00:57:18,500
+La princesa hormiga heredera al trono es Atta y el nombre de la madre de Arlo es Ida.
+
+975
+00:57:19,740 --> 00:57:20,380
+Ida estaba yo.
+
+976
+00:57:21,940 --> 00:57:24,080
+Si solo le oyo a Zomeni.
+
+977
+00:57:24,100 --> 00:57:27,380
+Bueno, si no me equivoco, solo queda Mildre y solo queda una tanda de preguntas.
+
+978
+00:57:27,440 --> 00:57:29,160
+Impresión Mildre, pero tiene que hacer tan mucho.
+
+979
+00:57:29,180 --> 00:57:29,620
+Elijo la D.
+
+980
+00:57:30,200 --> 00:57:30,980
+Mildre, ¿preparada?
+
+981
+00:57:31,160 --> 00:57:31,380
+No.
+
+982
+00:57:32,340 --> 00:57:32,720
+La D, la D.
+
+983
+00:57:32,740 --> 00:57:33,080
+Perfecto.
+
+984
+00:57:33,260 --> 00:57:33,640
+Tiempo.
+
+985
+00:57:34,240 --> 00:57:38,120
+Con la A, nombre del coleccionista y propietario de una cadena de juguetería que aparece en Toy Story 2.
+
+986
+00:57:40,780 --> 00:57:43,760
+Con la E, nombre de la reina y madre de la protagonista de la película Brave.
+
+987
+00:57:45,480 --> 00:57:45,900
+Elena.
+
+988
+00:57:46,560 --> 00:57:47,100
+No es correcto.
+
+989
+00:57:47,120 --> 00:57:50,140
+Con la I, nombre propio del héroe protagonista de la película Unward.
+
+990
+00:57:56,300 --> 00:58:00,520
+Con la O, número que ocupa Toy Story 3 en el orden cronológico de estreno de las películas de Pixar.
+
+991
+00:58:01,440 --> 00:58:01,760
+11.
+
+992
+00:58:02,580 --> 00:58:05,340
+Con la U, número de Oscar que ganó la película Brave.
+
+993
+00:58:06,080 --> 00:58:07,280
+1.
+
+994
+00:58:07,320 --> 00:58:10,820
+Con la A, nombre del coleccionista y propietario de una cadena de juguetes que aparece en Toy Story 2.
+
+995
+00:58:13,320 --> 00:58:16,000
+Con la E, nombre de la reina y madre de la protagonista de la película Brave.
+
+996
+00:58:18,340 --> 00:58:18,780
+No es correcto.
+
+997
+00:58:18,800 --> 00:58:21,340
+Con la I, nombre propio del ff protagonista de la película Unward.
+
+998
+00:58:22,280 --> 00:58:24,580
+Pasao Peskito.
+
+999
+00:58:24,980 --> 00:58:28,840
+Con la A, nombre del coleccionista y propietario de una cadena de juguetes que aparece en Toy Story 2.
+
+1000
+00:58:29,200 --> 00:58:29,660
+Albert.
+
+1001
+00:58:30,200 --> 00:58:30,740
+No es correcto.
+
+1002
+00:58:30,760 --> 00:58:33,360
+Con la E, nombre de la reina y madre de la protagonista de la película Brave.
+
+1003
+00:58:34,340 --> 00:58:35,240
+Erika.
+
+1004
+00:58:35,260 --> 00:58:38,120
+No es correcto.
+
+1005
+00:58:38,560 --> 00:58:39,940
+Tómate un poquito de agua, Marcon.
+
+1006
+00:58:43,140 --> 00:58:45,220
+De aquí a Pasa Palabra a...
+
+1007
+00:58:45,240 --> 00:58:45,880
+Ay, qué más fisio.
+
+1008
+00:58:46,400 --> 00:58:47,960
+Hay medio pesquito, hay medio pesquito.
+
+1009
+00:58:48,720 --> 00:58:49,580
+Te puedes fichar...
+
+1010
+00:58:53,880 --> 00:58:55,840
+A tres medias te puedes fichar fácilmente.
+
+1011
+00:58:57,540 --> 00:58:59,380
+Bueno, después de que nos hayamos reído de mí...
+
+1012
+00:59:02,060 --> 00:59:03,340
+Hacemos recuento de puntos.
+
+1013
+00:59:03,360 --> 00:59:08,520
+Ahora mismo Joyfly y The Kokoban en cabeza con 23 y Millcrombie le sigue con 21.
+
+1014
+00:59:09,620 --> 00:59:11,500
+Vale, habéis conseguido seis puntos a los dos equipos.
+
+1015
+00:59:11,520 --> 00:59:12,500
+Qué bonito sería un empate.
+
+1016
+00:59:15,260 --> 00:59:20,500
+Mira, pues el nombre del coleccionista y propietario de una cadena de jugueterías que aparece en Toy Story 2 es Al.
+
+1017
+00:59:22,000 --> 00:59:25,620
+El logotipo es como un granero de las jugueterías.
+
+1018
+00:59:25,800 --> 00:59:29,700
+El nombre de la reina y madre de la protagonista de la película de Brave es Elinor.
+
+1019
+00:59:30,560 --> 00:59:33,460
+Y el nombre propio del elfo de Onward es Ian.
+
+1020
+00:59:34,760 --> 00:59:39,280
+Bueno, pues Joyfly y The Kokoban le toca elegir color de sobre, sólo queda naranja y blanco.
+
+1021
+00:59:39,460 --> 00:59:39,880
+Naranja.
+
+1022
+00:59:40,200 --> 00:59:43,540
+Muy bien, y el tema es guiños a otras películas.
+
+1023
+00:59:44,140 --> 00:59:47,800
+Y empezamos con una banda sonora, veis si sabéis a qué película pertenece.
+
+1024
+01:00:14,660 --> 01:00:16,060
+¿Increíble?
+
+1025
+01:00:18,140 --> 01:00:19,440
+Nuestra respuesta es Los Increíbles.
+
+1026
+01:00:20,380 --> 01:00:22,160
+Y es incorrecto.
+
+1027
+01:00:22,180 --> 01:00:23,780
+Remote.
+
+1028
+01:00:23,800 --> 01:00:26,740
+Nuestra respuesta es Cars.
+
+1029
+01:00:27,760 --> 01:00:29,300
+Y es incorrecto.
+
+1030
+01:00:29,600 --> 01:00:31,480
+La respuesta correcta es Toy Story 2.
+
+1031
+01:00:32,500 --> 01:00:42,340
+Más concretamente, esta música suena alrededor del personaje de Buzz Lightyear, cuya trama o historia en Toy Story 2 tiene clarísimas referencias a la saga de Star Wars.
+
+1032
+01:00:43,680 --> 01:00:44,900
+Bueno, pues vamos con la pregunta.
+
+1033
+01:00:45,080 --> 01:00:50,220
+¿A qué película hace homenaje Toy Story cuando Buzz Lightyear es perseguido por un globo terráqueo?
+
+1034
+01:00:58,040 --> 01:00:58,720
+A qué película, ¿eh?
+
+1035
+01:00:58,740 --> 01:00:59,880
+Buscamos el título de la película.
+
+1036
+01:00:59,900 --> 01:01:07,100
+¿Cuál es el título de la película?
+
+1037
+01:01:14,020 --> 01:01:15,520
+Y es correcto.
+
+1038
+01:01:15,900 --> 01:01:20,520
+El Indiana Jones se le añadió posteriormente el título original en busca de la Arca Perdida, pero bueno, es correcto.
+
+1039
+01:01:21,380 --> 01:01:22,940
+Vamos con la siguiente pregunta.
+
+1040
+01:01:23,220 --> 01:01:26,820
+¿A qué película hace homenaje Buscando a Nemo en la escena de las gaviotas?
+
+1041
+01:01:28,460 --> 01:01:29,020
+Pájaros, ¿será?
+
+1042
+01:01:40,400 --> 01:01:41,960
+Nuestra respuesta es Los Pájaros.
+
+1043
+01:01:43,040 --> 01:01:44,800
+Y es correcto.
+
+1044
+01:01:47,380 --> 01:01:48,600
+Vamos con El Verdadero Falso.
+
+1045
+01:01:48,940 --> 01:01:57,640
+El inicio en blanco y negro de Los Increíbles cuando aparecen las noticias en la prensa es un claro guiño a Ciudadano Kane, ¿Verdadero o falso?
+
+1046
+01:02:03,160 --> 01:02:03,940
+50%.
+
+1047
+01:02:07,460 --> 01:02:08,640
+Nuestra respuesta es Verdadero.
+
+1048
+01:02:09,660 --> 01:02:11,380
+Y es correcto.
+
+1049
+01:02:11,520 --> 01:02:12,180
+Toma.
+
+1050
+01:02:12,560 --> 01:02:13,360
+Let's go.
+
+1051
+01:02:13,540 --> 01:02:16,100
+Vamos con el fragmento de audio a ver si adivináis la película.
+
+1052
+01:02:16,740 --> 01:02:21,560
+Y en segundo lugar, tengo muy desarrollados los sentidos del gusto y el olfato.
+
+1053
+01:02:21,860 --> 01:02:28,820
+Mmm, harina, huevos, azúcar, mmm, vainilla, mmm, y un toquecito de limón.
+
+1054
+01:02:37,360 --> 01:02:39,040
+Y es correcto.
+
+1055
+01:02:39,540 --> 01:02:44,440
+Este diálogo de los momentos iniciales donde hay un clarísimo guiño a el bueno, el feo y el malo.
+
+1056
+01:02:44,820 --> 01:02:48,940
+Cuando Remi se harta por una ventana y se congela la escena mientras él habla de fondo.
+
+1057
+01:02:50,120 --> 01:02:52,960
+Bien, pues vamos con el último sobre para el equipo Milcrombie.
+
+1058
+01:02:53,500 --> 01:02:54,460
+Os han dejado el blanco.
+
+1059
+01:02:54,480 --> 01:02:56,140
+Se han ganado, ya da igual lo que hagamos.
+
+1060
+01:02:56,200 --> 01:02:58,280
+Sí, bueno, llevan 27 puntos, tenéis 21.
+
+1061
+01:02:58,300 --> 01:03:01,160
+Hay 5 preguntas por lo que matemáticamente han ganado.
+
+1062
+01:03:01,180 --> 01:03:04,480
+Pero bueno, vamos a intentar dejar el pabellón bien alto, que eso no os desanime.
+
+1063
+01:03:04,860 --> 01:03:06,700
+O ellos más alto.
+
+1064
+01:03:06,980 --> 01:03:07,800
+Voy a abrir el sobre.
+
+1065
+01:03:09,620 --> 01:03:11,260
+¿De qué color era el que faltaba?
+
+1066
+01:03:11,280 --> 01:03:11,560
+Blanco.
+
+1067
+01:03:11,780 --> 01:03:13,700
+Y el tema es Mi Mejor Amigo.
+
+1068
+01:03:15,540 --> 01:03:18,060
+Y vamos con una banda sonora a ver si adivináis la película.
+
+1069
+01:03:41,350 --> 01:03:42,890
+Nuestra respuesta es Luka.
+
+1070
+01:03:43,830 --> 01:03:45,510
+Y es correcto.
+
+1071
+01:04:01,450 --> 01:04:01,830
+Bien, Mildred.
+
+1072
+01:04:01,850 --> 01:04:02,070
+Muy bien, muy bien.
+
+1073
+01:04:02,090 --> 01:04:02,470
+En Luka, bueno, también trata una amistad.
+
+1074
+01:04:02,490 --> 01:04:02,910
+Luka precisamente que es el protagonista y su amigo Alberto.
+
+1075
+01:04:02,930 --> 01:04:03,110
+Vamos con las preguntas.
+
+1076
+01:04:03,170 --> 01:04:03,550
+¿Cómo se llama el mejor amigo de Rayo McQueen?
+
+1077
+01:04:03,570 --> 01:04:03,630
+Mate.
+
+1078
+01:04:03,650 --> 01:04:04,070
+Nuestra respuesta correcta, gracias a Seidon, es Mate.
+
+1079
+01:04:04,090 --> 01:04:04,570
+Y es correcto.
+
+1080
+01:04:05,690 --> 01:04:07,550
+Que no lo sabíais, vamos.
+
+1081
+01:04:08,430 --> 01:04:10,890
+Vamos, puede que lo hubiera sacado, pero de primera no me acordaba.
+
+1082
+01:04:11,090 --> 01:04:11,950
+Vamos con la segunda pregunta.
+
+1083
+01:04:12,330 --> 01:04:16,210
+¿Cómo se llama el humano que se convierte en el mejor amigo de Arlo?
+
+1084
+01:04:46,520 --> 01:04:46,920
+Humano.
+
+1085
+01:04:47,100 --> 01:04:47,160
+Es...
+
+1086
+01:04:47,250 --> 01:04:47,350
+Y es...
+
+1087
+01:04:47,370 --> 01:04:47,390
+Incorrecto.
+
+1088
+01:04:47,410 --> 01:04:47,470
+Rebote.
+
+1089
+01:04:47,490 --> 01:04:47,790
+Creo que era Spot o algo así.
+
+1090
+01:04:47,810 --> 01:04:48,350
+Como no lo sepas y con la que dais vosotros que lo veais.
+
+1091
+01:04:48,370 --> 01:04:48,770
+Pero no sé, es algo parecido.
+
+1092
+01:04:49,010 --> 01:04:50,010
+Nuestra respuesta es Spot.
+
+1093
+01:04:52,050 --> 01:04:52,450
+Y es...
+
+1094
+01:04:53,230 --> 01:04:53,750
+Correcto.
+
+1095
+01:04:53,910 --> 01:04:54,770
+Toma.
+
+1096
+01:04:54,790 --> 01:04:56,070
+Vamos con el verdadero o falso.
+
+1097
+01:04:56,430 --> 01:05:01,970
+El mejor amigo de Ian, el elfo protagonista de Unwar, es un sátiro llamado Alan.
+
+1098
+01:05:02,310 --> 01:05:03,570
+¿Verdadero o falso?
+
+1099
+01:05:06,330 --> 01:05:07,630
+Nuestra respuesta es falso.
+
+1100
+01:05:08,490 --> 01:05:08,890
+Y es...
+
+1101
+01:05:09,450 --> 01:05:10,290
+Correcto, es falso.
+
+1102
+01:05:10,310 --> 01:05:11,110
+Hombre, he inventado todo.
+
+1103
+01:05:11,650 --> 01:05:12,350
+Vamos, todo o no.
+
+1104
+01:05:12,870 --> 01:05:18,150
+Ian sí es el elfo protagonista de Unwar, pero no hay un sátiro que se llama Alan, que es una clara referencia a Parque Jurásico.
+
+1105
+01:05:20,090 --> 01:05:23,370
+Y vamos a terminar el sobre con un fragmento de audio, a ver si adivináis la película.
+
+1106
+01:05:23,870 --> 01:05:25,190
+El suelo quema, el suelo quema, el suelo quema.
+
+1107
+01:05:25,210 --> 01:05:26,090
+Ah, ¡se despierta el tuyo!
+
+1108
+01:05:30,850 --> 01:05:33,610
+¡En dobles literas!
+
+1109
+01:05:35,110 --> 01:05:36,570
+Sí, porque está entrenando.
+
+1110
+01:05:37,430 --> 01:05:40,750
+Nuestra respuesta correcta es Monstruos University.
+
+1111
+01:05:42,350 --> 01:05:42,750
+Y es...
+
+1112
+01:05:43,530 --> 01:05:44,330
+Incorrecto, rebote.
+
+1113
+01:05:52,270 --> 01:05:53,270
+Correcto, Monstruos SA.
+
+1114
+01:05:55,230 --> 01:05:56,590
+Esperamos, sabíamos que era Monstruos.
+
+1115
+01:05:56,870 --> 01:06:00,090
+Una película que trata la amistad de Mike y Zuli.
+
+1116
+01:06:00,290 --> 01:06:01,990
+Bueno, pues hemos llegado al final.
+
+1117
+01:06:02,010 --> 01:06:03,550
+Estoy haciendo el recuento.
+
+1118
+01:06:03,570 --> 01:06:09,610
+Y la puntuación final es 24 puntos para Milkromby y 29 para Joyfly de Coco.
+
+1119
+01:06:10,730 --> 01:06:15,350
+Así que, un ala buena, vuestro equipo ha ganado la primera parte del juego.
+
+1120
+01:06:15,510 --> 01:06:16,470
+Queda la parte final.
+
+1121
+01:06:16,790 --> 01:06:17,030
+¿Qué?
+
+1122
+01:06:17,110 --> 01:06:19,290
+Porque este especial es un especial.
+
+1123
+01:06:19,730 --> 01:06:22,150
+Y al ser un especial especial, aquí no gana un equipo.
+
+1124
+01:06:22,290 --> 01:06:23,670
+Gana un pesquito.
+
+1125
+01:06:23,830 --> 01:06:24,250
+¿Qué dices?
+
+1126
+01:06:26,010 --> 01:06:30,490
+Así que, Joy y Seidon Mafly, preparad porque vais a la ronda final.
+
+1127
+01:06:38,090 --> 01:06:40,410
+Madre mía, me va a palizar si la ha hecho mucho mejor.
+
+1128
+01:06:42,650 --> 01:06:43,810
+La ha hecho mucho mejor que yo.
+
+1129
+01:06:45,110 --> 01:06:46,430
+Pssst, calla, calla.
+
+1130
+01:06:48,670 --> 01:06:49,870
+Para mí es la ganadora de todas formas.
+
+1131
+01:06:53,210 --> 01:06:57,730
+Bueno, pues en el reto final os enfrentaréis uno contra uno en una muerte súbita.
+
+1132
+01:06:57,930 --> 01:07:02,610
+Iréis respondiendo preguntas por turnos y si uno falla y el otro acierta tendremos ganador.
+
+1133
+01:07:02,790 --> 01:07:05,970
+Si los dos aceptáis o los dos falláis, seguiremos con las preguntas.
+
+1134
+01:07:06,150 --> 01:07:09,350
+Para facilitar las cosas, os daré cuatro opciones de respuestas.
+
+1135
+01:07:09,370 --> 01:07:11,850
+La A, la B, la C y la D.
+
+1136
+01:07:12,510 --> 01:07:14,090
+Y no habrá límite de tiempo.
+
+1137
+01:07:14,330 --> 01:07:15,370
+Y os doy una ventaja más.
+
+1138
+01:07:15,570 --> 01:07:17,830
+Cada uno de vosotros tendrá tres comodines.
+
+1139
+01:07:25,210 --> 01:07:27,030
+Uno es un comodín del 50%.
+
+1140
+01:07:27,270 --> 01:07:31,250
+Con ese link miraremos dos respuestas incorrectas y sólo quedarán la correcta y una falsa.
+
+1141
+01:07:32,110 --> 01:07:33,990
+Otro comodín es el de Alecrombie.
+
+1142
+01:07:34,830 --> 01:07:36,890
+Pero ese es negativo, ese es negativo y...
+
+1143
+01:07:36,910 --> 01:07:38,170
+No lo uséis, no lo uséis de verdad.
+
+1144
+01:07:39,030 --> 01:07:42,530
+Con el que podréis debatir con Alecrombie sobre cuál es la respuesta correcta.
+
+1145
+01:07:44,110 --> 01:07:45,710
+Jajajaja, ¡el peor!
+
+1146
+01:07:46,110 --> 01:07:48,610
+Y el otro comodín es el de Mildre, que funciona exactamente igual.
+
+1147
+01:07:48,670 --> 01:07:52,990
+Bueno, excepto que no le preguntas a Alecrombie, le preguntas a Mildre, ¿vale?
+
+1148
+01:07:56,850 --> 01:07:57,570
+Hombre, por si acaso.
+
+1149
+01:07:58,150 --> 01:08:02,930
+Los comodines se pierden para siempre cuando se usan y podéis usar los que queráis en una misma pregunta.
+
+1150
+01:08:03,550 --> 01:08:04,950
+Hay 10 preguntas para cada uno.
+
+1151
+01:08:04,970 --> 01:08:06,050
+Qué guay, ¡por favor!
+
+1152
+01:08:06,110 --> 01:08:08,750
+Si los dos llegáis hasta el final, el empate se mantiene.
+
+1153
+01:08:09,070 --> 01:08:09,830
+¿Estáis preparados?
+
+1154
+01:08:10,030 --> 01:08:11,270
+¡Say don't!
+
+1155
+01:08:14,410 --> 01:08:15,130
+¡No hagáis trampa!
+
+1156
+01:08:15,230 --> 01:08:17,170
+Tenemos que saber la respuesta para poder hacer trampa.
+
+1157
+01:08:18,250 --> 01:08:21,810
+Que no se puede fallar queriendo, se puede hacer tas sin querer.
+
+1158
+01:08:21,830 --> 01:08:23,390
+Pero tío, ¡yo quiero usarlos como diner ya!
+
+1159
+01:08:25,710 --> 01:08:26,090
+Venga, pues.
+
+1160
+01:08:26,110 --> 01:08:26,730
+¿quién quiere empezar?
+
+1161
+01:08:26,830 --> 01:08:28,230
+¿Joy o Say Don't Malfoy?
+
+1162
+01:08:28,350 --> 01:08:29,390
+Si no, lo echamos a suertes.
+
+1163
+01:08:29,890 --> 01:08:30,570
+¿Lo echamos a suertes?
+
+1164
+01:08:31,110 --> 01:08:32,330
+A que no tenga una moneda por aquí.
+
+1165
+01:08:32,410 --> 01:08:33,070
+¿Lo tiene un dado?
+
+1166
+01:08:33,090 --> 01:08:35,210
+O sea, menudo máster que no tiene un dado a mano.
+
+1167
+01:08:35,230 --> 01:08:36,030
+Tiene un dado de 10.
+
+1168
+01:08:36,050 --> 01:08:38,070
+Aquí tengo un dado, tengo un dado, tengo un dado, tengo un dado.
+
+1169
+01:08:38,850 --> 01:08:40,050
+Joy, elige, ¿paro o imparo?
+
+1170
+01:08:40,230 --> 01:08:40,510
+Paro.
+
+1171
+01:08:40,670 --> 01:08:41,750
+Si sale paro, empiezas tú.
+
+1172
+01:08:42,510 --> 01:08:44,370
+Os vais a tener que fiar de mí, ha salido un 2.
+
+1173
+01:08:45,390 --> 01:08:46,750
+Así que empieza Joy.
+
+1174
+01:08:46,910 --> 01:08:49,350
+Vas a tener el honor de elegir tu batería de preguntas.
+
+1175
+01:08:49,590 --> 01:08:50,250
+¿La A o la B?
+
+1176
+01:08:51,990 --> 01:08:53,570
+Utiliza el Commodín para eso.
+
+1177
+01:08:53,590 --> 01:08:54,150
+Para eso.
+
+1178
+01:08:54,170 --> 01:08:55,410
+Alectra un vídeo y me cuelgo.
+
+1179
+01:08:57,110 --> 01:08:58,630
+Cada 50% usted la asegura.
+
+1180
+01:08:58,650 --> 01:09:00,890
+Le quita el sobre difícil.
+
+1181
+01:09:01,790 --> 01:09:04,870
+Bueno, pues empezamos el reto final y esta es tu pregunta, Joy.
+
+1182
+01:09:09,250 --> 01:09:12,530
+¿Cuántas entregas tiene la saga de Toy Story?
+
+1183
+01:09:13,350 --> 01:09:13,590
+A.
+
+1184
+01:09:14,050 --> 01:09:15,490
+1 B.
+
+1185
+01:09:15,830 --> 01:09:17,190
+3 C.
+
+1186
+01:09:17,610 --> 01:09:18,830
+4 D.
+
+1187
+01:09:19,170 --> 01:09:25,170
+27 Llámame, llámame.
+
+1188
+01:09:25,630 --> 01:09:28,250
+Esta me la aseguro si te llamo a ti, verdad, ¿Leckruby?
+
+1189
+01:09:28,270 --> 01:09:29,110
+Esta no me vas a fallar.
+
+1190
+01:09:32,150 --> 01:09:32,410
+4.
+
+1191
+01:09:33,870 --> 01:09:36,230
+Y es correcto.
+
+1192
+01:09:36,390 --> 01:09:37,870
+Hay que nervio.
+
+1193
+01:09:38,770 --> 01:09:41,510
+Para la presión es para Seidon McFly, que tiene que aceptar.
+
+1194
+01:09:42,110 --> 01:09:44,090
+Esta es tu pregunta.
+
+1195
+01:09:44,370 --> 01:09:49,550
+¿Cuántas emociones habitan en las cabezas humanas en la película del revés?
+
+1196
+01:09:50,490 --> 01:09:50,690
+A.
+
+1197
+01:09:53,010 --> 01:09:54,290
+5 C.
+
+1198
+01:09:54,950 --> 01:09:56,030
+6 D.
+
+1199
+01:09:56,310 --> 01:10:00,670
+87452 5, 6 era.
+
+1200
+01:10:01,770 --> 01:10:04,270
+Oli, me agaché a como Dean Jaddy.
+
+1201
+01:10:04,970 --> 01:10:11,550
+Es que claro, hago el 50% me puede crujir igualmente y tirá el como a mi.
+
+1202
+01:10:11,570 --> 01:10:13,550
+Uso el como 10, 50% me la juego.
+
+1203
+01:10:18,510 --> 01:10:19,590
+Pues queda B.
+
+1204
+01:10:19,750 --> 01:10:20,790
+5 o D.
+
+1205
+01:10:20,930 --> 01:10:25,870
+87452 Por lo menos, no te haces el 50.
+
+1206
+01:10:28,030 --> 01:10:28,350
+5.
+
+1207
+01:10:29,530 --> 01:10:31,170
+Y es correcto.
+
+1208
+01:10:33,590 --> 01:10:35,630
+Habéis superado el primer escalón de la muerte subita.
+
+1209
+01:10:36,310 --> 01:10:37,170
+Volvemos con Joy.
+
+1210
+01:10:37,850 --> 01:10:38,690
+Esta es tu pregunta.
+
+1211
+01:10:41,310 --> 01:10:44,970
+De qué color es Mike, ¿el amigo de Sully en Monstros SA?
+
+1212
+01:10:46,190 --> 01:10:46,410
+A.
+
+1213
+01:10:46,750 --> 01:10:48,410
+Verde B.
+
+1214
+01:10:53,130 --> 01:10:56,150
+Es Transparente Oh, qué buenas respuestas.
+
+1215
+01:10:58,030 --> 01:10:58,630
+Esta me la sé.
+
+1216
+01:10:59,110 --> 01:10:59,370
+A.
+
+1217
+01:10:59,390 --> 01:10:59,730
+Verde.
+
+1218
+01:11:01,130 --> 01:11:02,990
+Y es correcto.
+
+1219
+01:11:03,510 --> 01:11:04,770
+Vamos con la pregunta para Seidón.
+
+1220
+01:11:04,790 --> 01:11:05,550
+¡Qué tensión!
+
+1221
+01:11:07,090 --> 01:11:10,150
+¿Quién compuso la banda sonora de Toy Story?
+
+1222
+01:11:10,850 --> 01:11:11,050
+A.
+
+1223
+01:11:11,470 --> 01:11:13,310
+John Williams B.
+
+1224
+01:11:18,470 --> 01:11:21,070
+Randy Newman Y es correcto.
+
+1225
+01:11:21,850 --> 01:11:29,730
+Vamos para empate.
+
+1226
+01:11:29,750 --> 01:11:34,170
+Es el momento de advertiros que las preguntas van aumentando en dificultad a medida que avanzan.
+
+1227
+01:11:37,270 --> 01:11:38,910
+Vamos con la tercera banda de pregunta.
+
+1228
+01:11:38,930 --> 01:11:42,090
+Pero tengo el tuyo, que es el mejor, Alecrombie.
+
+1229
+01:11:42,110 --> 01:11:43,010
+Esta es tu pregunta, Joey.
+
+1230
+01:11:46,150 --> 01:11:50,990
+¿A qué país viaja Marlin para encontrar a su hijo Nemo?
+
+1231
+01:11:52,150 --> 01:11:52,350
+A.
+
+1232
+01:11:52,930 --> 01:11:54,950
+Australia B.
+
+1233
+01:11:55,510 --> 01:11:57,290
+Bolivia C.
+
+1234
+01:12:00,130 --> 01:12:01,430
+Mordor A.
+
+1235
+01:12:29,410 --> 01:12:34,850
+¿Cómo se llama la nave en la que viajan los humanos de la película Wall-E?
+
+1236
+01:12:36,250 --> 01:12:36,450
+A.
+
+1237
+01:12:42,230 --> 01:12:43,850
+Albert D.
+
+1238
+01:12:44,250 --> 01:12:45,030
+Alcón Milenario.
+
+1239
+01:13:10,890 --> 01:13:12,770
+Vamos con la cuarta ronda de preguntas.
+
+1240
+01:13:12,790 --> 01:13:13,950
+Joey, esta es la tuya.
+
+1241
+01:13:17,450 --> 01:13:24,270
+¿Qué apellido con tintes informáticos tiene uno de los clanes de la película Brave?
+
+1242
+01:14:09,870 --> 01:14:10,590
+Macintosh C.
+
+1243
+01:14:54,870 --> 01:14:55,350
+C D.
+
+1244
+01:15:45,030 --> 01:15:46,630
+Cataratas del Paraíso, ¿qué letra era esa?
+
+1245
+01:15:47,510 --> 01:15:47,870
+La C.
+
+1246
+01:15:47,930 --> 01:15:48,350
+La C.
+
+1247
+01:15:48,810 --> 01:15:49,230
+¿La sabe?
+
+1248
+01:15:49,250 --> 01:15:51,570
+Pues dímela.
+
+1249
+01:15:53,030 --> 01:15:54,370
+Cataratas del Paraíso.
+
+1250
+01:15:56,230 --> 01:15:56,530
+Perdón.
+
+1251
+01:15:59,550 --> 01:16:00,030
+Pues claro.
+
+1252
+01:16:05,950 --> 01:16:08,790
+Pues mira, mi lo del Salto de Nadea, a mi mamá ha rayado mucho.
+
+1253
+01:16:08,890 --> 01:16:11,070
+Mira, pues te ha descartado eso, mira.
+
+1254
+01:16:11,090 --> 01:16:11,970
+Gracias, Mildre.
+
+1255
+01:16:11,990 --> 01:16:12,530
+Gracias, Mildre.
+
+1256
+01:16:12,550 --> 01:16:13,470
+De nada, de nada.
+
+1257
+01:16:13,490 --> 01:16:14,790
+Sólo me quedaste tú, Alecrombie.
+
+1258
+01:16:15,510 --> 01:16:17,190
+Me he guardado el comodín bueno para el final, ¿eh?
+
+1259
+01:16:17,210 --> 01:16:17,770
+¿Te has dado cuenta?
+
+1260
+01:16:17,930 --> 01:16:18,510
+No voy a, ¿eh?
+
+1261
+01:16:18,790 --> 01:16:19,430
+Todavía gana, ¿eh?
+
+1262
+01:16:20,170 --> 01:16:23,590
+Seguimos aumentando en dificultad las preguntas y esta es la quinta para Joy.
+
+1263
+01:16:27,070 --> 01:16:31,430
+¿Cómo se llama el niño protagonista de la película Coco?
+
+1264
+01:16:33,150 --> 01:16:33,350
+A.
+
+1265
+01:16:33,990 --> 01:16:35,870
+Miguel B.
+
+1266
+01:16:36,730 --> 01:16:38,630
+Luis C.
+
+1267
+01:16:39,210 --> 01:16:39,830
+Alfredo D.
+
+1268
+01:16:44,270 --> 01:16:48,410
+Miguel Muy rápido.
+
+1269
+01:16:51,610 --> 01:16:52,710
+Porque estás segura, entiendo.
+
+1270
+01:16:53,990 --> 01:16:57,290
+No me vas a poner nerviosa, no lo vas a conseguir.
+
+1271
+01:16:57,310 --> 01:16:59,090
+No, no, tú ya has dicho que es la A.
+
+1272
+01:16:59,110 --> 01:16:59,410
+Miguel.
+
+1273
+01:17:01,030 --> 01:17:04,890
+Miguel es correcto.
+
+1274
+01:17:07,830 --> 01:17:10,690
+Bueno, Seidon, es tu turno y esta es tu quinta pregunta.
+
+1275
+01:17:14,690 --> 01:17:21,190
+La canción de que anuncio no para de repetirse en la cabeza de Riley en Del Revés.
+
+1276
+01:17:23,070 --> 01:17:23,290
+A.
+
+1277
+01:17:24,050 --> 01:17:25,370
+Tríple dental.
+
+1278
+01:17:27,870 --> 01:17:28,950
+Mate dental.
+
+1279
+01:17:30,210 --> 01:17:31,490
+Libre dental.
+
+1280
+01:17:42,210 --> 01:17:43,690
+Si te plantas te quedas con cero euros.
+
+1281
+01:17:45,470 --> 01:17:47,230
+Bueno, espero que ha llegado el momento, Alecrombie.
+
+1282
+01:17:47,490 --> 01:17:50,910
+Me he calentado.
+
+1283
+01:17:54,070 --> 01:17:55,950
+¿Vas a usar el comodín de Alecrombie?
+
+1284
+01:17:55,970 --> 01:17:57,490
+Claro que sí, aquí hemos venido a jugar.
+
+1285
+01:17:57,970 --> 01:18:00,690
+Ya que me vas a eliminar, a mí no me voy con los comodines gastados.
+
+1286
+01:18:01,670 --> 01:18:02,690
+Os repito las respuestas.
+
+1287
+01:18:02,710 --> 01:18:03,150
+Sí, por favor.
+
+1288
+01:18:04,230 --> 01:18:04,430
+A.
+
+1289
+01:18:04,750 --> 01:18:05,790
+Triple dental.
+
+1290
+01:18:05,810 --> 01:18:07,150
+A mí me suena a esa.
+
+1291
+01:18:07,890 --> 01:18:08,810
+Mate dental.
+
+1292
+01:18:08,830 --> 01:18:09,490
+A esa no.
+
+1293
+01:18:10,670 --> 01:18:11,750
+Libre dental.
+
+1294
+01:18:13,730 --> 01:18:14,930
+Basket dental.
+
+1295
+01:18:15,630 --> 01:18:17,950
+A mí, sinceramente, me suena a la 1, pero...
+
+1296
+01:18:18,190 --> 01:18:20,710
+A Muerte, yo confío en Alecrombie 100%.
+
+1297
+01:18:20,710 --> 01:18:21,950
+Daría mi vida, Daría.
+
+1298
+01:18:23,350 --> 01:18:24,370
+La Man en el Fuego.
+
+1299
+01:18:24,550 --> 01:18:24,790
+A.
+
+1300
+01:18:24,790 --> 01:18:26,570
+Triple dental.
+
+1301
+01:18:30,730 --> 01:18:31,290
+Y es...
+
+1302
+01:18:34,790 --> 01:18:35,290
+Correcto.
+
+1303
+01:18:35,470 --> 01:18:37,550
+Toma, mejor comodín de tu vida.
+
+1304
+01:18:38,410 --> 01:18:39,050
+Qué fuerte.
+
+1305
+01:18:39,230 --> 01:18:40,490
+Me han servido los tres, chaval.
+
+1306
+01:18:41,010 --> 01:18:43,570
+No se sabía que era la ira, pero sabía el anuncio triple dental.
+
+1307
+01:18:44,590 --> 01:18:44,630
+C.
+
+1308
+01:18:44,650 --> 01:18:46,750
+Es que era como mi suelo de triple.
+
+1309
+01:18:46,810 --> 01:18:47,910
+A mí también me sonaba, no sé por qué.
+
+1310
+01:18:48,170 --> 01:18:48,850
+Hombre, es verdad que era...
+
+1311
+01:18:49,350 --> 01:18:52,110
+Tenía relación con otras que tenían dental y lo de básquet.
+
+1312
+01:18:52,250 --> 01:18:54,030
+Entonces para ahí se podía tener sentido.
+
+1313
+01:18:55,170 --> 01:18:58,070
+Bueno, pues vamos con la sexta pregunta para Joy.
+
+1314
+01:18:58,090 --> 01:19:00,310
+Te recuerdo, Joy, que te quedan dos comodines.
+
+1315
+01:19:03,490 --> 01:19:04,690
+¿Cómo si no le quedaran?
+
+1316
+01:19:05,750 --> 01:19:15,310
+¿Qué película de animación ostenta el récord de nominaciones Anos Óscar entre las de Pixar con un total de seis nominaciones?
+
+1317
+01:19:17,570 --> 01:19:17,770
+A.
+
+1318
+01:19:18,350 --> 01:19:20,890
+Ratatouille B.
+
+1319
+01:19:24,250 --> 01:19:26,070
+Ab D.
+
+1320
+01:19:26,450 --> 01:19:38,590
+Toy Story 3 Pues yo diría que antes dijiste que Ratatouille tenía seis nominaciones.
+
+1321
+01:19:38,610 --> 01:19:40,010
+Voy a usar el comodín de Alecrombie.
+
+1322
+01:19:41,830 --> 01:19:42,550
+Alecrombie no dijo eso.
+
+1323
+01:19:45,850 --> 01:19:46,350
+Sí, ¿verdad?
+
+1324
+01:19:48,810 --> 01:19:50,910
+Vale, pues no sé qué letra era.
+
+1325
+01:19:52,110 --> 01:19:52,890
+La A, creo que era.
+
+1326
+01:19:55,410 --> 01:19:56,510
+La A era Ratatouille, sí.
+
+1327
+01:19:56,530 --> 01:19:57,530
+Eso, pues sí.
+
+1328
+01:19:57,550 --> 01:19:58,370
+A, Ratatouille.
+
+1329
+01:20:00,190 --> 01:20:00,630
+Y es...
+
+1330
+01:20:03,570 --> 01:20:04,110
+Incorrecto.
+
+1331
+01:20:07,590 --> 01:20:09,570
+Antes dije que Ratatouille tuvo cinco nominaciones.
+
+1332
+01:20:13,750 --> 01:20:14,670
+Gracias, lecrombie.
+
+1333
+01:20:15,650 --> 01:20:17,310
+Y yo le he hecho para que seis donganes, está claro.
+
+1334
+01:20:17,330 --> 01:20:18,650
+Muchas gracias, muchas gracias, tío.
+
+1335
+01:20:19,430 --> 01:20:20,110
+¿En serio?
+
+1336
+01:20:20,130 --> 01:20:21,750
+Estaba convencido de que dijo seis, tío.
+
+1337
+01:20:21,770 --> 01:20:23,250
+Yo también estaba convencidísima.
+
+1338
+01:20:23,270 --> 01:20:24,950
+Yo escuché claramente cinco.
+
+1339
+01:20:25,070 --> 01:20:25,250
+¿Sí?
+
+1340
+01:20:25,310 --> 01:20:25,850
+¿En serio?
+
+1341
+01:20:25,870 --> 01:20:26,050
+No.
+
+1342
+01:20:32,490 --> 01:20:36,090
+Yo tengo que apuntar cinco Ratatouilles, cuatro Los Increíbles y dos Cars, sí.
+
+1343
+01:20:36,830 --> 01:20:37,590
+De la prueba de ordena.
+
+1344
+01:20:39,230 --> 01:20:42,410
+El orden correcto era Ratatouille con cinco nominaciones.
+
+1345
+01:20:44,730 --> 01:20:46,430
+La respuesta correcta era B.
+
+1346
+01:20:46,670 --> 01:20:47,070
+Wally.
+
+1347
+01:20:47,570 --> 01:20:49,430
+Encima con tu pedido.
+
+1348
+01:20:52,270 --> 01:20:56,050
+Si te sirve de algo, si lo hubieras preguntado a Midre, tú hubieras dicho también.
+
+1349
+01:20:57,950 --> 01:20:59,050
+No pasa nada porque...
+
+1350
+01:20:59,070 --> 01:20:59,780
+Tienes que fallar...
+
+1351
+01:20:59,780 --> 01:21:00,810
+.todo depende de Seidon.
+
+1352
+01:21:00,890 --> 01:21:03,270
+Si Seidon falla, no hay ganador todavía.
+
+1353
+01:21:03,850 --> 01:21:04,970
+Y ya no tiene como Dine, ¿no?
+
+1354
+01:21:05,210 --> 01:21:05,510
+No.
+
+1355
+01:21:05,530 --> 01:21:06,330
+No tiene como Dine.
+
+1356
+01:21:06,830 --> 01:21:10,370
+Y esta es la sexta pregunta para Seidon McFly.
+
+1357
+01:21:15,730 --> 01:21:23,390
+¿Qué película de animación fue la primera de la historia en recibir una nominación al Oscar por su guión?
+
+1358
+01:21:25,910 --> 01:21:26,110
+A.
+
+1359
+01:21:26,590 --> 01:21:29,150
+Toy Story B.
+
+1360
+01:21:34,670 --> 01:21:35,850
+Monstruos SA.
+
+1361
+01:21:40,710 --> 01:21:41,530
+Ab, ¿qué letra es?
+
+1362
+01:21:43,410 --> 01:21:44,510
+La B.
+
+1363
+01:21:53,470 --> 01:21:56,590
+Incorrecto.
+
+1364
+01:21:57,450 --> 01:21:58,630
+Se ha ido en las tenis.
+
+1365
+01:21:58,690 --> 01:22:00,010
+Se ha ido en las tenis.
+
+1366
+01:22:00,030 --> 01:22:01,470
+He fallado el penalti, tío.
+
+1367
+01:22:01,490 --> 01:22:05,050
+Ese 50% que gastaste al principio, tío.
+
+1368
+01:22:05,070 --> 01:22:07,110
+La respuesta correcta es la Toy Story.
+
+1369
+01:22:07,250 --> 01:22:08,170
+Yo hubiera dicho esa.
+
+1370
+01:22:08,650 --> 01:22:09,370
+Y Mildred también.
+
+1371
+01:22:10,970 --> 01:22:15,290
+Yo pensaba que iba ahí a Perreo, y digo, la primera película.
+
+1372
+01:22:15,850 --> 01:22:16,330
+Pero es que...
+
+1373
+01:22:16,350 --> 01:22:19,650
+Ya, pero digo, a lo mejor, de animación, alquíos, no sé.
+
+1374
+01:22:19,670 --> 01:22:21,410
+Digamos, estaba nominada otras cosas.
+
+1375
+01:22:22,030 --> 01:22:23,970
+Bueno, bueno, has fallado donde podías fallar, no pasa nada.
+
+1376
+01:22:25,310 --> 01:22:30,450
+Continuamos la muerte súbita, que recuerdo a Peskitos y Peskiter, que es hasta que uno acierte y el otro falle.
+
+1377
+01:22:30,790 --> 01:22:32,470
+Vamos con la séptima pregunta para Joey.
+
+1378
+01:22:37,050 --> 01:22:41,350
+¿Cuántas medusas aparecen en la película buscando a Nemo?
+
+1379
+01:22:43,290 --> 01:22:43,510
+A.
+
+1380
+01:22:44,270 --> 01:22:47,510
+Más de 70.000 B.
+
+1381
+01:22:48,290 --> 01:22:51,510
+Más de 100.000 C.
+
+1382
+01:22:52,090 --> 01:22:54,990
+Más de 500.000 D.
+
+1383
+01:22:55,770 --> 01:22:56,850
+Más de un millón C.
+
+1384
+01:24:10,450 --> 01:24:10,990
+Más de 100.000 D.
+
+1385
+01:24:13,910 --> 01:24:14,610
+Más de 100.000 D.
+
+1386
+01:26:30,590 --> 01:26:31,130
+Más de 100.000 D.
+
+1387
+01:26:31,230 --> 01:26:38,850
+Más de 100.000 Pues vamos con la octava pregunta para Seidon McFly.
+
+1388
+01:26:39,130 --> 01:26:40,810
+Si acierta, habrá ganado.
+
+1389
+01:26:44,890 --> 01:26:54,590
+Qué dos películas de Pixar tuvieron el honor de estar nominadas al Oscar a la mejor película, ¿además del Oscar a la mejor película de animación?
+
+1390
+01:26:56,750 --> 01:26:56,970
+A.
+
+1391
+01:26:57,930 --> 01:27:01,270
+WALL-E y ABB B.
+
+1392
+01:27:02,110 --> 01:27:05,350
+Ratatouille y WALL-E C.
+
+1393
+01:27:06,290 --> 01:27:09,110
+Toy Story y ABB D.
+
+1394
+01:27:09,710 --> 01:27:11,470
+ABB y Toy Story 3.
+
+1395
+01:27:17,700 --> 01:27:20,080
+¿Me puedes repetir la de Fatatouille?
+
+1396
+01:27:20,100 --> 01:27:20,500
+¿Cuál era?
+
+1397
+01:27:21,580 --> 01:27:22,620
+Fatatouille y Wally.
+
+1398
+01:27:22,820 --> 01:27:23,300
+Esa es la B.
+
+1399
+01:27:28,640 --> 01:27:30,440
+Y la D es App y Toy Story 3, ¿no?
+
+1400
+01:27:31,980 --> 01:27:33,800
+La D, App y Toy Story 3.
+
+1401
+01:27:35,080 --> 01:27:36,460
+¿Qué es decir D?
+
+1402
+01:27:36,880 --> 01:27:37,880
+App y Toy Story 3.
+
+1403
+01:27:43,540 --> 01:27:47,360
+La respuesta de App y Toy Story 3 es...
+
+1404
+01:27:51,020 --> 01:27:51,540
+¡Correcta!
+
+1405
+01:27:51,560 --> 01:27:52,140
+Tenemos ganador.
+
+1406
+01:27:54,260 --> 01:27:54,640
+Como que.
+
+1407
+01:27:57,220 --> 01:27:58,240
+Felicidades, ¡Sergi!
+
+1408
+01:27:58,260 --> 01:27:59,600
+No, no, es que malas personas son.
+
+1409
+01:27:59,620 --> 01:28:01,840
+Por ello estaba compitiendo, perdona.
+
+1410
+01:28:02,760 --> 01:28:04,220
+¿No tiene por ahí un aplauso o algo?
+
+1411
+01:28:08,740 --> 01:28:14,020
+No pasa nada porque en el juego por equipo habéis ganado los dos y en el duelo individual ha ganado 6-2 más a 5.
+
+1412
+01:28:15,640 --> 01:28:16,240
+Toma, toma.
+
+1413
+01:28:16,540 --> 01:28:17,200
+¡Qué fuerte!
+
+1414
+01:28:17,900 --> 01:28:20,720
+Esto ha sido un semi-cooperativo, ha sido un juego semi-cooperativo.
+
+1415
+01:28:21,520 --> 01:28:29,240
+Quiero dedicar esta victoria a todos los oyentes, a todos los nuevos, a los peskites de toda la vida y nada, os quiero a todos.
+
+1416
+01:28:29,260 --> 01:28:29,740
+Y a Pixar.
+
+1417
+01:28:29,820 --> 01:28:30,540
+Y a Pixar.
+
+1418
+01:28:30,700 --> 01:28:34,980
+Tú qué prefieres, ¿una pizza o una tortilla de patatas?
+
+1419
+01:28:35,000 --> 01:28:40,980
+Hombre, sin ánimo de lucro, sin ánimo de lucro, una pizza, una tortilla de patatas, una tortilla de patatas o una pizza.
+
+1420
+01:28:42,660 --> 01:28:44,420
+Una pizza o una tortilla de patatas.
+
+1421
+01:28:44,640 --> 01:28:47,940
+Y a la gente de la iniciativa, la gente de la iniciativa, si no, no hubiera tenido que verlo.
+
+1422
+01:28:47,960 --> 01:29:02,640
+Sí, gracias, no estaría aquí si no fuera por todos vosotros, por los veintipico podcasts, toda la gente se lo dedico a esa gente que se ha escuchado todos esos podcasts y ha llegado hasta aquí, habiéndose escuchado todo, os doy un abrazo y os dedico la victoria más por vosotros, b-boys.
+
+1423
+01:29:05,040 --> 01:29:06,860
+Fly Girls también tiene que haber fly girls.
+
+1424
+01:29:06,920 --> 01:29:12,220
+Bueno, pues yo con esto he terminado el concurso, así que devuelvo la conexión a Estudios Centrales.
+
+1425
+01:29:13,040 --> 01:29:15,940
+Enhorabuena, te la has currado un montón.
+
+1426
+01:29:15,980 --> 01:29:16,680
+Lo rengamos.
+
+1427
+01:29:19,940 --> 01:29:29,240
+Pues nada, enhorabuena, ya no tanto a Seidon, que también, o a Joey por haber ganado el equipo, sino en serio, a Malcolm te la has currado como nunca y ha estado genial.
+
+1428
+01:29:29,260 --> 01:29:30,240
+Brutal, ha sido brutal.
+
+1429
+01:29:30,920 --> 01:29:32,100
+Ha sido una maravilla.
+
+1430
+01:29:32,120 --> 01:29:33,640
+El problema es que ya pones el listón sanatorio...
+
+1431
+01:29:33,660 --> 01:29:36,640
+Yo he perdido 15 años de vida, pero vamos, no pasa nada.
+
+1432
+01:29:37,640 --> 01:29:43,860
+Yo me lo paso porque pongo preparando los concursos y luego haciéndolos con vosotros y si no estuvierais vosotros, no podría hacer concursos.
+
+1433
+01:29:43,880 --> 01:29:46,520
+Así que, tanto mérito vuestro como mío.
+
+1434
+01:29:46,680 --> 01:29:49,000
+Tú solo contigo mismo, pero quedaría un poco raro.
+
+1435
+01:29:49,320 --> 01:29:52,100
+Sí, de ahí al loquero hay poco.
+
+1436
+01:29:52,120 --> 01:29:53,080
+Sí, hay poco.
+
+1437
+01:29:53,660 --> 01:29:56,120
+Bueno, pues nada, fenomenal como siempre el concurso.
+
+1438
+01:29:56,460 --> 01:30:08,400
+Y antes de dar la despedida y el fin a este programa, vamos con la siguiente, la última sección del programa, la sección de Seidon, del Community Manager, favorito de la comunidad.
+
+1439
+01:30:10,520 --> 01:30:15,840
+Como este es un programa no canónico, no tenemos un numerito un poco especial, va a ser un poco distinto, ¿vale?
+
+1440
+01:30:15,860 --> 01:30:17,740
+No vamos a recomendar ningún podcast.
+
+1441
+01:30:17,880 --> 01:30:20,160
+Os recomendamos directamente todos los de la iniciativa.
+
+1442
+01:30:20,180 --> 01:30:22,320
+Seguid la lista esta famosa.
+
+1443
+01:30:22,440 --> 01:30:32,220
+Y tampoco vamos a hacer los saluditos del programa pasado, sino eso ya lo haremos en el pin que toque, porque no sabemos en qué orden se publicará este programa con respecto a los pesquitos.
+
+1444
+01:30:32,240 --> 01:30:42,740
+Entonces, para no hacer líos, agradecer a todos los que no os oís habitualmente y a los que nos habéis dado una oportunidad ahora con la iniciativa y nos habéis conocido.
+
+1445
+01:30:42,760 --> 01:30:44,420
+Esperemos que os quedéis por aquí.
+
+1446
+01:30:44,440 --> 01:30:48,960
+Y aprovecho para animaros para que nos sigáis en redes sociales.
+
+1447
+01:30:48,980 --> 01:30:51,700
+Y bueno, suscribáis al podcast si no lo habéis hecho ya.
+
+1448
+01:30:51,760 --> 01:30:53,180
+Estamos en todas las plataformas.
+
+1449
+01:30:53,260 --> 01:30:57,920
+Podéis acceder mediante iTunes, e-books, cualquier podcast.
+
+1450
+01:30:58,180 --> 01:31:00,120
+Si buscáis Peskito y Medio, saldrá.
+
+1451
+01:31:00,200 --> 01:31:06,960
+Y en redes sociales, bueno, estamos casi todas, pero estamos más activos sobre todo en Twitter, ¿vale?
+
+1452
+01:31:06,980 --> 01:31:10,700
+Entonces, eso, voy a decirlo a lo resumo así nomás.
+
+1453
+01:31:10,960 --> 01:31:17,240
+Seguinos en Instagram, que tenemos Instagram, seguinos en Twitter, que tenemos Twitter, y pegáles una suscribida y...
+
+1454
+01:31:17,260 --> 01:31:18,900
+Una megusteada, una megusteada.
+
+1455
+01:31:18,920 --> 01:31:19,780
+Una megusteada también.
+
+1456
+01:31:21,440 --> 01:31:21,720
+Pero.
+
+1457
+01:31:21,740 --> 01:31:22,840
+¿cuál es la dirección de Twitter?
+
+1458
+01:31:22,860 --> 01:31:24,060
+Cuál es la dirección de Twitter, ¿por favor?
+
+1459
+01:31:24,080 --> 01:31:25,960
+Esa es la esencia de este programa.
+
+1460
+01:31:25,980 --> 01:31:29,640
+Es que Alecrombie, antes de que se creara el podcast, creó la cuenta.
+
+1461
+01:31:29,660 --> 01:31:31,400
+Fue un visionario y creó la cuenta de Peskito.
+
+1462
+01:31:31,420 --> 01:31:35,660
+Y la creó con arroba Peskito3, que nadie sabe el motivo de ese 3.
+
+1463
+01:31:35,900 --> 01:31:37,220
+Pero lo mantenemos, ¿vale?
+
+1464
+01:31:37,240 --> 01:31:39,320
+En el resto de redes sociales es Peskito y Medio.
+
+1465
+01:31:39,340 --> 01:31:41,920
+Pero en Twitter somos arroba Peskito3.
+
+1466
+01:31:43,420 --> 01:31:53,700
+Y es verdad que una cosa, yo no sé si los demás Peskitos me dejarán, pero a mí me haría mucha ilusión, es que ya ha comentado el Chromia al principio que nosotros tenemos una entradilla de joy distinta en cada programa.
+
+1467
+01:31:54,000 --> 01:31:58,840
+Y hay una que es especial, le da mucho cariño a las redes sociales, que es la de Sherlock Holmes.
+
+1468
+01:31:58,880 --> 01:32:07,420
+A mí me gustaría despedirnos hoy con esa musiquilla, no tiene nada que ver con Pixar, pero si puede ser, si me dejáis ponerla al final de la toma falsa, me haríais felices.
+
+1469
+01:32:07,500 --> 01:32:09,220
+Y así la gente se anima a suscribirse.
+
+1470
+01:32:09,540 --> 01:32:10,880
+Hagan al programa, que menos, ¿no?
+
+1471
+01:32:10,900 --> 01:32:11,580
+Le dejamos, ¿no?
+
+1472
+01:32:11,640 --> 01:32:13,120
+Este es el premio.
+
+1473
+01:32:13,140 --> 01:32:15,540
+Le dejamos, venga, vale, Seido, venga.
+
+1474
+01:32:17,220 --> 01:32:17,880
+Gracias, gracias.
+
+1475
+01:32:17,900 --> 01:32:18,720
+Muy bien.
+
+1476
+01:32:18,740 --> 01:32:19,520
+¿Listo entonces lo tuyo?
+
+1477
+01:32:19,600 --> 01:32:20,040
+Listo.
+
+1478
+01:32:20,400 --> 01:32:22,760
+Pues chicos, yo creo que nada más.
+
+1479
+01:32:22,980 --> 01:32:28,760
+Nos vemos en el próximo Peskito y Medio, que a saber, a saber de qué va a ser, y ya nos tocará veranito, ¿eh?
+
+1480
+01:32:28,820 --> 01:32:29,880
+¿Será el especial de verano?
+
+1481
+01:32:29,900 --> 01:32:31,440
+Bueno, ya veremos, ya veremos.
+
+1482
+01:32:31,900 --> 01:32:39,120
+Así que nada, yo para despedirme, igual que empezado con una frase, pues ahora tengo una de despedida de Toy Story.
+
+1483
+01:32:39,220 --> 01:32:45,040
+La mayoría de las personas entran y salen de tu vida, pero solo los buenos amigos dejan huella en tu corazón.
+
+1484
+01:32:46,020 --> 01:32:50,260
+Los pesquitos dejan huella en mi corazón, y espero que Peskito y Medio lo haya dejado en el tuyo.
+
+1485
+01:32:50,440 --> 01:32:51,160
+Hasta la próxima.
+
+1486
+01:32:51,480 --> 01:32:52,240
+¡Chao!
+
+1487
+01:32:56,540 --> 01:32:58,940
+Empezamos con una banda sonora, a ver si adivináis la película.
+
+1488
+01:33:02,440 --> 01:33:03,740
+Eso es el fragmento de audio.
+
+1489
+01:33:05,020 --> 01:33:06,240
+Eso es el fragmento de audio.
+
+1490
+01:33:06,860 --> 01:33:07,180
+Ah, vale.
+
+1491
+01:33:07,200 --> 01:33:08,860
+Es que lo tengo en orden cambiado.
+
+1492
+01:33:08,880 --> 01:33:09,820
+Yo le odio a tu marido.
+
+1493
+01:33:10,200 --> 01:33:11,560
+Le ha liado pero no pasa nada.

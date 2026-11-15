@@ -49,6 +49,7 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add js/episodes.js img/episodes img/chapters feed.xml episodes-raw.json sitemap.xml episodios
+          git add transcripciones 2>/dev/null || true
           if git diff --cached --quiet; then
             echo "No hay episodios nuevos. No se crea commit."
           else
@@ -61,6 +62,8 @@ jobs:
         run: |
           mkdir -p _site
           cp -r index.html css js img episodios _site/
+          mkdir -p _site/transcripciones
+          cp transcripciones/*.srt _site/transcripciones/ 2>/dev/null || true
           find . -maxdepth 1 -type f \( -iname "*.html" -o -iname "*.txt" \) -exec cp {} _site/ \;
           cp sitemap.xml _site/
           touch _site/.nojekyll

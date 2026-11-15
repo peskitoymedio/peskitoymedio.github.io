@@ -14,6 +14,8 @@ Qué hace:
   - Descarga su portada en img/episodes/ (con nombre estable por ID de iVoox).
   - Guarda la descripción completa en HTML (sin imágenes) y un resumen recortado.
   - Lee los capítulos Podlove (psc:chapters) y descarga sus imágenes si las hay.
+  - Descarga las transcripciones completas de PodTranscript, las guarda en
+    transcripciones/ y las añade a cada ficha con un enlace de descarga SRT.
   - Actualiza spotify_cache.json desde la página pública de Spotify y valida con oEmbed.
   - Añade los episodios y regenera js/episodes.js.
   - Genera una página HTML por episodio en episodios/ con datos estructurados
@@ -54,6 +56,13 @@ SPOTIFY_SHOW_URL = "https://open.spotify.com/show/" + SPOTIFY_SHOW_ID
 SPOTIFY_OEEMBED_URL = "https://open.spotify.com/oembed"
 SPOTIFY_CACHE_FILE = ROOT / "spotify_cache.json"
 EPISODES_DIR = ROOT / "episodios"
+TRANSCRIPTS_DIR = ROOT / "transcripciones"
+TRANSCRIPT_MISSING_FILE = TRANSCRIPTS_DIR / "ausentes.json"
+TRANSCRIPT_RECHECK_DAYS = 30
+POD_TRANSCRIPT_PODCAST_ID = "1453280178"
+POD_TRANSCRIPT_API = (
+    "https://www.pod-transcript.com/api/podcasts/" + POD_TRANSCRIPT_PODCAST_ID
+)
 RAW_JSON = ROOT / "episodes-raw.json"
 FEED_XML = ROOT / "feed.xml"
 SITEMAP_XML = ROOT / "sitemap.xml"
@@ -834,6 +843,367 @@ def get_spotify_episode_url(episode: dict, cache: dict) -> str:
 
 
 # ---------------------------------------------------------------------------
+# Transcripciones
+# ---------------------------------------------------------------------------
+
+_TRANSCRIPT_INDEX: dict[str, str] | None = None
+_TRANSCRIPT_ERRORS: list[str] = []
+_TRANSCRIPT_MISSING: dict[str, str] | None = None
+
+
+def load_missing_transcripts() -> dict[str, str]:
+    """Episodios sin transcripción y fecha de la última comprobación."""
+    global _TRANSCRIPT_MISSING
+    if _TRANSCRIPT_MISSING is None:
+        _TRANSCRIPT_MISSING = {}
+        try:
+            data = json.loads(
+                TRANSCRIPT_MISSING_FILE.read_text(encoding="utf-8")
+            )
+        except (OSError, ValueError):
+            data = {}
+        if isinstance(data, dict):
+            _TRANSCRIPT_MISSING = {
+                str(key): str(value) for key, value in data.items()
+            }
+    return _TRANSCRIPT_MISSING
+
+
+def save_missing_transcripts() -> None:
+    missing = load_missing_transcripts()
+    if not missing:
+        return
+    TRANSCRIPTS_DIR.mkdir(parents=True, exist_ok=True)
+    TRANSCRIPT_MISSING_FILE.write_text(
+        json.dumps(missing, ensure_ascii=False, indent=2, sort_keys=True) + "\n",
+        encoding="utf-8",
+    )
+
+
+def transcript_is_missing(audio_id: str) -> bool:
+    """True si ya se comprobó que no hay transcripción y toca volver a mirar."""
+    checked = load_missing_transcripts().get(audio_id)
+    if not checked:
+        return False
+    try:
+        last = date.fromisoformat(checked)
+    except ValueError:
+        return False
+    return (date.today() - last).days < TRANSCRIPT_RECHECK_DAYS
+
+
+def clean_transcript_text(text: str) -> str:
+    """Normaliza espacios de una línea de transcripción sin tocar el contenido."""
+    return re.sub(r"\s+", " ", unescape(text or "").replace("\u00a0", " ")).strip()
+
+
+def srt_timestamp(seconds: float) -> str:
+    total = max(0, int(round(float(seconds) * 1000)))
+    hours, total = divmod(total, 3_600_000)
+    minutes, total = divmod(total, 60_000)
+    secs, millis = divmod(total, 1000)
+    return f"{hours:02d}:{minutes:02d}:{secs:02d},{millis:03d}"
+
+
+def parse_srt(raw: str) -> list[dict]:
+    """Devuelve las cues de un SRT con su texto y sus tiempos en segundos."""
+    cues: list[dict] = []
+    normalized = (
+        (raw or "").lstrip("\ufeff").replace("\r\n", "\n").replace("\r", "\n")
+    )
+    for block in re.split(r"\n\s*\n", normalized):
+        lines = [line.strip() for line in block.split("\n") if line.strip()]
+        if not lines:
+            continue
+        time_index = next(
+            (index for index, line in enumerate(lines) if "-->" in line), None
+        )
+        if time_index is None:
+            continue
+        match = re.search(
+            r"(\d{1,2}):(\d{2}):(\d{2})[,.](\d{1,3})\s*-->\s*"
+            r"(\d{1,2}):(\d{2}):(\d{2})[,.](\d{1,3})",
+            lines[time_index],
+        )
+        if not match:
+            continue
+        parts = [int(value) for value in match.groups()]
+        start = parts[0] * 3600 + parts[1] * 60 + parts[2] + parts[3] / 1000
+        end = parts[4] * 3600 + parts[5] * 60 + parts[6] + parts[7] / 1000
+        text = clean_transcript_text(" ".join(lines[time_index + 1:]))
+        if text:
+            cues.append({"start": start, "end": end, "text": text})
+    return cues
+
+
+def build_srt(segments: list[dict]) -> str:
+    """Convierte los segmentos de PodTranscript en un SRT estándar."""
+    blocks: list[str] = []
+    for segment in segments:
+        text = clean_transcript_text(str(segment.get("text") or ""))
+        if not text:
+            continue
+        start = float(segment.get("start") or 0)
+        end = max(start, float(segment.get("end") or start))
+        blocks.append(
+            f"{len(blocks) + 1}\n{srt_timestamp(start)} --> {srt_timestamp(end)}\n{text}"
+        )
+    return "\n\n".join(blocks) + ("\n" if blocks else "")
+
+
+def read_transcript_file(path: Path, audio_id: str) -> dict | None:
+    try:
+        raw = path.read_text(encoding="utf-8-sig")
+    except OSError:
+        return None
+
+    cues = parse_srt(raw)
+    if not cues:
+        return None
+    return {
+        "id": audio_id,
+        "cues": cues,
+        "text": " ".join(cue["text"] for cue in cues),
+    }
+
+
+def fetch_pod_transcript_json(url: str, timeout: int) -> dict:
+    """Consulta la API de PodTranscript con las cabeceras que espera."""
+    request = urllib.request.Request(
+        url,
+        headers={
+            "User-Agent": USER_AGENT,
+            "Accept": "application/json",
+            "Referer": "https://www.pod-transcript.com/",
+        },
+    )
+    with urllib.request.urlopen(request, timeout=timeout) as response:
+        return json.loads(response.read().decode("utf-8"))
+
+
+def pod_transcript_index() -> dict[str, str]:
+    """Mapa ID de iVoox → GUID de episodio en PodTranscript."""
+    global _TRANSCRIPT_INDEX
+    if _TRANSCRIPT_INDEX is not None:
+        return _TRANSCRIPT_INDEX
+
+    _TRANSCRIPT_INDEX = {}
+    try:
+        payload = fetch_pod_transcript_json(
+            POD_TRANSCRIPT_API + "/episodes?limit=200", timeout=30
+        )
+    except (urllib.error.URLError, TimeoutError, OSError, ValueError) as error:
+        print("AVISO: no se pudo consultar el catálogo de PodTranscript.")
+        print("       " + str(error))
+        return _TRANSCRIPT_INDEX
+
+    for item in payload.get("results") or []:
+        guid = str(item.get("episodeGuid") or "")
+        match = re.search(r"ivoox\.com/(\d+)/?$", guid)
+        if match:
+            _TRANSCRIPT_INDEX[match.group(1)] = guid
+    return _TRANSCRIPT_INDEX
+
+
+def fetch_pod_transcript(guid: str) -> list[dict]:
+    """Descarga los segmentos con tiempos de un episodio en PodTranscript."""
+    url = (
+        POD_TRANSCRIPT_API
+        + "/transcript?episodeGuid="
+        + urllib.parse.quote(guid, safe="")
+    )
+    payload = fetch_pod_transcript_json(url, timeout=60)
+    if not payload.get("found"):
+        return []
+    return list(payload.get("segments") or [])
+
+
+def transcript_file_path(audio_id: str) -> Path:
+    return TRANSCRIPTS_DIR / (audio_id + ".srt")
+
+
+def load_transcript(audio_id: str, allow_fetch: bool = True) -> dict | None:
+    """Devuelve la transcripción del episodio y la guarda como SRT si falta."""
+    path = transcript_file_path(audio_id)
+    transcript = read_transcript_file(path, audio_id)
+    if transcript:
+        return transcript
+
+    if not allow_fetch or not audio_id.isdigit():
+        return None
+
+    # Si ya se comprobó que no hay transcripción, no se pregunta hasta que
+    # pase el plazo de reconsulta.
+    if transcript_is_missing(audio_id):
+        return None
+
+    # Si PodTranscript no responde, no bloqueamos la actualización con esperas.
+    if len(_TRANSCRIPT_ERRORS) >= 3:
+        return None
+
+    guid = pod_transcript_index().get(audio_id)
+    if not guid:
+        return None
+
+    try:
+        segments = fetch_pod_transcript(guid)
+    except urllib.error.HTTPError as error:
+        if error.code in (400, 404):
+            segments = []
+        else:
+            _TRANSCRIPT_ERRORS.append(audio_id + ": " + str(error))
+            return None
+    except (urllib.error.URLError, TimeoutError, OSError, ValueError) as error:
+        _TRANSCRIPT_ERRORS.append(audio_id + ": " + str(error))
+        return None
+
+    content = build_srt(segments)
+    if not content:
+        load_missing_transcripts()[audio_id] = date.today().isoformat()
+        return None
+
+    TRANSCRIPTS_DIR.mkdir(parents=True, exist_ok=True)
+    path.write_text(content, encoding="utf-8")
+    transcript = read_transcript_file(path, audio_id)
+    if transcript:
+        transcript["new"] = True
+    return transcript
+
+
+def prepare_transcripts(episodes: list[dict], dry_run: bool = False) -> dict[str, dict]:
+    """Carga o descarga las transcripciones y devuelve un mapa por ID de iVoox."""
+    transcripts: dict[str, dict] = {}
+    downloaded = 0
+
+    for episode in episodes:
+        audio_id = episode_key(episode.get("link", ""), episode.get("audio", ""))
+        if not audio_id.isdigit():
+            continue
+        transcript = load_transcript(audio_id, allow_fetch=not dry_run)
+        if not transcript:
+            continue
+        transcripts[audio_id] = transcript
+        if transcript.get("new"):
+            downloaded += 1
+
+    total = len(episodes)
+    available = len(transcripts)
+    print(
+        "Transcripciones: "
+        + str(available)
+        + "/"
+        + str(total)
+        + " ("
+        + str(downloaded)
+        + " descargadas ahora)"
+    )
+    if total > available:
+        print("Episodios sin transcripción: " + str(total - available))
+    if _TRANSCRIPT_ERRORS:
+        print(
+            "Avisos al descargar transcripciones: "
+            + str(len(_TRANSCRIPT_ERRORS))
+        )
+    if not dry_run:
+        save_missing_transcripts()
+
+    return transcripts
+
+
+def transcript_time_label(seconds: float) -> str:
+    total = int(seconds)
+    hours, remainder = divmod(total, 3600)
+    minutes, secs = divmod(remainder, 60)
+    if hours:
+        return f"{hours}:{minutes:02d}:{secs:02d}"
+    return f"{minutes:02d}:{secs:02d}"
+
+
+def transcript_paragraphs(cues: list[dict], limit: int = 700) -> list[dict]:
+    """Agrupa las cues del SRT en párrafos legibles con su minuto de inicio."""
+    paragraphs: list[dict] = []
+    parts: list[str] = []
+    size = 0
+    start = 0.0
+
+    for cue in cues:
+        if not parts:
+            start = float(cue["start"])
+        parts.append(cue["text"])
+        size += len(cue["text"]) + 1
+        if size >= limit:
+            paragraphs.append({"start": start, "text": " ".join(parts)})
+            parts = []
+            size = 0
+    if parts:
+        paragraphs.append({"start": start, "text": " ".join(parts)})
+    return paragraphs
+
+
+def transcript_paragraphs_html(cues: list[dict]) -> str:
+    items: list[str] = []
+    for paragraph in transcript_paragraphs(cues):
+        label = transcript_time_label(paragraph["start"])
+        items.append(
+            '            <p class="ep-transcript-seg" role="button" tabindex="0"'
+            ' data-desc-seek="'
+            + f"{paragraph['start']:.1f}"
+            + '"><span class="sr-only">Escuchar desde </span>'
+            + '<span class="ep-transcript-time">'
+            + '<i class="fa-solid fa-play" aria-hidden="true"></i> '
+            + escape(label)
+            + "</span>"
+            + escape(paragraph["text"])
+            + "</p>"
+        )
+    return "\n".join(items)
+
+
+def human_size(size: int) -> str:
+    if size >= 1024 * 1024:
+        return f"{size / (1024 * 1024):.1f} MB".replace(".", ",")
+    return f"{max(1, round(size / 1024))} KB"
+
+
+def transcript_html(transcript: dict | None, episode: dict) -> str:
+    if not transcript:
+        return ""
+
+    slug = str(episode.get("slug") or transcript["id"])
+    href = "../transcripciones/" + transcript["id"] + ".srt"
+    size = human_size(len(transcript.get("text", "").encode("utf-8")))
+    body = transcript_paragraphs_html(transcript.get("cues") or [])
+
+    return f"""    <section class="ep-transcript-section" id="transcripcion" aria-labelledby="transcript-title">
+      <div class="container">
+        <div class="ep-transcript-card">
+          <div class="ep-transcript-head reveal">
+            <div>
+              <span class="section-kicker">Transcripción</span>
+              <h2 id="transcript-title">Este Peskito, por <span class="marker marker--yellow">escrito</span></h2>
+            </div>
+            <div class="ep-transcript-tools">
+              <span class="ep-transcript-badge">Completa</span>
+              <a class="ep-transcript-download" href="{attr(href)}" download="{attr(slug + ".srt")}">
+                Descargar SRT <i class="fa-solid fa-download" aria-hidden="true"></i>
+              </a>
+            </div>
+          </div>
+          <p class="ep-transcript-note">Transcripción completa generada automáticamente a partir del audio. Puede contener errores. <span class="ep-transcript-meta">SRT de {escape(size)}</span></p>
+          <details class="ep-transcript">
+            <summary>Leer la transcripción <i class="fa-solid fa-chevron-down" aria-hidden="true"></i></summary>
+            <div class="ep-transcript-body">
+{body}
+            </div>
+          </details>
+        </div>
+      </div>
+    </section>
+
+"""
+
+
+# ---------------------------------------------------------------------------
 # Datos actuales
 # ---------------------------------------------------------------------------
 
@@ -1254,7 +1624,7 @@ def chapters_html(episode: dict) -> str:
           </section>"""
 
 
-def build_episode_page(episode: dict, episodes: list[dict], latest: dict | None, spotify_url: str = "") -> str:
+def build_episode_page(episode: dict, episodes: list[dict], latest: dict | None, spotify_url: str = "", transcript: dict | None = None) -> str:
     url = episode_url(episode)
     image = absolute_url(episode.get("img") or FALLBACK_IMG)
     description = meta_description(episode)
@@ -1294,6 +1664,12 @@ def build_episode_page(episode: dict, episodes: list[dict], latest: dict | None,
             "contentUrl": episode["audio"],
             "encodingFormat": "audio/mpeg",
         }
+        if transcript:
+            episode_ld["associatedMedia"]["transcript"] = (
+                SITE_URL + "transcripciones/" + transcript["id"] + ".srt"
+            )
+    if transcript:
+        episode_ld["accessibilityFeature"] = "transcript"
     episode_ld["partOfSeries"] = {
         "@type": "PodcastSeries",
         "@id": SITE_URL + "#podcast",
@@ -1415,6 +1791,15 @@ def build_episode_page(episode: dict, episodes: list[dict], latest: dict | None,
             </a>"""
 
     chapters = chapters_html(episode)
+
+    facts_transcript = ""
+    if transcript:
+        facts_transcript = """
+          <a class="ep-facts-link ep-facts-link--transcript" href="#transcripcion">
+            Leer la transcripción <i class="fa-solid fa-align-left" aria-hidden="true"></i>
+          </a>"""
+
+    transcript_section = transcript_html(transcript, episode)
 
     cta = (
         '<button class="btn btn-primary btn-sm nav-cta" type="button" data-episode-play>'
@@ -1540,7 +1925,7 @@ def build_episode_page(episode: dict, episodes: list[dict], latest: dict | None,
             </a>
 {facts_social}
 {facts_telegram}
-{facts_spotify}
+{facts_spotify}{facts_transcript}
             <a class="ep-facts-link ep-facts-link--soft" href="index.html">
               Ver todos los episodios <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
             </a>
@@ -1550,7 +1935,7 @@ def build_episode_page(episode: dict, episodes: list[dict], latest: dict | None,
       </div>
     </section>
 
-{pager}
+{transcript_section}{pager}
 
 {related_html}
   </main>
@@ -1773,6 +2158,8 @@ def generate_site(episodes: list[dict], dry_run: bool = False) -> tuple[int, int
     if spotify_pending:
         print("Episodios sin URL de Spotify: " + str(spotify_pending))
 
+    transcripts = prepare_transcripts(ordered, dry_run=dry_run)
+
     written = 0
     expected = {"index.html"}
     for episode in ordered:
@@ -1780,7 +2167,14 @@ def generate_site(episodes: list[dict], dry_run: bool = False) -> tuple[int, int
             continue
         expected.add(episode["slug"] + ".html")
         spotify_url = get_spotify_episode_url(episode, spotify_cache)
-        if write_if_changed(episode_path(episode), build_episode_page(episode, ordered, latest, spotify_url), dry_run):
+        transcript = transcripts.get(
+            episode_key(episode.get("link", ""), episode.get("audio", ""))
+        )
+        if write_if_changed(
+            episode_path(episode),
+            build_episode_page(episode, ordered, latest, spotify_url, transcript),
+            dry_run,
+        ):
             written += 1
 
     if write_if_changed(
