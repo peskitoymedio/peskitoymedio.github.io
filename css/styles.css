@@ -297,6 +297,11 @@ ul { list-style: none; }
 }
 .btn-primary:hover { background: var(--orange-2); }
 .btn-ghost { background: var(--white); }
+.btn-spotify {
+  background: var(--spotify-green);
+  color: var(--white);
+}
+.btn-spotify:hover { background: var(--spotify-green-hover); }
 .btn-outline-light {
   background: transparent;
   color: var(--cream);

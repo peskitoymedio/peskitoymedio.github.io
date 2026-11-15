@@ -1404,10 +1404,15 @@ def build_episode_page(episode: dict, episodes: list[dict], latest: dict | None,
           </a>"""
 
     facts_spotify = ""
+    hero_spotify = ""
     if spotify_url:
         facts_spotify = f"""          <a class="ep-facts-link ep-facts-link--spotify" href="{attr(spotify_url)}" target="_blank" rel="noopener">
-            Escucha en Spotify <i class="fa-brands fa-spotify" aria-hidden="true"></i>
+            Comenta en Spotify <i class="fa-brands fa-spotify" aria-hidden="true"></i>
           </a>"""
+        hero_spotify = f"""
+            <a class="btn btn-spotify btn-lg ep-detail-spotify" href="{attr(spotify_url)}" target="_blank" rel="noopener">
+              Escuchar en Spotify <i class="fa-brands fa-spotify" aria-hidden="true"></i>
+            </a>"""
 
     chapters = chapters_html(episode)
 
@@ -1504,7 +1509,7 @@ def build_episode_page(episode: dict, episodes: list[dict], latest: dict | None,
             </button>
             <a class="btn btn-ghost btn-lg" href="{attr(episode.get('link', '#'))}" target="_blank" rel="noopener">
               Escuchar en iVoox <span class="ivoox-icon" aria-hidden="true"></span>
-            </a>
+            </a>{hero_spotify}
           </div>
         </div>
       </div>
