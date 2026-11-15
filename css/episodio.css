@@ -203,8 +203,23 @@
   font-size: 0.95rem;
 }
 .ep-notes-body .ep-desc-line-time { font-size: 0.7rem; padding: 3px 8px; }
-.ep-notes-cta { margin-top: 24px; }
-.ep-notes-ivoox { text-decoration: none; }
+.ep-notes-cta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+  margin-top: 24px;
+}
+.ep-notes-ivoox,
+.ep-notes-spotify { text-decoration: none; }
+.ep-notes-spotify {
+  background: var(--spotify-green);
+  color: #fff;
+}
+.ep-notes-spotify:hover {
+  background: var(--spotify-green-hover);
+  color: #fff;
+}
 
 .ep-facts {
   position: sticky;
@@ -281,6 +296,12 @@
   color: #fff;
 }
 .ep-facts-link--telegram:hover { background: #1b8ac0; }
+.ep-facts-link--spotify {
+  margin-top: 8px;
+  background: var(--spotify-green);
+  color: #fff;
+}
+.ep-facts-link--spotify:hover { background: var(--spotify-green-hover); }
 
 .ep-sidebar {
   display: flex;

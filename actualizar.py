@@ -14,6 +14,7 @@ Qué hace:
   - Descarga su portada en img/episodes/ (con nombre estable por ID de iVoox).
   - Guarda la descripción completa en HTML (sin imágenes) y un resumen recortado.
   - Lee los capítulos Podlove (psc:chapters) y descarga sus imágenes si las hay.
+  - Actualiza spotify_cache.json desde la página pública de Spotify y valida con oEmbed.
   - Añade los episodios y regenera js/episodes.js.
   - Genera una página HTML por episodio en episodios/ con datos estructurados
     PodcastEpisode, además del archivo completo en episodios/index.html.
@@ -48,6 +49,10 @@ FEED_URL = "https://feeds.feedburner.com/PeskitoYMedio"
 EPISODES_JS = ROOT / "js" / "episodes.js"
 IMG_DIR = ROOT / "img" / "episodes"
 CHAPTER_IMG_DIR = ROOT / "img" / "chapters"
+SPOTIFY_SHOW_ID = "3dxYih3F7UfO4Oeser3W0I"
+SPOTIFY_SHOW_URL = "https://open.spotify.com/show/" + SPOTIFY_SHOW_ID
+SPOTIFY_OEEMBED_URL = "https://open.spotify.com/oembed"
+SPOTIFY_CACHE_FILE = ROOT / "spotify_cache.json"
 EPISODES_DIR = ROOT / "episodios"
 RAW_JSON = ROOT / "episodes-raw.json"
 FEED_XML = ROOT / "feed.xml"
@@ -71,6 +76,13 @@ MONTHS_ES = (
 USER_AGENT = (
     "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
     "AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36"
+)
+
+# La vista web móvil incluye los episodios más recientes en su HTML público.
+SPOTIFY_USER_AGENT = (
+    "Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X) "
+    "AppleWebKit/605.1.15 (KHTML, like Gecko) "
+    "Version/17.0 Mobile/15E148 Safari/604.1"
 )
 
 PROMO_HTML_PREFIX = re.compile(
@@ -638,6 +650,190 @@ def json_ld(data: dict) -> str:
 
 
 # ---------------------------------------------------------------------------
+# Integración con Spotify (página pública y oEmbed oficial)
+# ---------------------------------------------------------------------------
+
+def load_spotify_cache() -> dict:
+    """Carga el mapa título → URL de Spotify."""
+    if not SPOTIFY_CACHE_FILE.exists():
+        return {}
+
+    try:
+        data = json.loads(SPOTIFY_CACHE_FILE.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError):
+        return {}
+
+    if not isinstance(data, dict):
+        return {}
+    return {str(title): str(url or "") for title, url in data.items()}
+
+
+def normalize_spotify_title(title: str) -> str:
+    """Normaliza títulos para compararlos sin depender de mayúsculas o espacios."""
+    value = unicodedata.normalize("NFKC", str(title or "")).casefold()
+    return re.sub(r"\s+", " ", value).strip()
+
+
+def fetch_spotify_bytes(url: str, accept: str = "*/*", timeout: int = 30) -> bytes:
+    """Descarga una URL pública de Spotify usando la vista web móvil."""
+    request = urllib.request.Request(
+        url,
+        headers={
+            "User-Agent": SPOTIFY_USER_AGENT,
+            "Accept": accept,
+            "Accept-Language": "es-ES,es;q=0.9,en;q=0.8",
+        },
+    )
+    with urllib.request.urlopen(request, timeout=timeout) as response:
+        return response.read()
+
+
+class SpotifyEpisodeParser(HTMLParser):
+    """Extrae título e ID de los enlaces públicos /episode/ del HTML de Spotify."""
+
+    def __init__(self) -> None:
+        super().__init__(convert_charrefs=True)
+        self.episodes: dict[str, str] = {}
+        self._episode_id = ""
+        self._title_parts: list[str] = []
+
+    def handle_starttag(self, tag: str, attrs: list[tuple[str, str | None]]) -> None:
+        if tag.lower() != "a":
+            return
+        href = dict(attrs).get("href") or ""
+        match = re.search(r"/episode/([A-Za-z0-9]{22})(?:[/?#]|$)", href)
+        if match:
+            self._episode_id = match.group(1)
+            self._title_parts = []
+
+    def handle_data(self, data: str) -> None:
+        if self._episode_id:
+            self._title_parts.append(data)
+
+    def handle_endtag(self, tag: str) -> None:
+        if tag.lower() != "a" or not self._episode_id:
+            return
+
+        title = " ".join("".join(self._title_parts).split())
+        if title and self._episode_id not in self.episodes:
+            self.episodes[self._episode_id] = title
+        self._episode_id = ""
+        self._title_parts = []
+
+
+def discover_spotify_episodes() -> dict[str, str]:
+    """Obtiene los episodios recientes de la página pública del programa."""
+    raw = fetch_spotify_bytes(
+        SPOTIFY_SHOW_URL,
+        "text/html,application/xhtml+xml",
+    )
+    parser = SpotifyEpisodeParser()
+    parser.feed(raw.decode("utf-8", errors="replace"))
+    return {
+        title: "https://open.spotify.com/episode/" + episode_id
+        for episode_id, title in parser.episodes.items()
+    }
+
+
+def validate_spotify_episode(url: str, expected_title: str) -> bool:
+    """Valida una URL mediante la API oficial oEmbed de Spotify."""
+    query = urllib.parse.urlencode({"url": url})
+    raw = fetch_spotify_bytes(
+        SPOTIFY_OEEMBED_URL + "?" + query,
+        "application/json",
+    )
+    data = json.loads(raw.decode("utf-8"))
+    return (
+        data.get("provider_name") == "Spotify"
+        and normalize_spotify_title(data.get("title", ""))
+        == normalize_spotify_title(expected_title)
+    )
+
+
+def refresh_spotify_cache(episodes: list[dict], dry_run: bool = False) -> tuple[dict, int, int]:
+    """Actualiza la caché desde la página pública de Spotify y valida cada alta."""
+    cache = load_spotify_cache()
+    original = dict(cache)
+    episode_titles = [
+        str(episode.get("title") or "").strip()
+        for episode in episodes
+        if str(episode.get("title") or "").strip()
+    ]
+
+    try:
+        discovered = discover_spotify_episodes()
+    except (urllib.error.URLError, TimeoutError, OSError, ValueError) as error:
+        print("AVISO: no se pudo consultar la página pública de Spotify.")
+        print("       Se conserva la caché actual. " + str(error))
+        pending = sum(1 for title in episode_titles if not cache.get(title))
+        return cache, 0, pending
+
+    # Solo se acepta un título si la página pública lo ofrece de forma única.
+    candidates: dict[str, list[str]] = {}
+    for title, url in discovered.items():
+        candidates.setdefault(normalize_spotify_title(title), []).append(url)
+
+    updated = 0
+    for title in episode_titles:
+        normalized = normalize_spotify_title(title)
+        urls = candidates.get(normalized, [])
+        if len(urls) != 1:
+            continue
+
+        url = urls[0]
+        if cache.get(title) == url:
+            continue
+
+        try:
+            valid = validate_spotify_episode(url, title)
+        except (urllib.error.URLError, TimeoutError, OSError, ValueError, json.JSONDecodeError):
+            valid = False
+        if not valid:
+            continue
+
+        cache[title] = url
+        updated += 1
+
+    # Mantiene una entrada por episodio, también si Spotify todavía no lo ofrece.
+    for title in episode_titles:
+        cache.setdefault(title, "")
+
+    ordered_cache: dict[str, str] = {}
+    for episode in sorted(episodes, key=lambda item: item.get("date", ""), reverse=True):
+        title = str(episode.get("title") or "").strip()
+        if title:
+            ordered_cache[title] = cache.get(title, "")
+    for title, url in cache.items():
+        ordered_cache.setdefault(title, url)
+
+    if not dry_run and ordered_cache != original:
+        SPOTIFY_CACHE_FILE.write_text(
+            json.dumps(ordered_cache, ensure_ascii=False, indent=2) + "\n",
+            encoding="utf-8",
+        )
+
+    pending = sum(1 for title in episode_titles if not cache.get(title))
+    return ordered_cache, updated, pending
+
+
+def get_spotify_episode_url(episode: dict, cache: dict) -> str:
+    """Obtiene la URL de Spotify para el episodio desde la caché local."""
+    title = episode.get("title", "")
+    if not title:
+        return ""
+
+    url = cache.get(title, "")
+    if url:
+        return url
+
+    normalized = normalize_spotify_title(title)
+    for cached_title, cached_url in cache.items():
+        if cached_url and normalize_spotify_title(cached_title) == normalized:
+            return cached_url
+    return ""
+
+
+# ---------------------------------------------------------------------------
 # Datos actuales
 # ---------------------------------------------------------------------------
 
@@ -1058,7 +1254,7 @@ def chapters_html(episode: dict) -> str:
           </section>"""
 
 
-def build_episode_page(episode: dict, episodes: list[dict], latest: dict | None) -> str:
+def build_episode_page(episode: dict, episodes: list[dict], latest: dict | None, spotify_url: str = "") -> str:
     url = episode_url(episode)
     image = absolute_url(episode.get("img") or FALLBACK_IMG)
     description = meta_description(episode)
@@ -1127,7 +1323,19 @@ def build_episode_page(episode: dict, episodes: list[dict], latest: dict | None)
     }
 
     notes = episode.get("descHtml") or "<p>" + escape(episode.get("desc", "")) + "</p>"
-    ivoox_cta = (
+    spotify_notes_cta = ""
+    if spotify_url:
+        spotify_notes_cta = (
+            '<a class="btn btn-sm ep-notes-spotify" href="'
+            + attr(spotify_url)
+            + '" target="_blank" rel="noopener">'
+            '<i class="fa-brands fa-spotify" aria-hidden="true"></i> '
+            "Episodio en Spotify "
+            '<i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i>'
+            "</a>"
+        )
+
+    notes_cta = (
         '<div class="ep-notes-cta">'
         '<a class="btn btn-primary btn-sm ep-notes-ivoox" href="'
         + attr(episode.get("link") or "#")
@@ -1135,7 +1343,9 @@ def build_episode_page(episode: dict, episodes: list[dict], latest: dict | None)
         '<i class="fa-solid fa-headphones" aria-hidden="true"></i> '
         "Episodio en iVoox "
         '<i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i>'
-        "</a></div>"
+        "</a>"
+        + spotify_notes_cta
+        + "</div>"
     )
 
     pager = ""
@@ -1191,6 +1401,12 @@ def build_episode_page(episode: dict, episodes: list[dict], latest: dict | None)
 
     facts_telegram = """          <a class="ep-facts-link ep-facts-link--telegram" href="https://t.me/peskiters3" target="_blank" rel="noopener">
             Comenta en Telegram <i class="fa-brands fa-telegram" aria-hidden="true"></i>
+          </a>"""
+
+    facts_spotify = ""
+    if spotify_url:
+        facts_spotify = f"""          <a class="ep-facts-link ep-facts-link--spotify" href="{attr(spotify_url)}" target="_blank" rel="noopener">
+            Escucha en Spotify <i class="fa-brands fa-spotify" aria-hidden="true"></i>
           </a>"""
 
     chapters = chapters_html(episode)
@@ -1302,7 +1518,7 @@ def build_episode_page(episode: dict, episodes: list[dict], latest: dict | None)
           <div class="ep-notes-body">
             {notes}
           </div>
-          {ivoox_cta}
+          {notes_cta}
         </article>
 
         <aside class="ep-sidebar reveal{' ep-sidebar--chapters' if chapters else ''}" aria-label="Información del episodio">
@@ -1319,6 +1535,7 @@ def build_episode_page(episode: dict, episodes: list[dict], latest: dict | None)
             </a>
 {facts_social}
 {facts_telegram}
+{facts_spotify}
             <a class="ep-facts-link ep-facts-link--soft" href="index.html">
               Ver todos los episodios <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
             </a>
@@ -1532,6 +1749,24 @@ def generate_site(episodes: list[dict], dry_run: bool = False) -> tuple[int, int
     """Genera las páginas de episodio y el archivo. Devuelve (escritas, eliminadas)."""
     ordered = sorted(episodes, key=lambda item: item.get("date", ""), reverse=True)
     latest = ordered[0] if ordered else None
+    spotify_cache, spotify_updated, spotify_pending = refresh_spotify_cache(
+        ordered,
+        dry_run=dry_run,
+    )
+    spotify_available = len(ordered) - spotify_pending
+    if dry_run:
+        if spotify_updated:
+            print("URLs de Spotify que se actualizarían: " + str(spotify_updated))
+    else:
+        print("URLs de Spotify actualizadas: " + str(spotify_updated))
+    print(
+        "URLs de Spotify disponibles: "
+        + str(spotify_available)
+        + "/"
+        + str(len(ordered))
+    )
+    if spotify_pending:
+        print("Episodios sin URL de Spotify: " + str(spotify_pending))
 
     written = 0
     expected = {"index.html"}
@@ -1539,7 +1774,8 @@ def generate_site(episodes: list[dict], dry_run: bool = False) -> tuple[int, int
         if not episode.get("slug"):
             continue
         expected.add(episode["slug"] + ".html")
-        if write_if_changed(episode_path(episode), build_episode_page(episode, ordered, latest), dry_run):
+        spotify_url = get_spotify_episode_url(episode, spotify_cache)
+        if write_if_changed(episode_path(episode), build_episode_page(episode, ordered, latest, spotify_url), dry_run):
             written += 1
 
     if write_if_changed(

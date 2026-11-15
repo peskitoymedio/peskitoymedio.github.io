@@ -12,6 +12,7 @@ Es una web estática: no hay servidor, base de datos ni proceso de compilación.
 
 - Archivo completo de episodios con portada, número, tipo, fecha, duración y descripción.
 - Una **página propia por episodio** (`episodios/<slug>.html`) con sus notas completas, ficha rápida, reproductor, navegación anterior/siguiente y episodios relacionados. La ficha rápida incluye enlaces para comentar en iVoox, en X y en Telegram.
+- Enlace directo a cada episodio en Spotify, guardado en `spotify_cache.json` y actualizado automáticamente.
 - **Secciones con minutaje** en las fichas de episodio, leídas de los capítulos Podlove (`psc:chapters`) del feed. Al pulsar una sección, el reproductor salta a ese instante y empieza a sonar. Si el capítulo trae enlace o imagen, también se muestran junto a la sección.
 - **Minutajes dentro de las descripciones**: las líneas que incluyen una marca de tiempo se destacan y, al pulsarlas, el reproductor salta a ese instante. Al final de las notas aparece un botón **Escucha el episodio en iVoox**.
 - Datos estructurados `PodcastEpisode`, `BreadcrumbList` y `CollectionPage` para mejorar el SEO y los resultados enriquecidos.
@@ -78,6 +79,12 @@ Las portadas se descargan a `img/episodes/` y se guardan con un nombre estable b
 
 `feed.xml` y `episodes-raw.json` son copias de referencia del último feed descargado.
 
+### Enlaces de Spotify
+
+`spotify_cache.json` relaciona cada título con su URL pública de Spotify. En cada actualización, `actualizar.py` consulta la página pública del programa y valida las altas nuevas con la [API oEmbed oficial de Spotify](https://developer.spotify.com/documentation/embeds/reference/oembed). No usa la Web API de pago ni endpoints internos.
+
+La página pública incluye los episodios más recientes, por lo que cada programa nuevo se incorpora automáticamente en su siguiente ejecución. Si Spotify todavía no lo ha publicado o su oEmbed no responde, el enlace queda pendiente y se reintenta más tarde sin impedir la actualización de la web.
+
 ## Actualización automática
 
 El workflow `.github/workflows/actualizar-pages.yml` mantiene la web al día sin intervención manual. Se ejecuta cada seis horas, al lanzarlo a mano desde la pestaña **Actions** y en cada push a `main` o `master`.
@@ -86,7 +93,7 @@ En las ejecuciones programadas y manuales:
 
 1. Descarga el feed oficial del podcast desde Feedburner.
 2. Ejecuta `actualizar.py`, que detecta los episodios que aún no están en la web.
-3. Descarga y optimiza las portadas nuevas, regenera `js/episodes.js` y crea o actualiza las páginas de `episodios/`.
+3. Descarga y optimiza las portadas nuevas, actualiza `spotify_cache.json`, regenera `js/episodes.js` y crea o actualiza las páginas de `episodios/`.
 4. Actualiza `sitemap.xml` con la portada, el archivo y una URL por episodio.
 5. Si hay cambios, hace commit y push de los datos y las páginas actualizadas.
 6. Publica el sitio en GitHub Pages con `actions/deploy-pages`.
@@ -133,6 +140,7 @@ actualizar.py           Actualizador desde el feed del podcast (datos y páginas
 actualizar.bat          Lanzador para Windows
 feed.xml                Última copia del feed descargado
 episodes-raw.json       Última copia de los datos crudos del feed
+spotify_cache.json      Mapa de títulos y enlaces públicos de Spotify
 .github/workflows/      Workflow de actualización y despliegue
 ```
 
