@@ -367,7 +367,7 @@
               '<i class="fa-solid fa-arrow-right" aria-hidden="true"></i>' +
             '</a>' +
             '<a class="ep-link" href="' + ep.link + '" target="_blank" rel="noopener">iVoox ' +
-              '<i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i>' +
+              '<span class="ivoox-icon" aria-hidden="true"></span>' +
             '</a>' +
           '</div>' +
         '</div>' +

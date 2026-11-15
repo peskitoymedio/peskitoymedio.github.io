@@ -1340,7 +1340,7 @@ def build_episode_page(episode: dict, episodes: list[dict], latest: dict | None,
         '<a class="btn btn-primary btn-sm ep-notes-ivoox" href="'
         + attr(episode.get("link") or "#")
         + '" target="_blank" rel="noopener">'
-        '<i class="fa-solid fa-headphones" aria-hidden="true"></i> '
+        '<span class="ivoox-icon" aria-hidden="true"></span> '
         "Episodio en iVoox "
         '<i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i>'
         "</a>"
@@ -1503,7 +1503,7 @@ def build_episode_page(episode: dict, episodes: list[dict], latest: dict | None,
               Escuchar aquí
             </button>
             <a class="btn btn-ghost btn-lg" href="{attr(episode.get('link', '#'))}" target="_blank" rel="noopener">
-              Escuchar en iVoox <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i>
+              Escuchar en iVoox <span class="ivoox-icon" aria-hidden="true"></span>
             </a>
           </div>
         </div>
@@ -1531,7 +1531,7 @@ def build_episode_page(episode: dict, episodes: list[dict], latest: dict | None,
               <div><dt>Duración</dt><dd>{escape(episode.get('duration', ''))}</dd></div>
             </dl>
             <a class="ep-facts-link" href="{attr(episode.get('link', '#'))}" target="_blank" rel="noopener">
-              Comenta en iVoox <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i>
+              Comenta en iVoox <span class="ivoox-icon" aria-hidden="true"></span>
             </a>
 {facts_social}
 {facts_telegram}
