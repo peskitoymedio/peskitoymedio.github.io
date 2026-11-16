@@ -55,8 +55,10 @@
   "associatedMedia": {
     "@type": "MediaObject",
     "contentUrl": "https://www.ivoox.com/promo-peskito-medio-old-version_mf_32685692_feed_1.mp3",
-    "encodingFormat": "audio/mpeg"
+    "encodingFormat": "audio/mpeg",
+    "transcript": "https://peskitoymedio.github.io/transcripciones/32685692.srt"
   },
+  "accessibilityFeature": "transcript",
   "partOfSeries": {
     "@type": "PodcastSeries",
     "@id": "https://peskitoymedio.github.io/#podcast",
@@ -221,12 +223,41 @@ Si tienes un podcast de alguna temática friki y estás interesado en intercambi
           <a class="ep-facts-link ep-facts-link--spotify" href="https://open.spotify.com/episode/4zmdh7zdIO7dBPqRr3jyTb" target="_blank" rel="noopener">
             Comenta en Spotify <i class="fa-brands fa-spotify" aria-hidden="true"></i>
           </a>
+          <a class="ep-facts-link ep-facts-link--transcript" href="#transcripcion">
+            Leer la transcripción <i class="fa-solid fa-align-left" aria-hidden="true"></i>
+          </a>
             <a class="ep-facts-link ep-facts-link--soft" href="index.html">
               Ver todos los episodios <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
             </a>
           </div>
 
         </aside>
+      </div>
+    </section>
+
+    <section class="ep-transcript-section" id="transcripcion" aria-labelledby="transcript-title">
+      <div class="container">
+        <div class="ep-transcript-card">
+          <div class="ep-transcript-head reveal">
+            <div>
+              <span class="section-kicker">Transcripción</span>
+              <h2 id="transcript-title">Este Peskito, por <span class="marker marker--yellow">escrito</span></h2>
+            </div>
+          </div>
+          <div class="ep-transcript-search">
+            <label class="sr-only" for="transcript-search">Buscar en la transcripción</label>
+            <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
+            <input type="search" id="transcript-search" data-transcript-search placeholder="Buscar en la transcripción…" autocomplete="off" spellcheck="false">
+          </div>
+          <p class="ep-transcript-status" data-transcript-search-status role="status" aria-live="polite"></p>
+          <p class="ep-transcript-note">Transcripción completa generada automáticamente a partir del audio. Puede contener errores.</p>
+          <details class="ep-transcript">
+            <summary>Leer la transcripción <i class="fa-solid fa-chevron-down" aria-hidden="true"></i></summary>
+            <div class="ep-transcript-body">
+            <p class="ep-transcript-seg" role="button" tabindex="0" data-desc-seek="0.0"><span class="sr-only">Escuchar desde </span><span class="ep-transcript-time"><i class="fa-solid fa-play" aria-hidden="true"></i> 00:00</span><span class="ep-transcript-text">Bueno, bueno, bueno, bueno, bueno, bueno, bueno, Peskito y Medio, el podcast dedicado a todo lo que nos gusta, juegos de mesa, series, cómics, ciencia ficción, fantasía, rol y demás cosas friki, podéis escucharnos en iVoox, iTunes y Spotify, seguidnos en Twitter, arroba Peskito3 con K de kilo, Peskito3, ¿qué porquería de nombre es ese? Pero eso es en serio, ¿no? ¿Es Pesquito? ¿De verdad? Peskito y Medio.</span></p>
+            </div>
+          </details>
+        </div>
       </div>
     </section>
 
