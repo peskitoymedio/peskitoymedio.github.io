@@ -59,6 +59,7 @@ EPISODES_DIR = ROOT / "episodios"
 TRANSCRIPTS_DIR = ROOT / "transcripciones"
 TRANSCRIPT_MISSING_FILE = TRANSCRIPTS_DIR / "ausentes.json"
 TRANSCRIPT_RECHECK_DAYS = 30
+TRANSCRIPT_RECENT_DAYS = 60
 POD_TRANSCRIPT_PODCAST_ID = "1453280178"
 POD_TRANSCRIPT_API = (
     "https://www.pod-transcript.com/api/podcasts/" + POD_TRANSCRIPT_PODCAST_ID
@@ -683,6 +684,24 @@ def normalize_spotify_title(title: str) -> str:
     return re.sub(r"\s+", " ", value).strip()
 
 
+def spotify_titles_match(first: str, second: str) -> bool:
+    """Compara títulos de forma tolerante a truncamientos y diferencias menores."""
+    left = normalize_spotify_title(first)
+    right = normalize_spotify_title(second)
+    if left == right:
+        return True
+    shorter, longer = (left, right) if len(left) <= len(right) else (right, left)
+    if len(shorter) < 25:
+        return False
+    return longer.startswith(shorter)
+
+
+def program_number(title: str) -> str:
+    """Número de programa de un título (PYM 63, PYM 4.1, ...)."""
+    match = re.match(r"^\s*pym\s*(\d+(?:[.\-]\d+)?)", str(title or ""), re.IGNORECASE)
+    return match.group(1) if match else ""
+
+
 def fetch_spotify_bytes(url: str, accept: str = "*/*", timeout: int = 30) -> bytes:
     """Descarga una URL pública de Spotify usando la vista web móvil."""
     request = urllib.request.Request(
@@ -745,22 +764,45 @@ def discover_spotify_episodes() -> dict[str, str]:
 
 
 def validate_spotify_episode(url: str, expected_title: str) -> bool:
-    """Valida una URL mediante la API oficial oEmbed de Spotify."""
+    """Valida una URL mediante la API oficial oEmbed de Spotify.
+
+    Se acepta el título exacto, uno truncado o uno renombrado que conserve el
+    número de programa (PYM 62, PYM 4.1, ...).
+    """
     query = urllib.parse.urlencode({"url": url})
     raw = fetch_spotify_bytes(
         SPOTIFY_OEEMBED_URL + "?" + query,
         "application/json",
     )
     data = json.loads(raw.decode("utf-8"))
-    return (
-        data.get("provider_name") == "Spotify"
-        and normalize_spotify_title(data.get("title", ""))
-        == normalize_spotify_title(expected_title)
-    )
+    if data.get("provider_name") != "Spotify":
+        return False
+
+    title = data.get("title", "")
+    if spotify_titles_match(title, expected_title):
+        return True
+    number = program_number(title)
+    return bool(number) and number == program_number(expected_title)
 
 
-def refresh_spotify_cache(episodes: list[dict], dry_run: bool = False) -> tuple[dict, int, int]:
-    """Actualiza la caché desde la página pública de Spotify y valida cada alta."""
+def print_pending(prefix: str, titles: list[str], limit: int = 5) -> None:
+    """Muestra los episodios pendientes, empezando por los más recientes."""
+    if not titles:
+        return
+    for title in titles[:limit]:
+        print(prefix + title[:90])
+    if len(titles) > limit:
+        print(prefix + "... y " + str(len(titles) - limit) + " más")
+
+
+def refresh_spotify_cache(
+    episodes: list[dict], dry_run: bool = False
+) -> tuple[dict, int, list[str]]:
+    """Actualiza la caché desde la página pública de Spotify y valida cada alta.
+
+    Los episodios que Spotify todavía no ofrece se vuelven a comprobar en cada
+    actualización, así que en cuanto se publican quedan enlazados.
+    """
     cache = load_spotify_cache()
     original = dict(cache)
     episode_titles = [
@@ -774,7 +816,7 @@ def refresh_spotify_cache(episodes: list[dict], dry_run: bool = False) -> tuple[
     except (urllib.error.URLError, TimeoutError, OSError, ValueError) as error:
         print("AVISO: no se pudo consultar la página pública de Spotify.")
         print("       Se conserva la caché actual. " + str(error))
-        pending = sum(1 for title in episode_titles if not cache.get(title))
+        pending = [title for title in episode_titles if not cache.get(title)]
         return cache, 0, pending
 
     # Solo se acepta un título si la página pública lo ofrece de forma única.
@@ -783,6 +825,8 @@ def refresh_spotify_cache(episodes: list[dict], dry_run: bool = False) -> tuple[
         candidates.setdefault(normalize_spotify_title(title), []).append(url)
 
     updated = 0
+    assigned: set[str] = {url for url in cache.values() if url}
+
     for title in episode_titles:
         normalized = normalize_spotify_title(title)
         urls = candidates.get(normalized, [])
@@ -801,6 +845,44 @@ def refresh_spotify_cache(episodes: list[dict], dry_run: bool = False) -> tuple[
             continue
 
         cache[title] = url
+        assigned.add(url)
+        updated += 1
+
+    # Segunda pasada: títulos con diferencias menores o episodios renombrados.
+    for title in episode_titles:
+        if cache.get(title):
+            continue
+        normalized = normalize_spotify_title(title)
+        if normalized in candidates:
+            continue
+
+        matches = [
+            url
+            for other, url in discovered.items()
+            if url not in assigned and spotify_titles_match(title, other)
+        ]
+        if len(matches) != 1:
+            number = program_number(title)
+            matches = [
+                url
+                for other, url in discovered.items()
+                if url not in assigned
+                and number
+                and program_number(other) == number
+            ]
+        if len(matches) != 1:
+            continue
+
+        url = matches[0]
+        try:
+            valid = validate_spotify_episode(url, title)
+        except (urllib.error.URLError, TimeoutError, OSError, ValueError, json.JSONDecodeError):
+            valid = False
+        if not valid:
+            continue
+
+        cache[title] = url
+        assigned.add(url)
         updated += 1
 
     # Mantiene una entrada por episodio, también si Spotify todavía no lo ofrece.
@@ -821,7 +903,7 @@ def refresh_spotify_cache(episodes: list[dict], dry_run: bool = False) -> tuple[
             encoding="utf-8",
         )
 
-    pending = sum(1 for title in episode_titles if not cache.get(title))
+    pending = [title for title in episode_titles if not cache.get(title)]
     return ordered_cache, updated, pending
 
 
@@ -880,8 +962,24 @@ def save_missing_transcripts() -> None:
     )
 
 
-def transcript_is_missing(audio_id: str) -> bool:
-    """True si ya se comprobó que no hay transcripción y toca volver a mirar."""
+def episode_is_recent(episode: dict, days: int) -> bool:
+    """True si el episodio es lo bastante nuevo como para reintentarlo siempre."""
+    raw = str(episode.get("date") or "").strip()[:10]
+    try:
+        published = date.fromisoformat(raw)
+    except ValueError:
+        return True
+    return (date.today() - published).days <= days
+
+
+def transcript_is_missing(audio_id: str, episode: dict) -> bool:
+    """True si ya se comprobó que no hay transcripción y toca volver a mirar.
+
+    Los episodios recientes se vuelven a comprobar en cada actualización: el
+    servicio puede publicar la transcripción días después de salir el episodio.
+    """
+    if episode_is_recent(episode, TRANSCRIPT_RECENT_DAYS):
+        return False
     checked = load_missing_transcripts().get(audio_id)
     if not checked:
         return False
@@ -1022,19 +1120,22 @@ def transcript_file_path(audio_id: str) -> Path:
     return TRANSCRIPTS_DIR / (audio_id + ".srt")
 
 
-def load_transcript(audio_id: str, allow_fetch: bool = True) -> dict | None:
+def load_transcript(
+    audio_id: str, episode: dict, allow_fetch: bool = True
+) -> dict | None:
     """Devuelve la transcripción del episodio y la guarda como SRT si falta."""
     path = transcript_file_path(audio_id)
     transcript = read_transcript_file(path, audio_id)
     if transcript:
+        load_missing_transcripts().pop(audio_id, None)
         return transcript
 
     if not allow_fetch or not audio_id.isdigit():
         return None
 
-    # Si ya se comprobó que no hay transcripción, no se pregunta hasta que
-    # pase el plazo de reconsulta.
-    if transcript_is_missing(audio_id):
+    # Los episodios antiguos sin transcripción solo se vuelven a mirar cada
+    # TRANSCRIPT_RECHECK_DAYS días; los recientes, en cada actualización.
+    if transcript_is_missing(audio_id, episode):
         return None
 
     # Si PodTranscript no responde, no bloqueamos la actualización con esperas.
@@ -1043,6 +1144,7 @@ def load_transcript(audio_id: str, allow_fetch: bool = True) -> dict | None:
 
     guid = pod_transcript_index().get(audio_id)
     if not guid:
+        load_missing_transcripts()[audio_id] = date.today().isoformat()
         return None
 
     try:
@@ -1064,6 +1166,7 @@ def load_transcript(audio_id: str, allow_fetch: bool = True) -> dict | None:
 
     TRANSCRIPTS_DIR.mkdir(parents=True, exist_ok=True)
     path.write_text(content, encoding="utf-8")
+    load_missing_transcripts().pop(audio_id, None)
     transcript = read_transcript_file(path, audio_id)
     if transcript:
         transcript["new"] = True
@@ -1074,13 +1177,15 @@ def prepare_transcripts(episodes: list[dict], dry_run: bool = False) -> dict[str
     """Carga o descarga las transcripciones y devuelve un mapa por ID de iVoox."""
     transcripts: dict[str, dict] = {}
     downloaded = 0
+    pending: list[str] = []
 
     for episode in episodes:
         audio_id = episode_key(episode.get("link", ""), episode.get("audio", ""))
         if not audio_id.isdigit():
             continue
-        transcript = load_transcript(audio_id, allow_fetch=not dry_run)
+        transcript = load_transcript(audio_id, episode, allow_fetch=not dry_run)
         if not transcript:
+            pending.append(str(episode.get("title") or audio_id))
             continue
         transcripts[audio_id] = transcript
         if transcript.get("new"):
@@ -1099,6 +1204,7 @@ def prepare_transcripts(episodes: list[dict], dry_run: bool = False) -> dict[str
     )
     if total > available:
         print("Episodios sin transcripción: " + str(total - available))
+        print_pending("  · ", pending)
     if _TRANSCRIPT_ERRORS:
         print(
             "Avisos al descargar transcripciones: "
@@ -2136,7 +2242,7 @@ def generate_site(episodes: list[dict], dry_run: bool = False) -> tuple[int, int
         ordered,
         dry_run=dry_run,
     )
-    spotify_available = len(ordered) - spotify_pending
+    spotify_available = len(ordered) - len(spotify_pending)
     if dry_run:
         if spotify_updated:
             print("URLs de Spotify que se actualizarían: " + str(spotify_updated))
@@ -2149,7 +2255,8 @@ def generate_site(episodes: list[dict], dry_run: bool = False) -> tuple[int, int
         + str(len(ordered))
     )
     if spotify_pending:
-        print("Episodios sin URL de Spotify: " + str(spotify_pending))
+        print("Episodios sin URL de Spotify: " + str(len(spotify_pending)))
+        print_pending("  · ", spotify_pending)
 
     transcripts = prepare_transcripts(ordered, dry_run=dry_run)
 

@@ -75,7 +75,7 @@ Los ficheros SRT **no** se guardan en `js/episodes.js`: así el archivo que carg
 
 Si el fichero ya existe en `transcripciones/`, no se vuelve a descargar. Para regenerarlo basta con borrarlo y ejecutar `python actualizar.py`. Las transcripciones automáticas pueden contener errores de reconocimiento de voz.
 
-Los episodios que no tienen transcripción se anotan en `transcripciones/ausentes.json` con la fecha de la comprobación. Así no se vuelve a preguntar por ellos en cada ejecución; a los 30 días se vuelven a consultar por si el servicio ya los tiene.
+Los episodios que no tienen transcripción se anotan en `transcripciones/ausentes.json` con la fecha de la comprobación. Los **episodios recientes** (publicados en los últimos 60 días) se vuelven a consultar en **cada actualización**, porque el servicio puede publicar la transcripción días después de salir el episodio; los antiguos solo se reconsultan cada 30 días. En cuanto PodTranscript tiene la transcripción, se descarga, se borra de `ausentes.json` y la ficha la muestra.
 
 
 ## Contenido de los episodios
@@ -113,7 +113,7 @@ Las portadas se descargan a `img/episodes/` y se guardan con un nombre estable b
 
 `spotify_cache.json` relaciona cada título con su URL pública de Spotify. En cada actualización, `actualizar.py` consulta la página pública del programa y valida las altas nuevas con la [API oEmbed oficial de Spotify](https://developer.spotify.com/documentation/embeds/reference/oembed). No usa la Web API de pago ni endpoints internos.
 
-La página pública incluye los episodios más recientes, por lo que cada programa nuevo se incorpora automáticamente en su siguiente ejecución. Si Spotify todavía no lo ha publicado o su oEmbed no responde, el enlace queda pendiente y se reintenta más tarde sin impedir la actualización de la web.
+La página pública incluye los episodios más recientes, por lo que cada programa nuevo se incorpora automáticamente en su siguiente ejecución. Si Spotify todavía no lo ha publicado o su oEmbed no responde, el enlace queda pendiente y **se reintenta en cada actualización** (cada seis horas), sin impedir la actualización de la web. Para tolerate cambios de título se comparan también los títulos truncados y el número de programa (`PYM 62`, `PYM 4.1`), siempre validando con oEmbed antes de guardar el enlace.
 
 ## Actualización automática
 
@@ -129,6 +129,8 @@ En las ejecuciones programadas y manuales:
 6. Publica el sitio en GitHub Pages con `actions/deploy-pages`.
 
 Los push solo despliegan el contenido, sin ejecutar la actualización, para evitar bucles de commits.
+
+Los datos que llegan tarde no se pierden: en cada pasada se vuelven a comprobar los episodios recientes a los que les falte la URL de Spotify o la transcripción, y el log indica cuáles siguen pendientes.
 
 ### Notas de despliegue
 
