@@ -14,7 +14,7 @@ Es una web estática: no hay servidor, base de datos ni proceso de compilación.
 - Una **página propia por episodio** (`episodios/<slug>.html`) con sus notas completas, ficha rápida, reproductor, navegación anterior/siguiente y episodios relacionados. La ficha rápida incluye enlaces para comentar en iVoox, en X y en Telegram.
 - Enlace directo a cada episodio en Spotify, guardado en `spotify_cache.json` y actualizado automáticamente.
 - **Secciones con minutaje** en las fichas de episodio, leídas de los capítulos Podlove (`psc:chapters`) del feed. Al pulsar una sección, el reproductor salta a ese instante y empieza a sonar. Si el capítulo trae enlace o imagen, también se muestran junto a la sección.
-- **Transcripciones**: cada ficha muestra, en un bloque desplegable, la transcripción completa del episodio con los minutajes (al pulsar un párrafo, el reproductor salta a ese instante) y ofrece la descarga del fichero SRT.
+- **Transcripciones**: cada ficha muestra, en un bloque desplegable, la transcripción completa del episodio con los minutajes (al pulsar un párrafo, el reproductor salta a ese instante) y un buscador para filtrar el texto dentro de la transcripción.
 - **Minutajes dentro de las descripciones**: las líneas que incluyen una marca de tiempo se destacan y, al pulsarlas, el reproductor salta a ese instante. Al final de las notas aparece un botón **Escucha el episodio en iVoox**.
 - Datos estructurados `PodcastEpisode`, `BreadcrumbList` y `CollectionPage` para mejorar el SEO y los resultados enriquecidos.
 - Archivo estático navegable en `episodios/index.html`, con enlaces reales a todas las fichas.
@@ -61,7 +61,7 @@ Cómo funciona:
 1. `actualizar.py` consulta el catálogo de episodios de PodTranscript (`/api/podcasts/1453280178/episodes`) y asocia cada episodio con su GUID de iVoox.
 2. Para cada episodio sin fichero local, pide la transcripción (`/api/podcasts/1453280178/transcript?episodeGuid=...`) y la guarda como SRT en `transcripciones/<id>.srt`.
 3. La ficha lee ese SRT, agrupa los fragmentos en párrafos legibles y los pinta con su minutaje. Cada párrafo es un botón: al pulsarlo, el reproductor salta a ese instante.
-4. La ficha ofrece la descarga del SRT (`../transcripciones/<id>.srt`).
+4. Encima del bloque hay un buscador que filtra la transcripción en vivo: muestra solo los párrafos que contienen el texto buscado, los resalta y cuenta las coincidencias. Ignora mayúsculas y acentos (`numero` encuentra `número`).
 
 El `<id>` es el número que aparece en la URL de iVoox del episodio, después de `_rf_`:
 
@@ -71,7 +71,7 @@ https://www.ivoox.com/pym-63-...-audios-mp3_rf_183682229_1.html
 transcripciones/183682229.srt
 ```
 
-Los ficheros SRT **no** se guardan en `js/episodes.js`: así el archivo que carga el navegador no crece con textos largos. El workflow de GitHub Actions añade `transcripciones/` al commit y lo copia a `_site/` para que las descargas funcionen en la web publicada.
+Los ficheros SRT **no** se guardan en `js/episodes.js`: así el archivo que carga el navegador no crece con textos largos. El workflow de GitHub Actions añade `transcripciones/` al commit y copia los SRT a `_site/transcripciones/` (son la URL que declara el JSON-LD en `associatedMedia.transcript`).
 
 Si el fichero ya existe en `transcripciones/`, no se vuelve a descargar. Para regenerarlo basta con borrarlo y ejecutar `python actualizar.py`. Las transcripciones automáticas pueden contener errores de reconocimiento de voz.
 

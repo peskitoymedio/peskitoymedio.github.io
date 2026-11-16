@@ -293,6 +293,116 @@
     });
   });
 
+  /* ---------- Buscador dentro de la transcripción ---------- */
+  const transcriptInput = $("[data-transcript-search]");
+  if (transcriptInput) {
+    const transcriptSegs = $$(".ep-transcript-seg");
+    const transcriptStatus = $("[data-transcript-search-status]");
+    const transcriptDetails = $("details.ep-transcript");
+    const transcriptTexts = transcriptSegs.map((seg) => {
+      const span = $(".ep-transcript-text", seg);
+      return span ? span.textContent : "";
+    });
+
+    const HTML_ESCAPES = {
+      "\u0026": "\u0026amp;",
+      "\u003c": "\u0026lt;",
+      "\u003e": "\u0026gt;",
+      "\u0022": "\u0026quot;",
+      "\u0027": "\u0026#39;",
+    };
+    const escapeHtml = (value) =>
+      value.replace(/[\u0026\u003c\u003e\u0022\u0027]/g, (char) => HTML_ESCAPES[char]);
+
+    const COMBINING = /[\u0300-\u036f]/;
+
+    // Texto sin acentos ni mayúsculas, con el índice original de cada letra.
+    const foldText = (value) => {
+      let folded = "";
+      const map = [];
+      for (let index = 0; index < value.length; index += 1) {
+        const simple = value[index]
+          .normalize("NFD")
+          .replace(/[\u0300-\u036f]/g, "")
+          .toLowerCase();
+        for (const piece of simple) {
+          folded += piece;
+          map.push(index);
+        }
+      }
+      return { folded, map };
+    };
+
+    const foldQuery = (value) =>
+      value.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
+
+    // Busca "numero" dentro de "número" y devuelve los tramos del original.
+    const findMatches = (text, needle) => {
+      const { folded, map } = foldText(text);
+      const ranges = [];
+      let from = 0;
+      while (needle) {
+        const at = folded.indexOf(needle, from);
+        if (at === -1) break;
+        const start = map[at];
+        let end = map[at + needle.length - 1] + 1;
+        while (end < text.length && COMBINING.test(text[end])) end += 1;
+        ranges.push([start, end]);
+        from = at + needle.length;
+      }
+      return ranges;
+    };
+
+    const highlight = (value, ranges) => {
+      if (!ranges.length) return escapeHtml(value);
+      let html = "";
+      let last = 0;
+      ranges.forEach((range) => {
+        html +=
+          escapeHtml(value.slice(last, range[0])) +
+          "<mark>" +
+          escapeHtml(value.slice(range[0], range[1])) +
+          "</mark>";
+        last = range[1];
+      });
+      return html + escapeHtml(value.slice(last));
+    };
+
+    const searchTranscript = () => {
+      const needle = foldQuery(transcriptInput.value.trim());
+      let hits = 0;
+
+      transcriptSegs.forEach((seg, index) => {
+        const text = transcriptTexts[index] || "";
+        const ranges = needle ? findMatches(text, needle) : [];
+        seg.hidden = Boolean(needle) && !ranges.length;
+        const span = $(".ep-transcript-text", seg);
+        if (span) span.innerHTML = highlight(text, ranges);
+        hits += ranges.length;
+      });
+
+      if (transcriptStatus) {
+        transcriptStatus.textContent = !needle
+          ? ""
+          : hits
+          ? hits + (hits === 1 ? " coincidencia" : " coincidencias")
+          : "Sin coincidencias";
+      }
+      if (needle && transcriptDetails) transcriptDetails.open = true;
+      return hits;
+    };
+
+    transcriptInput.addEventListener("input", searchTranscript);
+    transcriptInput.addEventListener("search", searchTranscript);
+    transcriptInput.addEventListener("keydown", (event) => {
+      if (event.key !== "Enter") return;
+      event.preventDefault();
+      searchTranscript();
+      const first = transcriptSegs.find((seg) => !seg.hidden);
+      if (first) first.scrollIntoView({ behavior: "smooth", block: "center" });
+    });
+  }
+
   if (audio) {
     audio.addEventListener("play", () => {
       syncPlayIcons(true);

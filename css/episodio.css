@@ -249,57 +249,37 @@
   line-height: 1.05;
   letter-spacing: 0.015em;
 }
-.ep-transcript-badge {
-  display: inline-flex;
-  align-items: center;
-  padding: 5px 12px;
-  border: 2px solid var(--ink);
-  border-radius: 999px;
-  background: var(--yellow);
-  font-size: 0.66rem;
-  font-weight: 800;
-  letter-spacing: 0.07em;
-  text-transform: uppercase;
-  white-space: nowrap;
-}
-.ep-transcript-tools {
+.ep-transcript-search {
   display: flex;
-  flex-wrap: wrap;
   align-items: center;
-  gap: 10px;
-}
-.ep-transcript-download {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 8px 14px;
+  gap: 12px;
+  margin-top: 18px;
+  padding: 12px 18px;
   border: 2px solid var(--ink);
   border-radius: 999px;
-  background: var(--white);
-  color: var(--ink);
-  font-size: 0.78rem;
-  font-weight: 800;
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
-  text-decoration: none;
+  background: var(--cream);
   box-shadow: 3px 3px 0 var(--ink);
-  transition: background 0.15s ease, box-shadow 0.15s ease, transform 0.15s ease;
+  transition: box-shadow 0.15s ease;
 }
-.ep-transcript-download:hover {
-  background: var(--yellow);
-  box-shadow: 1px 1px 0 var(--ink);
-  transform: translate(2px, 2px);
+.ep-transcript-search:focus-within { box-shadow: 3px 3px 0 var(--orange-dark); }
+.ep-transcript-search i { color: var(--orange-dark); }
+.ep-transcript-search input {
+  flex: 1;
+  min-width: 0;
+  border: 0;
+  background: transparent;
+  color: var(--ink);
+  font: inherit;
+  font-weight: 600;
 }
-.ep-transcript-download i { color: var(--orange-dark); }
-.ep-transcript-meta {
-  display: inline-block;
-  margin-left: 6px;
-  padding: 1px 8px;
-  border-radius: 999px;
-  background: rgba(11, 27, 45, 0.07);
-  font-size: 0.78rem;
+.ep-transcript-search input:focus { outline: none; }
+.ep-transcript-search input::placeholder { color: var(--ink-soft); opacity: 0.75; }
+.ep-transcript-status {
+  margin: 12px 0 0;
+  min-height: 1.1em;
+  color: var(--ink-soft);
+  font-size: 0.85rem;
   font-weight: 700;
-  white-space: nowrap;
 }
 .ep-transcript-note {
   margin: 14px 0 22px;
@@ -334,6 +314,13 @@
   color: var(--ink-soft);
   font-size: 0.98rem;
   line-height: 1.8;
+}
+.ep-transcript-body mark {
+  padding: 0 2px;
+  border-radius: 3px;
+  background: var(--yellow);
+  color: var(--ink);
+  font-weight: 600;
 }
 .ep-transcript-seg {
   position: relative;

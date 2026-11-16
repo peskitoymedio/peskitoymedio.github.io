@@ -1153,25 +1153,18 @@ def transcript_paragraphs_html(cues: list[dict]) -> str:
             + '<i class="fa-solid fa-play" aria-hidden="true"></i> '
             + escape(label)
             + "</span>"
+            + '<span class="ep-transcript-text">'
             + escape(paragraph["text"])
+            + "</span>"
             + "</p>"
         )
     return "\n".join(items)
 
 
-def human_size(size: int) -> str:
-    if size >= 1024 * 1024:
-        return f"{size / (1024 * 1024):.1f} MB".replace(".", ",")
-    return f"{max(1, round(size / 1024))} KB"
-
-
-def transcript_html(transcript: dict | None, episode: dict) -> str:
+def transcript_html(transcript: dict | None) -> str:
     if not transcript:
         return ""
 
-    slug = str(episode.get("slug") or transcript["id"])
-    href = "../transcripciones/" + transcript["id"] + ".srt"
-    size = human_size(len(transcript.get("text", "").encode("utf-8")))
     body = transcript_paragraphs_html(transcript.get("cues") or [])
 
     return f"""    <section class="ep-transcript-section" id="transcripcion" aria-labelledby="transcript-title">
@@ -1182,14 +1175,14 @@ def transcript_html(transcript: dict | None, episode: dict) -> str:
               <span class="section-kicker">Transcripción</span>
               <h2 id="transcript-title">Este Peskito, por <span class="marker marker--yellow">escrito</span></h2>
             </div>
-            <div class="ep-transcript-tools">
-              <span class="ep-transcript-badge">Completa</span>
-              <a class="ep-transcript-download" href="{attr(href)}" download="{attr(slug + ".srt")}">
-                Descargar SRT <i class="fa-solid fa-download" aria-hidden="true"></i>
-              </a>
-            </div>
           </div>
-          <p class="ep-transcript-note">Transcripción completa generada automáticamente a partir del audio. Puede contener errores. <span class="ep-transcript-meta">SRT de {escape(size)}</span></p>
+          <div class="ep-transcript-search">
+            <label class="sr-only" for="transcript-search">Buscar en la transcripción</label>
+            <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
+            <input type="search" id="transcript-search" data-transcript-search placeholder="Buscar en la transcripción…" autocomplete="off" spellcheck="false">
+          </div>
+          <p class="ep-transcript-status" data-transcript-search-status role="status" aria-live="polite"></p>
+          <p class="ep-transcript-note">Transcripción completa generada automáticamente a partir del audio. Puede contener errores.</p>
           <details class="ep-transcript">
             <summary>Leer la transcripción <i class="fa-solid fa-chevron-down" aria-hidden="true"></i></summary>
             <div class="ep-transcript-body">
@@ -1799,7 +1792,7 @@ def build_episode_page(episode: dict, episodes: list[dict], latest: dict | None,
             Leer la transcripción <i class="fa-solid fa-align-left" aria-hidden="true"></i>
           </a>"""
 
-    transcript_section = transcript_html(transcript, episode)
+    transcript_section = transcript_html(transcript)
 
     cta = (
         '<button class="btn btn-primary btn-sm nav-cta" type="button" data-episode-play>'
