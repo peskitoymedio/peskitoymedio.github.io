@@ -73,7 +73,7 @@ https://www.ivoox.com/pym-63-...-audios-mp3_rf_183682229_1.html
 transcripciones/183682229.srt
 ```
 
-Los ficheros SRT **no** se guardan en `js/episodes.js`: así el archivo que carga el navegador no crece con textos largos. El workflow de GitHub Actions añade `transcripciones/` al commit y copia los SRT a `_site/transcripciones/` (son la URL que declara el JSON-LD en `associatedMedia.transcript`).
+Los ficheros SRT **no** se guardan en `js/episodes.js`: así el archivo que carga el navegador no crece con textos largos. El workflow de GitHub Actions añade `transcripciones/` al commit y copia los SRT a `_site/transcripciones/` (son la URL que declara el JSON-LD en `associatedMedia.transcript`). Cuando aparece una transcripción que antes faltaba, `actualizar.py` añade también el tag `<podcast:transcript>` de Podcast 2.0 al item correspondiente de `util/pre-feedburner.xml` (si ya está, no lo duplica). Así Feedburner la publica en cuanto el SRT está disponible.
 
 Si el fichero ya existe en `transcripciones/`, no se vuelve a descargar. Para regenerarlo basta con borrarlo y ejecutar `python actualizar.py`. Las transcripciones automáticas pueden contener errores de reconocimiento de voz.
 
@@ -136,7 +136,7 @@ Los datos que llegan tarde no se pierden: en cada pasada se vuelven a comprobar 
 
 ### Preparación del feed de Feedburner
 
-`actualizar-pre-feedburner.py` lee el feed básico de iVoox (`https://feeds.ivoox.com/feed_fg_f1661614_filtro_1.xml`), toma el episodio más reciente y, si su ID aún no aparece en `util/pre-feedburner.xml`, lo añade en primer lugar con la descripción en HTML, `itunes:summary`, capítulos Podlove, personas, `podcast:socialInteract` y el bloque final de autopromoción. No añade transcripciones. Es idempotente: si el episodio ya está, no escribe nada.
+`actualizar-pre-feedburner.py` lee el feed básico de iVoox (`https://feeds.ivoox.com/feed_fg_f1661614_filtro_1.xml`), toma el episodio más reciente y, si su ID aún no aparece en `util/pre-feedburner.xml`, lo añade en primer lugar con la descripción en HTML, `itunes:summary`, capítulos Podlove, personas, `podcast:socialInteract` y el bloque final de autopromoción. No añade transcripciones: las incorpora después `actualizar.py` cuando el SRT esté disponible. Es idempotente: si el episodio ya está, no escribe nada.
 
 El workflow `.github/workflows/actualizar-pre-feedburner.yml` ejecuta ese script **solo bajo demanda** (pestaña *Actions* → *Run workflow*) y hace commit y push de `util/pre-feedburner.xml` cuando hay cambios. `util/pre-feedburner.xml` es la fuente que se edita a mano antes de publicarla en Feedburner; este workflow solo prepara el item nuevo.
 

@@ -69,6 +69,7 @@ POD_TRANSCRIPT_API = (
 )
 RAW_JSON = ROOT / "episodes-raw.json"
 FEED_XML = ROOT / "feed.xml"
+PRE_FEEDBURNER_XML = ROOT / "util" / "pre-feedburner.xml"
 SITEMAP_XML = ROOT / "sitemap.xml"
 SITE_URL = "https://www.peskitoymedio.es/"
 SITE_HOST = urllib.parse.urlparse(SITE_URL).netloc
@@ -1214,10 +1215,50 @@ def load_transcript(
     return transcript
 
 
+def add_transcript_to_pre_feedburner(audio_id: str, dry_run: bool = False) -> bool:
+    """Añade el podcast:transcript del episodio a pre-feedburner.xml si falta."""
+    if not audio_id.isdigit() or not PRE_FEEDBURNER_XML.exists():
+        return False
+
+    original = PRE_FEEDBURNER_XML.read_bytes().decode("utf-8")
+    salto = "\r\n" if "\r\n" in original else "\n"
+    contenido = original.replace("\r\n", "\n")
+
+    for match in re.finditer(r"<item\b.*?</item>", contenido, re.DOTALL):
+        bloque = match.group(0)
+        en_guid = "ivoox.com/" + audio_id + "<" in bloque
+        en_enlace = re.search(r"(?:rf_|mf_)" + re.escape(audio_id) + r"(?!\d)", bloque)
+        if not (en_guid or en_enlace):
+            continue
+        if "<podcast:transcript" in bloque:
+            return False
+
+        cierre = bloque.rfind("</item>")
+        if cierre == -1:
+            return False
+        etiqueta = (
+            '\t<podcast:transcript url="https://www.peskitoymedio.es/transcripciones/'
+            + audio_id
+            + '.srt" type="application/x-subrip" rel="captions" language="es"/>'
+        )
+        nuevo_bloque = bloque[:cierre] + etiqueta + "\n" + bloque[cierre:]
+        actualizado = contenido[: match.start()] + nuevo_bloque + contenido[match.end() :]
+        if salto == "\r\n":
+            actualizado = actualizado.replace("\n", "\r\n")
+        datos = actualizado.encode("utf-8")
+        if datos == PRE_FEEDBURNER_XML.read_bytes():
+            return False
+        if not dry_run:
+            PRE_FEEDBURNER_XML.write_bytes(datos)
+        return True
+    return False
+
+
 def prepare_transcripts(episodes: list[dict], dry_run: bool = False) -> dict[str, dict]:
     """Carga o descarga las transcripciones y devuelve un mapa por ID de iVoox."""
     transcripts: dict[str, dict] = {}
     downloaded = 0
+    pre_feed_updated = 0
     pending: list[str] = []
 
     for episode in episodes:
@@ -1231,6 +1272,8 @@ def prepare_transcripts(episodes: list[dict], dry_run: bool = False) -> dict[str
         transcripts[audio_id] = transcript
         if transcript.get("new"):
             downloaded += 1
+        if add_transcript_to_pre_feedburner(audio_id, dry_run=dry_run):
+            pre_feed_updated += 1
 
     total = len(episodes)
     available = len(transcripts)
@@ -1246,6 +1289,9 @@ def prepare_transcripts(episodes: list[dict], dry_run: bool = False) -> dict[str
     if total > available:
         print("Episodios sin transcripción: " + str(total - available))
         print_pending("  · ", pending)
+    if pre_feed_updated:
+        accion = "que se añadirían" if dry_run else "añadidas"
+        print("Etiquetas de transcripción " + accion + " a pre-feedburner: " + str(pre_feed_updated))
     if _TRANSCRIPT_ERRORS:
         print(
             "Avisos al descargar transcripciones: "
