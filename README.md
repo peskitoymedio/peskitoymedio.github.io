@@ -134,6 +134,17 @@ Los push solo despliegan el contenido, sin ejecutar la actualización, para evit
 
 Los datos que llegan tarde no se pierden: en cada pasada se vuelven a comprobar los episodios recientes a los que les falte la URL de Spotify o la transcripción, y el log indica cuáles siguen pendientes.
 
+### Preparación del feed de Feedburner
+
+`actualizar-pre-feedburner.py` lee el feed básico de iVoox (`https://feeds.ivoox.com/feed_fg_f1661614_filtro_1.xml`), toma el episodio más reciente y, si su ID aún no aparece en `util/pre-feedburner.xml`, lo añade en primer lugar con la descripción en HTML, `itunes:summary`, capítulos Podlove, personas, `podcast:socialInteract` y el bloque final de autopromoción. No añade transcripciones. Es idempotente: si el episodio ya está, no escribe nada.
+
+El workflow `.github/workflows/actualizar-pre-feedburner.yml` ejecuta ese script **solo bajo demanda** (pestaña *Actions* → *Run workflow*) y hace commit y push de `util/pre-feedburner.xml` cuando hay cambios. `util/pre-feedburner.xml` es la fuente que se edita a mano antes de publicarla en Feedburner; este workflow solo prepara el item nuevo.
+
+```bash
+python actualizar-pre-feedburner.py            # añade el último episodio si falta
+python actualizar-pre-feedburner.py --dry-run  # muestra el item generado sin escribir
+```
+
 ### Notas de despliegue
 
 - El cron está en UTC y GitHub puede retrasar la ejecución unos minutos.
