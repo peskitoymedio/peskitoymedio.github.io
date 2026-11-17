@@ -21,6 +21,8 @@ Qué hace:
   - Genera una página HTML por episodio en episodios/ con datos estructurados
     PodcastEpisode, además del archivo completo en episodios/index.html.
   - Sincroniza sitemap.xml con la portada, el archivo y todas las páginas.
+  - Genera en index.html un bloque de episodios en HTML estático (rastreable sin JS).
+  - Notifica las URLs cambiadas a IndexNow (api.indexnow.org y Bing).
   - Guarda feed.xml y episodes-raw.json como copia de referencia.
 
 No necesita dependencias externas: solo Python 3.9 o superior.
@@ -49,6 +51,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent
 FEED_URL = "https://feeds.feedburner.com/PeskitoYMedio"
 EPISODES_JS = ROOT / "js" / "episodes.js"
+INDEX_HTML = ROOT / "index.html"
 IMG_DIR = ROOT / "img" / "episodes"
 CHAPTER_IMG_DIR = ROOT / "img" / "chapters"
 SPOTIFY_SHOW_ID = "3dxYih3F7UfO4Oeser3W0I"
@@ -68,8 +71,16 @@ RAW_JSON = ROOT / "episodes-raw.json"
 FEED_XML = ROOT / "feed.xml"
 SITEMAP_XML = ROOT / "sitemap.xml"
 SITE_URL = "https://www.peskitoymedio.es/"
+SITE_HOST = urllib.parse.urlparse(SITE_URL).netloc
 FALLBACK_IMG = "img/logo-800.jpg"
 GENERATED_MARKER = "<!-- Página generada automáticamente por actualizar.py. No editar a mano. -->"
+HOME_EPISODES_START = "<!-- HOME_EPISODES_START: bloque generado por actualizar.py. No editar a mano. -->"
+HOME_EPISODES_END = "<!-- HOME_EPISODES_END -->"
+HOME_EPISODE_LIMIT = 12
+INDEXNOW_ENDPOINTS = (
+    "https://api.indexnow.org/indexnow",
+    "https://www.bing.com/indexnow",
+)
 
 TYPE_LABEL = {
     "programa": "Programa",
@@ -1600,13 +1611,19 @@ def player_html(episode: dict) -> str:
   </div>"""
 
 
-def episode_card(episode: dict, index: int = 0, with_search_text: bool = False) -> str:
+def episode_card(
+    episode: dict,
+    index: int = 0,
+    with_search_text: bool = False,
+    prefix: str = "../",
+    link_prefix: str = "",
+) -> str:
     title = escape(episode.get("title", ""), quote=True)
-    link = episode["slug"] + ".html"
+    link = link_prefix + episode["slug"] + ".html"
     badge = escape(episode_badge(episode))
     type_name = episode.get("type", "programa")
     type_label = TYPE_LABEL.get(type_name, "Episodio")
-    image = cover_url(episode, "../")
+    image = cover_url(episode, prefix)
     search_text = ""
     if with_search_text:
         search_text = (
@@ -2210,6 +2227,161 @@ def build_archive_page(episodes: list[dict], latest: dict | None) -> str:
 """
 
 
+def build_home_episodes(episodes: list[dict]) -> str:
+    """Bloque de tarjetas en HTML estático para la portada (sin depender de JS)."""
+    ordered = sorted(episodes, key=lambda item: item.get("date", ""), reverse=True)
+    cards = []
+    usable = [item for item in ordered if item.get("slug")]
+    for index, episode in enumerate(usable[:HOME_EPISODE_LIMIT]):
+        card = episode_card(episode, index, prefix="", link_prefix="episodios/")
+        cards.extend("        " + line for line in card.splitlines())
+    return "\n".join([HOME_EPISODES_START, *cards, "        " + HOME_EPISODES_END])
+
+
+def latest_label(episode: dict) -> str:
+    title = re.sub(r"^PYM\s+\d+\.\s*", "", str(episode.get("title", "")))
+    if episode.get("n"):
+        return "PYM " + str(episode["n"]) + " · " + title
+    return str(episode.get("title", ""))
+
+
+def sync_homepage(
+    episodes: list[dict],
+    dry_run: bool = False,
+    changed_urls: set[str] | None = None,
+) -> bool:
+    """Actualiza el bloque estático y los textos del último episodio en index.html."""
+    ordered = sorted(episodes, key=lambda item: item.get("date", ""), reverse=True)
+    try:
+        old = INDEX_HTML.read_text(encoding="utf-8")
+    except OSError as error:
+        print("AVISO: no se pudo leer index.html.")
+        print("  " + str(error))
+        return False
+
+    start = old.find(HOME_EPISODES_START)
+    end = old.find(HOME_EPISODES_END)
+    if start < 0 or end < 0 or end < start:
+        print("AVISO: no se encontraron los marcadores de episodios en index.html.")
+        return False
+
+    new = old[:start] + build_home_episodes(ordered) + old[end + len(HOME_EPISODES_END):]
+
+    if ordered:
+        label = escape(latest_label(ordered[0]))
+        new = re.sub(
+            r'(<strong id="topbar-latest">).*?(</strong>)',
+            lambda match: match.group(1) + label + match.group(2),
+            new,
+            count=1,
+            flags=re.S,
+        )
+        new = re.sub(
+            r'(<button[^>]*id="hero-latest"[^>]*>).*?(</button>)',
+            lambda match: match.group(1) + label + match.group(2),
+            new,
+            count=1,
+            flags=re.S,
+        )
+
+    if new == old:
+        return False
+    if not dry_run:
+        try:
+            INDEX_HTML.write_text(new, encoding="utf-8")
+        except OSError as error:
+            print("AVISO: no se pudo actualizar index.html.")
+            print("  " + str(error))
+            return False
+    if changed_urls is not None:
+        changed_urls.add(SITE_URL)
+    print(
+        "Portada actualizada: "
+        + str(min(len([item for item in ordered if item.get("slug")]), HOME_EPISODE_LIMIT))
+        + " episodios en HTML estático."
+    )
+    return True
+
+
+def find_indexnow_keys() -> list[str]:
+    """Claves IndexNow válidas: archivos <clave>.txt en la raíz con ese mismo contenido."""
+    keys = []
+    for path in sorted(ROOT.glob("*.txt")):
+        key = path.stem
+        if not re.fullmatch(r"[0-9a-fA-F]{32}", key):
+            continue
+        try:
+            content = path.read_text(encoding="utf-8").strip()
+        except OSError:
+            continue
+        if content.lower() == key.lower():
+            keys.append(key)
+    return keys
+
+
+def notify_indexnow(urls: list[str], dry_run: bool = False) -> int:
+    """Envía las URLs cambiadas a IndexNow. Los errores nunca detienen la actualización."""
+    unique = list(dict.fromkeys(url for url in urls if url))
+    if not unique:
+        return 0
+
+    keys = find_indexnow_keys()
+    if not keys:
+        print("AVISO: no hay ninguna clave IndexNow válida (archivo <clave>.txt en la raíz).")
+        return 0
+
+    if dry_run:
+        print(
+            "IndexNow (simulación): "
+            + str(len(unique))
+            + " URLs a "
+            + ", ".join(INDEXNOW_ENDPOINTS)
+        )
+        return len(unique)
+
+    sent = 0
+    for key in keys:
+        payload = {
+            "host": SITE_HOST,
+            "key": key,
+            "keyLocation": SITE_URL + key + ".txt",
+            "urlList": unique,
+        }
+        data = json.dumps(payload, ensure_ascii=False).encode("utf-8")
+        for endpoint in INDEXNOW_ENDPOINTS:
+            request = urllib.request.Request(
+                endpoint,
+                data=data,
+                headers={
+                    "Content-Type": "application/json; charset=utf-8",
+                    "User-Agent": USER_AGENT,
+                },
+                method="POST",
+            )
+            try:
+                with urllib.request.urlopen(request, timeout=20) as response:
+                    response.read()
+                    status = response.status
+            except urllib.error.HTTPError as error:
+                print("AVISO: IndexNow devolvió " + str(error.code) + " en " + endpoint + ".")
+                continue
+            except (urllib.error.URLError, TimeoutError, OSError) as error:
+                print("AVISO: no se pudo contactar con " + endpoint + ": " + str(error))
+                continue
+            if status in (200, 202):
+                sent += len(unique)
+                print(
+                    "IndexNow: "
+                    + str(len(unique))
+                    + " URLs enviadas a "
+                    + endpoint
+                    + "."
+                )
+            else:
+                print("AVISO: IndexNow devolvió " + str(status) + " en " + endpoint + ".")
+    return sent
+
+
 def cleanup_stale_pages(expected: set[str], dry_run: bool = False) -> int:
     """Elimina solo páginas generadas que ya no corresponden a ningún episodio."""
     if not EPISODES_DIR.exists():
@@ -2234,7 +2406,11 @@ def cleanup_stale_pages(expected: set[str], dry_run: bool = False) -> int:
     return removed
 
 
-def generate_site(episodes: list[dict], dry_run: bool = False) -> tuple[int, int]:
+def generate_site(
+    episodes: list[dict],
+    dry_run: bool = False,
+    changed_urls: set[str] | None = None,
+) -> tuple[int, int]:
     """Genera las páginas de episodio y el archivo. Devuelve (escritas, eliminadas)."""
     ordered = sorted(episodes, key=lambda item: item.get("date", ""), reverse=True)
     latest = ordered[0] if ordered else None
@@ -2276,6 +2452,8 @@ def generate_site(episodes: list[dict], dry_run: bool = False) -> tuple[int, int
             dry_run,
         ):
             written += 1
+            if changed_urls is not None:
+                changed_urls.add(episode_url(episode))
 
     if write_if_changed(
         EPISODES_DIR / "index.html",
@@ -2283,6 +2461,8 @@ def generate_site(episodes: list[dict], dry_run: bool = False) -> tuple[int, int
         dry_run,
     ):
         written += 1
+        if changed_urls is not None:
+            changed_urls.add(SITE_URL + "episodios/")
 
     removed = cleanup_stale_pages(expected, dry_run)
 
@@ -2448,6 +2628,11 @@ def main() -> int:
         default=FEED_URL,
         help="URL o ruta de un feed alternativo (para pruebas)",
     )
+    parser.add_argument(
+        "--no-indexnow",
+        action="store_true",
+        help="no enviar las URLs cambiadas a IndexNow",
+    )
     args = parser.parse_args()
 
     try:
@@ -2607,8 +2792,12 @@ def main() -> int:
         chapter_images = sync_chapter_images(existing, args.dry_run)
         if chapter_images:
             print("Imágenes de capítulos descargadas: " + str(chapter_images))
-        generate_site(existing, args.dry_run)
+        changed_urls: set[str] = set()
+        generate_site(existing, args.dry_run, changed_urls)
+        sync_homepage(existing, args.dry_run, changed_urls)
         sync_sitemap(existing, args.dry_run)
+        if not args.no_indexnow:
+            notify_indexnow(sorted(changed_urls), args.dry_run)
         print("Todo al día: no hay episodios nuevos en el feed.")
         print("Episodios en la web: " + str(len(existing)))
         return 0
@@ -2688,7 +2877,11 @@ def main() -> int:
         print("Imágenes de capítulos descargadas: " + str(chapter_images))
 
     sync_sitemap(merged, args.dry_run)
-    generate_site(merged, args.dry_run)
+    changed_urls: set[str] = set()
+    generate_site(merged, args.dry_run, changed_urls)
+    sync_homepage(merged, args.dry_run, changed_urls)
+    if not args.no_indexnow:
+        notify_indexnow(sorted(changed_urls), args.dry_run)
 
     print("")
     print("Listo. La web ya tiene " + str(len(merged)) + " episodios.")
@@ -2699,7 +2892,7 @@ def main() -> int:
         print("Enlaces sociales actualizados desde el feed: " + str(social_updated))
     if chapters_updated:
         print("Capítulos actualizados desde el feed: " + str(chapters_updated))
-    print("Archivos actualizados: js/episodes.js, episodios/ y sitemap.xml")
+    print("Archivos actualizados: index.html, js/episodes.js, episodios/ y sitemap.xml")
     print("")
     print("El workflow de GitHub Actions publicará los cambios automáticamente.")
     return 0
