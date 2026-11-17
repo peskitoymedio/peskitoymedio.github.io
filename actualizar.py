@@ -1496,7 +1496,7 @@ def site_header(prefix: str, cta_html: str) -> str:
     return f"""  <header class="site-header" id="site-header">
     <div class="container nav-inner">
       <a class="brand" href="{prefix}index.html" aria-label="Peskito y Medio, ir al inicio">
-        <span class="brand-badge"><img src="{prefix}img/logo-800.jpg" alt="" width="46" height="46"></span>
+        <span class="brand-badge"><img src="{prefix}img/logo-800.jpg" alt="Logo de Peskito y Medio" width="46" height="46"></span>
         <span class="brand-text">
           <span class="brand-name">Peskito</span>
           <span class="brand-sub">y Medio</span>
@@ -1527,7 +1527,7 @@ def site_footer(prefix: str) -> str:
     <div class="container footer-grid">
       <div class="footer-brand">
         <a class="brand brand--footer" href="{prefix}index.html" aria-label="Peskito y Medio, ir al inicio">
-          <span class="brand-badge"><img src="{prefix}img/logo-800.jpg" alt="" width="46" height="46"></span>
+          <span class="brand-badge"><img src="{prefix}img/logo-800.jpg" alt="Logo de Peskito y Medio" width="46" height="46"></span>
           <span class="brand-text">
             <span class="brand-name">Peskito</span>
             <span class="brand-sub">y Medio</span>
@@ -1618,7 +1618,7 @@ def player_html(episode: dict) -> str:
        data-subtitle="{attr(subtitle)}"
        data-cover-alt="{attr('Portada de ' + episode.get('title', ''))}">
     <div class="player-inner">
-      <img class="player-cover" id="player-cover" src="{cover_url(episode, '../')}" alt="" width="56" height="56">
+      <img class="player-cover" id="player-cover" src="{cover_url(episode, '../')}" alt="{attr('Portada de ' + episode.get('title', ''))}" width="56" height="56">
       <div class="player-info">
         <strong class="player-title" id="player-title">{escape(episode.get('title', ''))}</strong>
         <span class="player-sub" id="player-sub">{escape(subtitle)}</span>
