@@ -16,7 +16,7 @@ Es una web estática: no hay servidor, base de datos ni proceso de compilación.
 - **Secciones con minutaje** en las fichas de episodio, leídas de los capítulos Podlove (`psc:chapters`) del feed. Al pulsar una sección, el reproductor salta a ese instante y empieza a sonar. Si el capítulo trae enlace o imagen, también se muestran junto a la sección.
 - **Transcripciones**: cada ficha muestra, en un bloque desplegable, la transcripción completa del episodio con los minutajes (al pulsar un párrafo, el reproductor salta a ese instante) y un buscador para filtrar el texto dentro de la transcripción.
 - **Minutajes dentro de las descripciones**: las líneas que incluyen una marca de tiempo se destacan y, al pulsarlas, el reproductor salta a ese instante. Al final de las notas aparece un botón **Escucha el episodio en iVoox**.
-- Datos estructurados `PodcastEpisode`, `BreadcrumbList` y `CollectionPage` para mejorar el SEO y los resultados enriquecidos.
+- Datos estructurados `Organization`, `WebSite`, `PodcastSeries` (con `hasPart` de los últimos episodios), `PodcastEpisode`, `BreadcrumbList`, `CollectionPage` e `ItemList` para mejorar el SEO y la comprensión del sitio.
 - Archivo estático navegable en `episodios/index.html`, con enlaces reales a todas las fichas.
 - Descripciones completas en HTML que se muestran recortadas y se pueden desplegar bajo demanda.
 - Filtros por **programas**, **especiales**, **promos** y **colaboraciones**, además de buscador por texto, tanto en la portada como en el archivo completo. El buscador del archivo incluye las notas completas de cada episodio (ocultas visualmente) para encontrar cualquier tema mencionado.
@@ -46,6 +46,8 @@ Cada ficha incluye:
 - Enlaces de navegación al episodio anterior/siguiente, a otros episodios relacionados y al archivo completo.
 
 `episodios/index.html` es el archivo completo, renderizado como HTML estático (no depende de JavaScript), de modo que los buscadores siempre tienen un camino de enlaces hacia todas las fichas. La parrilla de la portada también enlaza cada tarjeta con su página.
+
+La entidad `Organization` (con logo y redes) se declara en la portada y se referencia desde `WebSite`, `PodcastSeries` y las fichas mediante `@id`. El actualizador mantiene solos `PodcastSeries.hasPart` (últimos 6 episodios) y el `ItemList` del archivo, que incluye nombre, portada, fecha y duración de cada episodio.
 
 El `slug` se guarda en `js/episodes.js`. Mientras el título no cambie, la URL se mantiene estable entre actualizaciones. Si un episodio nuevo coincide con otro slug, se añade un sufijo numérico.
 

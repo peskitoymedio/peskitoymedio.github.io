@@ -77,6 +77,7 @@ GENERATED_MARKER = "<!-- Página generada automáticamente por actualizar.py. No
 HOME_EPISODES_START = "<!-- HOME_EPISODES_START: bloque generado por actualizar.py. No editar a mano. -->"
 HOME_EPISODES_END = "<!-- HOME_EPISODES_END -->"
 HOME_EPISODE_LIMIT = 12
+PODCAST_HAS_PART_LIMIT = 6
 INDEXNOW_ENDPOINTS = (
     "https://api.indexnow.org/indexnow",
     "https://www.bing.com/indexnow",
@@ -634,6 +635,35 @@ def format_date_es(value: str) -> str:
     except (TypeError, ValueError):
         return value or ""
     return str(parsed.day) + " de " + MONTHS_ES[parsed.month - 1] + " de " + str(parsed.year)
+
+
+def podcast_episode_ld(episode: dict, url: str) -> dict:
+    """Ficha mínima reutilizable para hasPart y para el ItemList del archivo."""
+    item = {
+        "@type": "PodcastEpisode",
+        "@id": url + "#episode",
+        "url": url,
+        "name": episode.get("title", ""),
+        "datePublished": episode.get("date", ""),
+        "image": absolute_url(episode.get("img") or FALLBACK_IMG),
+        "partOfSeries": {"@id": SITE_URL + "#podcast"},
+    }
+    if episode.get("n") is not None:
+        item["episodeNumber"] = episode["n"]
+    duration = iso_duration(episode.get("duration", ""))
+    if duration:
+        item["duration"] = duration
+    return item
+
+
+def archive_list_item(position: int, episode: dict) -> dict:
+    url = episode_url(episode)
+    return {
+        "@type": "ListItem",
+        "position": position,
+        "url": url,
+        "item": podcast_episode_ld(episode, url),
+    }
 
 
 def episode_badge(episode: dict) -> str:
@@ -1795,6 +1825,7 @@ def build_episode_page(episode: dict, episodes: list[dict], latest: dict | None,
     }
     episode_ld["author"] = {
         "@type": "Organization",
+        "@id": SITE_URL + "#organization",
         "name": "Peskito y Medio",
         "url": SITE_URL,
     }
@@ -2102,11 +2133,7 @@ def build_archive_page(episodes: list[dict], latest: dict | None) -> str:
             "numberOfItems": len(episodes),
             "itemListOrder": "https://schema.org/ItemListOrderDescending",
             "itemListElement": [
-                {
-                    "@type": "ListItem",
-                    "position": position,
-                    "url": episode_url(episode),
-                }
+                archive_list_item(position, episode)
                 for position, episode in enumerate(episodes, start=1)
             ],
         },
@@ -2245,6 +2272,27 @@ def latest_label(episode: dict) -> str:
     return str(episode.get("title", ""))
 
 
+def update_podcast_series_ld(text: str, episodes: list[dict]) -> tuple[str, bool]:
+    """Mantiene al día el hasPart del bloque PodcastSeries de index.html."""
+    pattern = re.compile(
+        r'(<script type="application/ld\+json">)(.*?)(</script>)', re.DOTALL
+    )
+    for match in pattern.finditer(text):
+        if '"PodcastSeries"' not in match.group(2):
+            continue
+        try:
+            data = json.loads(match.group(2))
+        except ValueError:
+            continue
+        data["hasPart"] = [
+            podcast_episode_ld(episode, episode_url(episode))
+            for episode in episodes[:PODCAST_HAS_PART_LIMIT]
+            if episode.get("slug")
+        ]
+        return text[: match.start()] + json_ld(data) + text[match.end() :], True
+    return text, False
+
+
 def sync_homepage(
     episodes: list[dict],
     dry_run: bool = False,
@@ -2266,6 +2314,7 @@ def sync_homepage(
         return False
 
     new = old[:start] + build_home_episodes(ordered) + old[end + len(HOME_EPISODES_END):]
+    new, series_updated = update_podcast_series_ld(new, ordered)
 
     if ordered:
         label = escape(latest_label(ordered[0]))
@@ -2299,6 +2348,13 @@ def sync_homepage(
         "Portada actualizada: "
         + str(min(len([item for item in ordered if item.get("slug")]), HOME_EPISODE_LIMIT))
         + " episodios en HTML estático."
+        + (
+            " PodcastSeries.hasPart con "
+            + str(min(len([item for item in ordered if item.get("slug")]), PODCAST_HAS_PART_LIMIT))
+            + " episodios."
+            if series_updated
+            else ""
+        )
     )
     return True
 
