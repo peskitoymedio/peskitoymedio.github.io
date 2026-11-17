@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://peskitoymedio.github.io/sitemap.xml
+Sitemap: https://www.peskitoymedio.es/sitemap.xml

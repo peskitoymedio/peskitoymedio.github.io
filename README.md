@@ -2,7 +2,7 @@
 
 Sitio web del podcast **Peskito y Medio**, un programa de amig@s frikis que hablan de series, cómics, ciencia ficción, fantasía, juegos de mesa, doramas, bandas sonoras, rol, Marvel y DC, Star Wars, Cthulhu y muchas cosas más.
 
-- **Web:** <https://peskitoymedio.github.io/>
+- **Web:** <https://www.peskitoymedio.es/>
 - **Podcast en iVoox:** <https://www.ivoox.com/podcast-peskito-medio-tu-podcast-friki_sq_f1661614_1.html>
 - **Repositorio:** <https://github.com/peskitoymedio/peskitoymedio.github.io>
 

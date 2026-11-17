@@ -67,7 +67,7 @@ POD_TRANSCRIPT_API = (
 RAW_JSON = ROOT / "episodes-raw.json"
 FEED_XML = ROOT / "feed.xml"
 SITEMAP_XML = ROOT / "sitemap.xml"
-SITE_URL = "https://peskitoymedio.github.io/"
+SITE_URL = "https://www.peskitoymedio.es/"
 FALLBACK_IMG = "img/logo-800.jpg"
 GENERATED_MARKER = "<!-- Página generada automáticamente por actualizar.py. No editar a mano. -->"
 
