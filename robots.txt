@@ -1,4 +1,14 @@
+# FeedBurner necesita leer el feed de origen para generar el feed público.
+# El backend actual de FeedBurner aplica robots.txt y devuelve URL_ROBOTED si se lo bloquea.
+User-agent: FeedBurner
+Allow: /util/pre-feedburner.xml
+
+User-agent: FeedBurner/1.0
+Allow: /util/pre-feedburner.xml
+
+# El feed de origen es interno: no debe aparecer en buscadores.
 User-agent: *
 Allow: /
+Disallow: /util/pre-feedburner.xml
 
 Sitemap: https://www.peskitoymedio.es/sitemap.xml

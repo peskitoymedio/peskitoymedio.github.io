@@ -138,7 +138,9 @@ Los datos que llegan tarde no se pierden: en cada pasada se vuelven a comprobar 
 
 `actualizar-pre-feedburner.py` lee el feed básico de iVoox (`https://feeds.ivoox.com/feed_fg_f1661614_filtro_1.xml`), toma el episodio más reciente y, si su ID aún no aparece en `util/pre-feedburner.xml`, lo añade en primer lugar con la descripción en HTML, `itunes:summary`, capítulos Podlove, personas, `podcast:socialInteract` y el bloque final de autopromoción. No añade transcripciones: las incorpora después `actualizar.py` cuando el SRT esté disponible. Es idempotente: si el episodio ya está, no escribe nada.
 
-El workflow `.github/workflows/actualizar-pre-feedburner.yml` ejecuta ese script **solo bajo demanda** (pestaña *Actions* → *Run workflow*) y hace commit y push de `util/pre-feedburner.xml` cuando hay cambios. `util/pre-feedburner.xml` es la fuente que se edita a mano antes de publicarla en Feedburner; este workflow solo prepara el item nuevo.
+El workflow `.github/workflows/actualizar-pre-feedburner.yml` ejecuta ese script **solo bajo demanda** (pestaña *Actions* → *Run workflow*) y hace commit y push de `util/pre-feedburner.xml` cuando hay cambios. `actualizar.py` añade después la etiqueta `<podcast:transcript>` cuando el SRT está disponible; este workflow solo prepara el item nuevo.
+
+El workflow de Pages copia el fichero a `_site/util/`, de modo que queda publicado en <https://www.peskitoymedio.es/util/pre-feedburner.xml>. Esa es la URL que debe configurarse como **Source Feed** en Feedburner. No se añade a `sitemap.xml` y `robots.txt` lo bloquea para el resto de agentes, con una excepción explícita para `FeedBurner` y `FeedBurner/1.0`: el backend actual de Feedburner aplica `robots.txt` y, sin esa excepción, el source feed quedaría en estado `URL_ROBOTED` y dejaría de actualizarse.
 
 ```bash
 python actualizar-pre-feedburner.py            # añade el último episodio si falta
@@ -147,6 +149,7 @@ python actualizar-pre-feedburner.py --dry-run  # muestra el item generado sin es
 
 ### Notas de despliegue
 
+- El source feed de Feedburner se publica en `/util/pre-feedburner.xml`. No entra en `sitemap.xml` y `robots.txt` evita que lo indexen los buscadores, salvo FeedBurner, que necesita poder leerlo.
 - El cron está en UTC y GitHub puede retrasar la ejecución unos minutos.
 - Si el repositorio pasa más de 60 días sin actividad, GitHub puede pausar el workflow programado; se reactiva desde la pestaña Actions o lanzándolo a mano.
 - El sitio se publica como artefacto con `actions/upload-pages-artifact` y `actions/deploy-pages`. La opción «Deploy from a branch» no es compatible con este flujo, porque los commits hechos con `GITHUB_TOKEN` no disparan builds de Pages.
@@ -182,7 +185,9 @@ img/episodes/           Portadas de los episodios
 img/chapters/           Imágenes asociadas a capítulos (generado)
 img/                    Logo, iconos y favicons
 actualizar.py           Actualizador desde el feed del podcast (datos y páginas)
+actualizar-pre-feedburner.py  Prepara el último episodio en util/pre-feedburner.xml
 actualizar.bat          Lanzador para Windows
+util/pre-feedburner.xml Source feed de Feedburner (se publica en /util/)
 feed.xml                Última copia del feed descargado
 episodes-raw.json       Última copia de los datos crudos del feed
 spotify_cache.json      Mapa de títulos y enlaces públicos de Spotify
