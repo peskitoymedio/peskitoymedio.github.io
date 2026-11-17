@@ -30,6 +30,7 @@ Búscanos en Twitter que allí ponemos memes y promos muy graciosos (según nues
 			<link>https://www.peskitoymedio.es</link>
 		</image>
 		<atom:link href="https://feeds.feedburner.com/PeskitoYMedio" rel="self" type="application/rss+xml" />
+		<podcast:guid>3de7118a-fc1e-5529-aa25-ac5e5ac81b9f</podcast:guid>
 		<itunes:image href="https://static-2.ivoox.com/canales/1/7/4/7/2301550587471_XXL.jpg" />
 		<itunes:explicit>no</itunes:explicit>
 		<itunes:type>episodic</itunes:type>
@@ -41,6 +42,7 @@ Búscanos en Twitter que allí ponemos memes y promos muy graciosos (según nues
 <podcast:person href="https://twitter.com/sp_malcolm" img="https://i.imgur.com/87MTZhR.jpg">Malcolm</podcast:person>
 <podcast:person href="https://twitter.com/PheebsMcM" img="https://i.imgur.com/RNMlgWk.jpg">Phoebe</podcast:person>
 <podcast:person href="https://twitter.com/SeidonMF" img="https://i.imgur.com/OYkX7oL.jpg">Seidon McFly</podcast:person>
+		<podcast:trailer url="https://www.ivoox.com/promo-peskito-medio-final-cut_mf_41636298_feed_1.mp3" pubdate="Wed, 18 Sep 2019 23:55:32 +0200" length="469621" type="audio/mpeg">Promo Peskito y Medio - Final Cut</podcast:trailer>
 
 <item>
 <title><![CDATA[PYM 63. Pikmin Bloom - Festival Int. de Juegos de Mesa Córdoba 2026 - Axia, Slayer Combo - BSOs Compositores Pixar]]></title>
