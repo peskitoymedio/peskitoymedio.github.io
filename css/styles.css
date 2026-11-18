@@ -563,7 +563,8 @@ ul { list-style: none; }
   transform: rotate(-10deg);
 }
 .sticker--yellow {
-  right: -20px; bottom: 2%;
+  right: -20px;
+  bottom: -6%;
   background: var(--yellow);
   color: var(--ink);
   --rot: 6deg;
@@ -588,11 +589,11 @@ ul { list-style: none; }
   --rot: 0deg;
 }
 .float-emoji--1 { top: 8%; right: -7%; animation-delay: -0.4s; }
-.float-emoji--2 { top: 38%; left: -9%; animation-delay: -1.6s; }
+.float-emoji--2 {top: 38%;left: -6%;animation-delay: -1.6s;}
 .float-emoji--3 { bottom: 26%; right: -8%; animation-delay: -2.8s; }
-.float-emoji--4 { top: -2%; left: 26%; animation-delay: -3.6s; }
-.float-emoji--5 { bottom: -1%; right: 24%; animation-delay: -1.1s; }
-.float-emoji--6 { bottom: 42%; left: -4%; animation-delay: -4.4s; }
+.float-emoji--4 {top: -5%;left: 40%;animation-delay: -3.6s;}
+.float-emoji--5 {bottom: -6%;right: 37%;animation-delay: -1.1s;}
+.float-emoji--6 {bottom: 27%;left: -1%;animation-delay: -4.4s;}
 
 .hero-badges {
   display: flex;
