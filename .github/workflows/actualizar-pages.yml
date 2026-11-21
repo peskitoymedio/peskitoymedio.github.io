@@ -9,7 +9,7 @@ on:
     branches: ["main", "master"]
 
 permissions:
-  contents: write
+  contents: read
   pages: write
   id-token: write
 
@@ -18,13 +18,12 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  actualizar-y-publicar:
+  actualizar:
     runs-on: ubuntu-24.04
     timeout-minutes: 15
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-
+    permissions:
+      contents: write
+      pages: write
     steps:
       - name: Descargar repositorio
         uses: actions/checkout@v5
@@ -82,6 +81,20 @@ jobs:
           path: _site
           include-hidden-files: true
 
+  publicar:
+    # Job independiente: deploy-pages consulta el artefacto por nombre y, si se
+    # ejecuta justo después de subirlo en el mismo job, la API puede devolver 0
+    # artefactos todavía (race condition). Cambiar de job fuerza una espera.
+    needs: actualizar
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
       - name: Desplegar en GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v5
