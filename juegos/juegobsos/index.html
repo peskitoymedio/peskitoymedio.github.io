@@ -1,0 +1,822 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>¿Qué BSO es esta? · Juego de Bandas Sonoras · Peskito y Medio</title>
+  <meta name="description" content="Juego online de Bandas Sonoras de Peskito y Medio. Escucha fragmentos de BSOs míticas de cine y series y adivina de qué película son. ¡Demuestra que eres un experto!">
+  <meta name="theme-color" content="#0B1B2D">
+  <link rel="icon" type="image/x-icon" href="/favicon.ico" sizes="any">
+  <link rel="canonical" href="https://www.peskitoymedio.es/juegos/juegobsos/">
+
+  <!-- Open Graph / Twitter: imagen de vista previa al compartir la URL -->
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="es_ES">
+  <meta property="og:site_name" content="Peskito y Medio">
+  <meta property="og:title" content="¿Qué BSO es esta? · Juego de Bandas Sonoras">
+  <meta property="og:description" content="Escucha 10 bandas sonoras míticas y pipongueras, adivina la película y presume de puntuación. ¡A ver cómo te sale!">
+  <meta property="og:url" content="https://www.peskitoymedio.es/juegos/juegobsos/">
+  <meta property="og:image" content="https://www.peskitoymedio.es/juegos/juegobsos/og-image.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Vinilo con una nota musical y el título del juego de bandas sonoras">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="¿Qué BSO es esta? · Juego de Bandas Sonoras">
+  <meta name="twitter:description" content="Escucha 10 bandas sonoras míticas y pipongueras, adivina la película y presume de puntuación.">
+  <meta name="twitter:image" content="https://www.peskitoymedio.es/juegos/juegobsos/og-image.png">
+
+  <!-- Fuentes e iconos -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" referrerpolicy="no-referrer">
+
+  <link rel="stylesheet" href="../../css/styles.css">
+  <style>
+    /* Estilos específicos y refinados para el juego de BSOs con la estética de Peskito y Medio */
+    .game-hero {
+      padding: 60px 0 40px;
+      text-align: center;
+      background: linear-gradient(135deg, var(--ink) 0%, var(--navy) 100%);
+      color: var(--cream);
+      position: relative;
+      overflow: hidden;
+      border-bottom: 4px solid var(--ink);
+    }
+    .game-hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-image: radial-gradient(var(--orange) 1px, transparent 1px);
+      background-size: 24px 24px;
+      opacity: 0.12;
+      pointer-events: none;
+    }
+    .game-hero h1 {
+      font-family: var(--font-display);
+      font-size: clamp(3rem, 6vw, 4.8rem);
+      letter-spacing: 1px;
+      color: var(--yellow);
+      text-shadow: 4px 4px 0 var(--ink);
+      margin: 0 0 16px;
+      line-height: 1.1;
+    }
+    .game-hero p.lead {
+      max-width: 680px;
+      margin: 0 auto 28px;
+      font-size: 1.15rem;
+      color: var(--cream);
+      opacity: 0.95;
+    }
+
+    .game-container {
+      max-width: 780px;
+      margin: -40px auto 80px;
+      position: relative;
+      z-index: 10;
+      padding: 0 20px;
+    }
+
+    .game-card {
+      background: var(--white);
+      border: 4px solid var(--ink);
+      border-radius: var(--radius);
+      box-shadow: 8px 8px 0 var(--ink);
+      padding: 36px 40px;
+      margin-bottom: 30px;
+    }
+
+    @media (max-width: 640px) {
+      .game-card { padding: 24px 20px; }
+    }
+
+    .row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      align-items: center;
+      justify-content: center;
+      margin: 20px 0;
+    }
+
+    label {
+      font-weight: 700;
+      color: var(--ink);
+      font-size: 1.05rem;
+    }
+
+    select {
+      font-family: var(--font-body);
+      font-weight: 600;
+      font-size: 1rem;
+      padding: 12px 18px;
+      border: 3px solid var(--ink);
+      border-radius: 12px;
+      background: var(--cream);
+      color: var(--ink);
+      cursor: pointer;
+      box-shadow: 3px 3px 0 var(--ink);
+      transition: all .15s ease;
+    }
+    select:focus {
+      outline: none;
+      border-color: var(--orange);
+      background: var(--white);
+    }
+
+    .btn-game {
+      font-family: var(--font-display);
+      font-size: 1.6rem;
+      letter-spacing: 1px;
+      background: var(--orange);
+      color: var(--white);
+      border: 3px solid var(--ink);
+      border-radius: 16px;
+      padding: 14px 36px;
+      box-shadow: 4px 4px 0 var(--ink);
+      cursor: pointer;
+      transition: all .15s ease;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      text-decoration: none;
+    }
+    .btn-game:hover {
+      background: var(--orange-2);
+      transform: translate(-2px, -2px);
+      box-shadow: 6px 6px 0 var(--ink);
+    }
+    .btn-game:active {
+      transform: translate(2px, 2px);
+      box-shadow: 2px 2px 0 var(--ink);
+    }
+    .btn-game.alt {
+      background: var(--teal);
+    }
+    .btn-game.alt:hover {
+      background: var(--teal-dark);
+    }
+    .btn-game:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+      transform: none !important;
+      box-shadow: 4px 4px 0 var(--ink) !important;
+    }
+
+    .msg {
+      font-weight: 700;
+      text-align: center;
+      margin: 16px 0;
+      min-height: 28px;
+      font-size: 1.05rem;
+      color: var(--orange-strong);
+    }
+
+    small {
+      display: block;
+      text-align: center;
+      color: var(--muted);
+      font-size: 0.88rem;
+      margin-top: 16px;
+      line-height: 1.4;
+    }
+
+    .hidden { display: none !important; }
+
+    /* HUD y progreso */
+    .hud {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-family: var(--font-display);
+      font-size: 1.4rem;
+      color: var(--ink);
+      margin-bottom: 16px;
+      border-bottom: 3px dashed var(--cream-deep);
+      padding-bottom: 12px;
+    }
+    .hud b { color: var(--orange); font-size: 1.6rem; }
+
+    .bar {
+      height: 16px;
+      background: var(--cream);
+      border: 3px solid var(--ink);
+      border-radius: 999px;
+      overflow: hidden;
+      margin-bottom: 28px;
+    }
+    .bar i {
+      display: block;
+      height: 100%;
+      background: var(--teal);
+      width: 0%;
+      transition: width 0.3s ease;
+    }
+
+    /* Vinilo / Reproductor animado */
+    .vinyl {
+      width: 140px;
+      height: 140px;
+      margin: 20px auto 30px;
+      background: radial-gradient(circle, var(--ink) 0%, var(--ink) 26%, #1c314a 27%, #14283D 70%, var(--ink) 72%, var(--ink) 100%);
+      border-radius: 50%;
+      border: 4px solid var(--ink);
+      box-shadow: 6px 6px 0 var(--ink);
+      position: relative;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform .2s ease;
+    }
+    .vinyl::after {
+      content: "";
+      width: 44px;
+      height: 44px;
+      background: var(--yellow);
+      border: 3px solid var(--ink);
+      border-radius: 50%;
+      position: absolute;
+    }
+    /* La nota del centro gira con el disco y late mientras suena el clip */
+    .vinyl::before {
+      content: "♪";
+      position: absolute;
+      z-index: 2;
+      font-family: var(--font-display);
+      font-size: 2.1rem;
+      line-height: 1;
+      color: var(--ink);
+      transform: translateY(-2px);
+    }
+    .vinyl.spin::before {
+      animation: note-pulse .5s ease-in-out infinite alternate;
+    }
+    @keyframes note-pulse {
+      from { transform: translateY(-4px) scale(1); }
+      to   { transform: translateY(1px) scale(1.15); }
+    }
+    .vinyl:hover {
+      transform: scale(1.05);
+    }
+    .vinyl.spin {
+      animation: spin 2s linear infinite;
+    }
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    /* Opciones de respuesta */
+    .opts {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin: 24px 0;
+    }
+    @media (max-width: 600px) {
+      .opts { grid-template-columns: 1fr; }
+    }
+
+    .opt {
+      font-family: var(--font-body);
+      font-size: 1.05rem;
+      font-weight: 700;
+      background: var(--cream);
+      border: 3px solid var(--ink);
+      border-radius: 14px;
+      padding: 16px 20px;
+      cursor: pointer;
+      box-shadow: 4px 4px 0 var(--ink);
+      text-align: left;
+      transition: all 0.12s ease;
+      color: var(--ink);
+    }
+    .opt:hover:not(:disabled) {
+      background: var(--cream-deep);
+      transform: translate(-2px, -2px);
+      box-shadow: 6px 6px 0 var(--ink);
+    }
+    .opt:active:not(:disabled) {
+      transform: translate(2px, 2px);
+      box-shadow: 2px 2px 0 var(--ink);
+    }
+    .opt.correct {
+      background: var(--green) !important;
+      color: var(--white);
+      border-color: var(--ink);
+    }
+    .opt.wrong {
+      background: var(--red) !important;
+      color: var(--white);
+      border-color: var(--ink);
+    }
+
+    /* Pantalla final */
+    .big {
+      font-family: var(--font-display);
+      font-size: 5rem;
+      color: var(--orange);
+      text-align: center;
+      text-shadow: 4px 4px 0 var(--ink);
+      margin: 0;
+      line-height: 1;
+    }
+    .hits-line {
+      text-align: center;
+      font-weight: 800;
+      font-size: 1.2rem;
+      color: var(--teal-dark);
+      margin: 8px 0 0;
+    }
+    h2#verdict {
+      font-family: var(--font-display);
+      font-size: 2.2rem;
+      text-align: center;
+      color: var(--ink);
+      margin-top: 8px;
+    }
+    ul.res {
+      list-style: none;
+      padding: 0;
+      margin: 24px 0;
+      max-height: 280px;
+      overflow-y: auto;
+      border: 3px solid var(--ink);
+      border-radius: 14px;
+      background: var(--cream);
+      padding: 12px;
+    }
+    ul.res li {
+      padding: 10px 12px;
+      border-bottom: 2px dashed var(--cream-deep);
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      font-weight: 600;
+      font-size: 0.95rem;
+    }
+    ul.res li:last-child { border-bottom: 0; }
+
+    canvas {
+      width: 100%;
+      max-width: 100%;
+      height: auto;
+      border-radius: 16px;
+      border: 3px solid var(--ink);
+      box-shadow: 4px 4px 0 var(--ink);
+      margin-top: 20px;
+    }
+
+    .share-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      justify-content: center;
+      margin-top: 24px;
+    }
+    .share-links a {
+      font-family: var(--font-display);
+      font-size: 1.1rem;
+      background: var(--ink);
+      color: var(--cream);
+      padding: 8px 16px;
+      border-radius: 10px;
+      text-decoration: none;
+      box-shadow: 3px 3px 0 var(--orange);
+      transition: transform .15s ease;
+    }
+    .share-links a:hover {
+      transform: translateY(-2px);
+      background: var(--orange);
+      color: var(--white);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Barra superior estilo web -->
+  <div class="topbar" aria-label="Aviso del sitio">
+    <div class="container topbar-inner">
+      <a class="topbar-item topbar-latest" href="../../index.html">
+        <span class="topbar-dot" aria-hidden="true"></span>
+        <span class="topbar-latest-label">Volver a <strong>Peskito y Medio</strong> · Tu Podcast Friki</span>
+      </a>
+    </div>
+  </div>
+
+  <!-- Cabecera -->
+  <header class="site-header" id="site-header">
+    <div class="container nav-inner">
+      <a class="brand" href="../../index.html" aria-label="Peskito y Medio, ir al inicio">
+        <span class="brand-badge"><img src="../../img/logo-800.jpg" alt="Logo de Peskito y Medio" width="46" height="46"></span>
+        <span class="brand-text">
+          <span class="brand-name">Peskito</span>
+          <span class="brand-sub">y Medio</span>
+        </span>
+      </a>
+
+      <nav class="nav" id="nav" aria-label="Navegación principal">
+        <a href="../../index.html#sobre">El podcast</a>
+        <a href="../../index.html#episodios">Episodios</a>
+        <a href="./" class="is-active">Juego BSOs</a>
+        <a href="../../index.html#escuchanos">Escúchanos</a>
+      </nav>
+
+      <a class="btn btn-primary btn-sm nav-cta" href="../../index.html#episodios">
+        <i class="fa-solid fa-play" aria-hidden="true"></i> Dale al play
+      </a>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="game-hero">
+      <div class="container">
+        <h1>¿Qué BSO es esta?</h1>
+        <p class="lead">Escucha unos segundos de una banda sonora mítica y adivina la película. 10 rondas, cuanto antes aciertes, más puntos. ¡A ver cómo de pipongo te sale el examen final!</p>
+      </div>
+    </section>
+
+    <div class="game-container">
+      <!-- INICIO -->
+      <section id="start" class="game-card">
+        <div class="row" style="flex-direction: column; gap: 8px;">
+          <label for="secs">Segundos de escucha por pista</label>
+          <select id="secs">
+            <option value="3">3 segundos · Modo Leyenda</option>
+            <option value="5" selected>5 segundos · Modo Normal</option>
+            <option value="10">10 segundos · Modo Relax</option>
+          </select>
+        </div>
+        <div class="row" style="margin-top: 24px;">
+          <button class="btn-game" id="go"><i class="fa-solid fa-play" aria-hidden="true"></i> ¡Dale al play!</button>
+        </div>
+        <p class="msg" id="loadmsg"></p>
+        <small><strong>Cómo se puntúa:</strong> cada acierto vale 100 puntos, más hasta 50 extra si respondes rápido (máximo 1500). El veredicto depende de los aciertos: 10/10 es «Maestro Absoluto». El audio son previews de 30s enlazados desde la API pública de iTunes / Apple Music; no se almacena ningún archivo en el servidor.</small>
+      </section>
+
+      <!-- JUEGO -->
+      <section id="game" class="game-card hidden">
+        <div class="hud">
+          <span>Ronda <b id="rnd">1</b>/10</span>
+          <span>Puntos <b id="pts">0</b></span>
+        </div>
+        <div class="bar"><i id="prog"></i></div>
+        <div class="vinyl" id="vinyl" title="Volver a escuchar"></div>
+        <div class="opts" id="opts"></div>
+        <p class="msg" id="msg"></p>
+        <div class="row" style="justify-content: center; margin-top: 24px;">
+          <button class="btn-game hidden" id="next">Siguiente ronda <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></button>
+        </div>
+      </section>
+
+      <!-- RESULTADO -->
+      <section id="end" class="game-card hidden">
+        <p class="big" id="final">0</p>
+        <p class="hits-line" id="hits">0 de 10 aciertos</p>
+        <h2 id="verdict"></h2>
+        <ul class="res" id="res"></ul>
+        <canvas id="card" width="1080" height="1080"></canvas>
+        <div class="row" style="margin-top: 24px;">
+          <button class="btn-game" id="share"><i class="fa-solid fa-share-nodes" aria-hidden="true"></i> Compartir imagen</button>
+          <button class="btn-game alt" id="dl"><i class="fa-solid fa-download" aria-hidden="true"></i> Descargar</button>
+          <button class="btn-game alt" id="again"><i class="fa-solid fa-rotate-right" aria-hidden="true"></i> Otra partida</button>
+        </div>
+        <div class="share-links">
+          <a id="sx" target="_blank" rel="noopener" title="Abre el menú de compartir con la imagen (o X / Twitter si tu navegador no lo admite)"><i class="fa-brands fa-x-twitter"></i> X / Twitter</a>
+          <a id="swa" target="_blank" rel="noopener" title="Abre el menú de compartir con la imagen (o WhatsApp si tu navegador no lo admite)"><i class="fa-brands fa-whatsapp"></i> WhatsApp</a>
+          <a id="sfb" target="_blank" rel="noopener" title="Abre el menú de compartir con la imagen (o Facebook si tu navegador no lo admite)"><i class="fa-brands fa-facebook"></i> Facebook</a>
+          <a id="stg" target="_blank" rel="noopener" title="Abre el menú de compartir con la imagen (o Telegram si tu navegador no lo admite)"><i class="fa-brands fa-telegram"></i> Telegram</a>
+        </div>
+        <small style="margin-top: 20px;">Los botones abren el menú de compartir de tu dispositivo <strong>con la tarjeta y el resumen de películas adjuntos</strong> cuando el navegador lo permite (móviles y navegadores compatibles). Si no, abren la red social correspondiente: usa «Descargar» para adjuntar la tarjeta a mano. Las URLs de X, WhatsApp, Facebook y Telegram no permiten subir imágenes generadas en el navegador sin un servidor.</small>
+      </section>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-content">
+      <div class="footer-brand">
+        <span class="brand">
+          <span class="brand-badge"><img src="../../img/logo-800.jpg" alt="Logo" width="36" height="36"></span>
+          <span class="brand-text">
+            <span class="brand-name">Peskito</span>
+            <span class="brand-sub">y Medio</span>
+          </span>
+        </span>
+        <p>Tu podcast friki favorito hecho entre amig@s. ¡Pásatelo pipongo!</p>
+      </div>
+      <div class="footer-links">
+        <h4>Secciones</h4>
+        <ul>
+          <li><a href="../../index.html#sobre">El podcast</a></li>
+          <li><a href="../../index.html#episodios">Episodios</a></li>
+          <li><a href="./">Juego BSOs</a></li>
+          <li><a href="../../index.html#escuchanos">Escúchanos</a></li>
+        </ul>
+      </div>
+      <div class="footer-social">
+        <h4>Síguenos</h4>
+        <div class="platform-mini">
+          <a href="https://www.ivoox.com/podcast-peskito-medio-tu-podcast-friki_sq_f1661614_1.html" target="_blank" rel="noopener" aria-label="iVoox"><span class="ivoox-icon" aria-hidden="true"></span></a>
+          <a href="https://open.spotify.com/show/3dxYih3F7UfO4Oeser3W0I" target="_blank" rel="noopener" aria-label="Spotify"><i class="fa-brands fa-spotify" aria-hidden="true"></i></a>
+          <a href="https://youtube.com/channel/UCXAHPVKfZA6GyViUag-nBgw" target="_blank" rel="noopener" aria-label="YouTube"><i class="fa-brands fa-youtube" aria-hidden="true"></i></a>
+          <a href="https://x.com/peskito3" target="_blank" rel="noopener" aria-label="X"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a>
+        </div>
+      </div>
+    </div>
+    <div class="container footer-bottom">
+      <p>&copy; 2026 Peskito y Medio. Todos los derechos reservados. Creado con mucho amor friki y tila fresca.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Banco de películas: título que se muestra + búsqueda en iTunes
+    const FILMS=[
+     ["Star Wars","Star Wars Main Title John Williams"],["Jurassic Park","Jurassic Park Theme John Williams"],
+     ["Indiana Jones","Raiders March John Williams"],["Harry Potter","Hedwig's Theme John Williams"],
+     ["E.T.","E.T. Flying Theme John Williams"],["Tiburón","Jaws Main Title John Williams"],
+     ["Regreso al futuro","Back to the Future Alan Silvestri"],["Piratas del Caribe","He's a Pirate Klaus Badelt"],
+     ["Gladiator","Now We Are Free Hans Zimmer"],["Origen","Time Hans Zimmer Inception"],
+     ["Interstellar","Cornfield Chase Hans Zimmer"],["El Rey León","Circle of Life Lion King"],
+     ["Titanic","Titanic Southampton James Horner"],["El Señor de los Anillos","Concerning the Hobbit Howard Shore"],
+     ["Los Vengadores","The Avengers Alan Silvestri"],["Up","Married Life Michael Giacchino"],
+     ["Rocky","Gonna Fly Now Bill Conti"],["Misión Imposible","Mission Impossible Theme Lalo Schifrin"],
+     ["El Padrino","Godfather Waltz Nino Rota"],["Superman","Superman March John Williams"],
+     ["Toy Story","You've Got a Friend in Me Randy Newman"],["Cazafantasmas","Ghostbusters Ray Parker"],
+     ["Mary Poppins","Chim Chim Cher-ee Mary Poppins"],["Frozen","Let It Go Idina Menzel"],
+     ["Dune","Dune Paul's Dream Hans Zimmer"],["El bueno, el feo y el malo","The Good the Bad and the Ugly Morricone"],
+     ["Matrix","Clubbed to Death Rob Dougan"],["Amelie","Comptine d'un autre été Yann Tiersen"],
+     ["Top Gun","Top Gun Anthem Harold Faltermeyer"],["Batman (Nolan)","Molossus Hans Zimmer Batman Begins"],
+     ["Pulp Fiction","Misirlou Dick Dale"],["Encanto","We Don't Talk About Bruno"],
+     ["Los Goonies","Goonies R Good Enough Cyndi Lauper"],["Cinema Paradiso","Cinema Paradiso Love Theme Morricone"],
+     ["Avatar","I See You Avatar James Horner"],["Ratatouille","Le Festin Camille"]
+    ];
+    const $=id=>document.getElementById(id);
+    const audio=new Audio(); audio.crossOrigin="anonymous"; audio.preload="auto";
+    let rounds=[],r=0,score=0,secs=5,startT=0,timer=null,answered=false,results=[];
+
+    // JSONP para que funcione también abriendo el archivo en local
+    function itunes(term){return new Promise((ok)=>{
+      const cb="cb"+Math.random().toString(36).slice(2), s=document.createElement('script');
+      const t=setTimeout(()=>{ok(null);cleanup()},8000);
+      function cleanup(){delete window[cb];s.remove();clearTimeout(t)}
+      window[cb]=d=>{cleanup();const x=(d.results||[]).find(z=>z.previewUrl);ok(x?x.previewUrl:null)};
+      s.src="https://itunes.apple.com/search?media=music&entity=song&limit=5&country=ES&callback="+cb+"&term="+encodeURIComponent(term);
+      s.onerror=()=>{cleanup();ok(null)}; document.body.appendChild(s);
+    })}
+    const shuffle=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.random()*(i+1)|0;[a[i],a[j]]=[a[j],a[i]]}return a};
+
+    $('go').onclick=async()=>{
+      secs=+$('secs').value; $('go').disabled=true; $('loadmsg').textContent="Buscando bandas sonoras en iTunes…";
+      const pool=shuffle(FILMS); rounds=[];
+      for(const f of pool){ if(rounds.length>=10)break;
+        const url=await itunes(f[1]); if(url) rounds.push({title:f[0],url});
+        $('loadmsg').textContent=`Cargando bandas sonoras… ${rounds.length}/10`; }
+      $('go').disabled=false;
+      if(rounds.length<4){$('loadmsg').textContent="No he podido conectar con el servidor de audio. Revisa la conexión e inténtalo otra vez.";return}
+      r=0;score=0;results=[];$('pts').textContent=0;
+      $('start').classList.add('hidden'); $('game').classList.remove('hidden');
+      loadRound();
+    };
+
+    // Un único temporizador controla siempre el fragmento: al repetir se
+    // cancela el anterior, se reinicia desde 0 y se vuelve a contar secs.
+    function stopClip(){
+      clearTimeout(timer); timer=null;
+      audio.pause();
+      $('vinyl').classList.remove('spin');
+      $('prog').style.transition="none"; // congela la barra donde esté
+    }
+
+    function playClip(){
+      clearTimeout(timer);
+      audio.currentTime=0;
+      audio.play().catch(()=>{});
+      $('vinyl').classList.add('spin');
+      const bar=$('prog');
+      bar.style.transition="none"; bar.style.width="100%";
+      void bar.offsetWidth; // fuerza reflow para reiniciar la animación
+      bar.style.transition=`width ${secs}s linear`;
+      bar.style.width="0%";
+      timer=setTimeout(stopClip, secs*1000);
+    }
+
+    function loadRound(){
+      answered=false; $('next').classList.add('hidden'); $('msg').textContent="";
+      $('rnd').textContent=r+1;
+      const cur=rounds[r];
+      audio.src=cur.url;
+      playClip();
+      startT=Date.now();
+
+      // Opciones: 1 correcta + 3 aleatorias
+      const wrongPool=FILMS.map(x=>x[0]).filter(x=>x!==cur.title);
+      const opts=shuffle([cur.title, ...shuffle(wrongPool).slice(0,3)]);
+      const container=$('opts'); container.innerHTML="";
+      opts.forEach(optTitle=>{
+        const btn=document.createElement('button');
+        btn.className="opt"; btn.textContent=optTitle;
+        btn.onclick=()=>answer(optTitle, cur.title, btn);
+        container.appendChild(btn);
+      });
+    }
+
+    $('vinyl').onclick=()=>{ playClip(); };
+
+    function answer(chosen, correct, btnEl){
+      if(answered) return; answered=true;
+      stopClip();
+      const dt=(Date.now()-startT)/1000;
+      const ok=(chosen===correct);
+      let pts=0;
+      if(ok){
+        // 100 fijos por acierto + hasta 50 de bonus por rapidez (máx. 1500)
+        pts=100 + Math.round((1 - Math.min(dt, secs)/secs)*50);
+        score+=pts; $('pts').textContent=score;
+        btnEl.classList.add('correct');
+        $('msg').textContent=`¡Correcto! +${pts} pts 🎉`;
+      }else{
+        btnEl.classList.add('wrong');
+        // marcar la correcta
+        document.querySelectorAll('.opt').forEach(b=>{if(b.textContent===correct) b.classList.add('correct')});
+        $('msg').textContent=`¡Fallaste! Era: ${correct}`;
+      }
+      results.push({round:r+1, title:correct, chosen, ok, pts});
+      document.querySelectorAll('.opt').forEach(b=>b.disabled=true);
+      if(r+1<10){ $('next').classList.remove('hidden'); }
+      else{ setTimeout(showEnd, 1200); }
+    }
+
+    $('next').onclick=()=>{ r++; loadRound(); };
+
+    function showEnd(){
+      $('game').classList.add('hidden'); $('end').classList.remove('hidden');
+      const hits=results.filter(x=>x.ok).length;
+      $('final').textContent=score;
+      $('hits').textContent=`${hits} de 10 aciertos`;
+      // El veredicto depende de los ACIERTOS, no de los puntos de velocidad.
+      let v="";
+      if(hits===10) v="🏆 ¡Maestro Absoluto de las BSOs! ¡Malcolm está orgulloso de ti!";
+      else if(hits>=7) v="👏 ¡Muy bien! Tienes buen oído cinéfilo.";
+      else if(hits>=4) v="👍 ¡No está mal! Pero te toca repasar maratones de cine.";
+      else v="😅 ¡Ay, madre! Se te han cruzado los cables con las melodías.";
+      $('verdict').textContent=v;
+
+      const ul=$('res'); ul.innerHTML="";
+      results.forEach(x=>{
+        ul.innerHTML+=`<li><span>${x.round}.</span> <strong style="flex:1">${x.title}</strong> ${x.ok?'<span style="color:var(--green)">✓ +'+x.pts+'</span>':'<span style="color:var(--red)">✗ ('+x.chosen+')</span>'}</li>`;
+      });
+      drawCard(hits);
+      updateShareLinks(hits);
+    }
+
+    function wrapText(ctx,text,x,y,maxWidth,lineHeight,maxLines){
+      const words=text.split(" ");
+      let line="", lines=0;
+      for(const word of words){
+        const test=line?line+" "+word:word;
+        if(ctx.measureText(test).width>maxWidth && line){
+          if(lines===maxLines-1){
+            let last=line;
+            while(last.length>1 && ctx.measureText(last+"…").width>maxWidth) last=last.slice(0,-1);
+            ctx.fillText(last+"…",x,y); return;
+          }
+          ctx.fillText(line,x,y); y+=lineHeight; line=word; lines++;
+        }else line=test;
+      }
+      if(line) ctx.fillText(line,x,y);
+    }
+
+    function drawCard(hits){
+      const canvas=$('card'), ctx=canvas.getContext('2d');
+      ctx.fillStyle="#0B1B2D"; ctx.fillRect(0,0,1080,1080);
+
+      // Marco decorativo cómic
+      ctx.strokeStyle="#FFC531"; ctx.lineWidth=16; ctx.strokeRect(30,30,1020,1020);
+
+      ctx.fillStyle="#FFF6E9"; ctx.font="900 58px 'Outfit', sans-serif";
+      ctx.fillText("PESKITO Y MEDIO", 80, 110);
+
+      ctx.fillStyle="#F07000"; ctx.font="900 44px 'Outfit', sans-serif";
+      ctx.fillText("JUEGO DE BANDAS SONORAS", 80, 175);
+
+      ctx.fillStyle="#FFF"; ctx.font="700 30px 'Outfit', sans-serif";
+      ctx.fillText("Puntuación final:", 80, 255);
+
+      ctx.fillStyle="#FFC531"; ctx.font="900 110px 'Outfit', sans-serif";
+      ctx.fillText(score + " pts", 76, 370);
+
+      ctx.fillStyle="#3DB9C0"; ctx.font="800 42px 'Outfit', sans-serif";
+      ctx.fillText(hits + " de 10 aciertos", 560, 350);
+
+      ctx.fillStyle="#3DB9C0"; ctx.font="700 28px 'Outfit', sans-serif";
+      ctx.fillText("Veredicto:", 80, 420);
+      ctx.fillStyle="#FFF"; ctx.font="600 30px 'Outfit', sans-serif";
+      wrapText(ctx, $('verdict').textContent, 80, 465, 920, 38, 2);
+
+      // Panel con el resumen de películas acertadas y falladas
+      ctx.fillStyle="#14283D"; ctx.fillRect(60,530,960,400);
+      ctx.strokeStyle="#263B52"; ctx.lineWidth=3; ctx.strokeRect(60,530,960,400);
+      ctx.beginPath(); ctx.moveTo(540,530); ctx.lineTo(540,930); ctx.stroke();
+
+      ctx.fillStyle="#FFC531"; ctx.font="800 26px 'Outfit', sans-serif";
+      ctx.fillText("RESUMEN DE PELÍCULAS", 80, 565);
+
+      const okList=results.filter(x=>x.ok);
+      const badList=results.filter(x=>!x.ok);
+      ctx.font="800 25px 'Outfit', sans-serif";
+      ctx.fillStyle="#7FA83A"; ctx.fillText("✓ ACERTADAS ("+okList.length+")", 80, 605);
+      ctx.fillStyle="#D9452E"; ctx.fillText("✗ FALLADAS ("+badList.length+")", 560, 605);
+
+      const fit=(text,max)=>{
+        if(ctx.measureText(text).width<=max) return text;
+        let s=text;
+        while(s.length>3 && ctx.measureText(s+"…").width>max) s=s.slice(0,-1);
+        return s+"…";
+      };
+      ctx.font="600 22px 'Outfit', sans-serif";
+      okList.forEach((x,i)=>{
+        const y=645+i*30;
+        ctx.fillStyle="#7FA83A"; ctx.fillText("✓", 80, y);
+        ctx.fillStyle="#FFF6E9"; ctx.fillText(fit(x.title,420), 108, y);
+      });
+      badList.forEach((x,i)=>{
+        const y=645+i*30;
+        ctx.fillStyle="#D9452E"; ctx.fillText("✗", 560, y);
+        ctx.fillStyle="#FFF6E9";
+        ctx.fillText(fit(x.title+" → elegiste: "+x.chosen, 420), 588, y);
+      });
+
+      ctx.fillStyle="#5E6F80"; ctx.font="600 24px 'Outfit', sans-serif";
+      ctx.fillText("¿Podrás superarme? Juega en peskitoymedio.es/juegos/juegobsos/", 80, 1000);
+    }
+
+    $('again').onclick=()=>{ $('end').classList.add('hidden'); $('start').classList.remove('hidden'); };
+
+    $('dl').onclick=()=>{
+      const a=document.createElement('a');
+      a.download="bsos-peskito-y-medio.png";
+      a.href=$('card').toDataURL('png');
+      a.click();
+    };
+
+    // El texto se calcula SIEMPRE al terminar la partida (antes se generaba
+    // al cargar la página, cuando score todavía era 0).
+    const GAME_URL="https://www.peskitoymedio.es/juegos/juegobsos/";
+    function shareMessage(hits){
+      return `¡He acertado ${hits} de 10 bandas sonoras y he conseguido ${score} puntos en el Juego de BSOs de Peskito y Medio! 🎵🍿 ¿Te atreves a superarme?`;
+    }
+
+    function updateShareLinks(hits){
+      const text=encodeURIComponent(shareMessage(hits));
+      const url=encodeURIComponent(GAME_URL);
+      $('sx').href=`https://twitter.com/intent/tweet?text=${text}&url=${url}`;
+      $('swa').href=`https://api.whatsapp.com/send?text=${text}%20${url}`;
+      $('sfb').href=`https://www.facebook.com/sharer/sharer.php?u=${url}`;
+      $('stg').href=`https://t.me/share/url?url=${url}&text=${text}`;
+    }
+
+    // Las URLs de X/WhatsApp/Facebook/Telegram NO permiten adjuntar un archivo
+    // generado en el navegador. La Web Share API sí: cuando está disponible,
+    // los botones abren el menú nativo del dispositivo con la imagen pegada.
+    function canAttachFiles(){
+      try{
+        return !!(navigator.share && navigator.canShare &&
+          navigator.canShare({files:[new File(["x"],"puntuacion-bsos.png",{type:"image/png"})]}));
+      }catch(e){ return false; }
+    }
+
+    function cardBlob(){
+      return new Promise(res=>$('card').toBlob(res,'image/png'));
+    }
+
+    async function nativeShare(hits){
+      const file=new File([await cardBlob()],"puntuacion-bsos.png",{type:"image/png"});
+      try{
+        await navigator.share({
+          title:"Mi puntuación en el Juego de BSOs de Peskito y Medio",
+          text:shareMessage(hits),
+          url:GAME_URL,
+          files:[file]
+        });
+      }catch(e){}
+    }
+
+    ['sx','swa','sfb','stg'].forEach(id=>{
+      $(id).addEventListener('click', ev=>{
+        if(!canAttachFiles()) return; // se abre el enlace a la red social
+        ev.preventDefault();
+        nativeShare(results.filter(x=>x.ok).length);
+      });
+    });
+
+    $('share').onclick=()=>{
+      const hits=results.filter(x=>x.ok).length;
+      if(canAttachFiles()) nativeShare(hits);
+      else $('dl').click();
+    };
+  </script>
+</body>
+</html>
