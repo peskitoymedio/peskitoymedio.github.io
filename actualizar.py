@@ -20,7 +20,9 @@ Qué hace:
   - Añade los episodios y regenera js/episodes.js.
   - Genera una página HTML por episodio en episodios/ con datos estructurados
     PodcastEpisode, además del archivo completo en episodios/index.html.
-  - Sincroniza sitemap.xml con la portada, el archivo y todas las páginas.
+  - Sincroniza sitemap.xml con la portada, el archivo, el juego de BSOs y todas las páginas.
+  - Comprueba que el juego de BSOs (HTML y og-image.png) sigue presente y lo
+    incluye en la navegación generada de las fichas de episodio.
   - Genera en index.html un bloque de episodios en HTML estático (rastreable sin JS).
   - Notifica las URLs cambiadas a IndexNow (api.indexnow.org y Bing).
   - Guarda feed.xml y episodes-raw.json como copia de referencia.
@@ -59,6 +61,7 @@ SPOTIFY_SHOW_URL = "https://open.spotify.com/show/" + SPOTIFY_SHOW_ID
 SPOTIFY_OEEMBED_URL = "https://open.spotify.com/oembed"
 SPOTIFY_CACHE_FILE = ROOT / "spotify_cache.json"
 EPISODES_DIR = ROOT / "episodios"
+GAME_BSOS_DIR = ROOT / "juegos" / "juegobsos"
 TRANSCRIPTS_DIR = ROOT / "transcripciones"
 TRANSCRIPT_MISSING_FILE = TRANSCRIPTS_DIR / "ausentes.json"
 TRANSCRIPT_RECHECK_DAYS = 30
@@ -72,6 +75,7 @@ FEED_XML = ROOT / "feed.xml"
 PRE_FEEDBURNER_XML = ROOT / "util" / "pre-feedburner.xml"
 SITEMAP_XML = ROOT / "sitemap.xml"
 SITE_URL = "https://www.peskitoymedio.es/"
+GAME_BSOS_URL = SITE_URL + "juegos/juegobsos/"
 SITE_HOST = urllib.parse.urlparse(SITE_URL).netloc
 FALLBACK_IMG = "img/logo-800.jpg"
 GENERATED_MARKER = "<!-- Página generada automáticamente por actualizar.py. No editar a mano. -->"
@@ -1450,6 +1454,25 @@ def latest_episode_date(episodes: list[dict]) -> str:
     return max(dates) if dates else ""
 
 
+def game_lastmod() -> str:
+    """Fecha de modificación del juego (HTML + imagen OG) para el sitemap."""
+    dates = []
+    for name in ("index.html", "og-image.png"):
+        try:
+            dates.append(date.fromtimestamp((GAME_BSOS_DIR / name).stat().st_mtime).isoformat())
+        except OSError:
+            continue
+    return max(dates) if dates else ""
+
+
+def check_game_assets() -> None:
+    """Avisa si falta el HTML o la imagen OG del juego de BSOs."""
+    for name in ("index.html", "og-image.png"):
+        path = GAME_BSOS_DIR / name
+        if not path.is_file():
+            print("AVISO: falta el archivo del juego de BSOs: " + path.relative_to(ROOT).as_posix())
+
+
 def build_sitemap(episodes: list[dict], lastmod: str) -> str:
     lines = [
         '<?xml version="1.0" encoding="UTF-8"?>',
@@ -1470,6 +1493,8 @@ def build_sitemap(episodes: list[dict], lastmod: str) -> str:
 
     add(SITE_URL, lastmod, "weekly", "1.0")
     add(SITE_URL + "episodios/", lastmod, "weekly", "0.8")
+    if GAME_BSOS_DIR.is_dir():
+        add(GAME_BSOS_URL, game_lastmod() or lastmod, "monthly", "0.7")
     for episode in episodes:
         if not episode.get("slug"):
             continue
@@ -1503,9 +1528,9 @@ def sync_sitemap(episodes: list[dict], dry_run: bool = False) -> None:
             return
 
     if dry_run:
-        print("Sitemap que se actualizaría: " + str(len(episodes) + 2) + " URLs")
+        print("Sitemap que se actualizaría: " + str(new.count("<url>")) + " URLs")
     else:
-        print("Sitemap actualizado: " + str(len(episodes) + 2) + " URLs")
+        print("Sitemap actualizado: " + str(new.count("<url>")) + " URLs")
 
 
 # ---------------------------------------------------------------------------
@@ -1555,6 +1580,7 @@ def site_header(prefix: str, cta_html: str) -> str:
         <a href="{prefix}episodios/">Episodios</a>
         <a href="{prefix}index.html#equipo">Equipo</a>
         <a href="{prefix}index.html#reconocimientos">Reconocimientos</a>
+        <a href="{prefix}juegos/juegobsos/">Juego BSOs</a>
         <a href="{prefix}index.html#escuchanos">Escúchanos</a>
       </nav>
 
@@ -1596,6 +1622,7 @@ def site_footer(prefix: str) -> str:
         <a href="{prefix}episodios/">Todos los episodios</a>
         <a href="{prefix}index.html#equipo">Equipo</a>
         <a href="{prefix}index.html#reconocimientos">Reconocimientos</a>
+        <a href="{prefix}juegos/juegobsos/">Juego BSOs</a>
         <a href="{prefix}index.html#escuchanos">Escúchanos</a>
       </div>
 
@@ -2514,6 +2541,7 @@ def generate_site(
     changed_urls: set[str] | None = None,
 ) -> tuple[int, int]:
     """Genera las páginas de episodio y el archivo. Devuelve (escritas, eliminadas)."""
+    check_game_assets()
     ordered = sorted(episodes, key=lambda item: item.get("date", ""), reverse=True)
     latest = ordered[0] if ordered else None
     spotify_cache, spotify_updated, spotify_pending = refresh_spotify_cache(
