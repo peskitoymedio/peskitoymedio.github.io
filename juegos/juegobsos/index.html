@@ -59,7 +59,7 @@
       letter-spacing: 1px;
       color: var(--yellow);
       text-shadow: 4px 4px 0 var(--ink);
-      margin: 0 0 16px;
+      margin: 0 0 10px;
       line-height: 1.1;
     }
     .game-hero .game-subtitle {
@@ -67,12 +67,34 @@
       font-size: clamp(1.6rem, 4vw, 2.2rem);
       color: var(--orange);
       text-shadow: 2px 2px 0 var(--ink);
-      margin: 0 0 24px;
+      margin: 0 0 8px;
       line-height: 1.2;
+    }
+    .game-hero .game-by {
+      font-family: var(--font-display);
+      font-size: clamp(1rem, 3vw, 1.4rem);
+      color: var(--yellow);
+      text-shadow: 2px 2px 0 var(--ink);
+      margin: 0 0 16px;
+      letter-spacing: 1px;
+      text-align: center;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+    .game-hero .game-by::before {
+      content: "";
+      display: inline-block;
+      width: 12px;
+      height: 12px;
+      background: var(--orange);
+      border-radius: 2px;
+      box-shadow: 2px 2px 0 var(--ink);
     }
     .game-hero p.lead {
       max-width: 680px;
-      margin: 0 auto 28px;
+      margin: 0 auto 18px;
       font-size: 1.15rem;
       color: var(--cream);
       opacity: 0.95;
@@ -442,60 +464,115 @@
       color: var(--white);
     }
 
+    .volver { display: none; }
+
     /* ===========================
        Modo juego inmersivo en móvil
        Oculta cabecera y pie para que el juego ocupe toda la pantalla
        =========================== */
     @media (max-width: 760px) {
-      body.game-immersive {
+      body {
         overflow: hidden;
         height: 100dvh;
       }
-      body.game-immersive .topbar,
-      body.game-immersive .site-header,
-      body.game-immersive .site-footer,
-      body.game-immersive .mini-player {
+      .topbar,
+      .site-footer,
+      .mini-player {
         display: none !important;
       }
-      body.game-immersive main#main {
+      .site-header {
+        display: block !important;
+        position: static !important;
+        top: auto !important;
+        z-index: auto !important;
+        box-shadow: none !important;
+      }
+      .site-header .nav-inner {
+        padding: 6px 0;
+        gap: 10px;
+      }
+      .site-header .brand-name { font-size: 1.35rem; }
+      .site-header .brand-sub { font-size: 0.85rem; }
+      .site-header .nav a { padding: 6px 8px; font-size: 0.85rem; }
+      .site-header .nav-cta { padding: 6px 10px; font-size: 0.8rem; }
+      main#main {
         height: 100dvh;
         overflow-y: auto;
         padding-top: 0;
       }
-      body.game-immersive .game-hero {
-        padding: 20px 0 12px;
+      .game-hero {
+        padding: 16px 0 10px;
       }
-      body.game-immersive .game-hero h1 {
+      .game-hero h1 {
         font-size: clamp(2.2rem, 9vw, 3.6rem);
+        margin-bottom: 8px;
       }
-      body.game-immersive .game-hero .game-subtitle {
+      .game-hero .game-subtitle {
+        margin-bottom: 6px;
+      }
+      .game-hero .game-by {
+        margin-bottom: 10px;
+        font-size: clamp(0.9rem, 3vw, 1.2rem);
+      }
+      .game-hero p.lead {
+        font-size: 0.85rem;
+        margin: 0 10px 10px;
+        line-height: 1.3;
+        text-align: center;
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+      }
+      .volver {
+        position: fixed;
+        bottom: 12px;
+        left: 50%;
+        transform: translateX(-50%);
+        font-size: 0.8rem;
+        padding: 6px 14px;
+        background: rgba(11, 27, 45, 0.85);
+        color: var(--cream);
+        border: 2px solid var(--ink);
+        border-radius: 20px;
+        box-shadow: 3px 3px 0 var(--ink);
+        text-decoration: none;
+        z-index: 1000;
+        backdrop-filter: blur(4px);
+        -webkit-backdrop-filter: blur(4px);
+      }
+      .volver:hover {
+        background: var(--ink);
+        color: var(--yellow);
+      }
+      .game-hero .game-subtitle {
         font-size: clamp(1.4rem, 5vw, 2rem);
       }
-      body.game-immersive .game-container {
+      .game-container {
         margin-top: -24px;
         margin-bottom: 40px;
       }
-      body.game-immersive .game-card {
+      .game-card {
         padding: 22px 18px;
         margin-bottom: 16px;
       }
-      body.game-immersive .vinyl {
+      .vinyl {
         width: 118px;
         height: 118px;
         margin: 14px auto 22px;
       }
-      body.game-immersive .opts {
+      .opts {
         gap: 10px;
         margin: 16px 0;
       }
-      body.game-immersive .opt {
+      .opt {
         padding: 14px 16px;
         font-size: 1rem;
       }
-      body.game-immersive .bar {
+      .bar {
         margin-bottom: 20px;
       }
-      body.game-immersive .hud {
+      .hud {
         font-size: 1.2rem;
         margin-bottom: 12px;
       }
@@ -504,47 +581,38 @@
 </head>
 <body>
 
-  <!-- Barra superior estilo web -->
-  <div class="topbar" aria-label="Aviso del sitio">
-    <div class="container topbar-inner">
-      <a class="topbar-item topbar-latest" href="../../index.html">
-        <span class="topbar-dot" aria-hidden="true"></span>
-        <span class="topbar-latest-label">Volver a <strong>Peskito y Medio</strong> · Tu Podcast Friki</span>
-      </a>
-    </div>
-  </div>
-
-  <!-- Cabecera -->
-  <header class="site-header" id="site-header">
-    <div class="container nav-inner">
-      <a class="brand" href="../../index.html" aria-label="Peskito y Medio, ir al inicio">
-        <span class="brand-badge"><img src="../../img/logo-800.jpg" alt="Logo de Peskito y Medio" width="46" height="46"></span>
-        <span class="brand-text">
-          <span class="brand-name">Peskito</span>
-          <span class="brand-sub">y Medio</span>
-        </span>
-      </a>
-
-      <nav class="nav" id="nav" aria-label="Navegación principal">
-        <a href="../../index.html#sobre">El podcast</a>
-        <a href="../../index.html#episodios">Episodios</a>
-        <a href="./" class="is-active">Juego BSOs</a>
-        <a href="../../index.html#escuchanos">Escúchanos</a>
-      </nav>
-
-      <a class="btn btn-primary btn-sm nav-cta" href="../../index.html#episodios">
-        <i class="fa-solid fa-play" aria-hidden="true"></i> Dale al play
-      </a>
-    </div>
-  </header>
-
   <main id="main">
+    <!-- Cabecera dentro del área scrollable: en móvil se ve pero no queda fija arriba -->
+    <header class="site-header" id="site-header">
+      <div class="container nav-inner">
+        <a class="brand" href="../../index.html" aria-label="Peskito y Medio, ir al inicio">
+          <span class="brand-badge"><img src="../../img/logo-800.jpg" alt="Logo de Peskito y Medio" width="46" height="46"></span>
+          <span class="brand-text">
+            <span class="brand-name">Peskito</span>
+            <span class="brand-sub">y Medio</span>
+          </span>
+        </a>
+
+        <nav class="nav" id="nav" aria-label="Navegación principal">
+          <a href="../../index.html#sobre">El podcast</a>
+          <a href="../../index.html#episodios">Episodios</a>
+          <a href="./" class="is-active">Juego BSOs</a>
+          <a href="../../index.html#escuchanos">Escúchanos</a>
+        </nav>
+
+        <a class="btn btn-primary btn-sm nav-cta" href="../../index.html#episodios">
+          <i class="fa-solid fa-play" aria-hidden="true"></i> Dale al play
+        </a>
+      </div>
+    </header>
+
     <section class="game-hero">
       <div class="container">
         <h1>¡Adivina la BSO!</h1>
         <h2 class="game-subtitle">Juego de Bandas Sonoras</h2>
-        <p class="lead">Escucha unos segundos de una banda sonora mítica y adivina la película. 89 películas frikis en el banco, 10 rondas y cuanto antes aciertes, más puntos. ¡Suerte!</p>
-        <a class="btn-game" href="../../index.html" style="margin-top: 16px;">← Volver a Peskito y Medio</a>
+        <p class="game-by"><span>by</span> Peskito y Medio</p>
+        <p class="lead">Escucha unos segundos de una banda sonora mítica y adivina la película. 10 rondas y cuanto antes aciertes, más puntos. ¡Suerte!</p>
+        <a class="volver" href="../../index.html">← Volver a Peskito y Medio</a>
       </div>
     </section>
 
@@ -664,13 +732,6 @@
   </footer>
 
   <script>
-    // Modo juego inmersivo en móvil: oculta cabecera y pie para que el juego ocupe toda la pantalla
-    function setGameImmersive(){
-      document.body.classList.toggle('game-immersive', window.innerWidth <= 760);
-    }
-    setGameImmersive();
-    window.addEventListener('resize', setGameImmersive);
-
     // Banco de películas: título que se muestra + búsqueda en iTunes
     const FILMS=[
      ["Star Wars","Star Wars Main Title John Williams"],["Jurassic Park","Jurassic Park Theme John Williams"],
@@ -750,6 +811,18 @@
       r=0;score=0;results=[];$('pts').textContent=0;
       $('start').classList.add('hidden'); $('game').classList.remove('hidden');
       loadRound();
+      // En móvil, llevar el foco al section de juego para no tener que hacer scroll
+      setTimeout(() => {
+        const main = document.querySelector('main#main');
+        const game = $('game');
+        if (main && game) {
+          // Posición de #game relativa a main#main (fiable en contenedores con overflow)
+          const offset = game.getBoundingClientRect().top - main.getBoundingClientRect().top + main.scrollTop;
+          main.scrollTop = offset;
+          void main.offsetHeight;
+          main.scrollTop = offset;
+        }
+      }, 100);
     };
 
     // Un único temporizador controla siempre el fragmento: al repetir se
