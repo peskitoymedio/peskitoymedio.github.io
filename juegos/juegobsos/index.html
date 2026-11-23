@@ -250,6 +250,7 @@
       line-height: 1;
       color: var(--ink);
       transform: translateY(-2px);
+      opacity: 1;
     }
     .vinyl.spin::before {
       animation: note-pulse .5s ease-in-out infinite alternate;
@@ -259,7 +260,8 @@
       to   { transform: translateY(1px) scale(1.15); }
     }
     .vinyl:hover {
-      transform: scale(1.05);
+      transform: scale(1.08);
+      box-shadow: 8px 8px 0 var(--ink), 0 0 14px rgba(255,197,49,0.35);
     }
     .vinyl.spin {
       animation: spin 2s linear infinite;
@@ -267,6 +269,44 @@
     @keyframes spin {
       0% { transform: rotate(0deg); }
       100% { transform: rotate(360deg); }
+    }
+
+    /* Icono "repetir" sobre el vinilo: indica que es clickeable para volver a escuchar */
+    .vinyl-play {
+      position: absolute;
+      z-index: 4;
+      width: 46px;
+      height: 46px;
+      background: var(--yellow);
+      border: 3px solid var(--ink);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.05rem;
+      color: var(--ink);
+      box-shadow: 3px 3px 0 var(--ink);
+      transform: scale(1);
+      opacity: 1;
+      transition: transform .15s ease, opacity .15s ease;
+      pointer-events: none;
+    }
+    .vinyl:hover .vinyl-play {
+      transform: scale(1.15);
+    }
+    /* Mientras suena: solo la nota gira, sin icono de repetir ni texto */
+    .vinyl.spin .vinyl-play {
+      opacity: 0;
+    }
+    /* Texto pista debajo del disco: siempre visible */
+    .vinyl-hint {
+      display: block;
+      text-align: center;
+      font-size: 0.82rem;
+      color: var(--muted);
+      font-weight: 700;
+      margin-top: 7px;
+      letter-spacing: 0.3px;
     }
 
     /* Opciones de respuesta */
@@ -464,7 +504,10 @@
           <span>Puntos <b id="pts">0</b></span>
         </div>
         <div class="bar"><i id="prog"></i></div>
-        <div class="vinyl" id="vinyl" title="Volver a escuchar"></div>
+        <div class="vinyl" id="vinyl" title="Volver a escuchar" aria-label="Volver a escuchar la canción">
+          <span class="vinyl-play"><i class="fa-solid fa-rotate-right" aria-hidden="true"></i></span>
+        </div>
+        <p class="vinyl-hint">Pulsa el disco para volver a escuchar</p>
         <div class="opts" id="opts"></div>
         <p class="msg" id="msg"></p>
         <div class="row" style="justify-content: center; margin-top: 24px;">
