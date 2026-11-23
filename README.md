@@ -136,7 +136,7 @@ La web incluye un minijuego online autocontenido en `juegos/juegobsos/index.html
 
 ### Cómo funciona
 
-El banco de películas vive en el array `FILMS` del propio `index.html`. Cada entrada guarda el título mostrado y el término de búsqueda para la API de iTunes (`itunes.apple.com/search`), que devuelve el URL de preview de audio. Al iniciar una partida se barajan las películas, se cargan hasta 10 previews válidas y se juega ronda por ronda contra el reloj.
+El banco de películas vive en `juegos/juegobsos/peliculas.js` (`window.PELICULAS_BSO`): cada entrada guarda `titulo` y `consulta` (término de búsqueda). Se carga como script en vez de como `.json` para que el juego siga funcionando con `file://`, donde `fetch()` sería bloqueado por CORS. La búsqueda de previews está en `itunes-preview.js` (`itunes.apple.com/search`, JSONP), compartida por el juego y por el laboratorio. Al iniciar una partida se barajan las películas, se cargan hasta 10 previews válidas y se juega ronda por ronda contra el reloj.
 
 Cada ronda muestra:
 - Un reproductor animado (vinilo) que se puede pulsar para volver a escuchar la pista.
@@ -153,8 +153,11 @@ La página declara `<title>` y `<meta name="description">` propios, `link rel="c
 
 ```
 juegos/juegobsos/
-  index.html      Página del juego (HTML, estilos embebidos y lógica JS)
-  og-image.png    Imagen de vista previa para redes sociales
+  index.html         Página del juego (HTML, estilos embebidos y lógica JS)
+  peliculas.js       Banco externo de películas (titulo + consulta)
+  itunes-preview.js  Búsqueda de previews compartida con el laboratorio
+  lab-bso.html       Laboratorio privado: listado, filtro y test de previews (noindex + robots.txt)
+  og-image.png       Imagen de vista previa para redes sociales
 ```
 
 ## Actualización automática
