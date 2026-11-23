@@ -156,7 +156,7 @@ juegos/juegobsos/
   index.html         Página del juego (HTML, estilos embebidos y lógica JS)
   peliculas.js       Banco externo de películas (titulo + consulta)
   itunes-preview.js  Búsqueda de previews compartida con el laboratorio
-  lab-bso.html       Laboratorio privado: listado, filtro y test de previews (noindex + robots.txt)
+  lab-bso.html       Laboratorio privado: listado, filtro, test de previews y prueba de descripciones alternativas (noindex + robots.txt)
   og-image.png       Imagen de vista previa para redes sociales
 ```
 

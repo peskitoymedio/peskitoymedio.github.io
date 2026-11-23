@@ -11,7 +11,7 @@ window.PELICULAS_BSO = [
   },
   {
     "titulo": "Jurassic Park",
-    "consulta": "Jurassic Park Theme John Williams"
+    "consulta": "Jurassic Park Orchestra"
   },
   {
     "titulo": "Indiana Jones",
@@ -51,7 +51,7 @@ window.PELICULAS_BSO = [
   },
   {
     "titulo": "El Rey León",
-    "consulta": "Circle of Life Lion King"
+    "consulta": "Lion King Circle of life Carmen Twillie"
   },
   {
     "titulo": "Titanic",
@@ -75,7 +75,7 @@ window.PELICULAS_BSO = [
   },
   {
     "titulo": "Misión Imposible",
-    "consulta": "Mission Impossible Theme Lalo Schifrin"
+    "consulta": "Mission Impossible Theme"
   },
   {
     "titulo": "El Padrino",
@@ -163,7 +163,7 @@ window.PELICULAS_BSO = [
   },
   {
     "titulo": "RoboCop",
-    "consulta": "RoboCop Main Title Basil Poledouris Original Soundtrack"
+    "consulta": "RoboCop Main Title"
   },
   {
     "titulo": "Gremlins",
@@ -251,7 +251,7 @@ window.PELICULAS_BSO = [
   },
   {
     "titulo": "La princesa prometida",
-    "consulta": "The Princess Bride Main Theme Mark Knopfler"
+    "consulta": "The Princess Bride Main Theme Instrumental"
   },
   {
     "titulo": "Dentro del laberinto",
@@ -275,7 +275,7 @@ window.PELICULAS_BSO = [
   },
   {
     "titulo": "Godzilla",
-    "consulta": "Godzilla Main Theme Akira Ifukube"
+    "consulta": "Godzilla David Arnold Main "
   },
   {
     "titulo": "Jumanji",
@@ -347,7 +347,7 @@ window.PELICULAS_BSO = [
   },
   {
     "titulo": "Your Name",
-    "consulta": "Zen Zen Zen RADWIMPS"
+    "consulta": "Your Name Sparkle Instrumental"
   },
   {
     "titulo": "Vengadores: Endgame",

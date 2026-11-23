@@ -102,11 +102,39 @@
     .info strong { display: block; font-size: 1.02rem; }
     .info code { display: block; color: var(--lab-yellow); font-size: .82rem; overflow-wrap: anywhere; }
     .info .pista { display: block; font-size: .82rem; opacity: .75; overflow-wrap: anywhere; }
-    .play { white-space: nowrap; font-size: .88rem; }
+    .acciones { display: flex; flex-wrap: wrap; gap: 8px; justify-content: flex-end; }
+    .acciones button { white-space: nowrap; font-size: .82rem; padding: 8px 10px; }
+    .acciones .probar { background: transparent; color: var(--lab-yellow); border-color: var(--lab-yellow); }
+    .editor {
+      grid-column: 2 / -1;
+      display: grid;
+      gap: 8px;
+      padding: 12px;
+      margin-top: 2px;
+      background: rgba(0, 0, 0, .24);
+      border-radius: 8px;
+    }
+    .editor label { font-size: .8rem; opacity: .85; }
+    .editor input[type="text"] {
+      width: 100%;
+      font: inherit;
+      padding: 9px 11px;
+      color: var(--lab-cream);
+      background: var(--lab-ink);
+      border: 2px solid var(--lab-yellow);
+      border-radius: 8px;
+    }
+    .editor input[type="text"]:focus-visible { outline: 3px solid var(--lab-orange); outline-offset: 2px; }
+    .editor .botones { display: flex; flex-wrap: wrap; gap: 8px; }
+    .editor .botones button { padding: 6px 11px; font-size: .8rem; }
+    .editor .botones .copiar, .editor .botones .cerrar { background: transparent; color: var(--lab-cream); border-color: rgba(255, 255, 255, .35); }
+    .editor .resultado { font-size: .82rem; min-height: 1.2em; opacity: .85; overflow-wrap: anywhere; }
+    .editor .nota { font-size: .75rem; opacity: .65; }
     .vacio { padding: 28px; text-align: center; opacity: .8; }
     @media (max-width: 620px) {
       .fila { grid-template-columns: 32px 1fr; }
-      .play { grid-column: 2; justify-self: start; }
+      .acciones { grid-column: 2; justify-content: flex-start; }
+      .editor { grid-column: 1 / -1; }
     }
   </style>
 </head>
@@ -163,21 +191,26 @@
       audio.crossOrigin = 'anonymous';
       audio.preload = 'auto';
 
-      const cache = new Map();      // consulta -> Promise de itunesPreview
-      const resueltos = new Map();  // consulta -> {url,pista,artista}|null
+      const cache = new Map();          // consulta original -> Promise de itunesPreview
+      const resueltos = new Map();      // consulta original -> {url,pista,artista}|null
+      const cachePruebas = new Map();   // descripción probada -> Promise de itunesPreview
+      const resultadosPrueba = new Map();
+      const editores = new Map();       // consulta original -> texto en edición
       let secs = 5, timer = null, activo = null, ultimoBoton = null, idRepro = 0;
 
       const normaliza = s => String(s).normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
 
-      function obtener(p) {
-        if (!cache.has(p.consulta)) {
-          cache.set(p.consulta, window.itunesPreview(p.consulta).then(r => {
-            resueltos.set(p.consulta, r);
+      function buscar(texto, cacheMap, resultadoMap) {
+        if (!cacheMap.has(texto)) {
+          cacheMap.set(texto, window.itunesPreview(texto).then(r => {
+            resultadoMap.set(texto, r);
             return r;
           }));
         }
-        return cache.get(p.consulta);
+        return cacheMap.get(texto);
       }
+
+      const obtener = p => buscar(p.consulta, cache, resueltos);
 
       function textoPista(p) {
         if (!resueltos.has(p.consulta)) return 'Pulsa para comprobar y escuchar';
@@ -198,11 +231,41 @@
         if (ultimoBoton) { ultimoBoton.textContent = '▶ Comprobar y escuchar'; ultimoBoton = null; }
       }
 
-      async function comprobarYEscuchar(p, boton) {
-        if (activo === boton) { parar(); return; }
+      // Invalida cualquier reproducción en curso sin dejar el id anterior activo.
+      function nuevoId() {
         const id = ++idRepro;
         parar();
         idRepro = id;
+        return id;
+      }
+
+      async function reproducir(p, r, id) {
+        $('panel-titulo').textContent = p.titulo;
+        $('panel-pista').textContent = r.pista + (r.artista ? ' · ' + r.artista : '');
+        $('panel').hidden = false;
+        audio.src = r.url;
+        audio.currentTime = 0;
+        try {
+          await audio.play();
+        } catch (e) {
+          if (id === idRepro) $('panel-pista').textContent = 'El navegador bloqueó la reproducción: pulsa de nuevo';
+          return false;
+        }
+        if (id !== idRepro) return false;
+
+        const barra = $('barra');
+        barra.style.transition = 'none';
+        barra.style.width = '100%';
+        void barra.offsetWidth;
+        barra.style.transition = 'width ' + secs + 's linear';
+        barra.style.width = '0%';
+        timer = setTimeout(parar, secs * 1000);
+        return true;
+      }
+
+      async function comprobarYEscuchar(p, boton) {
+        if (activo === boton) { parar(); return; }
+        const id = nuevoId();
         boton.disabled = true;
         const etiqueta = boton.closest('li').querySelector('.pista');
         etiqueta.textContent = 'Buscando en iTunes…';
@@ -213,37 +276,89 @@
         if (id !== idRepro) return; // otra reproducción ocupó su lugar
         boton.disabled = false;
         etiqueta.textContent = textoPista(p);
-
         if (!r) { etiqueta.textContent = '✗ Sin preview disponible en iTunes'; return; }
-
-        $('panel-titulo').textContent = p.titulo;
-        $('panel-pista').textContent = r.pista + (r.artista ? ' · ' + r.artista : '');
-        $('panel').hidden = false;
-        audio.src = r.url;
-        audio.currentTime = 0;
-
-        try {
-          await audio.play();
-        } catch (e) {
-          if (id !== idRepro) return;
-          etiqueta.textContent = '✗ El navegador bloqueó la reproducción';
-          $('panel-pista').textContent = 'Pulsa de nuevo para intentarlo';
-          return;
-        }
-        if (id !== idRepro) return;
+        if (!(await reproducir(p, r, id)) || id !== idRepro) return;
 
         boton.textContent = '⏸ Detener';
         boton.closest('li').classList.add('activo');
         activo = boton;
         ultimoBoton = boton;
+      }
 
-        const barra = $('barra');
-        barra.style.transition = 'none';
-        barra.style.width = '100%';
-        void barra.offsetWidth;
-        barra.style.transition = 'width ' + secs + 's linear';
-        barra.style.width = '0%';
-        timer = setTimeout(parar, secs * 1000);
+      function abrirEditor(p, li, boton, enfocar) {
+        const previo = li.querySelector('.editor');
+        if (previo) { previo.remove(); boton.textContent = '✎ Probar descripción'; return; }
+
+        const textoInicial = editores.get(p.consulta) || p.consulta;
+        const editor = document.createElement('div');
+        editor.className = 'editor';
+
+        const ayuda = document.createElement('span');
+        ayuda.className = 'nota';
+        ayuda.textContent = 'Descripción actual: ' + p.consulta;
+
+        const input = document.createElement('input');
+        input.type = 'text';
+        input.value = textoInicial;
+        input.setAttribute('aria-label', 'Nueva descripción a probar para ' + p.titulo);
+        input.addEventListener('input', () => editores.set(p.consulta, input.value));
+
+        const botones = document.createElement('div');
+        botones.className = 'botones';
+        const probar = document.createElement('button');
+        probar.type = 'button'; probar.textContent = '▶ Probar';
+        const copiar = document.createElement('button');
+        copiar.type = 'button'; copiar.className = 'copiar'; copiar.textContent = '⧉ Copiar texto';
+        const cerrarBoton = document.createElement('button');
+        cerrarBoton.type = 'button'; cerrarBoton.className = 'cerrar'; cerrarBoton.textContent = '✕ Cerrar';
+
+        const resultado = document.createElement('span');
+        resultado.className = 'resultado';
+        resultado.setAttribute('aria-live', 'polite');
+        const nota = document.createElement('span');
+        nota.className = 'nota';
+        nota.textContent = 'La prueba no modifica el banco: si funciona, actualiza “consulta” en peliculas.js con este texto.';
+
+        function textoResultado(r) {
+          return r ? '♪ ' + r.pista + (r.artista ? ' · ' + r.artista : '') : '✗ iTunes no devolvió preview para este texto';
+        }
+        if (resultadosPrueba.has(textoInicial)) resultado.textContent = textoResultado(resultadosPrueba.get(textoInicial));
+
+        probar.addEventListener('click', async () => {
+          const texto = input.value.trim();
+          if (!texto) { resultado.textContent = 'Escribe una descripción.'; return; }
+          const id = nuevoId();
+          probar.disabled = true;
+          resultado.textContent = 'Buscando en iTunes…';
+          let r;
+          try { r = await buscar(texto, cachePruebas, resultadosPrueba); }
+          catch (e) { r = null; }
+          if (id !== idRepro) return;
+          probar.disabled = false;
+          resultado.textContent = textoResultado(r);
+          if (r) await reproducir(p, r, id);
+        });
+
+        copiar.addEventListener('click', async () => {
+          try {
+            await navigator.clipboard.writeText(input.value);
+            resultado.textContent = '✓ Texto copiado al portapapeles';
+          } catch (e) {
+            input.select();
+            resultado.textContent = 'Texto seleccionado: usa Ctrl+C para copiarlo';
+          }
+        });
+
+        cerrarBoton.addEventListener('click', () => {
+          editor.remove();
+          boton.textContent = '✎ Probar descripción';
+        });
+
+        botones.append(probar, copiar, cerrarBoton);
+        editor.append(ayuda, input, botones, resultado, nota);
+        li.appendChild(editor);
+        boton.textContent = '✕ Cerrar editor';
+        if (enfocar !== false) { input.focus(); input.select(); }
       }
 
       function render() {
@@ -280,14 +395,25 @@
           pista.textContent = textoPista(p);
           info.append(titulo, consulta, pista);
 
+          const acciones = document.createElement('div');
+          acciones.className = 'acciones';
+
           const boton = document.createElement('button');
           boton.type = 'button';
-          boton.className = 'play';
           boton.textContent = '▶ Comprobar y escuchar';
           boton.setAttribute('aria-label', 'Comprobar y escuchar ' + p.titulo);
           boton.addEventListener('click', () => comprobarYEscuchar(p, boton));
 
-          li.append(num, info, boton);
+          const botonProbar = document.createElement('button');
+          botonProbar.type = 'button';
+          botonProbar.className = 'probar';
+          botonProbar.textContent = '✎ Probar descripción';
+          botonProbar.setAttribute('aria-label', 'Probar otra descripción para ' + p.titulo);
+          botonProbar.addEventListener('click', () => abrirEditor(p, li, botonProbar));
+
+          acciones.append(boton, botonProbar);
+          li.append(num, info, acciones);
+          if (editores.has(p.consulta)) abrirEditor(p, li, botonProbar, false);
           frag.appendChild(li);
         });
 
