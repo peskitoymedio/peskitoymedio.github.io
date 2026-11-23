@@ -441,6 +441,65 @@
       background: var(--orange);
       color: var(--white);
     }
+
+    /* ===========================
+       Modo juego inmersivo en móvil
+       Oculta cabecera y pie para que el juego ocupe toda la pantalla
+       =========================== */
+    @media (max-width: 760px) {
+      body.game-immersive {
+        overflow: hidden;
+        height: 100dvh;
+      }
+      body.game-immersive .topbar,
+      body.game-immersive .site-header,
+      body.game-immersive .site-footer,
+      body.game-immersive .mini-player {
+        display: none !important;
+      }
+      body.game-immersive main#main {
+        height: 100dvh;
+        overflow-y: auto;
+        padding-top: 0;
+      }
+      body.game-immersive .game-hero {
+        padding: 20px 0 12px;
+      }
+      body.game-immersive .game-hero h1 {
+        font-size: clamp(2.2rem, 9vw, 3.6rem);
+      }
+      body.game-immersive .game-hero .game-subtitle {
+        font-size: clamp(1.4rem, 5vw, 2rem);
+      }
+      body.game-immersive .game-container {
+        margin-top: -24px;
+        margin-bottom: 40px;
+      }
+      body.game-immersive .game-card {
+        padding: 22px 18px;
+        margin-bottom: 16px;
+      }
+      body.game-immersive .vinyl {
+        width: 118px;
+        height: 118px;
+        margin: 14px auto 22px;
+      }
+      body.game-immersive .opts {
+        gap: 10px;
+        margin: 16px 0;
+      }
+      body.game-immersive .opt {
+        padding: 14px 16px;
+        font-size: 1rem;
+      }
+      body.game-immersive .bar {
+        margin-bottom: 20px;
+      }
+      body.game-immersive .hud {
+        font-size: 1.2rem;
+        margin-bottom: 12px;
+      }
+    }
   </style>
 </head>
 <body>
@@ -485,6 +544,7 @@
         <h1>¡Adivina la BSO!</h1>
         <h2 class="game-subtitle">Juego de Bandas Sonoras</h2>
         <p class="lead">Escucha unos segundos de una banda sonora mítica y adivina la película. 89 películas frikis en el banco, 10 rondas y cuanto antes aciertes, más puntos. ¡Suerte!</p>
+        <a class="btn-game" href="../../index.html" style="margin-top: 16px;">← Volver a Peskito y Medio</a>
       </div>
     </section>
 
@@ -604,6 +664,13 @@
   </footer>
 
   <script>
+    // Modo juego inmersivo en móvil: oculta cabecera y pie para que el juego ocupe toda la pantalla
+    function setGameImmersive(){
+      document.body.classList.toggle('game-immersive', window.innerWidth <= 760);
+    }
+    setGameImmersive();
+    window.addEventListener('resize', setGameImmersive);
+
     // Banco de películas: título que se muestra + búsqueda en iTunes
     const FILMS=[
      ["Star Wars","Star Wars Main Title John Williams"],["Jurassic Park","Jurassic Park Theme John Williams"],
