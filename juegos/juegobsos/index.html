@@ -754,12 +754,17 @@
     // Banco de películas externo: peliculas.js (titulo + consulta)
     const FILMS=window.PELICULAS_BSO.map(p=>[p.titulo,p.consulta]);
     const $=id=>document.getElementById(id);
-    // Personajes decorativos de la tarjeta. En file:// se omite para no teñir el canvas.
-    const peskitos=new Image();
-    if(location.protocol!=="file:") peskitos.src="../../img/utils/peskitos.png";
-    peskitos.onload=()=>{
-      if(!$('end').classList.contains('hidden')) drawCard(results.filter(x=>x.ok).length);
-    };
+    // Imágenes decorativas de la tarjeta. En file:// se omiten para no teñir el canvas.
+    const peskitos=new Image(), malcolm=new Image();
+    if(location.protocol!=="file:"){
+      peskitos.src="../../img/utils/peskitos.png";
+      malcolm.src="../../img/equipo/Malcolm.png";
+    }
+    [peskitos,malcolm].forEach(img=>{
+      img.onload=()=>{
+        if(!$('end').classList.contains('hidden')) drawCard(results.filter(x=>x.ok).length);
+      };
+    });
     const audio=new Audio(); audio.crossOrigin="anonymous"; audio.preload="auto";
     let rounds=[],r=0,score=0,secs=5,startT=0,timer=null,answered=false,results=[];
 
@@ -944,6 +949,15 @@
       // Panel con el resumen de películas en una sola columna: acertadas primero
       ctx.fillStyle="#14283D"; ctx.fillRect(60,515,960,465);
       ctx.strokeStyle="#263B52"; ctx.lineWidth=3; ctx.strokeRect(60,515,960,465);
+
+      // Malcolm de fondo a la derecha, recortado por el panel y en transparencia
+      if(malcolm.complete && malcolm.naturalWidth){
+        ctx.save();
+        ctx.beginPath(); ctx.rect(60,515,960,465); ctx.clip();
+        ctx.globalAlpha=0.78;
+        ctx.drawImage(malcolm,8,11,417,616,740,540,280,420);
+        ctx.restore();
+      }
 
       ctx.fillStyle="#FFC531"; ctx.font="800 26px 'Outfit', sans-serif";
       ctx.fillText("RESUMEN DE PELÍCULAS", 80, 550);
