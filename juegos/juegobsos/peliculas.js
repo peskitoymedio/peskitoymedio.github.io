@@ -95,7 +95,7 @@ window.PELICULAS_BSO = [
   },
   {
     "titulo": "Mary Poppins",
-    "consulta": "Chim Chim Cher-ee Mary Poppins"
+    "consulta": "Mary Poppins soundtrack"
   },
   {
     "titulo": "Frozen",

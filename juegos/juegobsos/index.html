@@ -862,12 +862,21 @@
       $('final').textContent=score;
       $('hits').textContent=`${hits} de 10 aciertos`;
       // El veredicto depende de los ACIERTOS, no de los puntos de velocidad.
-      let v="";
-      if(hits===10) v="🏆 ¡Maestro Absoluto de las BSOs! ¡Malcolm está orgulloso de ti!";
-      else if(hits>=7) v="👏 ¡Muy bien! Tienes buen oído cinéfilo.";
-      else if(hits>=4) v="👍 ¡No está mal! Pero te toca repasar maratones de cine.";
-      else v="😅 ¡Ay, madre! Se te han cruzado los cables con las melodías.";
-      $('verdict').textContent=v;
+      // El índice del array es el número de aciertos (0-10).
+      const VEREDICTOS=[
+        "😅 ¡Ay, madre! Se te han cruzado los cables con las melodías.",
+        "🎵 ¡Uno! Una sola nota rescatada del naufragio… y Malcolm te deja en la lista de «pendientes de repaso».",
+        "📼 ¡Dos! Malcolm dice que ya es hora de ponerse la BSO de «Repasando».",
+        "🍿 ¡Tres! Malcolm te dice: «calienta el oído y vuelve a darle al play».",
+        "👍 ¡No está mal! Pero te toca repasar para septiembre.",
+        "🎼 ¡Cinco! Tu banda sonora va a medias: mitad aciertos, mitad yatussabeh.",
+        "🎬 ¡Aprobado con nota! Afina un poco más y te comes el examen final.",
+        "🎧 ¡Siete! Reconoces la melodía, pero aún se te cuela alguna película en la mezcla.",
+        "👏 ¡Muy bien! Tienes buen oído cinéfilo. MNis dieses.",
+        "🎯 ¡Solo una! Estás a un compás de la perfección.",
+        "🏆 ¡Maestro Absoluto de las BSOs! ¡Malcolm está orgulloso de ti!"
+      ];
+      $('verdict').textContent=VEREDICTOS[hits]||"";
 
       const ul=$('res'); ul.innerHTML="";
       results.forEach(x=>{
@@ -921,19 +930,15 @@
       ctx.fillStyle="#FFF"; ctx.font="600 30px 'Outfit', sans-serif";
       wrapText(ctx, $('verdict').textContent, 80, 465, 920, 38, 2);
 
-      // Panel con el resumen de películas acertadas y falladas
-      ctx.fillStyle="#14283D"; ctx.fillRect(60,530,960,400);
-      ctx.strokeStyle="#263B52"; ctx.lineWidth=3; ctx.strokeRect(60,530,960,400);
-      ctx.beginPath(); ctx.moveTo(540,530); ctx.lineTo(540,930); ctx.stroke();
+      // Panel con el resumen de películas en una sola columna: acertadas primero
+      ctx.fillStyle="#14283D"; ctx.fillRect(60,515,960,465);
+      ctx.strokeStyle="#263B52"; ctx.lineWidth=3; ctx.strokeRect(60,515,960,465);
 
       ctx.fillStyle="#FFC531"; ctx.font="800 26px 'Outfit', sans-serif";
-      ctx.fillText("RESUMEN DE PELÍCULAS", 80, 565);
+      ctx.fillText("RESUMEN DE PELÍCULAS", 80, 550);
 
       const okList=results.filter(x=>x.ok);
       const badList=results.filter(x=>!x.ok);
-      ctx.font="800 25px 'Outfit', sans-serif";
-      ctx.fillStyle="#7FA83A"; ctx.fillText("✓ ACERTADAS ("+okList.length+")", 80, 605);
-      ctx.fillStyle="#D9452E"; ctx.fillText("✗ FALLADAS ("+badList.length+")", 560, 605);
 
       const fit=(text,max)=>{
         if(ctx.measureText(text).width<=max) return text;
@@ -941,21 +946,37 @@
         while(s.length>3 && ctx.measureText(s+"…").width>max) s=s.slice(0,-1);
         return s+"…";
       };
-      ctx.font="600 22px 'Outfit', sans-serif";
-      okList.forEach((x,i)=>{
-        const y=645+i*30;
-        ctx.fillStyle="#7FA83A"; ctx.fillText("✓", 80, y);
-        ctx.fillStyle="#FFF6E9"; ctx.fillText(fit(x.title,420), 108, y);
-      });
-      badList.forEach((x,i)=>{
-        const y=645+i*30;
-        ctx.fillStyle="#D9452E"; ctx.fillText("✗", 560, y);
-        ctx.fillStyle="#FFF6E9";
-        ctx.fillText(fit(x.title+" → elegiste: "+x.chosen, 420), 588, y);
-      });
+
+      // Un único listado: primero las acertadas y después las falladas.
+      // Al usar todo el ancho del panel, los títulos suben de 22px a 34px.
+      let y=580;
+      const drawGroup=(list,label,mark,color,withChoice)=>{
+        if(!list.length) return;
+        ctx.font="800 28px 'Outfit', sans-serif";
+        ctx.fillStyle=color;
+        ctx.fillText(label+" ("+list.length+")", 80, y);
+        y+=34;
+        list.forEach(x=>{
+          ctx.font="700 34px 'Outfit', sans-serif";
+          const title=fit(x.title, withChoice?640:880);
+          const titleW=ctx.measureText(title).width;
+          ctx.fillStyle=color; ctx.fillText(mark, 80, y);
+          ctx.fillStyle="#FFF6E9"; ctx.fillText(title, 118, y);
+          if(withChoice){
+            const ax=118+titleW+12;
+            ctx.font="600 22px 'Outfit', sans-serif";
+            ctx.fillStyle="#9FB1C4";
+            ctx.fillText(fit("→ elegiste: "+x.chosen, 998-ax), ax, y);
+          }
+          y+=34;
+        });
+      };
+      drawGroup(okList,"✓ ACERTADAS","✓","#7FA83A",false);
+      if(okList.length && badList.length) y+=6;
+      drawGroup(badList,"✗ FALLADAS","✗","#D9452E",true);
 
       ctx.fillStyle="#5E6F80"; ctx.font="600 24px 'Outfit', sans-serif";
-      ctx.fillText("¿Podrás superarme? Juega en peskitoymedio.es/juegos/juegobsos/", 80, 1000);
+      ctx.fillText("¿Podrás superarme? Juega en peskitoymedio.es/juegos/juegobsos/", 80, 1015);
     }
 
     $('again').onclick=()=>{ $('end').classList.add('hidden'); $('start').classList.remove('hidden'); };
