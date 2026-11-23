@@ -754,6 +754,12 @@
     // Banco de películas externo: peliculas.js (titulo + consulta)
     const FILMS=window.PELICULAS_BSO.map(p=>[p.titulo,p.consulta]);
     const $=id=>document.getElementById(id);
+    // Personajes decorativos de la tarjeta. En file:// se omite para no teñir el canvas.
+    const peskitos=new Image();
+    if(location.protocol!=="file:") peskitos.src="../../img/utils/peskitos.png";
+    peskitos.onload=()=>{
+      if(!$('end').classList.contains('hidden')) drawCard(results.filter(x=>x.ok).length);
+    };
     const audio=new Audio(); audio.crossOrigin="anonymous"; audio.preload="auto";
     let rounds=[],r=0,score=0,secs=5,startT=0,timer=null,answered=false,results=[];
 
@@ -909,6 +915,11 @@
 
       // Marco decorativo cómic
       ctx.strokeStyle="#FFC531"; ctx.lineWidth=16; ctx.strokeRect(30,30,1020,1020);
+
+      // Personajes de la cabecera (se recorta el margen transparente del sprite)
+      if(peskitos.complete && peskitos.naturalWidth){
+        ctx.drawImage(peskitos,39,13,1202,1172,790,55,215,210);
+      }
 
       ctx.fillStyle="#FFF6E9"; ctx.font="900 58px 'Outfit', sans-serif";
       ctx.fillText("PESKITO Y MEDIO", 80, 110);
