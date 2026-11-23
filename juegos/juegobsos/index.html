@@ -482,9 +482,9 @@
       }
       .site-header {
         display: block !important;
-        position: static !important;
+        position: relative !important;
         top: auto !important;
-        z-index: auto !important;
+        z-index: 1100 !important;
         box-shadow: none !important;
       }
       .site-header .nav-inner {
@@ -495,6 +495,19 @@
       .site-header .brand-sub { font-size: 0.85rem; }
       .site-header .nav a { padding: 6px 8px; font-size: 0.85rem; }
       .site-header .nav-cta { padding: 6px 10px; font-size: 0.8rem; }
+      .site-header .nav {
+        z-index: 1200 !important;
+      }
+      .nav.is-open {
+        position: fixed !important;
+        left: 16px !important;
+        right: 16px !important;
+        opacity: 1 !important;
+        visibility: visible !important;
+        transform: none !important;
+        z-index: 1200 !important;
+        box-shadow: 8px 8px 0 var(--ink);
+      }
       main#main {
         height: 100dvh;
         overflow-y: auto;
@@ -599,6 +612,10 @@
           <a href="./" class="is-active">Juego BSOs</a>
           <a href="../../index.html#escuchanos">Escúchanos</a>
         </nav>
+
+        <button class="nav-toggle" id="nav-toggle" type="button" aria-expanded="false" aria-controls="nav" aria-label="Abrir menú">
+          <span></span><span></span><span></span>
+        </button>
 
         <a class="btn btn-primary btn-sm nav-cta" href="../../index.html#episodios">
           <i class="fa-solid fa-play" aria-hidden="true"></i> Dale al play
@@ -1061,6 +1078,30 @@
       if(canAttachFiles()) nativeShare(hits);
       else $('dl').click();
     };
+
+    /* ---------- Menú móvil del juego ---------- */
+    const navToggle = document.getElementById('nav-toggle');
+    const nav = document.getElementById('nav');
+    if (navToggle && nav) {
+      navToggle.addEventListener('click', () => {
+        const open = !nav.classList.contains('is-open');
+        nav.classList.toggle('is-open', open);
+        if (open) {
+          const header = document.getElementById('site-header');
+          const top = header ? header.getBoundingClientRect().bottom + 6 : 60;
+          nav.style.top = top + 'px';
+        }
+        navToggle.setAttribute('aria-expanded', String(open));
+        navToggle.setAttribute('aria-label', open ? 'Cerrar menú' : 'Abrir menú');
+      });
+      nav.querySelectorAll('a').forEach(a => {
+        a.addEventListener('click', () => {
+          nav.classList.remove('is-open');
+          navToggle.setAttribute('aria-expanded', 'false');
+          navToggle.setAttribute('aria-label', 'Abrir menú');
+        });
+      });
+    }
   </script>
 </body>
 </html>
