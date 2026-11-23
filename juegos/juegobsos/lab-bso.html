@@ -199,6 +199,7 @@
       let secs = 5, timer = null, activo = null, ultimoBoton = null, idRepro = 0;
 
       const normaliza = s => String(s).normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
+      const detalles = r => r.pista + (r.artista ? ' · ' + r.artista : '') + (r.album ? ' — Álbum: ' + r.album : '');
 
       function buscar(texto, cacheMap, resultadoMap) {
         if (!cacheMap.has(texto)) {
@@ -216,7 +217,7 @@
         if (!resueltos.has(p.consulta)) return 'Pulsa para comprobar y escuchar';
         const r = resueltos.get(p.consulta);
         if (!r) return '✗ Sin preview disponible en iTunes';
-        return '♪ ' + r.pista + (r.artista ? ' · ' + r.artista : '');
+        return '♪ ' + detalles(r);
       }
 
       function parar() {
@@ -241,7 +242,7 @@
 
       async function reproducir(p, r, id) {
         $('panel-titulo').textContent = p.titulo;
-        $('panel-pista').textContent = r.pista + (r.artista ? ' · ' + r.artista : '');
+        $('panel-pista').textContent = detalles(r);
         $('panel').hidden = false;
         audio.src = r.url;
         audio.currentTime = 0;
@@ -320,7 +321,7 @@
         nota.textContent = 'La prueba no modifica el banco: si funciona, actualiza “consulta” en peliculas.js con este texto.';
 
         function textoResultado(r) {
-          return r ? '♪ ' + r.pista + (r.artista ? ' · ' + r.artista : '') : '✗ iTunes no devolvió preview para este texto';
+          return r ? '♪ ' + detalles(r) : '✗ iTunes no devolvió preview para este texto';
         }
         if (resultadosPrueba.has(textoInicial)) resultado.textContent = textoResultado(resultadosPrueba.get(textoInicial));
 

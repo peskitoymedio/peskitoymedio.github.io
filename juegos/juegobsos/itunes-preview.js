@@ -29,7 +29,8 @@
         resolve(x ? {
           url: x.previewUrl,
           pista: x.trackName || '',
-          artista: x.artistName || ''
+          artista: x.artistName || '',
+          album: x.collectionName || ''
         } : null);
       };
 
