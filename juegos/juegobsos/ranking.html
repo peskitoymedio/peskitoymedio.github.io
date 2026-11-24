@@ -570,30 +570,32 @@
           }
         }
 
-        // Cinta del alias: el nombre del jugador manda en la tarjeta.
-        // La etiqueta va arriba y el nombre muy por debajo para que no se
-        // solapen aunque la fuente del nombre sea grande.
-        let af = 58;
+        // Cinta del alias en una sola fila, igual que en la tarjeta del juego.
+        const etiqueta = "RÉCORD DE";
+        ctx.font = "800 22px 'Outfit', sans-serif";
+        const etiquetaW = ctx.measureText(etiqueta).width;
+        let af = 40;
         ctx.font = "900 " + af + "px 'Outfit', sans-serif";
-        while (ctx.measureText(d.alias).width > 800 && af > 30) {
-          af -= 4; ctx.font = "900 " + af + "px 'Outfit', sans-serif";
+        while (ctx.measureText(d.alias).width > 840 - etiquetaW - 16 && af > 26) {
+          af -= 2; ctx.font = "900 " + af + "px 'Outfit', sans-serif";
         }
-        const aw = Math.min(1000, ctx.measureText(d.alias).width + 140);
-        ctx.fillStyle = "#FFC531"; rr(ctx,(1080-aw)/2,196,aw,112,28); ctx.fill();
+        const total = etiquetaW + 16 + ctx.measureText(d.alias).width;
+        const aw = Math.min(1000, total + 48);
+        ctx.fillStyle = "#FFC531"; rr(ctx,(1080-aw)/2,196,aw,47,23); ctx.fill();
         ctx.strokeStyle = "#0B1B2D"; ctx.lineWidth = 6; ctx.stroke();
-        ctx.textAlign = "center";
-        ctx.fillStyle = "#0B1B2D"; ctx.font = "800 22px 'Outfit', sans-serif";
-        ctx.fillText("RÉCORD DE", 540, 222);
-        ctx.font = "900 " + af + "px 'Outfit', sans-serif";
-        ctx.fillText(d.alias, 540, 292);
+        const x0 = (1080 - total) / 2;
         ctx.textAlign = "left";
+        ctx.fillStyle = "#0B1B2D"; ctx.font = "800 22px 'Outfit', sans-serif";
+        ctx.fillText(etiqueta, x0, 227);
+        ctx.font = "900 " + af + "px 'Outfit', sans-serif";
+        ctx.fillText(d.alias, x0 + etiquetaW + 16, 227);
 
-        const sb = ctx.createLinearGradient(60,316,1020,476);
+        const sb = ctx.createLinearGradient(60,260,1020,420);
         sb.addColorStop(0,"#193650"); sb.addColorStop(1,"#102438");
-        ctx.fillStyle = sb; rr(ctx,60,316,960,160,28); ctx.fill();
+        ctx.fillStyle = sb; rr(ctx,60,260,960,160,28); ctx.fill();
         ctx.strokeStyle = "#2C4A66"; ctx.lineWidth = 3; ctx.stroke();
         ctx.fillStyle = "#AFC3D6"; ctx.font = "700 28px 'Outfit', sans-serif";
-        ctx.fillText("Puntuación final:", 80, 350);
+        ctx.fillText("Puntuación final:", 80, 294);
         const pts = d.puntos + " pts";
         let sf = 100; ctx.font = "900 " + sf + "px 'Outfit', sans-serif";
         while (ctx.measureText(pts).width > 480 && sf > 80) {
@@ -601,7 +603,7 @@
         }
         ctx.fillStyle = "#FFC531";
         ctx.shadowColor = "rgba(255,197,49,0.35)"; ctx.shadowBlur = 18;
-        ctx.fillText(pts, 76, 444); ctx.shadowBlur = 0;
+        ctx.fillText(pts, 76, 388); ctx.shadowBlur = 0;
         const hits = d.hits + " de 10 aciertos";
         const hx = Math.max(500, 76 + ctx.measureText(pts).width + 24);
 
@@ -610,7 +612,7 @@
         let centroFila = null;
         if (d.posiciones && d.posiciones.length) {
           ctx.fillStyle = "#AFC3D6"; ctx.font = "800 22px 'Outfit', sans-serif";
-          ctx.fillText("Puestos", hx, 355);
+          ctx.fillText("Puestos", hx, 299);
           let px = hx + ctx.measureText("Puestos").width + 6;
           ctx.textAlign = "center";
           d.posiciones.forEach(p => {
@@ -619,11 +621,11 @@
             const w = ctx.measureText(texto).width + 16;
             if (px + w > 1000) return;
             ctx.fillStyle = p.puesto === 1 ? "rgba(255,197,49,0.22)" : "rgba(61,185,192,0.14)";
-            rr(ctx, px, 326, w, 42, 21); ctx.fill();
+            rr(ctx, px, 270, w, 42, 21); ctx.fill();
             ctx.strokeStyle = p.puesto === 1 ? "rgba(255,197,49,0.75)" : "rgba(61,185,192,0.5)";
             ctx.lineWidth = 2; ctx.stroke();
             ctx.fillStyle = p.puesto === 1 ? "#FFC531" : "#3DB9C0";
-            ctx.fillText(texto, px + w / 2, 355);
+            ctx.fillText(texto, px + w / 2, 299);
             px += w + 4;
           });
           ctx.textAlign = "left";
@@ -636,65 +638,78 @@
         const hw = ctx.measureText(hits).width;
         const anchoAciertos = hw + 36;
         const bx = centroFila == null ? hx - 18 : centroFila - anchoAciertos / 2;
-        ctx.fillStyle = "rgba(61,185,192,0.14)"; rr(ctx,bx,396,anchoAciertos,68,20); ctx.fill();
+        ctx.fillStyle = "rgba(61,185,192,0.14)"; rr(ctx,bx,340,anchoAciertos,68,20); ctx.fill();
         ctx.strokeStyle = "rgba(61,185,192,0.55)"; ctx.lineWidth = 2; ctx.stroke();
         ctx.fillStyle = "#3DB9C0"; ctx.textAlign = "center";
-        ctx.fillText(hits, bx + anchoAciertos/2, 442); ctx.textAlign = "left";
+        ctx.fillText(hits, bx + anchoAciertos/2, 386); ctx.textAlign = "left";
 
         ctx.fillStyle = "#3DB9C0"; ctx.font = "700 26px 'Outfit', sans-serif";
-        ctx.fillText("Veredicto:", 80, 520);
-        ctx.fillStyle = "#FFF"; ctx.font = "600 26px 'Outfit', sans-serif";
-        let linea = "", yy = 554, lineas = 0;
-        (VEREDICTOS[d.hits] || "").split(" ").forEach(palabra => {
-          const prueba = linea ? linea + " " + palabra : palabra;
-          if (ctx.measureText(prueba).width > 920 && linea) {
-            ctx.fillText(linea, 80, yy); yy += 30; lineas++; linea = palabra;
-          } else linea = prueba;
-        });
-        if (lineas < 2 && linea) ctx.fillText(linea, 80, yy);
+        ctx.fillText("Veredicto:", 80, 446);
+        // Como máximo dos líneas: si el veredicto es largo se baja la fuente
+        // antes de dejar que la segunda línea invada el panel del resumen.
+        ctx.fillStyle = "#FFF";
+        const palabras = (VEREDICTOS[d.hits] || "").split(" ");
+        let vf = 26, lineasV = [];
+        while (vf >= 22) {
+          ctx.font = "600 " + vf + "px 'Outfit', sans-serif";
+          lineasV = []; let linea = "";
+          palabras.forEach(palabra => {
+            const prueba = linea ? linea + " " + palabra : palabra;
+            if (ctx.measureText(prueba).width > 920 && linea) {
+              lineasV.push(linea); linea = palabra;
+            } else linea = prueba;
+          });
+          if (linea) lineasV.push(linea);
+          if (lineasV.length <= 2) break;
+          vf -= 2;
+        }
+        let yy = 478;
+        lineasV.slice(0, 2).forEach(l => { ctx.fillText(l, 80, yy); yy += 28; });
 
-        const panel = ctx.createLinearGradient(60,590,1020,980);
+        const panel = ctx.createLinearGradient(60,526,1020,980);
         panel.addColorStop(0,"#17314A"); panel.addColorStop(1,"#102236");
-        ctx.fillStyle = panel; rr(ctx,60,590,960,390,28); ctx.fill();
+        ctx.fillStyle = panel; rr(ctx,60,526,960,454,28); ctx.fill();
         ctx.strokeStyle = "#2C4A66"; ctx.lineWidth = 3; ctx.stroke();
         if (img.mal.naturalWidth) {
-          const c = img.crop, mh = 330, mw = mh * c[2] / c[3];
-          ctx.save(); rr(ctx,60,590,960,390,28); ctx.clip();
-          ctx.drawImage(img.mal,c[0],c[1],c[2],c[3],1010-mw,640,mw,mh);
+          const c = img.crop, mh = 420, mw = mh * c[2] / c[3];
+          ctx.save(); rr(ctx,60,526,960,454,28); ctx.clip();
+          ctx.drawImage(img.mal,c[0],c[1],c[2],c[3],1010-mw,551,mw,mh);
           ctx.restore();
         }
-        ctx.fillStyle = "rgba(255,197,49,0.12)"; rr(ctx,72,598,350,34,17); ctx.fill();
-        ctx.fillStyle = "#FFC531"; rr(ctx,72,598,6,34,3); ctx.fill();
+        ctx.fillStyle = "rgba(255,197,49,0.12)"; rr(ctx,72,531,350,36,18); ctx.fill();
+        ctx.fillStyle = "#FFC531"; rr(ctx,72,531,6,36,3); ctx.fill();
         ctx.font = "800 24px 'Outfit', sans-serif";
-        ctx.fillText("RESUMEN DE PELÍCULAS", 92, 622);
+        ctx.fillText("RESUMEN DE PELÍCULAS", 92, 558);
 
+        // Mismo ritmo que la tarjeta de partida: filas de 34 px y letra de 30,
+        // para que la lista ocupe el panel y no quede hueco al final.
         const acertadas = d.filas.filter(f => f.acierto);
         const falladas = d.filas.filter(f => !f.acierto);
-        let y = 660;
+        let y = 586;
         const grupo = (list, etiqueta, color, tinto, conElegida) => {
           if (!list.length) return;
-          ctx.font = "800 22px 'Outfit', sans-serif";
+          ctx.font = "800 26px 'Outfit', sans-serif";
           const txt = etiqueta + " (" + list.length + ")";
           const lw = ctx.measureText(txt).width;
-          ctx.fillStyle = tinto; rr(ctx,76,y-20,lw+32,28,14); ctx.fill();
+          ctx.fillStyle = tinto; rr(ctx,76,y-24,lw+36,34,17); ctx.fill();
           ctx.strokeStyle = color; ctx.globalAlpha = .55; ctx.lineWidth = 1.5; ctx.stroke();
           ctx.globalAlpha = 1; ctx.fillStyle = color; ctx.fillText(txt, 94, y);
-          y += 24;
+          y += 34;
           list.forEach((f, i) => {
             if (i % 2 === 0) {
-              ctx.fillStyle = "rgba(255,255,255,0.035)"; rr(ctx,72,y-19,916,25,9); ctx.fill();
+              ctx.fillStyle = "rgba(255,255,255,0.035)"; rr(ctx,72,y-23,916,28,10); ctx.fill();
             }
-            ctx.font = "700 26px 'Outfit', sans-serif";
-            const titulo = fit(ctx, f.titulo || "", conElegida ? 570 : 870);
+            ctx.font = "700 30px 'Outfit', sans-serif";
+            const titulo = fit(ctx, f.titulo || "", conElegida ? 640 : 880);
             const tw = ctx.measureText(titulo).width;
             ctx.fillStyle = color; ctx.fillText(conElegida ? "✗" : "✓", 80, y);
-            ctx.fillStyle = "#FFF6E9"; ctx.fillText(titulo, 116, y);
+            ctx.fillStyle = "#FFF6E9"; ctx.fillText(titulo, 118, y);
             if (conElegida && f.elegida) {
-              const ex = 116 + tw + 12;
-              ctx.font = "600 19px 'Outfit', sans-serif"; ctx.fillStyle = "#DCE8F2";
+              const ex = 118 + tw + 12;
+              ctx.font = "600 22px 'Outfit', sans-serif"; ctx.fillStyle = "#DCE8F2";
               ctx.fillText(fit(ctx, "→ eligió: " + f.elegida, 998 - ex), ex, y);
             }
-            y += 26;
+            y += 34;
           });
         };
         grupo(acertadas, "✓ ACERTADAS", "#7FA83A", "rgba(127,168,58,0.16)", false);

@@ -362,7 +362,7 @@ window.PELICULAS_BSO = [
     "consulta": "Hamilton Main Theme Lin Manuel Miranda"
   },
   {
-    "titulo": "Fame",
+    "titulo": "Fama",
     "consulta": "Fame Irene Cara"
   },
   {
@@ -758,7 +758,7 @@ window.PELICULAS_BSO = [
     "consulta": "The Hunger Games Horn Of Plenty"
   },
   {
-    "titulo": "Ralph el demoledor",
+    "titulo": "Rompe Ralph",
     "consulta": "Wreck It Ralph Main Theme Henry Jackman"
   },
   {
