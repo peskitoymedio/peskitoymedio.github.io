@@ -76,6 +76,7 @@ PRE_FEEDBURNER_XML = ROOT / "util" / "pre-feedburner.xml"
 SITEMAP_XML = ROOT / "sitemap.xml"
 SITE_URL = "https://www.peskitoymedio.es/"
 GAME_BSOS_URL = SITE_URL + "juegos/juegobsos/"
+GAME_RANKING_URL = SITE_URL + "juegos/juegobsos/ranking.html"
 SITE_HOST = urllib.parse.urlparse(SITE_URL).netloc
 FALLBACK_IMG = "img/logo-800.jpg"
 GENERATED_MARKER = "<!-- Página generada automáticamente por actualizar.py. No editar a mano. -->"
@@ -1465,9 +1466,17 @@ def game_lastmod() -> str:
     return max(dates) if dates else ""
 
 
+def ranking_lastmod() -> str:
+    """Fecha de modificación de la página del ranking para el sitemap."""
+    try:
+        return date.fromtimestamp((GAME_BSOS_DIR / "ranking.html").stat().st_mtime).isoformat()
+    except OSError:
+        return ""
+
+
 def check_game_assets() -> None:
-    """Avisa si falta el HTML o la imagen OG del juego de BSOs."""
-    for name in ("index.html", "og-image.png"):
+    """Avisa si falta el HTML, la imagen OG o el ranking del juego de BSOs."""
+    for name in ("index.html", "og-image.png", "ranking.html"):
         path = GAME_BSOS_DIR / name
         if not path.is_file():
             print("AVISO: falta el archivo del juego de BSOs: " + path.relative_to(ROOT).as_posix())
@@ -1495,6 +1504,8 @@ def build_sitemap(episodes: list[dict], lastmod: str) -> str:
     add(SITE_URL + "episodios/", lastmod, "weekly", "0.8")
     if GAME_BSOS_DIR.is_dir():
         add(GAME_BSOS_URL, game_lastmod() or lastmod, "monthly", "0.7")
+        if (GAME_BSOS_DIR / "ranking.html").is_file():
+            add(GAME_RANKING_URL, ranking_lastmod() or lastmod, "weekly", "0.6")
     for episode in episodes:
         if not episode.get("slug"):
             continue
@@ -1581,6 +1592,7 @@ def site_header(prefix: str, cta_html: str) -> str:
         <a href="{prefix}index.html#equipo">Equipo</a>
         <a href="{prefix}index.html#reconocimientos">Reconocimientos</a>
         <a href="{prefix}juegos/juegobsos/">Juego BSOs</a>
+        <a href="{prefix}juegos/juegobsos/ranking.html">Ranking BSOs</a>
         <a href="{prefix}index.html#escuchanos">Escúchanos</a>
       </nav>
 
@@ -1623,6 +1635,7 @@ def site_footer(prefix: str) -> str:
         <a href="{prefix}index.html#equipo">Equipo</a>
         <a href="{prefix}index.html#reconocimientos">Reconocimientos</a>
         <a href="{prefix}juegos/juegobsos/">Juego BSOs</a>
+        <a href="{prefix}juegos/juegobsos/ranking.html">Ranking BSOs</a>
         <a href="{prefix}index.html#escuchanos">Escúchanos</a>
       </div>
 

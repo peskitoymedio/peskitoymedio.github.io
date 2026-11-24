@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Ranking de BSOs · Peskito y Medio</title>
+  <meta name="description" content="Ranking semanal, mensual e histórico del Juego de Bandas Sonoras de Peskito y Medio.">
+  <meta name="theme-color" content="#0B1B2D">
+  <link rel="icon" type="image/x-icon" href="/favicon.ico" sizes="any">
+  <link rel="canonical" href="https://www.peskitoymedio.es/juegos/juegobsos/ranking.html">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" referrerpolicy="no-referrer">
+
+  <link rel="stylesheet" href="../../css/styles.css">
+  <style>
+    .ranking-hero {
+      padding: 56px 0 44px;
+      text-align: center;
+      background: linear-gradient(135deg, var(--ink) 0%, var(--navy) 100%);
+      color: var(--cream);
+      border-bottom: 4px solid var(--ink);
+    }
+    .ranking-hero h1 {
+      font-family: var(--font-display);
+      font-size: clamp(2.8rem, 6vw, 4.4rem);
+      color: var(--yellow);
+      text-shadow: 4px 4px 0 var(--ink);
+      margin: 0 0 10px;
+      line-height: 1.1;
+    }
+    .ranking-hero p { max-width: 620px; margin: 0 auto 16px; font-size: 1.08rem; }
+    .ranking-hero .volver { color: var(--yellow); font-weight: 700; }
+
+    .ranking-wrap {
+      max-width: 860px;
+      margin: -30px auto 72px;
+      padding: 0 20px;
+      position: relative;
+      z-index: 10;
+    }
+    .ranking-card {
+      background: var(--white);
+      border: 4px solid var(--ink);
+      border-radius: var(--radius);
+      box-shadow: 8px 8px 0 var(--ink);
+      padding: 28px 32px 32px;
+    }
+    .tabs { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 22px; }
+    .tabs button {
+      font: inherit; font-weight: 800; cursor: pointer;
+      padding: 10px 20px; border-radius: 999px;
+      border: 3px solid var(--ink); background: var(--white); color: var(--ink);
+      box-shadow: 3px 3px 0 var(--ink);
+    }
+    .tabs button:hover { transform: translate(-1px, -1px); box-shadow: 4px 4px 0 var(--ink); }
+    .tabs button.is-active { background: var(--yellow); }
+    .tabs button:disabled { opacity: .5; cursor: not-allowed; transform: none; }
+
+    .table-wrap { overflow-x: auto; }
+    table { width: 100%; border-collapse: collapse; }
+    thead th {
+      font-family: var(--font-display); letter-spacing: 1px;
+      text-align: left; padding: 10px 12px;
+      border-bottom: 3px solid var(--ink); white-space: nowrap;
+    }
+    tbody td { padding: 12px; border-bottom: 1px solid rgba(11,27,45,.14); }
+    tbody tr:last-child td { border-bottom: 0; }
+    th.num, td.num { text-align: right; }
+    td.puesto { font-family: var(--font-display); font-size: 1.35rem; color: var(--orange); width: 74px; }
+    tbody tr:nth-child(1) td.puesto { color: #d99b08; }
+    td.alias { font-weight: 700; overflow-wrap: anywhere; }
+    td.fecha { color: var(--ink-soft); white-space: nowrap; font-size: .92rem; }
+    td.vacio { text-align: center; padding: 36px 12px; color: var(--ink-soft); font-weight: 600; }
+
+    #estado { min-height: 24px; margin: 4px 0 14px; font-weight: 600; color: var(--ink-soft); }
+    .ranking-nota { margin: 24px 0 0; font-size: .9rem; color: var(--ink-soft); line-height: 1.6; }
+    .ranking-cta { display: inline-block; margin-top: 18px; }
+    @media (max-width: 640px) {
+      .ranking-card { padding: 22px 16px 24px; }
+      .tabs button { padding: 8px 14px; }
+      table { font-size: .92rem; }
+      tbody td, thead th { padding: 9px 7px; }
+    }
+  </style>
+</head>
+<body>
+  <main id="main">
+    <header class="site-header" id="site-header">
+      <div class="container nav-inner">
+        <a class="brand" href="../../index.html" aria-label="Peskito y Medio, ir al inicio">
+          <span class="brand-badge"><img src="../../img/logo-800.jpg" alt="Logo de Peskito y Medio" width="46" height="46"></span>
+          <span class="brand-text">
+            <span class="brand-name">Peskito</span>
+            <span class="brand-sub">y Medio</span>
+          </span>
+        </a>
+        <nav class="nav" id="nav" aria-label="Navegación principal">
+          <a href="../../index.html#sobre">El podcast</a>
+          <a href="../../index.html#episodios">Episodios</a>
+          <a href="./" class="is-active">Juego BSOs</a>
+          <a href="../../index.html#escuchanos">Escúchanos</a>
+        </nav>
+        <button class="nav-toggle" id="nav-toggle" type="button" aria-expanded="false" aria-controls="nav" aria-label="Abrir menú">
+          <span></span><span></span><span></span>
+        </button>
+        <a class="btn btn-primary btn-sm nav-cta" href="./">
+          <i class="fa-solid fa-play" aria-hidden="true"></i> Jugar
+        </a>
+      </div>
+    </header>
+
+    <section class="ranking-hero">
+      <div class="container">
+        <h1>Ranking de BSOs</h1>
+        <p>Mejores puntuaciones de la semana, del mes y de toda la historia del juego. Cada jugador ocupa una sola posición con su mejor partida.</p>
+        <a class="volver" href="./">← Volver al juego</a>
+      </div>
+    </section>
+
+    <div class="ranking-wrap">
+      <section class="ranking-card" aria-label="Clasificación">
+        <div class="tabs" role="group" aria-label="Periodo del ranking">
+          <button type="button" class="is-active" data-periodo="semanal" aria-pressed="true">Semanal</button>
+          <button type="button" data-periodo="mensual" aria-pressed="false">Mensual</button>
+          <button type="button" data-periodo="historico" aria-pressed="false">Histórico</button>
+        </div>
+
+        <p id="estado" role="status" aria-live="polite"></p>
+
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Jugador</th>
+                <th class="num">Puntos</th>
+                <th class="num">Aciertos</th>
+                <th>Fecha</th>
+              </tr>
+            </thead>
+            <tbody id="ranking-body"></tbody>
+          </table>
+        </div>
+
+        <p class="ranking-nota">
+          Cada acierto vale 100 puntos, más hasta 50 extra por rapidez (máximo 1500).
+          La semana y el mes se cuentan en hora de España. Se muestra la mejor partida
+          de cada jugador en el periodo elegido, no la suma de partidas.
+        </p>
+        <a class="btn btn-primary ranking-cta" href="./"><i class="fa-solid fa-play" aria-hidden="true"></i> Jugar y entrar en el ranking</a>
+      </section>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-bottom">
+      <p>© <span id="year">2026</span> Peskito y Medio · Tu Podcast Friki. Hecho con ukelele, risas y mucho cariño.</p>
+      <p class="footer-credits"><a href="../../index.html">Volver a la portada</a> · Web estática hecha por un peskito.</p>
+    </div>
+  </footer>
+
+  <script src="config.js"></script>
+  <script src="ranking.js"></script>
+  <script>
+    (function () {
+      "use strict";
+      const $ = id => document.getElementById(id);
+      const ranking = window.PYMRanking;
+      const botones = Array.from(document.querySelectorAll(".tabs button"));
+      let periodo = "semanal";
+      let cargando = 0;
+
+      function fechaBonita(valor) {
+        if (!valor) return "";
+        const partes = String(valor).split("-");
+        if (partes.length !== 3) return String(valor);
+        return new Date(Number(partes[0]), Number(partes[1]) - 1, Number(partes[2]))
+          .toLocaleDateString("es-ES", { day: "2-digit", month: "short", year: "numeric" });
+      }
+
+      function pintar(filas) {
+        const cuerpo = $("ranking-body");
+        cuerpo.textContent = "";
+        if (!filas || !filas.length) {
+          const tr = document.createElement("tr");
+          const td = document.createElement("td");
+          td.colSpan = 5;
+          td.className = "vacio";
+          td.textContent = "Todavía no hay puntuaciones en este periodo. ¡Sé el primero!";
+          tr.appendChild(td);
+          cuerpo.appendChild(tr);
+          return;
+        }
+        filas.forEach(fila => {
+          const tr = document.createElement("tr");
+          const datos = [
+            ["puesto", "#" + fila.puesto],
+            ["alias", fila.alias],
+            ["num", fila.puntos],
+            ["num", fila.aciertos],
+            ["fecha", fechaBonita(fila.fecha)]
+          ];
+          datos.forEach(([clase, valor]) => {
+            const td = document.createElement("td");
+            td.className = clase;
+            td.textContent = valor == null ? "" : String(valor);
+            tr.appendChild(td);
+          });
+          cuerpo.appendChild(tr);
+        });
+      }
+
+      async function actualizar() {
+        const estado = $("estado");
+        const id = ++cargando;
+        botones.forEach(b => { b.disabled = true; });
+        estado.textContent = "Cargando clasificación…";
+        try {
+          const filas = await ranking.cargar(periodo);
+          if (id !== cargando) return;
+          pintar(filas);
+          estado.textContent = "";
+        } catch (e) {
+          if (id !== cargando) return;
+          pintar([]);
+          estado.textContent = "No se pudo cargar el ranking: " + e.message;
+        } finally {
+          if (id === cargando) botones.forEach(b => { b.disabled = false; });
+        }
+      }
+
+      botones.forEach(boton => {
+        boton.addEventListener("click", () => {
+          periodo = boton.dataset.periodo;
+          botones.forEach(b => {
+            const activo = b === boton;
+            b.classList.toggle("is-active", activo);
+            b.setAttribute("aria-pressed", String(activo));
+          });
+          actualizar();
+        });
+      });
+
+      $("year").textContent = String(new Date().getFullYear());
+
+      /* Menú móvil, igual que en el juego. */
+      const navToggle = $("nav-toggle");
+      const nav = $("nav");
+      if (navToggle && nav) {
+        navToggle.addEventListener("click", () => {
+          const abierto = !nav.classList.contains("is-open");
+          nav.classList.toggle("is-open", abierto);
+          if (abierto) {
+            const header = $("site-header");
+            nav.style.top = (header ? header.getBoundingClientRect().bottom + 6 : 60) + "px";
+          }
+          navToggle.setAttribute("aria-expanded", String(abierto));
+          navToggle.setAttribute("aria-label", abierto ? "Cerrar menú" : "Abrir menú");
+        });
+        nav.querySelectorAll("a").forEach(a => a.addEventListener("click", () => {
+          nav.classList.remove("is-open");
+          navToggle.setAttribute("aria-expanded", "false");
+        }));
+      }
+
+      if (!ranking.configurado) {
+        botones.forEach(b => { b.disabled = true; });
+        pintar([]);
+        $("estado").textContent =
+          "El ranking estará disponible en cuanto se configure el servicio de puntuaciones.";
+      } else {
+        actualizar();
+      }
+    })();
+  </script>
+</body>
+</html>

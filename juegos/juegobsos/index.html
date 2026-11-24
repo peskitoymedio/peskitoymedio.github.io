@@ -136,25 +136,6 @@
       font-size: 1.05rem;
     }
 
-    select {
-      font-family: var(--font-body);
-      font-weight: 600;
-      font-size: 1rem;
-      padding: 12px 18px;
-      border: 3px solid var(--ink);
-      border-radius: 12px;
-      background: var(--cream);
-      color: var(--ink);
-      cursor: pointer;
-      box-shadow: 3px 3px 0 var(--ink);
-      transition: all .15s ease;
-    }
-    select:focus {
-      outline: none;
-      border-color: var(--orange);
-      background: var(--white);
-    }
-
     .btn-game {
       font-family: var(--font-display);
       font-size: 1.6rem;
@@ -610,6 +591,7 @@
           <a href="../../index.html#sobre">El podcast</a>
           <a href="../../index.html#episodios">Episodios</a>
           <a href="./" class="is-active">Juego BSOs</a>
+          <a href="./ranking.html">Ranking</a>
           <a href="../../index.html#escuchanos">Escúchanos</a>
         </nav>
 
@@ -636,16 +618,10 @@
     <div class="game-container">
       <!-- INICIO -->
       <section id="start" class="game-card">
-        <div class="row" style="flex-direction: column; gap: 8px;">
-          <label for="secs">Segundos de escucha por pista</label>
-          <select id="secs">
-            <option value="3">3 segundos · Modo Leyenda</option>
-            <option value="5" selected>5 segundos · Modo Normal</option>
-            <option value="10">10 segundos · Modo Relax</option>
-          </select>
-        </div>
+        <p style="text-align: center; font-weight: 600;">Escuchas <strong>5 segundos</strong> de cada pista. Cuanto antes aciertes, más puntos.</p>
         <div class="row" style="margin-top: 24px;">
           <button class="btn-game" id="go"><i class="fa-solid fa-play" aria-hidden="true"></i> ¡Dale al play!</button>
+          <a class="btn-game alt" href="./ranking.html"><i class="fa-solid fa-trophy" aria-hidden="true"></i> Ver ranking</a>
         </div>
         <p class="msg" id="loadmsg"></p>
         <small><strong>Cómo se puntúa:</strong> cada acierto vale 100 puntos, más hasta 50 extra si respondes rápido (máximo 1500). El audio son previews enlazados desde la API pública de iTunes / Apple Music. Peskito no almacena ningún archivo en el servidor.</small>
@@ -675,11 +651,23 @@
         <p class="hits-line" id="hits">0 de 10 aciertos</p>
         <h2 id="verdict"></h2>
         <ul class="res" id="res"></ul>
+
+        <div class="score-submit" id="score-submit" style="margin: 24px 0 8px; padding: 18px; border: 3px dashed var(--ink); border-radius: 16px; background: rgba(255,197,49,.10);">
+          <label for="alias" style="display: block; font-weight: 800; margin-bottom: 8px;">Entra en el ranking</label>
+          <div class="row">
+            <input id="alias" type="text" maxlength="24" autocomplete="nickname" placeholder="Tu alias (máx. 24 caracteres)" style="flex: 1; min-width: 0; padding: 12px 14px; border: 3px solid var(--ink); border-radius: 12px; font: inherit;">
+            <button class="btn-game" id="save-score" type="button"><i class="fa-solid fa-trophy" aria-hidden="true"></i> Enviar al ranking</button>
+          </div>
+          <p class="msg" id="save-msg" role="status" aria-live="polite"></p>
+          <small>Tu mejor puntuación entra en los rankings semanal, mensual e histórico.</small>
+        </div>
+
         <canvas id="card" width="1080" height="1080"></canvas>
         <div class="row" style="margin-top: 24px;">
           <button class="btn-game" id="share"><i class="fa-solid fa-share-nodes" aria-hidden="true"></i> Compartir imagen</button>
           <button class="btn-game alt" id="dl"><i class="fa-solid fa-download" aria-hidden="true"></i> Descargar</button>
           <button class="btn-game alt" id="again"><i class="fa-solid fa-rotate-right" aria-hidden="true"></i> Otra partida</button>
+          <a class="btn-game" href="./ranking.html"><i class="fa-solid fa-trophy" aria-hidden="true"></i> Ver ranking</a>
         </div>
         <div class="share-links">
           <a id="sx" target="_blank" rel="noopener" title="Abre el menú de compartir con la imagen (o X / Twitter si tu navegador no lo admite)"><i class="fa-brands fa-x-twitter"></i> X / Twitter</a>
@@ -721,6 +709,7 @@
         <a href="../../index.html#presentacion">Presentación</a>
         <a href="../../index.html#equipo">Equipo</a>
         <a href="../../index.html#reconocimientos">Reconocimientos</a>
+        <a href="./ranking.html">Ranking de BSOs</a>
         <a href="../../index.html#escuchanos">Escúchanos</a>
       </div>
 
@@ -750,6 +739,8 @@
 
   <script src="peliculas.js"></script>
   <script src="itunes-preview.js"></script>
+  <script src="config.js"></script>
+  <script src="ranking.js"></script>
   <script>
     // Banco de películas externo: peliculas.js (titulo + consulta)
     const FILMS=window.PELICULAS_BSO.map(p=>[p.titulo,p.consulta]);
@@ -792,6 +783,7 @@
     }else setCardImages();
     if(document.fonts) document.fonts.ready.then(redrawCard);
     const audio=new Audio(); audio.crossOrigin="anonymous"; audio.preload="auto";
+    // Modo único: 5 segundos de escucha por pista.
     let rounds=[],r=0,score=0,secs=5,startT=0,timer=null,answered=false,results=[];
 
     // La búsqueda vive en itunes-preview.js, compartida con el laboratorio privado
@@ -799,7 +791,7 @@
     const shuffle=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.random()*(i+1)|0;[a[i],a[j]]=[a[j],a[i]]}return a};
 
     $('go').onclick=async()=>{
-      secs=+$('secs').value; $('go').disabled=true; $('loadmsg').textContent="Buscando bandas sonoras en iTunes…";
+      $('go').disabled=true; $('loadmsg').textContent="Buscando bandas sonoras en iTunes…";
       const pool=shuffle(FILMS); rounds=[];
       for(const f of pool){ if(rounds.length>=10)break;
         const url=await itunes(f[1]); if(url) rounds.push({title:f[0],url});
@@ -921,6 +913,7 @@
       });
       drawCard(hits);
       updateShareLinks(hits);
+      if (window.PYMRanking) window.PYMRanking.initGameForm();
     }
 
     function wrapText(ctx,text,x,y,maxWidth,lineHeight,maxLines){
@@ -1105,6 +1098,17 @@
     }
 
     $('again').onclick=()=>{ $('end').classList.add('hidden'); $('start').classList.remove('hidden'); };
+
+    // Envío de la puntuación al ranking (silencioso si no hay configuración).
+    $('save-score').onclick=async()=>{
+      const boton=$('save-score'); const msg=$('save-msg');
+      boton.disabled=true; msg.textContent="Enviando…";
+      const res=await window.PYMRanking.enviar({
+        puntos:score, aciertos:results.filter(x=>x.ok).length, alias:$('alias').value
+      });
+      msg.textContent=res.mensaje;
+      boton.disabled=!res.ok;
+    };
 
     $('dl').onclick=()=>{
       const a=document.createElement('a');
