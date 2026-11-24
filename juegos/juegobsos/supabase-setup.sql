@@ -211,7 +211,9 @@ begin
     raise exception 'Número de aciertos no válido';
   end if;
   -- El detalle de la partida es la fuente de la verdad para aciertos y puntos.
-  -- Cada acierto vale 100 fijos + round((1 - ms/5000) * 50) de rapidez.
+  -- Cada acierto vale 100 fijos + round((5000 - ms) / 100) de rapidez, con
+  -- ms limitado a 5000. Se usa aritmética exacta (numeric/enteros) para que el
+  -- redondeo coincida con el del cliente y no dependa de coma flotante.
   -- Todo esto se valida ANTES de consumir el token o insertar nada.
   if p_detalles is null or jsonb_typeof(p_detalles) <> 'array' then
     raise exception 'Falta el detalle de la partida';
@@ -234,7 +236,7 @@ begin
       raise exception 'Tiempo no válido en el detalle';
     end if;
     if v_acierto then
-      v_pts := 100 + round((1 - least(v_ms, 5000)::numeric / 5000) * 50)::integer;
+      v_pts := 100 + round((5000 - least(v_ms, 5000))::numeric / 100)::integer;
       v_puntos_calc := v_puntos_calc + v_pts;
       v_aciertos_calc := v_aciertos_calc + 1;
     end if;
