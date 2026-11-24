@@ -940,16 +940,39 @@
       if(line) ctx.fillText(line,x,y);
     }
 
+    function roundRect(ctx,x,y,w,h,r){
+      const rr=Math.min(r,w/2,h/2);
+      ctx.beginPath();
+      ctx.moveTo(x+rr,y);
+      ctx.arcTo(x+w,y,x+w,y+h,rr);
+      ctx.arcTo(x+w,y+h,x,y+h,rr);
+      ctx.arcTo(x,y+h,x,y,rr);
+      ctx.arcTo(x,y,x+w,y,rr);
+      ctx.closePath();
+    }
+
     function drawCard(hits){
       const canvas=$('card'), ctx=canvas.getContext('2d');
-      ctx.fillStyle="#0B1B2D"; ctx.fillRect(0,0,1080,1080);
 
-      // Marco decorativo cómic
-      ctx.strokeStyle="#FFC531"; ctx.lineWidth=16; ctx.strokeRect(30,30,1020,1020);
+      // Fondo degradado con un brillo suave en la cabecera
+      const bg=ctx.createLinearGradient(0,0,1080,1080);
+      bg.addColorStop(0,"#0D2138"); bg.addColorStop(0.55,"#0B1B2D"); bg.addColorStop(1,"#071320");
+      ctx.fillStyle=bg; ctx.fillRect(0,0,1080,1080);
+      const glow=ctx.createRadialGradient(900,120,20,900,120,430);
+      glow.addColorStop(0,"rgba(61,185,192,0.22)"); glow.addColorStop(1,"rgba(61,185,192,0)");
+      ctx.fillStyle=glow; ctx.fillRect(0,0,1080,520);
 
-      // Personajes de la cabecera (se recorta el margen transparente del sprite)
+      // Marco cómic redondeado y filete interior
+      ctx.strokeStyle="#FFC531"; ctx.lineWidth=14;
+      roundRect(ctx,26,26,1028,1028,36); ctx.stroke();
+      ctx.strokeStyle="rgba(61,185,192,0.45)"; ctx.lineWidth=3;
+      roundRect(ctx,44,44,992,992,26); ctx.stroke();
+
+      // Cabecera
       ctx.fillStyle="#FFF6E9"; ctx.font="900 58px 'Outfit', sans-serif";
+      ctx.shadowColor="rgba(0,0,0,0.45)"; ctx.shadowBlur=12; ctx.shadowOffsetY=3;
       ctx.fillText("PESKITO Y MEDIO", 80, 110);
+      ctx.shadowBlur=0; ctx.shadowOffsetY=0;
 
       ctx.fillStyle="#F07000"; ctx.font="900 44px 'Outfit', sans-serif";
       const subtitle="JUEGO DE BANDAS SONORAS";
@@ -958,55 +981,73 @@
 
       // Personajes a la derecha del subtítulo: se encogen si la fuente es más ancha
       if(peskitos.complete && peskitos.naturalWidth){
-        const pw=Math.min(215,1010-(subtitleEnd+24));
-        if(pw>90) ctx.drawImage(peskitos,39,13,1202,1172,1010-pw,55,pw,pw*210/215);
+        const pw=Math.min(185,1010-(subtitleEnd+24));
+        if(pw>90) ctx.drawImage(peskitos,39,13,1202,1172,1010-pw,45,pw,pw*210/215);
       }
 
-      ctx.fillStyle="#FFF"; ctx.font="700 30px 'Outfit', sans-serif";
-      ctx.fillText("Puntuación final:", 80, 255);
+      // Tarjeta de puntuación
+      const scoreBg=ctx.createLinearGradient(60,235,1020,395);
+      scoreBg.addColorStop(0,"#193650"); scoreBg.addColorStop(1,"#102438");
+      ctx.fillStyle=scoreBg; roundRect(ctx,60,235,960,160,28); ctx.fill();
+      ctx.strokeStyle="#2C4A66"; ctx.lineWidth=3; ctx.stroke();
+
+      ctx.fillStyle="#AFC3D6"; ctx.font="700 28px 'Outfit', sans-serif";
+      ctx.fillText("Puntuación final:", 80, 268);
 
       // Se miden los textos para que puntuación y aciertos nunca se solapen
       const scoreText=score+" pts";
       let scoreFont=110;
-      ctx.fillStyle="#FFC531";
       ctx.font="900 "+scoreFont+"px 'Outfit', sans-serif";
       while(ctx.measureText(scoreText).width>480 && scoreFont>80){
         scoreFont-=4; ctx.font="900 "+scoreFont+"px 'Outfit', sans-serif";
       }
-      ctx.fillText(scoreText,76,370);
+      ctx.fillStyle="#FFC531";
+      ctx.shadowColor="rgba(255,197,49,0.35)"; ctx.shadowBlur=18;
+      ctx.fillText(scoreText,76,362);
+      ctx.shadowBlur=0;
       const scoreEnd=76+ctx.measureText(scoreText).width;
 
       const hitsText=hits+" de 10 aciertos";
       const hitsX=Math.max(560,scoreEnd+24);
       let hitsFont=42;
-      ctx.fillStyle="#3DB9C0";
       ctx.font="800 "+hitsFont+"px 'Outfit', sans-serif";
-      while(ctx.measureText(hitsText).width>1010-hitsX && hitsFont>26){
+      while(ctx.measureText(hitsText).width>986-hitsX && hitsFont>26){
         hitsFont-=2; ctx.font="800 "+hitsFont+"px 'Outfit', sans-serif";
       }
-      ctx.fillText(hitsText,hitsX,350);
+      const hitsW=ctx.measureText(hitsText).width;
+      ctx.fillStyle="rgba(61,185,192,0.14)";
+      roundRect(ctx,hitsX-18,300,hitsW+36,68,20); ctx.fill();
+      ctx.strokeStyle="rgba(61,185,192,0.55)"; ctx.lineWidth=2; ctx.stroke();
+      ctx.fillStyle="#3DB9C0"; ctx.textAlign="center";
+      ctx.fillText(hitsText,hitsX+hitsW/2,350); ctx.textAlign="left";
 
       ctx.fillStyle="#3DB9C0"; ctx.font="700 28px 'Outfit', sans-serif";
-      ctx.fillText("Veredicto:", 80, 420);
-      ctx.fillStyle="#FFF"; ctx.font="600 30px 'Outfit', sans-serif";
-      wrapText(ctx, $('verdict').textContent, 80, 465, 920, 38, 2);
+      ctx.fillText("Veredicto:", 80, 428);
+      ctx.fillStyle="#FFF"; ctx.font="600 28px 'Outfit', sans-serif";
+      wrapText(ctx, $('verdict').textContent, 80, 468, 920, 36, 2);
 
-      // Panel con el resumen de películas en una sola columna: acertadas primero
-      ctx.fillStyle="#14283D"; ctx.fillRect(60,515,960,465);
-      ctx.strokeStyle="#263B52"; ctx.lineWidth=3; ctx.strokeRect(60,515,960,465);
+      // Panel del resumen en una sola columna: acertadas primero
+      const panel=ctx.createLinearGradient(60,515,1020,980);
+      panel.addColorStop(0,"#17314A"); panel.addColorStop(1,"#102236");
+      ctx.fillStyle=panel; roundRect(ctx,60,515,960,465,28); ctx.fill();
+      ctx.strokeStyle="#2C4A66"; ctx.lineWidth=3; ctx.stroke();
 
-      // Malcolm de fondo a la derecha: alto fijo y ancho proporcional al recorte
+      // Malcolm de fondo: alto fijo y ancho proporcional al recorte, sin transparencia
       const mal=malcolmFor(hits);
       if(mal.img.complete && mal.img.naturalWidth){
         const malH=420, malW=malH*mal.crop[2]/mal.crop[3];
         ctx.save();
-        ctx.beginPath(); ctx.rect(60,515,960,465); ctx.clip();
+        roundRect(ctx,60,515,960,465,28); ctx.clip();
         ctx.drawImage(mal.img,...mal.crop,1010-malW,540,malW,malH);
         ctx.restore();
       }
 
-      ctx.fillStyle="#FFC531"; ctx.font="800 26px 'Outfit', sans-serif";
-      ctx.fillText("RESUMEN DE PELÍCULAS", 80, 550);
+      // Cabecera del panel
+      ctx.fillStyle="rgba(255,197,49,0.12)";
+      roundRect(ctx,72,520,360,36,18); ctx.fill();
+      ctx.fillStyle="#FFC531"; roundRect(ctx,72,520,6,36,3); ctx.fill();
+      ctx.font="800 26px 'Outfit', sans-serif";
+      ctx.fillText("RESUMEN DE PELÍCULAS", 92, 547);
 
       const okList=results.filter(x=>x.ok);
       const badList=results.filter(x=>!x.ok);
@@ -1020,15 +1061,20 @@
 
       // Un único listado: primero las acertadas y después las falladas.
       // Al usar todo el ancho del panel, los títulos suben de 22px a 34px.
-      let y=580;
-      const drawGroup=(list,label,mark,color,withChoice)=>{
+      let y=586;
+      const drawGroup=(list,label,mark,color,tint,withChoice)=>{
         if(!list.length) return;
-        ctx.font="800 28px 'Outfit', sans-serif";
-        ctx.fillStyle=color;
-        ctx.fillText(label+" ("+list.length+")", 80, y);
+        ctx.font="800 26px 'Outfit', sans-serif";
+        const labelText=label+" ("+list.length+")";
+        const lw=ctx.measureText(labelText).width;
+        ctx.fillStyle=tint; roundRect(ctx,76,y-24,lw+36,34,17); ctx.fill();
+        ctx.strokeStyle=color; ctx.globalAlpha=0.55; ctx.lineWidth=1.5; ctx.stroke();
+        ctx.globalAlpha=1;
+        ctx.fillStyle=color; ctx.fillText(labelText,94,y);
         y+=34;
-        list.forEach(x=>{
-          ctx.font="700 34px 'Outfit', sans-serif";
+        list.forEach((x,i)=>{
+          if(i%2===0){ ctx.fillStyle="rgba(255,255,255,0.035)"; roundRect(ctx,72,y-23,916,28,10); ctx.fill(); }
+          ctx.font="700 30px 'Outfit', sans-serif";
           const title=fit(x.title, withChoice?640:880);
           const titleW=ctx.measureText(title).width;
           ctx.fillStyle=color; ctx.fillText(mark, 80, y);
@@ -1036,18 +1082,26 @@
           if(withChoice){
             const ax=118+titleW+12;
             ctx.font="600 22px 'Outfit', sans-serif";
-            ctx.fillStyle="#9FB1C4";
+            ctx.fillStyle="#DCE8F2";
             ctx.fillText(fit("→ elegiste: "+x.chosen, 998-ax), ax, y);
           }
           y+=34;
         });
       };
-      drawGroup(okList,"✓ ACERTADAS","✓","#7FA83A",false);
+      drawGroup(okList,"✓ ACERTADAS","✓","#7FA83A","rgba(127,168,58,0.16)",false);
       if(okList.length && badList.length) y+=6;
-      drawGroup(badList,"✗ FALLADAS","✗","#D9452E",true);
+      drawGroup(badList,"✗ FALLADAS","✗","#D9452E","rgba(217,69,46,0.16)",true);
 
-      ctx.fillStyle="#5E6F80"; ctx.font="600 24px 'Outfit', sans-serif";
-      ctx.fillText("¿Podrás superarme? Juega en peskitoymedio.es/juegos/juegobsos/", 80, 1015);
+      // Llamada a la acción
+      const cta="¿Podrás superarme? Juega en peskitoymedio.es/juegos/juegobsos/";
+      let ctaFont=26;
+      ctx.font="800 "+ctaFont+"px 'Outfit', sans-serif";
+      while(ctx.measureText(cta).width>900 && ctaFont>20){
+        ctaFont-=2; ctx.font="800 "+ctaFont+"px 'Outfit', sans-serif";
+      }
+      ctx.fillStyle="#FFC531"; roundRect(ctx,60,988,960,40,20); ctx.fill();
+      ctx.fillStyle="#0B1B2D"; ctx.textAlign="center";
+      ctx.fillText(cta,540,1015); ctx.textAlign="left";
     }
 
     $('again').onclick=()=>{ $('end').classList.add('hidden'); $('start').classList.remove('hidden'); };
