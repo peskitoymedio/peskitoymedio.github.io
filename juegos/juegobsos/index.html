@@ -758,13 +758,38 @@
     const redrawCard=()=>{
       if(!$('end').classList.contains('hidden')) drawCard(results.filter(x=>x.ok).length);
     };
-    // Imágenes decorativas de la tarjeta. En file:// se omiten para no teñir el canvas.
-    const peskitos=new Image(), malcolm=new Image();
-    if(location.protocol!=="file:"){
-      peskitos.src="../../img/utils/peskitos.png";
-      malcolm.src="../../img/equipo/Malcolm.png";
-    }
-    [peskitos,malcolm].forEach(img=>{ img.onload=redrawCard; });
+    // Malcolm cambia según los aciertos; el 7 conserva la imagen del equipo.
+    // crop = [x,y,ancho,alto] del contenido no transparente de cada PNG.
+    const MALCOLM=[
+      {src:"../../img/utils/Malcolm-0-2.png", crop:[121,19,594,1112]},
+      {src:"../../img/utils/Malcolm-3-4.png", crop:[102,20,611,1110]},
+      {src:"../../img/utils/Malcolm-5-6.png", crop:[37,10,699,1131]},
+      {src:"../../img/equipo/Malcolm.png", crop:[8,11,417,616]},
+      {src:"../../img/utils/Malcolm-8-9.png", crop:[46,25,715,1099]},
+      {src:"../../img/utils/Malcolm-10.png", crop:[19,21,736,1115]}
+    ];
+    const malcolmFor=hits=>MALCOLM[hits<=2?0:hits<=4?1:hits<=6?2:hits===7?3:hits<=9?4:5];
+    // Imágenes decorativas de la tarjeta. En file:// se usan data URLs incluidas
+    // en card-images-local.js para que no tiñan el canvas (descarga y compartir).
+    const peskitos=new Image();
+    peskitos.onload=redrawCard;
+    MALCOLM.forEach(m=>{ m.img=new Image(); m.img.onload=redrawCard; });
+    const setCardImages=()=>{
+      if(location.protocol==="file:" && window.CARD_IMAGES_LOCAL){
+        peskitos.src=window.CARD_IMAGES_LOCAL.peskitos;
+        MALCOLM.forEach((m,i)=>{ m.img.src=window.CARD_IMAGES_LOCAL.malcolm[i]; });
+      }else{
+        peskitos.src="../../img/utils/peskitos.png";
+        MALCOLM.forEach(m=>{ m.img.src=m.src; });
+      }
+    };
+    if(location.protocol==="file:"){
+      const localScript=document.createElement('script');
+      localScript.src="card-images-local.js";
+      localScript.onload=setCardImages;
+      localScript.onerror=setCardImages;
+      document.head.appendChild(localScript);
+    }else setCardImages();
     if(document.fonts) document.fonts.ready.then(redrawCard);
     const audio=new Audio(); audio.crossOrigin="anonymous"; audio.preload="auto";
     let rounds=[],r=0,score=0,secs=5,startT=0,timer=null,answered=false,results=[];
@@ -970,12 +995,13 @@
       ctx.fillStyle="#14283D"; ctx.fillRect(60,515,960,465);
       ctx.strokeStyle="#263B52"; ctx.lineWidth=3; ctx.strokeRect(60,515,960,465);
 
-      // Malcolm de fondo a la derecha, recortado por el panel y en transparencia
-      if(malcolm.complete && malcolm.naturalWidth){
+      // Malcolm de fondo a la derecha: alto fijo y ancho proporcional al recorte
+      const mal=malcolmFor(hits);
+      if(mal.img.complete && mal.img.naturalWidth){
+        const malH=420, malW=malH*mal.crop[2]/mal.crop[3];
         ctx.save();
         ctx.beginPath(); ctx.rect(60,515,960,465); ctx.clip();
-        ctx.globalAlpha=0.78;
-        ctx.drawImage(malcolm,8,11,417,616,740,540,280,420);
+        ctx.drawImage(mal.img,...mal.crop,1010-malW,540,malW,malH);
         ctx.restore();
       }
 
