@@ -24,6 +24,7 @@ Es una web estática: no hay servidor, base de datos ni proceso de compilación.
 - Vídeo de presentación incrustado desde YouTube.
 - Sección de reconocimientos con los premios de la Asociación Podcast y los rankings de Goodpods.
 - Contadores de episodios y de cada categoría calculados en tiempo real.
+- **Juego de Bandas Sonoras** (`juegos/juegobsos/`): minijuego online para adivinar películas a partir de fragmentos de sus bandas sonoras. Banco de 89 películas frikis, 10 rondas, puntuación por acierto y rapidez, modo de dificultad (3/5/10 segundos), tarjeta de resultado para compartir y descargar, y audio preview vía iTunes API sin almacenar archivos en el servidor.
 - Diseño adaptable a móvil, tableta y escritorio, con una estética de cómic y aire friki.
 - Navegación por teclado, textos alternativos y contraste cuidado.
 - Sin dependencias de JavaScript: solo HTML, CSS y JS del navegador.
@@ -117,6 +118,48 @@ Las portadas se descargan a `img/episodes/` y se guardan con un nombre estable b
 
 La página pública incluye los episodios más recientes, por lo que cada programa nuevo se incorpora automáticamente en su siguiente ejecución. Si Spotify todavía no lo ha publicado o su oEmbed no responde, el enlace queda pendiente y **se reintenta en cada actualización** (cada seis horas), sin impedir la actualización de la web. Para tolerate cambios de título se comparan también los títulos truncados y el número de programa (`PYM 62`, `PYM 4.1`), siempre validando con oEmbed antes de guardar el enlace.
 
+## Juego de Bandas Sonoras
+
+La web incluye un minijuego online autocontenido en `juegos/juegobsos/index.html` para adivinar películas a partir de fragmentos de sus bandas sonoras.
+
+### Datos del juego
+
+| Dato | Valor |
+|---|---|
+| URL | `https://www.peskitoymedio.es/juegos/juegobsos/` |
+| Banco de películas | 89 títulos frikis (cine, animación, sci-fi, cultos, ganadores del Óscar) |
+| Rondas por partida | 10 |
+| Duración de cada pista | 3 s (Leyenda), 5 s (Normal) o 10 s (Relax) |
+| Puntuación | 100 puntos fijos por acierto + hasta 50 de bonus por rapidez (máx. 1500 por ronda) |
+| Audio | Previews de iTunes / Apple Music (no se almacena ningún archivo en el servidor) |
+| Resultado | Pantalla final con veredicto, resumen de acertadas/falladas y tarjeta para compartir/descargar |
+
+### Cómo funciona
+
+El banco de películas vive en `juegos/juegobsos/peliculas.js` (`window.PELICULAS_BSO`): cada entrada guarda `titulo` y `consulta` (término de búsqueda). Se carga como script en vez de como `.json` para que el juego siga funcionando con `file://`, donde `fetch()` sería bloqueado por CORS. La búsqueda de previews está en `itunes-preview.js` (`itunes.apple.com/search`, JSONP), compartida por el juego y por el laboratorio. Al iniciar una partida se barajan las películas, se cargan hasta 10 previews válidas y se juega ronda por ronda contra el reloj.
+
+Cada ronda muestra:
+- Un reproductor animado (vinilo) que se puede pulsar para volver a escuchar la pista.
+- Cuatro opciones de respuesta (1 correcta + 3 distractoras aleatorias).
+- Una barra de progreso que se agota al tiempo que suena el clip.
+
+Al terminar se muestra una pantalla final con la puntuación, el veredicto ("Maestro Absoluto de las BSOs", etc.), el listado de películas acertadas y falladas, y botones para compartir la tarjeta de resultado en X, WhatsApp, Facebook y Telegram (Web Share API con archivo adjunto cuando el navegador lo permite).
+
+### SEO y metadatos
+
+La página declara `<title>` y `<meta name="description">` propios, `link rel="canonical"` absoluta, y metadatos Open Graph/Twitter con imagen de vista previa (`og-image.png`, 1200×630). Se enlaza desde la navegación principal del sitio y del pie de página.
+
+### Estructura
+
+```
+juegos/juegobsos/
+  index.html         Página del juego (HTML, estilos embebidos y lógica JS)
+  peliculas.js       Banco externo de películas (titulo + consulta)
+  itunes-preview.js  Búsqueda de previews compartida con el laboratorio
+  lab-bso.html       Laboratorio privado: listado, filtro, test de previews y prueba de descripciones alternativas (noindex + robots.txt)
+  og-image.png       Imagen de vista previa para redes sociales
+```
+
 ## Actualización automática
 
 El workflow `.github/workflows/actualizar-pages.yml` mantiene la web al día sin intervención manual. Se ejecuta cada seis horas, al lanzarlo a mano desde la pestaña **Actions** y en cada push a `main` o `master`.
@@ -174,6 +217,7 @@ En Windows, `actualizar.bat` abre el mismo script con doble clic.
 ```
 index.html              Página principal
 episodios/              Una página por episodio + archivo completo (generado)
+juegos/juegobsos/       Juego online de bandas sonoras (autocontenido: HTML, CSS y JS)
 robots.txt              Directrices para buscadores
 sitemap.xml             Mapa del sitio con la portada, el archivo y cada episodio
 css/styles.css          Estilos, variables de diseño y adaptación a móvil

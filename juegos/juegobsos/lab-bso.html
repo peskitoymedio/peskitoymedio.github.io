@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Laboratorio de BSOs · Peskito y Medio</title>
+  <!-- Página de uso interno: no debe aparecer ni ser rastreada por buscadores.
+       También bloqueada en robots.txt (User-agent: * → Disallow). -->
+  <meta name="robots" content="noindex, nofollow, noarchive, nosnippet, noimageindex">
+  <meta name="googlebot" content="noindex, nofollow, noarchive, nosnippet, noimageindex">
+  <meta name="referrer" content="no-referrer">
+  <link rel="stylesheet" href="../../css/styles.css">
+  <style>
+    :root {
+      --lab-ink: var(--ink, #0b1b2d);
+      --lab-navy: var(--navy, #16324f);
+      --lab-cream: var(--cream, #fff6e5);
+      --lab-orange: var(--orange, #ff6b35);
+      --lab-yellow: var(--yellow, #ffd23f);
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: var(--lab-ink);
+      color: var(--lab-cream);
+      font-family: var(--font-body, Outfit, system-ui, sans-serif);
+      line-height: 1.5;
+    }
+    .lab { max-width: 960px; margin: 0 auto; padding: 32px 20px 64px; }
+    .lab-header h1 {
+      font-family: var(--font-display, Bangers, Impact, sans-serif);
+      font-size: clamp(2.2rem, 6vw, 3.6rem);
+      letter-spacing: 1px;
+      color: var(--lab-yellow);
+      margin: 0;
+    }
+    .lab-header p { margin: 6px 0 0; opacity: .82; }
+    .aviso {
+      margin: 20px 0 24px;
+      padding: 10px 14px;
+      border-left: 4px solid var(--lab-orange);
+      background: rgba(255, 107, 53, .12);
+      font-size: .92rem;
+    }
+    .controles {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      align-items: flex-end;
+      padding: 18px;
+      background: var(--lab-navy);
+      border: 2px solid rgba(255, 255, 255, .12);
+      border-radius: 12px;
+    }
+    .campo { display: flex; flex-direction: column; gap: 6px; flex: 1 1 280px; }
+    .campo label { font-size: .85rem; text-transform: uppercase; letter-spacing: .08em; opacity: .8; }
+    input[type="search"], select, button {
+      font: inherit;
+      border-radius: 8px;
+      border: 2px solid rgba(255, 255, 255, .2);
+      padding: 10px 12px;
+    }
+    input[type="search"], select { background: var(--lab-ink); color: var(--lab-cream); width: 100%; }
+    input[type="search"]:focus-visible, select:focus-visible, button:focus-visible {
+      outline: 3px solid var(--lab-yellow); outline-offset: 2px;
+    }
+    button { cursor: pointer; background: var(--lab-orange); color: #17110c; font-weight: 700; border-color: var(--lab-orange); }
+    button:hover:not(:disabled) { filter: brightness(1.1); }
+    button:disabled { cursor: progress; opacity: .55; }
+    #contador { margin: 14px 2px 8px; font-size: .9rem; opacity: .8; }
+    .panel {
+      margin: 12px 0 20px;
+      padding: 14px 18px;
+      background: linear-gradient(135deg, var(--lab-navy), var(--lab-ink));
+      border: 2px solid var(--lab-yellow);
+      border-radius: 12px;
+      position: sticky;
+      top: 8px;
+      z-index: 2;
+    }
+    .panel[hidden] { display: none; }
+    .panel-cab { display: flex; justify-content: space-between; align-items: center; gap: 12px; }
+    .panel strong { color: var(--lab-yellow); font-size: 1.1rem; }
+    .panel .pista-nombre { display: block; font-size: .9rem; opacity: .85; overflow-wrap: anywhere; }
+    #detener { padding: 6px 12px; font-size: .85rem; }
+    .barra-fondo { height: 8px; margin-top: 10px; background: rgba(255, 255, 255, .16); border-radius: 99px; overflow: hidden; }
+    .barra { height: 100%; width: 0%; background: var(--lab-yellow); }
+    .lista { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
+    .fila {
+      display: grid;
+      grid-template-columns: 42px 1fr auto;
+      gap: 12px;
+      align-items: center;
+      padding: 12px 14px;
+      background: var(--lab-navy);
+      border: 2px solid rgba(255, 255, 255, .1);
+      border-radius: 10px;
+    }
+    .fila.activo { border-color: var(--lab-yellow); }
+    .num { font-family: var(--font-display, Bangers, sans-serif); color: var(--lab-orange); font-size: 1.15rem; }
+    .info { min-width: 0; }
+    .info strong { display: block; font-size: 1.02rem; }
+    .info code { display: block; color: var(--lab-yellow); font-size: .82rem; overflow-wrap: anywhere; }
+    .info .pista { display: block; font-size: .82rem; opacity: .75; overflow-wrap: anywhere; }
+    .acciones { display: flex; flex-wrap: wrap; gap: 8px; justify-content: flex-end; }
+    .acciones button { white-space: nowrap; font-size: .82rem; padding: 8px 10px; }
+    .acciones .probar { background: transparent; color: var(--lab-yellow); border-color: var(--lab-yellow); }
+    .editor {
+      grid-column: 2 / -1;
+      display: grid;
+      gap: 8px;
+      padding: 12px;
+      margin-top: 2px;
+      background: rgba(0, 0, 0, .24);
+      border-radius: 8px;
+    }
+    .editor label { font-size: .8rem; opacity: .85; }
+    .editor input[type="text"] {
+      width: 100%;
+      font: inherit;
+      padding: 9px 11px;
+      color: var(--lab-cream);
+      background: var(--lab-ink);
+      border: 2px solid var(--lab-yellow);
+      border-radius: 8px;
+    }
+    .editor input[type="text"]:focus-visible { outline: 3px solid var(--lab-orange); outline-offset: 2px; }
+    .editor .botones { display: flex; flex-wrap: wrap; gap: 8px; }
+    .editor .botones button { padding: 6px 11px; font-size: .8rem; }
+    .editor .botones .copiar, .editor .botones .cerrar { background: transparent; color: var(--lab-cream); border-color: rgba(255, 255, 255, .35); }
+    .editor .resultado { font-size: .82rem; min-height: 1.2em; opacity: .85; overflow-wrap: anywhere; }
+    .editor .nota { font-size: .75rem; opacity: .65; }
+    .vacio { padding: 28px; text-align: center; opacity: .8; }
+    @media (max-width: 620px) {
+      .fila { grid-template-columns: 32px 1fr; }
+      .acciones { grid-column: 2; justify-content: flex-start; }
+      .editor { grid-column: 1 / -1; }
+    }
+  </style>
+</head>
+<body>
+  <main class="lab">
+    <header class="lab-header">
+      <h1>Laboratorio de BSOs</h1>
+      <p>Herramienta interna para revisar el banco de películas del juego y sus previews.</p>
+    </header>
+
+    <p class="aviso"><strong>Uso privado:</strong> esta página no está enlazada desde el sitio y está excluida de robots.txt y de los buscadores mediante <code>noindex</code>.</p>
+
+    <section class="controles" aria-label="Filtros">
+      <div class="campo">
+        <label for="filtro">Buscar por película o término de iTunes</label>
+        <input id="filtro" type="search" placeholder="Ej. Starkiller, Williams, alien…" autocomplete="off">
+      </div>
+      <div class="campo" style="flex: 0 1 230px;">
+        <label for="secs">Duración del fragmento</label>
+        <select id="secs">
+          <option value="3">3 segundos · Modo Leyenda</option>
+          <option value="5" selected>5 segundos · Modo Normal</option>
+          <option value="10">10 segundos · Modo Relax</option>
+        </select>
+      </div>
+      <button id="limpiar" type="button">Limpiar</button>
+    </section>
+
+    <p id="contador" role="status" aria-live="polite"></p>
+
+    <section id="panel" class="panel" hidden aria-live="polite">
+      <div class="panel-cab">
+        <div>
+          <strong id="panel-titulo"></strong>
+          <span id="panel-pista" class="pista-nombre"></span>
+        </div>
+        <button id="detener" type="button">⏹ Detener</button>
+      </div>
+      <div class="barra-fondo"><div id="barra" class="barra"></div></div>
+    </section>
+
+    <ul id="lista" class="lista"></ul>
+  </main>
+
+  <script src="peliculas.js"></script>
+  <script src="itunes-preview.js"></script>
+  <script>
+    (function () {
+      'use strict';
+
+      const films = window.PELICULAS_BSO || [];
+      const $ = id => document.getElementById(id);
+      const audio = new Audio();
+      audio.crossOrigin = 'anonymous';
+      audio.preload = 'auto';
+
+      const cache = new Map();          // consulta original -> Promise de itunesPreview
+      const resueltos = new Map();      // consulta original -> {url,pista,artista}|null
+      const cachePruebas = new Map();   // descripción probada -> Promise de itunesPreview
+      const resultadosPrueba = new Map();
+      const editores = new Map();       // consulta original -> texto en edición
+      let secs = 5, timer = null, activo = null, ultimoBoton = null, idRepro = 0;
+
+      const normaliza = s => String(s).normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
+      const detalles = r => r.pista + (r.artista ? ' · ' + r.artista : '') + (r.album ? ' — Álbum: ' + r.album : '');
+
+      function buscar(texto, cacheMap, resultadoMap) {
+        if (!cacheMap.has(texto)) {
+          cacheMap.set(texto, window.itunesPreview(texto).then(r => {
+            resultadoMap.set(texto, r);
+            return r;
+          }));
+        }
+        return cacheMap.get(texto);
+      }
+
+      const obtener = p => buscar(p.consulta, cache, resueltos);
+
+      function textoPista(p) {
+        if (!resueltos.has(p.consulta)) return 'Pulsa para comprobar y escuchar';
+        const r = resueltos.get(p.consulta);
+        if (!r) return '✗ Sin preview disponible en iTunes';
+        return '♪ ' + detalles(r);
+      }
+
+      function parar() {
+        idRepro++;
+        clearTimeout(timer);
+        timer = null;
+        audio.pause();
+        $('barra').style.transition = 'none';
+        $('barra').style.width = '0%';
+        $('panel').hidden = true;
+        if (activo) { activo.closest('li').classList.remove('activo'); activo = null; }
+        if (ultimoBoton) { ultimoBoton.textContent = '▶ Comprobar y escuchar'; ultimoBoton = null; }
+      }
+
+      // Invalida cualquier reproducción en curso sin dejar el id anterior activo.
+      function nuevoId() {
+        const id = ++idRepro;
+        parar();
+        idRepro = id;
+        return id;
+      }
+
+      async function reproducir(p, r, id) {
+        $('panel-titulo').textContent = p.titulo;
+        $('panel-pista').textContent = detalles(r);
+        $('panel').hidden = false;
+        audio.src = r.url;
+        audio.currentTime = 0;
+        try {
+          await audio.play();
+        } catch (e) {
+          if (id === idRepro) $('panel-pista').textContent = 'El navegador bloqueó la reproducción: pulsa de nuevo';
+          return false;
+        }
+        if (id !== idRepro) return false;
+
+        const barra = $('barra');
+        barra.style.transition = 'none';
+        barra.style.width = '100%';
+        void barra.offsetWidth;
+        barra.style.transition = 'width ' + secs + 's linear';
+        barra.style.width = '0%';
+        timer = setTimeout(parar, secs * 1000);
+        return true;
+      }
+
+      async function comprobarYEscuchar(p, boton) {
+        if (activo === boton) { parar(); return; }
+        const id = nuevoId();
+        boton.disabled = true;
+        const etiqueta = boton.closest('li').querySelector('.pista');
+        etiqueta.textContent = 'Buscando en iTunes…';
+
+        let r;
+        try { r = await obtener(p); }
+        catch (e) { r = null; }
+        if (id !== idRepro) return; // otra reproducción ocupó su lugar
+        boton.disabled = false;
+        etiqueta.textContent = textoPista(p);
+        if (!r) { etiqueta.textContent = '✗ Sin preview disponible en iTunes'; return; }
+        if (!(await reproducir(p, r, id)) || id !== idRepro) return;
+
+        boton.textContent = '⏸ Detener';
+        boton.closest('li').classList.add('activo');
+        activo = boton;
+        ultimoBoton = boton;
+      }
+
+      function abrirEditor(p, li, boton, enfocar) {
+        const previo = li.querySelector('.editor');
+        if (previo) { previo.remove(); boton.textContent = '✎ Probar descripción'; return; }
+
+        const textoInicial = editores.get(p.consulta) || p.consulta;
+        const editor = document.createElement('div');
+        editor.className = 'editor';
+
+        const ayuda = document.createElement('span');
+        ayuda.className = 'nota';
+        ayuda.textContent = 'Descripción actual: ' + p.consulta;
+
+        const input = document.createElement('input');
+        input.type = 'text';
+        input.value = textoInicial;
+        input.setAttribute('aria-label', 'Nueva descripción a probar para ' + p.titulo);
+        input.addEventListener('input', () => editores.set(p.consulta, input.value));
+
+        const botones = document.createElement('div');
+        botones.className = 'botones';
+        const probar = document.createElement('button');
+        probar.type = 'button'; probar.textContent = '▶ Probar';
+        const copiar = document.createElement('button');
+        copiar.type = 'button'; copiar.className = 'copiar'; copiar.textContent = '⧉ Copiar texto';
+        const cerrarBoton = document.createElement('button');
+        cerrarBoton.type = 'button'; cerrarBoton.className = 'cerrar'; cerrarBoton.textContent = '✕ Cerrar';
+
+        const resultado = document.createElement('span');
+        resultado.className = 'resultado';
+        resultado.setAttribute('aria-live', 'polite');
+        const nota = document.createElement('span');
+        nota.className = 'nota';
+        nota.textContent = 'La prueba no modifica el banco: si funciona, actualiza “consulta” en peliculas.js con este texto.';
+
+        function textoResultado(r) {
+          return r ? '♪ ' + detalles(r) : '✗ iTunes no devolvió preview para este texto';
+        }
+        if (resultadosPrueba.has(textoInicial)) resultado.textContent = textoResultado(resultadosPrueba.get(textoInicial));
+
+        probar.addEventListener('click', async () => {
+          const texto = input.value.trim();
+          if (!texto) { resultado.textContent = 'Escribe una descripción.'; return; }
+          const id = nuevoId();
+          probar.disabled = true;
+          resultado.textContent = 'Buscando en iTunes…';
+          let r;
+          try { r = await buscar(texto, cachePruebas, resultadosPrueba); }
+          catch (e) { r = null; }
+          if (id !== idRepro) return;
+          probar.disabled = false;
+          resultado.textContent = textoResultado(r);
+          if (r) await reproducir(p, r, id);
+        });
+
+        copiar.addEventListener('click', async () => {
+          try {
+            await navigator.clipboard.writeText(input.value);
+            resultado.textContent = '✓ Texto copiado al portapapeles';
+          } catch (e) {
+            input.select();
+            resultado.textContent = 'Texto seleccionado: usa Ctrl+C para copiarlo';
+          }
+        });
+
+        cerrarBoton.addEventListener('click', () => {
+          editor.remove();
+          boton.textContent = '✎ Probar descripción';
+        });
+
+        botones.append(probar, copiar, cerrarBoton);
+        editor.append(ayuda, input, botones, resultado, nota);
+        li.appendChild(editor);
+        boton.textContent = '✕ Cerrar editor';
+        if (enfocar !== false) { input.focus(); input.select(); }
+      }
+
+      function render() {
+        const q = normaliza($('filtro').value.trim());
+        const visibles = films.map((p, i) => ({ p, i })).filter(({ p }) =>
+          !q || normaliza(p.titulo).includes(q) || normaliza(p.consulta).includes(q));
+
+        $('contador').textContent = visibles.length + ' de ' + films.length + ' películas';
+        const frag = document.createDocumentFragment();
+
+        if (!visibles.length) {
+          const li = document.createElement('li');
+          li.className = 'vacio';
+          li.textContent = 'No hay películas que coincidan con la búsqueda.';
+          frag.appendChild(li);
+        }
+
+        visibles.forEach(({ p, i }) => {
+          const li = document.createElement('li');
+          li.className = 'fila';
+
+          const num = document.createElement('span');
+          num.className = 'num';
+          num.textContent = String(i + 1).padStart(2, '0');
+
+          const info = document.createElement('div');
+          info.className = 'info';
+          const titulo = document.createElement('strong');
+          titulo.textContent = p.titulo;
+          const consulta = document.createElement('code');
+          consulta.textContent = p.consulta;
+          const pista = document.createElement('span');
+          pista.className = 'pista';
+          pista.textContent = textoPista(p);
+          info.append(titulo, consulta, pista);
+
+          const acciones = document.createElement('div');
+          acciones.className = 'acciones';
+
+          const boton = document.createElement('button');
+          boton.type = 'button';
+          boton.textContent = '▶ Comprobar y escuchar';
+          boton.setAttribute('aria-label', 'Comprobar y escuchar ' + p.titulo);
+          boton.addEventListener('click', () => comprobarYEscuchar(p, boton));
+
+          const botonProbar = document.createElement('button');
+          botonProbar.type = 'button';
+          botonProbar.className = 'probar';
+          botonProbar.textContent = '✎ Probar descripción';
+          botonProbar.setAttribute('aria-label', 'Probar otra descripción para ' + p.titulo);
+          botonProbar.addEventListener('click', () => abrirEditor(p, li, botonProbar));
+
+          acciones.append(boton, botonProbar);
+          li.append(num, info, acciones);
+          if (editores.has(p.consulta)) abrirEditor(p, li, botonProbar, false);
+          frag.appendChild(li);
+        });
+
+        $('lista').replaceChildren(frag);
+      }
+
+      $('filtro').addEventListener('input', render);
+      $('limpiar').addEventListener('click', () => { $('filtro').value = ''; render(); $('filtro').focus(); });
+      $('secs').addEventListener('change', e => { secs = +e.target.value; parar(); });
+      $('detener').addEventListener('click', parar);
+      audio.addEventListener('ended', parar);
+
+      render();
+    })();
+  </script>
+</body>
+</html>

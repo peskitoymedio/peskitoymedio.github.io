@@ -6,9 +6,10 @@ Allow: /util/pre-feedburner.xml
 User-agent: FeedBurner/1.0
 Allow: /util/pre-feedburner.xml
 
-# El feed de origen es interno: no debe aparecer en buscadores.
+# El feed de origen y el laboratorio de BSOs son internos: no deben aparecer en buscadores.
 User-agent: *
 Allow: /
 Disallow: /util/pre-feedburner.xml
+Disallow: /juegos/juegobsos/lab-bso.html
 
 Sitemap: https://www.peskitoymedio.es/sitemap.xml
