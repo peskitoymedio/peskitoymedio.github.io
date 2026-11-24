@@ -149,6 +149,23 @@
     }
     .detalle-elegida { display: block; font-size: .82rem; color: var(--ink-soft); font-weight: 600; overflow-wrap: anywhere; }
     .detalle-pie { text-align: center; margin: 6px 0 16px; color: var(--ink-soft); font-size: .85rem; }
+    .detalle-compartir {
+      border-top: 2px dashed rgba(11,27,45,.2); padding: 14px 24px 6px; text-align: center;
+    }
+    .detalle-compartir[hidden], .compartir-enlaces[hidden] { display: none; }
+    .btn-compartir {
+      font: inherit; font-weight: 800; cursor: pointer; padding: 10px 18px;
+      border-radius: 999px; border: 3px solid var(--ink); background: var(--yellow);
+      color: var(--ink); box-shadow: 3px 3px 0 var(--ink);
+    }
+    .btn-compartir:hover { background: var(--orange); }
+    .compartir-enlaces { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; margin-top: 10px; }
+    .compartir-enlaces a, .compartir-enlaces button {
+      font: inherit; font-size: .85rem; font-weight: 800; text-decoration: none;
+      padding: 6px 12px; border-radius: 999px; border: 2px solid var(--ink);
+      background: var(--white); color: var(--ink); cursor: pointer;
+    }
+    #compartir-estado { min-height: 18px; margin: 8px 0 0; font-size: .82rem; color: var(--ink-soft); }
 
     #estado { min-height: 24px; margin: 4px 0 14px; font-weight: 600; color: var(--ink-soft); }
     .ranking-nota { margin: 24px 0 0; font-size: .9rem; color: var(--ink-soft); line-height: 1.6; }
@@ -174,6 +191,8 @@
       .detalle-lista li { padding: 7px 9px; gap: 7px; }
       .detalle-marca { width: 22px; height: 22px; }
       .detalle-pie { font-size: .78rem; margin: 4px 0 12px; }
+      .detalle-compartir { padding: 12px 12px 6px; }
+      .btn-compartir { padding: 8px 14px; }
     }
   </style>
 </head>
@@ -267,6 +286,19 @@
         <p id="detalle-resumen" class="detalle-resumen" aria-live="polite"></p>
       </div>
       <div id="detalle-contenido" class="detalle-contenido"></div>
+      <div id="detalle-compartir" class="detalle-compartir" hidden>
+        <button type="button" class="btn-compartir" id="compartir-registro">
+          <i class="fa-solid fa-share-nodes" aria-hidden="true"></i> Compartir registro
+        </button>
+        <div id="compartir-enlaces" class="compartir-enlaces" hidden>
+          <a id="rsx" target="_blank" rel="noopener" title="Compartir en X"><i class="fa-brands fa-x-twitter"></i> X</a>
+          <a id="rwa" target="_blank" rel="noopener" title="Compartir en WhatsApp"><i class="fa-brands fa-whatsapp"></i> WhatsApp</a>
+          <a id="rfb" target="_blank" rel="noopener" title="Compartir en Facebook"><i class="fa-brands fa-facebook"></i> Facebook</a>
+          <a id="rtg" target="_blank" rel="noopener" title="Compartir en Telegram"><i class="fa-brands fa-telegram"></i> Telegram</a>
+          <button type="button" id="rdown"><i class="fa-solid fa-download" aria-hidden="true"></i> Descargar imagen</button>
+        </div>
+        <p id="compartir-estado" role="status" aria-live="polite"></p>
+      </div>
       <p class="detalle-pie">Pulsa <strong>Esc</strong> o haz clic fuera para cerrar</p>
     </div>
   </div>
@@ -288,6 +320,7 @@
       const botones = Array.from(document.querySelectorAll(".tabs button"));
       let periodo = "diario";
       let cargando = 0;
+      let detalleActual = null;
 
       function fechaBonita(valor) {
         if (!valor) return "";
@@ -329,6 +362,10 @@
         $("detalle-modal").hidden = true;
         $("detalle-contenido").textContent = "";
         $("detalle-resumen").textContent = "";
+        $("detalle-compartir").hidden = true;
+        $("compartir-enlaces").hidden = true;
+        $("compartir-estado").textContent = "";
+        detalleActual = null;
         document.querySelectorAll("#ranking-body tr.is-selected")
           .forEach(tr => tr.classList.remove("is-selected"));
       }
@@ -337,6 +374,9 @@
         $("detalle-titulo").textContent = "Detalle de " + (tr.dataset.alias || "la partida");
         $("detalle-resumen").textContent = "Cargando detalle…";
         $("detalle-contenido").textContent = "";
+        $("detalle-compartir").hidden = true;
+        $("compartir-enlaces").hidden = true;
+        detalleActual = null;
         $("detalle-modal").hidden = false;
         $("detalle-modal").querySelector(".detalle-cerrar").focus();
         return $("detalle-resumen");
@@ -385,11 +425,270 @@
             lista.appendChild(li);
           });
           $("detalle-contenido").appendChild(lista);
+          detalleActual = {
+            alias: tr.dataset.alias || "",
+            puntos: Number(tr.dataset.puntos) || 0,
+            hits: aciertos,
+            filas: filas
+          };
+          $("detalle-compartir").hidden = false;
         } catch (e) {
           if (!tr.classList.contains("is-selected")) return;
           resumen.textContent = "No se pudo cargar el detalle: " + e.message;
         }
       }
+
+      /* ---------- Tarjeta para compartir un récord del ranking ---------- */
+      const GAME_URL = "https://www.peskitoymedio.es/juegos/juegobsos/";
+      const VEREDICTOS = [
+        "😅 ¡Ay, madre! Se te han cruzado los cables con las melodías.",
+        "🎵 ¡Uno! Una sola nota rescatada del naufragio… y Malcolm te deja en la lista de «pendientes de repaso».",
+        "📼 ¡Dos! Malcolm dice que ya es hora de ponerse la BSO de «Repasando».",
+        "🍿 ¡Tres! Malcolm te dice: «calienta el oído y vuelve a darle al play».",
+        "👍 ¡No está mal! Pero te toca repasar para septiembre.",
+        "🎼 ¡Cinco! Tu banda sonora va a medias: mitad aciertos, mitad yatussabeh.",
+        "🎬 ¡Aprobado con nota! Afina un poco más y te comes el examen final.",
+        "🎧 ¡Siete! Reconoces la melodía, pero aún se te cuela alguna película en la mezcla.",
+        "👏 ¡Muy bien! Tienes buen oído cinéfilo. Mis dieses.",
+        "🎯 ¡Solo una! Estás a un compás de la perfección.",
+        "🏆 ¡Maestro Absoluto de las BSOs! ¡Malcolm está orgulloso de ti!"
+      ];
+      const MALCOLM_CARD = [
+        { src: "../../img/utils/Malcolm-0-2.png", crop: [121,19,594,1112] },
+        { src: "../../img/utils/Malcolm-3-4.png", crop: [102,20,611,1110] },
+        { src: "../../img/utils/Malcolm-5-6.png", crop: [37,10,699,1131] },
+        { src: "../../img/equipo/Malcolm.png", crop: [8,11,417,616] },
+        { src: "../../img/utils/Malcolm-8-9.png", crop: [46,25,715,1099] },
+        { src: "../../img/utils/Malcolm-10.png", crop: [19,21,736,1115] }
+      ];
+      const tarjeta = document.createElement("canvas");
+      tarjeta.width = 1080;
+      tarjeta.height = 1080;
+
+      function rr(ctx, x, y, w, h, r) {
+        ctx.beginPath();
+        ctx.moveTo(x + r, y);
+        ctx.arcTo(x + w, y, x + w, y + h, r);
+        ctx.arcTo(x + w, y + h, x, y + h, r);
+        ctx.arcTo(x, y + h, x, y, r);
+        ctx.arcTo(x, y, x + w, y, r);
+        ctx.closePath();
+      }
+      function fit(ctx, texto, max) {
+        if (ctx.measureText(texto).width <= max) return texto;
+        let s = texto;
+        while (s.length > 3 && ctx.measureText(s + "…").width > max) s = s.slice(0, -1);
+        return s + "…";
+      }
+      function carga(img) {
+        return new Promise(res => {
+          if (img.complete) return res();
+          img.onload = img.onerror = res;
+        });
+      }
+      async function imagenesTarjeta(hits) {
+        const i = hits <= 2 ? 0 : hits <= 4 ? 1 : hits <= 6 ? 2 : hits === 7 ? 3 : hits <= 9 ? 4 : 5;
+        const peskitos = new Image();
+        peskitos.src = "../../img/utils/peskitos.png";
+        const mal = new Image();
+        mal.src = MALCOLM_CARD[i].src;
+        await Promise.all([carga(peskitos), carga(mal)]);
+        return { peskitos: peskitos, mal: mal, crop: MALCOLM_CARD[i].crop };
+      }
+
+      function dibujarTarjeta(d, img) {
+        const ctx = tarjeta.getContext("2d");
+        const bg = ctx.createLinearGradient(0, 0, 1080, 1080);
+        bg.addColorStop(0, "#0D2138"); bg.addColorStop(.55, "#0B1B2D"); bg.addColorStop(1, "#071320");
+        ctx.fillStyle = bg; ctx.fillRect(0, 0, 1080, 1080);
+        const glow = ctx.createRadialGradient(900, 120, 20, 900, 120, 430);
+        glow.addColorStop(0, "rgba(61,185,192,0.22)"); glow.addColorStop(1, "rgba(61,185,192,0)");
+        ctx.fillStyle = glow; ctx.fillRect(0, 0, 1080, 520);
+        ctx.strokeStyle = "#FFC531"; ctx.lineWidth = 14; rr(ctx,26,26,1028,1028,36); ctx.stroke();
+        ctx.strokeStyle = "rgba(61,185,192,0.45)"; ctx.lineWidth = 3; rr(ctx,44,44,992,992,26); ctx.stroke();
+
+        ctx.shadowColor = "rgba(0,0,0,0.45)"; ctx.shadowBlur = 12; ctx.shadowOffsetY = 3;
+        ctx.fillStyle = "#FFF6E9"; ctx.font = "900 58px 'Outfit', sans-serif";
+        ctx.fillText("PESKITO Y MEDIO", 80, 110);
+        ctx.shadowBlur = 0; ctx.shadowOffsetY = 0;
+        ctx.fillStyle = "#F07000"; ctx.font = "900 44px 'Outfit', sans-serif";
+        const subtitulo = "JUEGO DE BANDAS SONORAS";
+        ctx.fillText(subtitulo, 80, 170);
+        // Igual que en el juego: se encogen si el subtítulo es más ancho y
+        // siempre acaban antes del borde interior del marco.
+        if (img.peskitos.naturalWidth) {
+          const finSub = 80 + ctx.measureText(subtitulo).width;
+          const pw = Math.min(185, 1010 - (finSub + 24));
+          if (pw > 90) {
+            ctx.drawImage(img.peskitos,39,13,1202,1172,1010-pw,45,pw,pw*210/215);
+          }
+        }
+
+        // Cinta del alias: el nombre del jugador manda en la tarjeta.
+        // La etiqueta va arriba y el nombre muy por debajo para que no se
+        // solapen aunque la fuente del nombre sea grande.
+        let af = 58;
+        ctx.font = "900 " + af + "px 'Outfit', sans-serif";
+        while (ctx.measureText(d.alias).width > 800 && af > 30) {
+          af -= 4; ctx.font = "900 " + af + "px 'Outfit', sans-serif";
+        }
+        const aw = Math.min(1000, ctx.measureText(d.alias).width + 140);
+        ctx.fillStyle = "#FFC531"; rr(ctx,(1080-aw)/2,196,aw,112,28); ctx.fill();
+        ctx.strokeStyle = "#0B1B2D"; ctx.lineWidth = 6; ctx.stroke();
+        ctx.textAlign = "center";
+        ctx.fillStyle = "#0B1B2D"; ctx.font = "800 22px 'Outfit', sans-serif";
+        ctx.fillText("RÉCORD DE", 540, 222);
+        ctx.font = "900 " + af + "px 'Outfit', sans-serif";
+        ctx.fillText(d.alias, 540, 292);
+        ctx.textAlign = "left";
+
+        const sb = ctx.createLinearGradient(60,316,1020,476);
+        sb.addColorStop(0,"#193650"); sb.addColorStop(1,"#102438");
+        ctx.fillStyle = sb; rr(ctx,60,316,960,160,28); ctx.fill();
+        ctx.strokeStyle = "#2C4A66"; ctx.lineWidth = 3; ctx.stroke();
+        ctx.fillStyle = "#AFC3D6"; ctx.font = "700 28px 'Outfit', sans-serif";
+        ctx.fillText("Puntuación final:", 80, 350);
+        const pts = d.puntos + " pts";
+        let sf = 110; ctx.font = "900 " + sf + "px 'Outfit', sans-serif";
+        while (ctx.measureText(pts).width > 480 && sf > 80) {
+          sf -= 4; ctx.font = "900 " + sf + "px 'Outfit', sans-serif";
+        }
+        ctx.fillStyle = "#FFC531";
+        ctx.shadowColor = "rgba(255,197,49,0.35)"; ctx.shadowBlur = 18;
+        ctx.fillText(pts, 76, 444); ctx.shadowBlur = 0;
+        const hits = d.hits + " de 10 aciertos";
+        const hx = Math.max(560, 76 + ctx.measureText(pts).width + 24);
+        let hf = 42; ctx.font = "800 " + hf + "px 'Outfit', sans-serif";
+        while (ctx.measureText(hits).width > 986 - hx && hf > 26) {
+          hf -= 2; ctx.font = "800 " + hf + "px 'Outfit', sans-serif";
+        }
+        const hw = ctx.measureText(hits).width;
+        ctx.fillStyle = "rgba(61,185,192,0.14)"; rr(ctx,hx-18,396,hw+36,68,20); ctx.fill();
+        ctx.strokeStyle = "rgba(61,185,192,0.55)"; ctx.lineWidth = 2; ctx.stroke();
+        ctx.fillStyle = "#3DB9C0"; ctx.textAlign = "center";
+        ctx.fillText(hits, hx + hw/2, 442); ctx.textAlign = "left";
+
+        ctx.fillStyle = "#3DB9C0"; ctx.font = "700 26px 'Outfit', sans-serif";
+        ctx.fillText("Veredicto:", 80, 520);
+        ctx.fillStyle = "#FFF"; ctx.font = "600 26px 'Outfit', sans-serif";
+        let linea = "", yy = 554, lineas = 0;
+        (VEREDICTOS[d.hits] || "").split(" ").forEach(palabra => {
+          const prueba = linea ? linea + " " + palabra : palabra;
+          if (ctx.measureText(prueba).width > 920 && linea) {
+            ctx.fillText(linea, 80, yy); yy += 30; lineas++; linea = palabra;
+          } else linea = prueba;
+        });
+        if (lineas < 2 && linea) ctx.fillText(linea, 80, yy);
+
+        const panel = ctx.createLinearGradient(60,590,1020,980);
+        panel.addColorStop(0,"#17314A"); panel.addColorStop(1,"#102236");
+        ctx.fillStyle = panel; rr(ctx,60,590,960,390,28); ctx.fill();
+        ctx.strokeStyle = "#2C4A66"; ctx.lineWidth = 3; ctx.stroke();
+        if (img.mal.naturalWidth) {
+          const c = img.crop, mh = 330, mw = mh * c[2] / c[3];
+          ctx.save(); rr(ctx,60,590,960,390,28); ctx.clip();
+          ctx.drawImage(img.mal,c[0],c[1],c[2],c[3],1010-mw,640,mw,mh);
+          ctx.restore();
+        }
+        ctx.fillStyle = "rgba(255,197,49,0.12)"; rr(ctx,72,598,350,34,17); ctx.fill();
+        ctx.fillStyle = "#FFC531"; rr(ctx,72,598,6,34,3); ctx.fill();
+        ctx.font = "800 24px 'Outfit', sans-serif";
+        ctx.fillText("RESUMEN DE PELÍCULAS", 92, 622);
+
+        const acertadas = d.filas.filter(f => f.acierto);
+        const falladas = d.filas.filter(f => !f.acierto);
+        let y = 660;
+        const grupo = (list, etiqueta, color, tinto, conElegida) => {
+          if (!list.length) return;
+          ctx.font = "800 22px 'Outfit', sans-serif";
+          const txt = etiqueta + " (" + list.length + ")";
+          const lw = ctx.measureText(txt).width;
+          ctx.fillStyle = tinto; rr(ctx,76,y-20,lw+32,28,14); ctx.fill();
+          ctx.strokeStyle = color; ctx.globalAlpha = .55; ctx.lineWidth = 1.5; ctx.stroke();
+          ctx.globalAlpha = 1; ctx.fillStyle = color; ctx.fillText(txt, 94, y);
+          y += 24;
+          list.forEach((f, i) => {
+            if (i % 2 === 0) {
+              ctx.fillStyle = "rgba(255,255,255,0.035)"; rr(ctx,72,y-19,916,25,9); ctx.fill();
+            }
+            ctx.font = "700 26px 'Outfit', sans-serif";
+            const titulo = fit(ctx, f.titulo || "", conElegida ? 570 : 870);
+            const tw = ctx.measureText(titulo).width;
+            ctx.fillStyle = color; ctx.fillText(conElegida ? "✗" : "✓", 80, y);
+            ctx.fillStyle = "#FFF6E9"; ctx.fillText(titulo, 116, y);
+            if (conElegida && f.elegida) {
+              const ex = 116 + tw + 12;
+              ctx.font = "600 19px 'Outfit', sans-serif"; ctx.fillStyle = "#DCE8F2";
+              ctx.fillText(fit(ctx, "→ eligió: " + f.elegida, 998 - ex), ex, y);
+            }
+            y += 26;
+          });
+        };
+        grupo(acertadas, "✓ ACERTADAS", "#7FA83A", "rgba(127,168,58,0.16)", false);
+        if (acertadas.length && falladas.length) y += 6;
+        grupo(falladas, "✗ FALLADAS", "#D9452E", "rgba(217,69,46,0.16)", true);
+
+        const cta = "¿Podrás superarle? Juega en peskitoymedio.es/juegos/juegobsos/";
+        let cf = 26; ctx.font = "800 " + cf + "px 'Outfit', sans-serif";
+        while (ctx.measureText(cta).width > 900 && cf > 20) {
+          cf -= 2; ctx.font = "800 " + cf + "px 'Outfit', sans-serif";
+        }
+        ctx.fillStyle = "#FFC531"; rr(ctx,60,1000,960,40,20); ctx.fill();
+        ctx.fillStyle = "#0B1B2D"; ctx.textAlign = "center";
+        ctx.fillText(cta, 540, 1028); ctx.textAlign = "left";
+      }
+
+      function mensajeCompartir(d) {
+        return "¡" + d.alias + " ha acertado " + d.hits + " de 10 bandas sonoras y ha conseguido " +
+          d.puntos + " puntos en el Juego de BSOs de Peskito y Medio! 🎵🍿 ¿Te atreves a superarlo?";
+      }
+      function actualizarEnlaces(d) {
+        const texto = encodeURIComponent(mensajeCompartir(d));
+        const url = encodeURIComponent(GAME_URL);
+        $("rsx").href = "https://twitter.com/intent/tweet?text=" + texto + "&url=" + url;
+        $("rwa").href = "https://api.whatsapp.com/send?text=" + texto + "%20" + url;
+        $("rfb").href = "https://www.facebook.com/sharer/sharer.php?u=" + url;
+        $("rtg").href = "https://t.me/share/url?url=" + url + "&text=" + texto;
+      }
+      function puedeAdjuntar() {
+        try {
+          return !!(navigator.share && navigator.canShare &&
+            navigator.canShare({ files: [new File(["x"], "record-bsos.png", { type: "image/png" })] }));
+        } catch (e) { return false; }
+      }
+      async function compartirRegistro() {
+        if (!detalleActual) return;
+        const estado = $("compartir-estado");
+        estado.textContent = "Preparando tarjeta…";
+        try {
+          const img = await imagenesTarjeta(detalleActual.hits);
+          if (!detalleActual) return;
+          dibujarTarjeta(detalleActual, img);
+          actualizarEnlaces(detalleActual);
+          if (puedeAdjuntar()) {
+            const blob = await new Promise(res => tarjeta.toBlob(res, "image/png"));
+            await navigator.share({
+              title: "Récord de " + detalleActual.alias + " en el Juego de BSOs",
+              text: mensajeCompartir(detalleActual),
+              url: GAME_URL,
+              files: [new File([blob], "record-bsos.png", { type: "image/png" })]
+            });
+            estado.textContent = "";
+          } else {
+            $("compartir-enlaces").hidden = false;
+            estado.textContent = "Elige dónde compartir o descarga la tarjeta.";
+          }
+        } catch (e) {
+          estado.textContent = e && e.name === "AbortError" ? "" : "No se pudo preparar la tarjeta: " + e.message;
+        }
+      }
+      $("compartir-registro").addEventListener("click", compartirRegistro);
+      $("rdown").addEventListener("click", () => {
+        const a = document.createElement("a");
+        a.download = "record-bsos.png";
+        a.href = tarjeta.toDataURL("image/png");
+        a.click();
+      });
 
       document.querySelectorAll("[data-cerrar-detalle]").forEach(el => {
         el.addEventListener("click", cerrarDetalle);
