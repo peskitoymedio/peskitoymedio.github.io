@@ -2,6 +2,10 @@
 -- Ejecutar en el SQL Editor del proyecto de Supabase. Es idempotente:
 -- se puede volver a ejecutar para actualizar las funciones sin perder datos.
 
+-- pgcrypto aporta hmac() y gen_random_bytes(). En Supabase suele estar ya
+-- instalada en el esquema extensions; esto la garantiza.
+create extension if not exists pgcrypto with schema extensions;
+
 create table if not exists public.puntuaciones (
   id bigint generated always as identity primary key,
   jugador_id text not null,
@@ -39,11 +43,29 @@ create index if not exists puntuaciones_alias_idx on public.puntuaciones (lower(
 create index if not exists partidas_creado_en_idx on public.partidas (creado_en desc);
 create index if not exists victorias_alias_idx on public.victorias (lower(btrim(alias)));
 
+-- El secreto HMAC vive SOLO aquí. RLS sin políticas: ningún cliente puede
+-- leerlo; únicamente las funciones security definer lo usan.
+create table if not exists public.ranking_secreto (
+  id boolean primary key default true check (id),
+  valor text not null
+);
+
+-- Una sesión por partida. El token se consume una sola vez.
+create table if not exists public.sesiones (
+  nonce text primary key,
+  creado_en timestamptz not null default now(),
+  consumida boolean not null default false,
+  consumida_en timestamptz
+);
+create index if not exists sesiones_creado_en_idx on public.sesiones (creado_en desc);
+
 -- RLS activo SIN políticas: nadie puede leer ni escribir estas tablas
 -- directamente. Todo pasa por las funciones security definer de abajo.
 alter table public.puntuaciones enable row level security;
 alter table public.partidas enable row level security;
 alter table public.victorias enable row level security;
+alter table public.ranking_secreto enable row level security;
+alter table public.sesiones enable row level security;
 
 -- Recalcula quién lidera el día y la semana actuales.
 create or replace function public.actualizar_lideres()
@@ -87,6 +109,42 @@ begin
 end;
 $$;
 
+-- Token de sesión: se pide al empezar la partida. La firma HMAC se calcula
+-- con un secreto que nunca sale de la base de datos, así que un cliente no
+-- puede fabricar tokens ni alterar el nonce. Se limpian sesiones antiguas
+-- para que la tabla no crezca en el plan gratuito.
+create or replace function public.emitir_token()
+returns text
+language plpgsql
+security definer
+set search_path = public, extensions
+as $$
+declare
+  v_nonce text;
+  v_emitido bigint;
+  v_payload text;
+  v_secreto text;
+begin
+  select valor into v_secreto from public.ranking_secreto where id;
+  if v_secreto is null then
+    v_secreto := encode(gen_random_bytes(32), 'hex');
+    insert into public.ranking_secreto (id, valor) values (true, v_secreto)
+      on conflict (id) do nothing;
+    select valor into v_secreto from public.ranking_secreto where id;
+  end if;
+
+  delete from public.sesiones where creado_en < now() - interval '1 day';
+
+  v_nonce := replace(gen_random_uuid()::text, '-', '') ||
+             replace(gen_random_uuid()::text, '-', '');
+  v_emitido := (extract(epoch from now()) * 1000)::bigint;
+  insert into public.sesiones (nonce, creado_en) values (v_nonce, now());
+
+  v_payload := v_nonce || ':' || v_emitido::text;
+  return v_payload || '.' || encode(hmac(v_payload, v_secreto, 'sha256'), 'hex');
+end;
+$$;
+
 -- Alta de puntuación. La fecha la pone el servidor; se validan los rangos.
 -- El alias (no el navegador) es la identidad: así varias personas pueden
 -- jugar desde el mismo ordenador con nombres distintos.
@@ -97,13 +155,20 @@ create or replace function public.registrar_puntuacion(
   p_jugador_id text,
   p_alias text,
   p_puntos integer,
-  p_aciertos integer
+  p_aciertos integer,
+  p_token text
 )
 returns void
 language plpgsql
 security definer
-set search_path = public
+set search_path = public, extensions
 as $$
+declare
+  v_payload text;
+  v_firma text;
+  v_nonce text;
+  v_secreto text;
+  v_creado timestamptz;
 begin
   if p_jugador_id is null then
     raise exception 'Falta el identificador del jugador';
@@ -116,6 +181,43 @@ begin
   end if;
   if p_aciertos is null or p_aciertos not between 0 and 10 then
     raise exception 'Número de aciertos no válido';
+  end if;
+  -- Cada acierto vale 100 fijos + hasta 50 de rapidez: el total nunca puede
+  -- salir de [100 * aciertos, 150 * aciertos].
+  if p_puntos < 100 * p_aciertos or p_puntos > 150 * p_aciertos then
+    raise exception 'Puntuación no coherente con los aciertos';
+  end if;
+
+  -- Verificación del token. La hora se toma de la base de datos, no del
+  -- cliente. Mínimo 5 s: con 1 s por pregunta un jugador real tarda ~10 s y
+  -- el token se emite antes de cargar el audio. Máximo 10 min.
+  if p_token is null or p_token = '' then
+    raise exception 'Falta el token de partida';
+  end if;
+  v_payload := split_part(p_token, '.', 1);
+  v_firma := split_part(p_token, '.', 2);
+  if v_payload = '' or v_firma = '' then
+    raise exception 'Token no válido';
+  end if;
+  select valor into v_secreto from public.ranking_secreto where id;
+  if v_secreto is null then
+    raise exception 'Token no válido';
+  end if;
+  if encode(hmac(v_payload, v_secreto, 'sha256'), 'hex') <> v_firma then
+    raise exception 'Token no válido';
+  end if;
+  v_nonce := split_part(v_payload, ':', 1);
+
+  -- Consumo atómico: un token solo sirve una vez y solo dentro de la ventana.
+  update public.sesiones
+     set consumida = true, consumida_en = now()
+   where nonce = v_nonce
+     and not consumida
+     and creado_en <= now() - interval '5 seconds'
+     and creado_en >= now() - interval '10 minutes'
+  returning creado_en into v_creado;
+  if v_creado is null then
+    raise exception 'Token ya usado o fuera de tiempo';
   end if;
 
   insert into public.partidas (jugador_id, alias, puntos, aciertos)
@@ -146,7 +248,9 @@ begin
 end;
 $$;
 
--- Cambios de firma: CREATE OR REPLACE no permite alterar el tipo de retorno.
+-- Cambios de firma: CREATE OR REPLACE no permite alterar argumentos ni tipo
+-- de retorno. La versión anterior de registrar_puntuacion no exigía token.
+drop function if exists public.registrar_puntuacion(text, text, integer, integer);
 drop function if exists public.ranking(text);
 drop function if exists public.total_partidas();
 
@@ -226,11 +330,13 @@ where not exists (select 1 from public.partidas);
 select public.actualizar_lideres();
 
 revoke all on function public.actualizar_lideres() from public;
+revoke all on function public.emitir_token() from public;
 
-revoke all on function public.registrar_puntuacion(text, text, integer, integer) from public;
+revoke all on function public.registrar_puntuacion(text, text, integer, integer, text) from public;
 revoke all on function public.ranking(text) from public;
 revoke all on function public.total_partidas() from public;
 
-grant execute on function public.registrar_puntuacion(text, text, integer, integer) to anon, authenticated;
+grant execute on function public.emitir_token() to anon, authenticated;
+grant execute on function public.registrar_puntuacion(text, text, integer, integer, text) to anon, authenticated;
 grant execute on function public.ranking(text) to anon, authenticated;
 grant execute on function public.total_partidas() to anon, authenticated;

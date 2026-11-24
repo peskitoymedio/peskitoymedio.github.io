@@ -11,6 +11,7 @@
   const ID_KEY = "pym-bso-jugador-id";
   const ALIAS_KEY = "pym-bso-alias";
   const LIMITE = 24;
+  let tokenPartida = null;
 
   function leer(clave) {
     try { return localStorage.getItem(clave) || ""; } catch (e) { return ""; }
@@ -61,6 +62,18 @@
     return datos;
   }
 
+  // Se llama al pulsar «Dale al play». Si falla, el juego sigue funcionando.
+  async function iniciarToken() {
+    tokenPartida = null;
+    if (!configurado) return null;
+    try {
+      tokenPartida = await rpc("emitir_token", {});
+      return tokenPartida;
+    } catch (e) {
+      return null;
+    }
+  }
+
   async function enviar(datos) {
     datos = datos || {};
     if (!configurado) {
@@ -70,13 +83,19 @@
     if (!alias) {
       return { ok: false, mensaje: "Escribe un alias para salir en el ranking." };
     }
+    const token = datos.token || tokenPartida;
+    if (!token) {
+      return { ok: false, mensaje: "Vuelve a pulsar «Dale al play» para abrir una partida." };
+    }
     try {
       await rpc("registrar_puntuacion", {
         p_jugador_id: playerId(),
         p_alias: alias,
         p_puntos: Number(datos.puntos) || 0,
-        p_aciertos: Number(datos.aciertos) || 0
+        p_aciertos: Number(datos.aciertos) || 0,
+        p_token: token
       });
+      tokenPartida = null;
       escribir(ALIAS_KEY, alias);
       return { ok: true, mensaje: "Procesado. Consulta el ranking 🎵" };
     } catch (e) {
@@ -111,6 +130,7 @@
   window.PYMRanking = {
     configurado: configurado,
     playerId: playerId,
+    iniciarToken: iniciarToken,
     enviar: enviar,
     cargar: cargar,
     totalPartidas: totalPartidas,
