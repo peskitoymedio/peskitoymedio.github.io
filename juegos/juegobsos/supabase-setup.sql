@@ -1,5 +1,6 @@
 -- Ranking del Juego de BSOs de Peskito y Medio.
--- Ejecutar una sola vez en el SQL Editor del proyecto de Supabase.
+-- Ejecutar en el SQL Editor del proyecto de Supabase. Es idempotente:
+-- se puede volver a ejecutar para actualizar las funciones sin perder datos.
 
 create table if not exists public.puntuaciones (
   id bigint generated always as identity primary key,
@@ -12,13 +13,19 @@ create table if not exists public.puntuaciones (
 
 create index if not exists puntuaciones_creado_en_idx on public.puntuaciones (creado_en desc);
 create index if not exists puntuaciones_jugador_puntos_idx on public.puntuaciones (jugador_id, puntos desc);
+create index if not exists puntuaciones_alias_idx on public.puntuaciones (lower(btrim(alias)));
 
 -- RLS activo SIN políticas: nadie puede leer ni escribir la tabla directamente.
 -- Todo pasa por las dos funciones security definer de abajo.
 alter table public.puntuaciones enable row level security;
 
--- Alta de puntuación. La fecha la pone el servidor; se validan los rangos y
--- se ignora un segundo envío del mismo jugador en menos de 5 segundos.
+-- Alta de puntuación. La fecha la pone el servidor; se validan los rangos.
+-- El alias (no el navegador) es la identidad: así varias personas pueden
+-- jugar desde el mismo ordenador con nombres distintos.
+-- Solo se guarda si supera la mejor marca del alias en el día actual (hora de
+-- España): una puntuación igual o peor no sustituye a la mejor. Sí se guarda
+-- una marca peor que la de otro día, para que el jugador aparezca en el
+-- ranking de hoy sin borrar su mejor marca histórica.
 create or replace function public.registrar_puntuacion(
   p_jugador_id text,
   p_alias text,
@@ -46,7 +53,17 @@ begin
 
   if exists (
     select 1 from public.puntuaciones
-    where jugador_id = p_jugador_id
+    where lower(btrim(alias)) = lower(btrim(p_alias))
+      and timezone('Europe/Madrid', creado_en) >=
+          date_trunc('day', timezone('Europe/Madrid', now()))
+      and puntos >= p_puntos
+  ) then
+    return;
+  end if;
+
+  if exists (
+    select 1 from public.puntuaciones
+    where lower(btrim(alias)) = lower(btrim(p_alias))
       and creado_en > now() - interval '5 seconds'
   ) then
     return;
@@ -57,9 +74,9 @@ begin
 end;
 $$;
 
--- Ranking por periodo. Se queda con la MEJOR partida de cada jugador,
+-- Ranking por periodo. Se queda con la MEJOR partida de cada alias,
 -- no con la suma, para no premiar a quien más juega.
--- Semana y mes se calculan en hora de España (Europe/Madrid).
+-- Día y semana se calculan en hora de España (Europe/Madrid).
 create or replace function public.ranking(p_periodo text default 'semanal')
 returns table (
   puesto bigint,
@@ -82,17 +99,17 @@ as $$
                 date_trunc('week', timezone('Europe/Madrid', now()))
           )
        or (
-            p_periodo = 'mensual'
+            p_periodo = 'diario'
             and timezone('Europe/Madrid', p.creado_en) >=
-                date_trunc('month', timezone('Europe/Madrid', now()))
+                date_trunc('day', timezone('Europe/Madrid', now()))
           )
        or p_periodo = 'historico'
   ),
   mejores as (
-    select distinct on (f.jugador_id)
-           f.jugador_id, f.alias, f.puntos, f.aciertos, f.creado_en
+    select distinct on (lower(btrim(f.alias)))
+           f.alias, f.puntos, f.aciertos, f.creado_en
     from filtradas f
-    order by f.jugador_id, f.puntos desc, f.creado_en asc
+    order by lower(btrim(f.alias)), f.puntos desc, f.creado_en asc
   )
   select row_number() over (order by m.puntos desc, m.creado_en asc) as puesto,
          m.alias,

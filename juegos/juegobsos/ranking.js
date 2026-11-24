@@ -78,7 +78,7 @@
         p_aciertos: Number(datos.aciertos) || 0
       });
       escribir(ALIAS_KEY, alias);
-      return { ok: true, mensaje: "¡Puntuación enviada! Compite en el ranking 🎵" };
+      return { ok: true, mensaje: "Procesado. Consulta el ranking 🎵" };
     } catch (e) {
       return { ok: false, mensaje: "No se pudo enviar: " + e.message };
     }
@@ -97,6 +97,7 @@
     const input = document.getElementById("alias");
     const boton = document.getElementById("save-score");
     const mensaje = document.getElementById("save-msg");
+    // Precargado con el último alias usado en este equipo; se puede cambiar.
     if (input) input.value = aliasGuardado();
     if (boton) boton.disabled = false;
     if (mensaje) mensaje.textContent = "";
@@ -105,7 +106,6 @@
   window.PYMRanking = {
     configurado: configurado,
     playerId: playerId,
-    aliasGuardado: aliasGuardado,
     enviar: enviar,
     cargar: cargar,
     initGameForm: initGameForm
