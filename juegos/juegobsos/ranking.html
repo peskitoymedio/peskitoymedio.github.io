@@ -194,6 +194,7 @@
       .ranking-pista i { color: var(--orange); }
       table { font-size: .92rem; }
       tbody td, thead th { padding: 9px 7px; }
+      td.alias, thead th:nth-child(2) { min-width: 10rem; }
       tbody td.accion { padding-left: 2px; padding-right: 2px; }
       .detalle-modal { padding: 10px; }
       .detalle-panel {
@@ -728,7 +729,7 @@
 
       function mensajeCompartir(d) {
         return "¡" + d.alias + " ha acertado " + d.hits + " de 10 bandas sonoras y ha conseguido " +
-          d.puntos + " puntos en el Juego de BSOs de Peskito y Medio! 🎵🍿 ¿Te atreves a superarlo?";
+          d.puntos + " puntos en el Juego de BSOs de Peskito y Medio! 🎵🍿 ¿Te atreves a superarlo? #PeskitoyMedio";
       }
       function actualizarEnlaces(d) {
         const texto = encodeURIComponent(mensajeCompartir(d));
