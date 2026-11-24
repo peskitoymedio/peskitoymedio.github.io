@@ -866,12 +866,14 @@
     function answer(chosen, c, btnEl){
       if(answered) return; answered=true;
       stopClip();
-      const dt=(Date.now()-startT)/1000;
+      // Milisegundos enteros: el servidor aplica la MISMA fórmula con este
+      // valor, así puntos mostrados y puntos validados no pueden divergir.
+      const ms=Math.round(Date.now()-startT);
       const ok=(chosen===c);
       let pts=0;
       if(ok){
         // 100 fijos por acierto + hasta 50 de bonus por rapidez (máx. 1500)
-        pts=100 + Math.round((1 - Math.min(dt, secs)/secs)*50);
+        pts=100 + Math.round((1 - Math.min(ms, secs*1000)/(secs*1000))*50);
         score+=pts; $('pts').textContent=score;
         btnEl.classList.add('correct');
         $('msg').textContent=`¡Correcto! +${pts} pts 🎉`;
@@ -881,7 +883,7 @@
         document.querySelectorAll('.opt').forEach(b=>{if(b.textContent===c) b.classList.add('correct')});
         $('msg').textContent=`¡Fallaste! Era: ${c}`;
       }
-      results.push({round:r+1, title:c, chosen, ok, pts});
+      results.push({round:r+1, title:c, chosen, ok, pts, ms, elegida:ok?null:chosen});
       document.querySelectorAll('.opt').forEach(b=>b.disabled=true);
       if(r+1<10){ $('next').classList.remove('hidden'); }
       else{ setTimeout(showEnd, 1200); }
@@ -1108,7 +1110,12 @@
       const boton=$('save-score'); const msg=$('save-msg');
       boton.disabled=true; msg.textContent="Enviando…";
       const res=await window.PYMRanking.enviar({
-        puntos:score, aciertos:results.filter(x=>x.ok).length, alias:$('alias').value
+        puntos:score,
+        aciertos:results.filter(x=>x.ok).length,
+        alias:$('alias').value,
+        detalles:results.map(x=>({
+          titulo:x.title, acierto:x.ok, ms:x.ms, elegida:x.elegida
+        }))
       });
       msg.textContent=res.mensaje;
       boton.disabled=!res.ok;

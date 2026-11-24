@@ -59,6 +59,18 @@ create table if not exists public.sesiones (
 );
 create index if not exists sesiones_creado_en_idx on public.sesiones (creado_en desc);
 
+-- Desglose de la partida ganadora: una fila por pregunta. Solo se consulta
+-- desde la RPC detalles_partida; el cliente no puede leerla directamente.
+create table if not exists public.detalles_partida (
+  puntuacion_id bigint not null references public.puntuaciones (id) on delete cascade,
+  orden integer not null check (orden between 1 and 10),
+  titulo text not null check (char_length(titulo) between 1 and 100),
+  acierto boolean not null,
+  elegida text,
+  ms integer not null check (ms between 0 and 600000),
+  primary key (puntuacion_id, orden)
+);
+
 -- RLS activo SIN políticas: nadie puede leer ni escribir estas tablas
 -- directamente. Todo pasa por las funciones security definer de abajo.
 alter table public.puntuaciones enable row level security;
@@ -66,6 +78,7 @@ alter table public.partidas enable row level security;
 alter table public.victorias enable row level security;
 alter table public.ranking_secreto enable row level security;
 alter table public.sesiones enable row level security;
+alter table public.detalles_partida enable row level security;
 
 -- Recalcula quién lidera el día y la semana actuales.
 create or replace function public.actualizar_lideres()
@@ -156,7 +169,8 @@ create or replace function public.registrar_puntuacion(
   p_alias text,
   p_puntos integer,
   p_aciertos integer,
-  p_token text
+  p_token text,
+  p_detalles jsonb
 )
 returns void
 language plpgsql
@@ -169,6 +183,15 @@ declare
   v_nonce text;
   v_secreto text;
   v_creado timestamptz;
+  v_elem jsonb;
+  v_titulo text;
+  v_acierto boolean;
+  v_ms integer;
+  v_elegida text;
+  v_pts integer;
+  v_aciertos_calc integer := 0;
+  v_puntos_calc integer := 0;
+  v_puntuacion_id bigint;
 begin
   if p_jugador_id is null then
     raise exception 'Falta el identificador del jugador';
@@ -182,10 +205,40 @@ begin
   if p_aciertos is null or p_aciertos not between 0 and 10 then
     raise exception 'Número de aciertos no válido';
   end if;
-  -- Cada acierto vale 100 fijos + hasta 50 de rapidez: el total nunca puede
-  -- salir de [100 * aciertos, 150 * aciertos].
-  if p_puntos < 100 * p_aciertos or p_puntos > 150 * p_aciertos then
-    raise exception 'Puntuación no coherente con los aciertos';
+  -- El detalle de la partida es la fuente de la verdad para aciertos y puntos.
+  -- Cada acierto vale 100 fijos + round((1 - ms/5000) * 50) de rapidez.
+  -- Todo esto se valida ANTES de consumir el token o insertar nada.
+  if p_detalles is null or jsonb_typeof(p_detalles) <> 'array' then
+    raise exception 'Falta el detalle de la partida';
+  end if;
+  if jsonb_array_length(p_detalles) <> 10 then
+    raise exception 'El detalle debe tener 10 respuestas';
+  end if;
+  for v_elem in select elem from jsonb_array_elements(p_detalles) as t(elem) loop
+    v_titulo := nullif(btrim(coalesce(v_elem->>'titulo', '')), '');
+    v_acierto := (v_elem->>'acierto')::boolean;
+    v_ms := (v_elem->>'ms')::integer;
+    v_elegida := nullif(btrim(coalesce(v_elem->>'elegida', '')), '');
+    if v_titulo is null or char_length(v_titulo) > 100 then
+      raise exception 'Título no válido en el detalle';
+    end if;
+    if v_acierto is null then
+      raise exception 'Acierto no válido en el detalle';
+    end if;
+    if v_ms is null or v_ms not between 0 and 600000 then
+      raise exception 'Tiempo no válido en el detalle';
+    end if;
+    if v_acierto then
+      v_pts := 100 + round((1 - least(v_ms, 5000)::numeric / 5000) * 50)::integer;
+      v_puntos_calc := v_puntos_calc + v_pts;
+      v_aciertos_calc := v_aciertos_calc + 1;
+    end if;
+  end loop;
+  if v_aciertos_calc <> p_aciertos then
+    raise exception 'Los aciertos no coinciden con el detalle';
+  end if;
+  if v_puntos_calc <> p_puntos then
+    raise exception 'Los puntos no coinciden con los tiempos del detalle';
   end if;
 
   -- Verificación del token. La hora se toma de la base de datos, no del
@@ -242,15 +295,26 @@ begin
   end if;
 
   insert into public.puntuaciones (jugador_id, alias, puntos, aciertos)
-  values (p_jugador_id, btrim(p_alias), p_puntos, p_aciertos);
+  values (p_jugador_id, btrim(p_alias), p_puntos, p_aciertos)
+  returning id into v_puntuacion_id;
+
+  insert into public.detalles_partida (puntuacion_id, orden, titulo, acierto, elegida, ms)
+  select v_puntuacion_id,
+         t.orden,
+         btrim(t.elem->>'titulo'),
+         (t.elem->>'acierto')::boolean,
+         nullif(btrim(coalesce(t.elem->>'elegida', '')), ''),
+         (t.elem->>'ms')::integer
+  from jsonb_array_elements(p_detalles) with ordinality as t(elem, orden);
 
   perform public.actualizar_lideres();
 end;
 $$;
 
 -- Cambios de firma: CREATE OR REPLACE no permite alterar argumentos ni tipo
--- de retorno. La versión anterior de registrar_puntuacion no exigía token.
+-- de retorno. Las versiones anteriores no exigían token ni detalle.
 drop function if exists public.registrar_puntuacion(text, text, integer, integer);
+drop function if exists public.registrar_puntuacion(text, text, integer, integer, text);
 drop function if exists public.ranking(text);
 drop function if exists public.total_partidas();
 
@@ -266,7 +330,8 @@ returns table (
   aciertos integer,
   fecha date,
   victorias_diarias bigint,
-  victorias_semanales bigint
+  victorias_semanales bigint,
+  partida_id bigint
 )
 language sql
 stable
@@ -290,7 +355,7 @@ as $$
   ),
   mejores as (
     select distinct on (lower(btrim(f.alias)))
-           f.alias, f.puntos, f.aciertos, f.creado_en
+           f.id, f.alias, f.puntos, f.aciertos, f.creado_en
     from filtradas f
     order by lower(btrim(f.alias)), f.puntos desc, f.creado_en asc
   )
@@ -304,7 +369,8 @@ as $$
              and lower(btrim(v.alias)) = lower(btrim(m.alias))) as victorias_diarias,
          (select count(*) from public.victorias v
            where v.periodo = 'semanal'
-             and lower(btrim(v.alias)) = lower(btrim(m.alias))) as victorias_semanales
+             and lower(btrim(v.alias)) = lower(btrim(m.alias))) as victorias_semanales,
+  m.id as partida_id
   from mejores m
   order by m.puntos desc, m.creado_en asc
   limit 50;
@@ -320,6 +386,31 @@ as $$
   select count(*) from public.partidas;
 $$;
 
+-- Desglose de una partida del ranking: solo se puede pedir por el id que
+-- devuelve ranking(). RLS impide leer la tabla directamente.
+create or replace function public.detalles_partida(p_id bigint)
+returns table (
+  orden integer,
+  titulo text,
+  acierto boolean,
+  elegida text,
+  segundos numeric
+)
+language sql
+stable
+security definer
+set search_path = public
+as $$
+  select d.orden,
+         d.titulo,
+         d.acierto,
+         d.elegida,
+         round(d.ms::numeric / 1000, 2) as segundos
+  from public.detalles_partida d
+  where d.puntuacion_id = p_id
+  order by d.orden;
+$$;
+
 -- Datos ya existentes: el contador arranca con las partidas que había, y se
 -- calculan los líderes del día y la semana actuales.
 insert into public.partidas (jugador_id, alias, puntos, aciertos, creado_en)
@@ -332,11 +423,13 @@ select public.actualizar_lideres();
 revoke all on function public.actualizar_lideres() from public;
 revoke all on function public.emitir_token() from public;
 
-revoke all on function public.registrar_puntuacion(text, text, integer, integer, text) from public;
+revoke all on function public.registrar_puntuacion(text, text, integer, integer, text, jsonb) from public;
 revoke all on function public.ranking(text) from public;
 revoke all on function public.total_partidas() from public;
+revoke all on function public.detalles_partida(bigint) from public;
 
 grant execute on function public.emitir_token() to anon, authenticated;
-grant execute on function public.registrar_puntuacion(text, text, integer, integer, text) to anon, authenticated;
+grant execute on function public.registrar_puntuacion(text, text, integer, integer, text, jsonb) to anon, authenticated;
 grant execute on function public.ranking(text) to anon, authenticated;
 grant execute on function public.total_partidas() to anon, authenticated;
+grant execute on function public.detalles_partida(bigint) to anon, authenticated;

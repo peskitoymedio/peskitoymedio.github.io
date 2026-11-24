@@ -77,12 +77,31 @@
     td.vacio { text-align: center; padding: 36px 12px; color: var(--ink-soft); font-weight: 600; }
     .insignias { margin-left: 8px; white-space: nowrap; }
     .insignias i { margin-right: 3px; font-size: .85rem; }
+    .insignias .veces {
+      font-size: .78rem; font-weight: 800; color: var(--ink);
+      margin-right: 7px; vertical-align: 1px;
+    }
     .ins-diaria { color: #b8860b; }
     .ins-semanal { color: var(--orange); }
     .total-partidas {
       text-align: center; margin: 20px 0 0; font-weight: 800;
       color: var(--ink-soft); border-top: 2px dashed rgba(11,27,45,.2); padding-top: 16px;
     }
+    tbody tr.clasificable { cursor: pointer; }
+    tbody tr.clasificable:hover, tbody tr.is-selected { background: rgba(255,197,49,.18); }
+    .detalle {
+      margin-top: 18px; padding: 16px 20px; background: var(--white);
+      border: 3px solid var(--ink); border-radius: 14px; box-shadow: 4px 4px 0 var(--ink);
+    }
+    .detalle[hidden] { display: none; }
+    .detalle h3 { margin: 0 0 4px; font-family: var(--font-display); font-size: 1.35rem; }
+    .detalle .detalle-estado { margin: 0 0 10px; color: var(--ink-soft); font-weight: 600; }
+    .detalle ol { margin: 0; padding-left: 24px; }
+    .detalle li { margin: 5px 0; }
+    .detalle .ok { color: var(--green); font-weight: 800; }
+    .detalle .ko { color: var(--red); font-weight: 800; }
+    .detalle .tiempo { color: var(--ink-soft); font-variant-numeric: tabular-nums; }
+    .detalle .cerrar { float: right; cursor: pointer; border: 0; background: none; font-size: 1.2rem; }
 
     #estado { min-height: 24px; margin: 4px 0 14px; font-weight: 600; color: var(--ink-soft); }
     .ranking-nota { margin: 24px 0 0; font-size: .9rem; color: var(--ink-soft); line-height: 1.6; }
@@ -154,6 +173,8 @@
           </table>
         </div>
 
+        <div id="detalle" class="detalle" hidden aria-live="polite"></div>
+
         <p id="total-partidas" class="total-partidas" role="status" aria-live="polite"></p>
 
         <p class="ranking-nota">
@@ -161,7 +182,8 @@
           El día y la semana se cuentan en hora de España. Se muestra la mejor partida
           de cada alias en el periodo elegido, no la suma de partidas. Si compartís
           ordenador, usad alias distintos y cada uno tendrá su propia posición.
-          <span class="insignias"><i class="fa-solid fa-medal ins-diaria" aria-hidden="true"></i> victoria diaria · <i class="fa-solid fa-trophy ins-semanal" aria-hidden="true"></i> victoria semanal</span>
+          Pulsa sobre una fila para ver sus preguntas y tiempos.
+          <span class="insignias"><i class="fa-solid fa-medal ins-diaria" aria-hidden="true"></i> victoria diaria · <i class="fa-solid fa-trophy ins-semanal" aria-hidden="true"></i> victoria semanal (el número indica cuántas)</span>
         </p>
         <a class="btn btn-primary ranking-cta" href="./"><i class="fa-solid fa-play" aria-hidden="true"></i> Jugar y entrar en el ranking</a>
       </section>
@@ -197,28 +219,103 @@
       function insignias(fila) {
         const grupo = document.createElement("span");
         grupo.className = "insignias";
-        const diarias = Number(fila.victorias_diarias) || 0;
-        const semanales = Number(fila.victorias_semanales) || 0;
-        for (let i = 0; i < diarias; i++) {
+        const tipos = [
+          [Number(fila.victorias_diarias) || 0, "fa-medal ins-diaria", "victoria diaria", "victorias diarias"],
+          [Number(fila.victorias_semanales) || 0, "fa-trophy ins-semanal", "victoria semanal", "victorias semanales"]
+        ];
+        tipos.forEach(([total, clase, singular, plural]) => {
+          if (!total) return;
           const ico = document.createElement("i");
-          ico.className = "fa-solid fa-medal ins-diaria";
-          ico.title = "Victoria diaria";
-          ico.setAttribute("aria-label", "Victoria diaria");
+          ico.className = "fa-solid " + clase;
+          ico.title = total === 1 ? singular : total + " " + plural;
+          ico.setAttribute("aria-label", ico.title);
           grupo.appendChild(ico);
-        }
-        for (let i = 0; i < semanales; i++) {
-          const ico = document.createElement("i");
-          ico.className = "fa-solid fa-trophy ins-semanal";
-          ico.title = "Victoria semanal";
-          ico.setAttribute("aria-label", "Victoria semanal");
-          grupo.appendChild(ico);
-        }
+          if (total > 1) {
+            const num = document.createElement("span");
+            num.className = "veces";
+            num.textContent = total;
+            num.title = ico.title;
+            grupo.appendChild(num);
+          }
+        });
         return grupo;
+      }
+
+      function cerrarDetalle() {
+        const d = $("detalle");
+        d.hidden = true;
+        d.textContent = "";
+        document.querySelectorAll("#ranking-body tr.is-selected")
+          .forEach(tr => tr.classList.remove("is-selected"));
+      }
+
+      function cabeceraDetalle(alias, estado) {
+        const d = $("detalle");
+        d.textContent = "";
+        const cerrar = document.createElement("button");
+        cerrar.type = "button";
+        cerrar.className = "cerrar";
+        cerrar.setAttribute("aria-label", "Cerrar detalle");
+        cerrar.textContent = "×";
+        cerrar.onclick = cerrarDetalle;
+        d.appendChild(cerrar);
+        const titulo = document.createElement("h3");
+        titulo.textContent = "Detalle de " + (alias || "la partida");
+        d.appendChild(titulo);
+        const p = document.createElement("p");
+        p.className = "detalle-estado";
+        p.textContent = estado;
+        d.appendChild(p);
+        return p;
+      }
+
+      async function mostrarDetalle(tr) {
+        const id = tr.dataset.partida;
+        if (!id) return;
+        const yaAbierto = tr.classList.contains("is-selected");
+        cerrarDetalle();
+        if (yaAbierto) return;
+        tr.classList.add("is-selected");
+        const d = $("detalle");
+        d.hidden = false;
+        const estado = cabeceraDetalle(tr.dataset.alias, "Cargando detalle…");
+        try {
+          const filas = await ranking.detalles(id) || [];
+          if (!tr.classList.contains("is-selected")) return;
+          if (!filas.length) {
+            estado.textContent = "Esta partida es anterior al desglose de preguntas.";
+            return;
+          }
+          const aciertos = filas.filter(f => f.acierto).length;
+          estado.textContent = aciertos + " de " + filas.length + " aciertos";
+          const ol = document.createElement("ol");
+          filas.forEach(f => {
+            const li = document.createElement("li");
+            const marca = document.createElement("span");
+            marca.className = f.acierto ? "ok" : "ko";
+            marca.textContent = f.acierto ? "✓" : "✗";
+            li.appendChild(marca);
+            li.appendChild(document.createTextNode(" " + (f.titulo || "")));
+            const tiempo = document.createElement("span");
+            tiempo.className = "tiempo";
+            tiempo.textContent = " · " + Number(f.segundos || 0).toFixed(2) + " s";
+            li.appendChild(tiempo);
+            if (!f.acierto && f.elegida) {
+              li.appendChild(document.createTextNode(" · elegiste: " + f.elegida));
+            }
+            ol.appendChild(li);
+          });
+          d.appendChild(ol);
+        } catch (e) {
+          if (!tr.classList.contains("is-selected")) return;
+          estado.textContent = "No se pudo cargar el detalle: " + e.message;
+        }
       }
 
       function pintar(filas) {
         const cuerpo = $("ranking-body");
         cuerpo.textContent = "";
+        cerrarDetalle();
         if (!filas || !filas.length) {
           const tr = document.createElement("tr");
           const td = document.createElement("td");
@@ -231,6 +328,22 @@
         }
         filas.forEach(fila => {
           const tr = document.createElement("tr");
+          const id = fila.partida_id == null ? "" : String(fila.partida_id);
+          if (id) {
+            tr.className = "clasificable";
+            tr.tabIndex = 0;
+            tr.setAttribute("role", "button");
+            tr.setAttribute("aria-label", "Ver detalle de " + (fila.alias || "la partida"));
+            tr.dataset.partida = id;
+            tr.dataset.alias = fila.alias == null ? "" : String(fila.alias);
+            tr.onclick = () => mostrarDetalle(tr);
+            tr.onkeydown = e => {
+              if (e.key === "Enter" || e.key === " ") {
+                e.preventDefault();
+                mostrarDetalle(tr);
+              }
+            };
+          }
           const datos = [
             ["puesto", "#" + fila.puesto],
             null,

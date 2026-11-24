@@ -93,7 +93,8 @@
         p_alias: alias,
         p_puntos: Number(datos.puntos) || 0,
         p_aciertos: Number(datos.aciertos) || 0,
-        p_token: token
+        p_token: token,
+        p_detalles: datos.detalles || []
       });
       tokenPartida = null;
       escribir(ALIAS_KEY, alias);
@@ -111,6 +112,11 @@
   async function totalPartidas() {
     if (!configurado) throw new Error("El ranking todavía no está disponible.");
     return Number(await rpc("total_partidas", {})) || 0;
+  }
+
+  async function detalles(id) {
+    if (!configurado) throw new Error("El ranking todavía no está disponible.");
+    return rpc("detalles_partida", { p_id: Number(id) });
   }
 
   function initGameForm() {
@@ -134,6 +140,7 @@
     enviar: enviar,
     cargar: cargar,
     totalPartidas: totalPartidas,
+    detalles: detalles,
     initGameForm: initGameForm
   };
 })();
