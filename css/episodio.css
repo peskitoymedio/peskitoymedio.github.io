@@ -701,6 +701,12 @@ a.ep-chapter-thumb:hover {
   color: var(--muted) !important;
 }
 .archive-intro-meta strong { color: var(--orange-dark); }
+.archive-intro-meta a {
+  color: var(--orange-dark);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.archive-intro-meta a:hover { color: var(--ink); }
 
 /* ---------- Responsive ---------- */
 @media (max-width: 960px) {

@@ -210,13 +210,13 @@ ul { list-style: none; }
 .nav {
   display: flex;
   align-items: center;
-  gap: 4px;
+  gap: 2px;
   margin-left: auto;
 }
 .nav a {
   position: relative;
-  padding: 9px 12px;
-  font-size: 0.93rem;
+  padding: 8px 7px;
+  font-size: 0.88rem;
   font-weight: 600;
   color: var(--ink-soft);
   border-radius: 9px;
@@ -225,7 +225,7 @@ ul { list-style: none; }
 .nav a::after {
   content: "";
   position: absolute;
-  left: 12px; right: 12px; bottom: 3px;
+  left: 7px; right: 7px; bottom: 3px;
   height: 2.5px;
   background: var(--orange);
   border-radius: 999px;
@@ -235,6 +235,10 @@ ul { list-style: none; }
 }
 .nav a:hover { color: var(--ink); }
 .nav a:hover::after { transform: scaleX(1); }
+.nav a.is-active,
+.nav a[aria-current="page"] { color: var(--ink); }
+.nav a.is-active::after,
+.nav a[aria-current="page"]::after { transform: scaleX(1); }
 
 .nav-cta { flex: 0 0 auto; }
 
@@ -2391,17 +2395,11 @@ ul { list-style: none; }
 /* ===========================
    Responsive
    =========================== */
-@media (max-width: 1100px) {
-  .episode-grid { grid-template-columns: repeat(2, 1fr); }
-  .team-grid { grid-template-columns: repeat(2, 1fr); }
-  .awards-grid { grid-template-columns: 1fr; }
-  .footer-grid { grid-template-columns: 1.4fr 1fr 1fr; }
-  .footer-col:last-child { grid-column: 1 / -1; display: flex; flex-wrap: wrap; gap: 0 24px; align-items: baseline; }
-  .footer-col:last-child h3 { width: 100%; }
-  .footer-col:last-child a { padding-right: 10px; }
+@media (max-width: 1360px) {
+  .nav-cta { display: none; }
 }
 
-@media (max-width: 960px) {
+@media (max-width: 1180px) {
   .nav {
     position: absolute;
     top: calc(100% + 3px);
@@ -2432,10 +2430,23 @@ ul { list-style: none; }
     font-size: 1rem;
   }
   .nav a::after { display: none; }
-  .nav a:hover { background: rgba(240, 112, 0, 0.1); }
-  .nav-cta { display: none; }
+  .nav a:hover,
+  .nav a.is-active,
+  .nav a[aria-current="page"] { background: rgba(240, 112, 0, 0.1); }
   .nav-toggle { display: flex; }
+}
 
+@media (max-width: 1100px) {
+  .episode-grid { grid-template-columns: repeat(2, 1fr); }
+  .team-grid { grid-template-columns: repeat(2, 1fr); }
+  .awards-grid { grid-template-columns: 1fr; }
+  .footer-grid { grid-template-columns: 1.4fr 1fr 1fr; }
+  .footer-col:last-child { grid-column: 1 / -1; display: flex; flex-wrap: wrap; gap: 0 24px; align-items: baseline; }
+  .footer-col:last-child h3 { width: 100%; }
+  .footer-col:last-child a { padding-right: 10px; }
+}
+
+@media (max-width: 960px) {
   .hero-grid {
     grid-template-columns: 1fr;
     gap: 48px;

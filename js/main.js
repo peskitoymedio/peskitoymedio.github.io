@@ -471,7 +471,7 @@
   });
 
   window.addEventListener("resize", () => {
-    if (window.innerWidth > 960) closeNav();
+    if (window.innerWidth > 1180) closeNav();
   });
 
   /* ---------- Animaciones de aparición ---------- */

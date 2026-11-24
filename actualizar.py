@@ -1574,7 +1574,25 @@ def meta_description(episode: dict, limit: int = 158) -> str:
     return cut.rstrip(" .,-") + "…"
 
 
-def site_header(prefix: str, cta_html: str) -> str:
+def site_header(prefix: str, cta_html: str, active: str = "") -> str:
+    def nav_link(label: str, href: str, key: str) -> str:
+        current = ' class="is-active" aria-current="page"' if key == active else ""
+        return f'<a href="{href}"{current}>{label}</a>'
+
+    nav_links = "\n".join(
+        "        " + nav_link(label, f"{prefix}{href}", key)
+        for label, href, key in (
+            ("El podcast", "index.html#sobre", "podcast"),
+            ("Presentación", "index.html#presentacion", "presentacion"),
+            ("Últimos episodios", "index.html#episodios", "ultimos"),
+            ("Todos los episodios", "episodios/", "todos"),
+            ("Equipo", "index.html#equipo", "equipo"),
+            ("Reconocimientos", "index.html#reconocimientos", "reconocimientos"),
+            ("Juego BSOs", "juegos/juegobsos/", "juego"),
+            ("Escúchanos", "index.html#escuchanos", "escuchanos"),
+        )
+    )
+
     return f"""  <header class="site-header" id="site-header">
     <div class="container nav-inner">
       <a class="brand" href="{prefix}index.html" aria-label="Peskito y Medio, ir al inicio">
@@ -1586,14 +1604,7 @@ def site_header(prefix: str, cta_html: str) -> str:
       </a>
 
       <nav class="nav" id="nav" aria-label="Navegación principal">
-        <a href="{prefix}index.html#sobre">El podcast</a>
-        <a href="{prefix}index.html#presentacion">Presentación</a>
-        <a href="{prefix}episodios/">Episodios</a>
-        <a href="{prefix}index.html#equipo">Equipo</a>
-        <a href="{prefix}index.html#reconocimientos">Reconocimientos</a>
-        <a href="{prefix}juegos/juegobsos/">Juego BSOs</a>
-        <a href="{prefix}juegos/juegobsos/ranking.html">Ranking BSOs</a>
-        <a href="{prefix}index.html#escuchanos">Escúchanos</a>
+{nav_links}
       </nav>
 
       {cta_html}
@@ -1631,11 +1642,11 @@ def site_footer(prefix: str) -> str:
       <div class="footer-col">
         <h3>Explora</h3>
         <a href="{prefix}index.html#sobre">El podcast</a>
+        <a href="{prefix}index.html#presentacion">Presentación</a>
         <a href="{prefix}episodios/">Todos los episodios</a>
         <a href="{prefix}index.html#equipo">Equipo</a>
         <a href="{prefix}index.html#reconocimientos">Reconocimientos</a>
         <a href="{prefix}juegos/juegobsos/">Juego BSOs</a>
-        <a href="{prefix}juegos/juegobsos/ranking.html">Ranking BSOs</a>
         <a href="{prefix}index.html#escuchanos">Escúchanos</a>
       </div>
 
@@ -2090,7 +2101,7 @@ def build_episode_page(episode: dict, episodes: list[dict], latest: dict | None,
 
 {topbar("../", latest, current=True)}
 
-{site_header("../", cta)}
+{site_header("../", cta, active="todos")}
 
   <main id="main">
     <div class="container">
@@ -2283,7 +2294,7 @@ def build_archive_page(episodes: list[dict], latest: dict | None) -> str:
 
 {topbar("../", latest)}
 
-{site_header("../", cta)}
+{site_header("../", cta, active="todos")}
 
   <main id="main">
     <div class="container">
@@ -2300,7 +2311,7 @@ def build_archive_page(episodes: list[dict], latest: dict | None) -> str:
         <span class="eyebrow"><i class="fa-solid fa-box-archive" aria-hidden="true"></i> Archivo peskiter</span>
         <h1>Todos los <span class="marker marker--orange">episodios</span></h1>
         <p>Aquí tienes el archivo completo de Peskito y Medio: programas, especiales, colaboraciones y promos. Cada episodio tiene su ficha con sus notas, su ficha rápida y su reproductor. Elige uno y dale al play.</p>
-        <p class="archive-intro-meta"><strong>{len(episodes)}</strong> episodios publicados · del más reciente al más antiguo</p>
+        <p class="archive-intro-meta"><strong>{len(episodes)}</strong> episodios publicados · del más reciente al más antiguo · <a href="../index.html#episodios">Ver solo los últimos episodios</a></p>
       </div>
     </section>
 
