@@ -605,10 +605,12 @@
         const hits = d.hits + " de 10 aciertos";
         const hx = Math.max(500, 76 + ctx.measureText(pts).width + 24);
 
-        // Puestos en los tres rankings, encima del recuadro de aciertos.
+        // Puestos en los tres rankings, arriba del todo del bloque para dejar
+        // aire con el recuadro de aciertos.
+        let centroFila = null;
         if (d.posiciones && d.posiciones.length) {
           ctx.fillStyle = "#AFC3D6"; ctx.font = "800 22px 'Outfit', sans-serif";
-          ctx.fillText("Puestos", hx, 377);
+          ctx.fillText("Puestos", hx, 355);
           let px = hx + ctx.measureText("Puestos").width + 6;
           ctx.textAlign = "center";
           d.posiciones.forEach(p => {
@@ -617,24 +619,27 @@
             const w = ctx.measureText(texto).width + 16;
             if (px + w > 1000) return;
             ctx.fillStyle = p.puesto === 1 ? "rgba(255,197,49,0.22)" : "rgba(61,185,192,0.14)";
-            rr(ctx, px, 348, w, 42, 21); ctx.fill();
+            rr(ctx, px, 326, w, 42, 21); ctx.fill();
             ctx.strokeStyle = p.puesto === 1 ? "rgba(255,197,49,0.75)" : "rgba(61,185,192,0.5)";
             ctx.lineWidth = 2; ctx.stroke();
             ctx.fillStyle = p.puesto === 1 ? "#FFC531" : "#3DB9C0";
-            ctx.fillText(texto, px + w / 2, 377);
+            ctx.fillText(texto, px + w / 2, 355);
             px += w + 4;
           });
           ctx.textAlign = "left";
+          centroFila = (hx + px - 4) / 2;
         }
         let hf = 42; ctx.font = "800 " + hf + "px 'Outfit', sans-serif";
         while (ctx.measureText(hits).width > 986 - hx && hf > 26) {
           hf -= 2; ctx.font = "800 " + hf + "px 'Outfit', sans-serif";
         }
         const hw = ctx.measureText(hits).width;
-        ctx.fillStyle = "rgba(61,185,192,0.14)"; rr(ctx,hx-18,396,hw+36,68,20); ctx.fill();
+        const anchoAciertos = hw + 36;
+        const bx = centroFila == null ? hx - 18 : centroFila - anchoAciertos / 2;
+        ctx.fillStyle = "rgba(61,185,192,0.14)"; rr(ctx,bx,396,anchoAciertos,68,20); ctx.fill();
         ctx.strokeStyle = "rgba(61,185,192,0.55)"; ctx.lineWidth = 2; ctx.stroke();
         ctx.fillStyle = "#3DB9C0"; ctx.textAlign = "center";
-        ctx.fillText(hits, hx + hw/2, 442); ctx.textAlign = "left";
+        ctx.fillText(hits, bx + anchoAciertos/2, 442); ctx.textAlign = "left";
 
         ctx.fillStyle = "#3DB9C0"; ctx.font = "700 26px 'Outfit', sans-serif";
         ctx.fillText("Veredicto:", 80, 520);
@@ -696,7 +701,7 @@
         if (acertadas.length && falladas.length) y += 6;
         grupo(falladas, "✗ FALLADAS", "#D9452E", "rgba(217,69,46,0.16)", true);
 
-        const cta = "¿Podrás superarle? Juega en peskitoymedio.es/juegos/juegobsos/";
+        const cta = "¿Podrás superarle? Juega en peskitoymedio.es";
         let cf = 26; ctx.font = "800 " + cf + "px 'Outfit', sans-serif";
         while (ctx.measureText(cta).width > 900 && cf > 20) {
           cf -= 2; ctx.font = "800 " + cf + "px 'Outfit', sans-serif";
