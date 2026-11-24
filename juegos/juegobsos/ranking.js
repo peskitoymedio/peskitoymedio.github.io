@@ -89,6 +89,11 @@
     return rpc("ranking", { p_periodo: periodo });
   }
 
+  async function totalPartidas() {
+    if (!configurado) throw new Error("El ranking todavía no está disponible.");
+    return Number(await rpc("total_partidas", {})) || 0;
+  }
+
   function initGameForm() {
     const caja = document.getElementById("score-submit");
     if (!caja) return;
@@ -108,6 +113,7 @@
     playerId: playerId,
     enviar: enviar,
     cargar: cargar,
+    totalPartidas: totalPartidas,
     initGameForm: initGameForm
   };
 })();

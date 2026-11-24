@@ -11,21 +11,88 @@ create table if not exists public.puntuaciones (
   creado_en timestamptz not null default now()
 );
 
+-- Un registro por cada envío, incluso los que no mejoran la marca o se
+-- descartan por anti-spam. Es la fuente del contador de partidas.
+create table if not exists public.partidas (
+  id bigint generated always as identity primary key,
+  jugador_id text not null,
+  alias text not null,
+  puntos integer not null,
+  aciertos integer not null,
+  creado_en timestamptz not null default now()
+);
+
+-- Líder de cada día y de cada semana. Una fila por (periodo, clave) que se
+-- actualiza si alguien supera al líder; al cerrar el periodo queda el ganador.
+create table if not exists public.victorias (
+  periodo text not null check (periodo in ('diario', 'semanal')),
+  clave text not null,
+  alias text not null,
+  puntos integer not null,
+  actualizado_en timestamptz not null default now(),
+  primary key (periodo, clave)
+);
+
 create index if not exists puntuaciones_creado_en_idx on public.puntuaciones (creado_en desc);
 create index if not exists puntuaciones_jugador_puntos_idx on public.puntuaciones (jugador_id, puntos desc);
 create index if not exists puntuaciones_alias_idx on public.puntuaciones (lower(btrim(alias)));
+create index if not exists partidas_creado_en_idx on public.partidas (creado_en desc);
+create index if not exists victorias_alias_idx on public.victorias (lower(btrim(alias)));
 
--- RLS activo SIN políticas: nadie puede leer ni escribir la tabla directamente.
--- Todo pasa por las dos funciones security definer de abajo.
+-- RLS activo SIN políticas: nadie puede leer ni escribir estas tablas
+-- directamente. Todo pasa por las funciones security definer de abajo.
 alter table public.puntuaciones enable row level security;
+alter table public.partidas enable row level security;
+alter table public.victorias enable row level security;
+
+-- Recalcula quién lidera el día y la semana actuales.
+create or replace function public.actualizar_lideres()
+returns void
+language plpgsql
+security definer
+set search_path = public
+as $$
+declare
+  v_periodo text;
+  v_clave text;
+  v_alias text;
+  v_puntos integer;
+  v_desde timestamptz;
+begin
+  for v_periodo, v_clave, v_desde in
+    select 'diario',
+           to_char(timezone('Europe/Madrid', now()), 'YYYY-MM-DD'),
+           date_trunc('day', timezone('Europe/Madrid', now())) at time zone 'Europe/Madrid'
+    union all
+    select 'semanal',
+           to_char(timezone('Europe/Madrid', now()), 'IYYY-"W"IW'),
+           date_trunc('week', timezone('Europe/Madrid', now())) at time zone 'Europe/Madrid'
+  loop
+    select p.alias, p.puntos
+      into v_alias, v_puntos
+      from public.puntuaciones p
+     where p.creado_en >= v_desde
+     order by p.puntos desc, p.creado_en asc
+     limit 1;
+
+    if v_alias is not null then
+      insert into public.victorias (periodo, clave, alias, puntos)
+      values (v_periodo, v_clave, v_alias, v_puntos)
+      on conflict (periodo, clave) do update
+        set alias = excluded.alias,
+            puntos = excluded.puntos,
+            actualizado_en = now();
+    end if;
+  end loop;
+end;
+$$;
 
 -- Alta de puntuación. La fecha la pone el servidor; se validan los rangos.
 -- El alias (no el navegador) es la identidad: así varias personas pueden
 -- jugar desde el mismo ordenador con nombres distintos.
--- Solo se guarda si supera la mejor marca del alias en el día actual (hora de
--- España): una puntuación igual o peor no sustituye a la mejor. Sí se guarda
--- una marca peor que la de otro día, para que el jugador aparezca en el
--- ranking de hoy sin borrar su mejor marca histórica.
+-- Toda llamada válida cuenta como partida. Solo se guarda como marca si
+-- supera la mejor del alias en el día actual (hora de España), para que una
+-- puntuación peor no sustituya a la mejor de hoy.
 create or replace function public.registrar_puntuacion(
   p_jugador_id text,
   p_alias text,
@@ -51,6 +118,9 @@ begin
     raise exception 'Número de aciertos no válido';
   end if;
 
+  insert into public.partidas (jugador_id, alias, puntos, aciertos)
+  values (p_jugador_id, btrim(p_alias), p_puntos, p_aciertos);
+
   if exists (
     select 1 from public.puntuaciones
     where lower(btrim(alias)) = lower(btrim(p_alias))
@@ -71,19 +141,28 @@ begin
 
   insert into public.puntuaciones (jugador_id, alias, puntos, aciertos)
   values (p_jugador_id, btrim(p_alias), p_puntos, p_aciertos);
+
+  perform public.actualizar_lideres();
 end;
 $$;
 
--- Ranking por periodo. Se queda con la MEJOR partida de cada alias,
--- no con la suma, para no premiar a quien más juega.
--- Día y semana se calculan en hora de España (Europe/Madrid).
-create or replace function public.ranking(p_periodo text default 'semanal')
+-- Cambios de firma: CREATE OR REPLACE no permite alterar el tipo de retorno.
+drop function if exists public.ranking(text);
+drop function if exists public.total_partidas();
+
+-- Ranking por periodo. Se queda con la MEJOR partida de cada alias, no con
+-- la suma, para no premiar a quien más juega. Día y semana en Europe/Madrid.
+-- Los trofeos son acumulados: cuentan todas las victorias del alias, esté en
+-- la pestaña que esté.
+create or replace function public.ranking(p_periodo text default 'diario')
 returns table (
   puesto bigint,
   alias text,
   puntos integer,
   aciertos integer,
-  fecha date
+  fecha date,
+  victorias_diarias bigint,
+  victorias_semanales bigint
 )
 language sql
 stable
@@ -115,13 +194,43 @@ as $$
          m.alias,
          m.puntos,
          m.aciertos,
-         timezone('Europe/Madrid', m.creado_en)::date as fecha
+         timezone('Europe/Madrid', m.creado_en)::date as fecha,
+         (select count(*) from public.victorias v
+           where v.periodo = 'diario'
+             and lower(btrim(v.alias)) = lower(btrim(m.alias))) as victorias_diarias,
+         (select count(*) from public.victorias v
+           where v.periodo = 'semanal'
+             and lower(btrim(v.alias)) = lower(btrim(m.alias))) as victorias_semanales
   from mejores m
   order by m.puntos desc, m.creado_en asc
   limit 50;
 $$;
 
+create or replace function public.total_partidas()
+returns bigint
+language sql
+stable
+security definer
+set search_path = public
+as $$
+  select count(*) from public.partidas;
+$$;
+
+-- Datos ya existentes: el contador arranca con las partidas que había, y se
+-- calculan los líderes del día y la semana actuales.
+insert into public.partidas (jugador_id, alias, puntos, aciertos, creado_en)
+select p.jugador_id, p.alias, p.puntos, p.aciertos, p.creado_en
+from public.puntuaciones p
+where not exists (select 1 from public.partidas);
+
+select public.actualizar_lideres();
+
+revoke all on function public.actualizar_lideres() from public;
+
 revoke all on function public.registrar_puntuacion(text, text, integer, integer) from public;
 revoke all on function public.ranking(text) from public;
+revoke all on function public.total_partidas() from public;
+
 grant execute on function public.registrar_puntuacion(text, text, integer, integer) to anon, authenticated;
 grant execute on function public.ranking(text) to anon, authenticated;
+grant execute on function public.total_partidas() to anon, authenticated;

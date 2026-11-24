@@ -75,6 +75,14 @@
     td.alias { font-weight: 700; overflow-wrap: anywhere; }
     td.fecha { color: var(--ink-soft); white-space: nowrap; font-size: .92rem; }
     td.vacio { text-align: center; padding: 36px 12px; color: var(--ink-soft); font-weight: 600; }
+    .insignias { margin-left: 8px; white-space: nowrap; }
+    .insignias i { margin-right: 3px; font-size: .85rem; }
+    .ins-diaria { color: #b8860b; }
+    .ins-semanal { color: var(--orange); }
+    .total-partidas {
+      text-align: center; margin: 20px 0 0; font-weight: 800;
+      color: var(--ink-soft); border-top: 2px dashed rgba(11,27,45,.2); padding-top: 16px;
+    }
 
     #estado { min-height: 24px; margin: 4px 0 14px; font-weight: 600; color: var(--ink-soft); }
     .ranking-nota { margin: 24px 0 0; font-size: .9rem; color: var(--ink-soft); line-height: 1.6; }
@@ -146,11 +154,14 @@
           </table>
         </div>
 
+        <p id="total-partidas" class="total-partidas" role="status" aria-live="polite"></p>
+
         <p class="ranking-nota">
           Cada acierto vale 100 puntos, más hasta 50 extra por rapidez (máximo 1500).
           El día y la semana se cuentan en hora de España. Se muestra la mejor partida
           de cada alias en el periodo elegido, no la suma de partidas. Si compartís
           ordenador, usad alias distintos y cada uno tendrá su propia posición.
+          <span class="insignias"><i class="fa-solid fa-medal ins-diaria" aria-hidden="true"></i> victoria diaria · <i class="fa-solid fa-trophy ins-semanal" aria-hidden="true"></i> victoria semanal</span>
         </p>
         <a class="btn btn-primary ranking-cta" href="./"><i class="fa-solid fa-play" aria-hidden="true"></i> Jugar y entrar en el ranking</a>
       </section>
@@ -183,6 +194,28 @@
           .toLocaleDateString("es-ES", { day: "2-digit", month: "short", year: "numeric" });
       }
 
+      function insignias(fila) {
+        const grupo = document.createElement("span");
+        grupo.className = "insignias";
+        const diarias = Number(fila.victorias_diarias) || 0;
+        const semanales = Number(fila.victorias_semanales) || 0;
+        for (let i = 0; i < diarias; i++) {
+          const ico = document.createElement("i");
+          ico.className = "fa-solid fa-medal ins-diaria";
+          ico.title = "Victoria diaria";
+          ico.setAttribute("aria-label", "Victoria diaria");
+          grupo.appendChild(ico);
+        }
+        for (let i = 0; i < semanales; i++) {
+          const ico = document.createElement("i");
+          ico.className = "fa-solid fa-trophy ins-semanal";
+          ico.title = "Victoria semanal";
+          ico.setAttribute("aria-label", "Victoria semanal");
+          grupo.appendChild(ico);
+        }
+        return grupo;
+      }
+
       function pintar(filas) {
         const cuerpo = $("ranking-body");
         cuerpo.textContent = "";
@@ -200,19 +233,35 @@
           const tr = document.createElement("tr");
           const datos = [
             ["puesto", "#" + fila.puesto],
-            ["alias", fila.alias],
+            null,
             ["num", fila.puntos],
             ["num", fila.aciertos],
             ["fecha", fechaBonita(fila.fecha)]
           ];
-          datos.forEach(([clase, valor]) => {
+          datos.forEach(dato => {
             const td = document.createElement("td");
-            td.className = clase;
-            td.textContent = valor == null ? "" : String(valor);
+            if (dato === null) {
+              td.className = "alias";
+              td.textContent = fila.alias == null ? "" : String(fila.alias);
+              td.appendChild(insignias(fila));
+            } else {
+              td.className = dato[0];
+              td.textContent = dato[1] == null ? "" : String(dato[1]);
+            }
             tr.appendChild(td);
           });
           cuerpo.appendChild(tr);
         });
+      }
+
+      async function cargarTotal() {
+        try {
+          const total = await ranking.totalPartidas();
+          $("total-partidas").textContent =
+            total === 1 ? "1 partida registrada" : total + " partidas registradas";
+        } catch (e) {
+          $("total-partidas").textContent = "";
+        }
       }
 
       async function actualizar() {
@@ -224,6 +273,7 @@
           const filas = await ranking.cargar(periodo);
           if (id !== cargando) return;
           pintar(filas);
+          cargarTotal();
           estado.textContent = "";
         } catch (e) {
           if (id !== cargando) return;

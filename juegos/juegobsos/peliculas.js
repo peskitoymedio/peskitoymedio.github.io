@@ -755,7 +755,7 @@ window.PELICULAS_BSO = [
   },
   {
     "titulo": "Los juegos del hambre",
-    "consulta": "The Hunger Games Main Theme James Newton Howard"
+    "consulta": "The Hunger Games Horn Of Plenty"
   },
   {
     "titulo": "Ralph el demoledor",
