@@ -1,0 +1,934 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Ranking de BSOs · Peskito y Medio</title>
+  <meta name="description" content="Ranking diario, semanal e histórico del Juego de Bandas Sonoras de Peskito y Medio.">
+  <meta name="theme-color" content="#0B1B2D">
+  <link rel="icon" type="image/x-icon" href="/favicon.ico" sizes="any">
+  <link rel="canonical" href="https://www.peskitoymedio.es/juegos/juegobsos/ranking.html">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" referrerpolicy="no-referrer">
+
+  <link rel="stylesheet" href="../../css/styles.css">
+  <style>
+    .ranking-hero {
+      padding: 56px 0 44px;
+      text-align: center;
+      background: linear-gradient(135deg, var(--ink) 0%, var(--navy) 100%);
+      color: var(--cream);
+      border-bottom: 4px solid var(--ink);
+    }
+    .ranking-hero h1 {
+      font-family: var(--font-display);
+      font-size: clamp(2.8rem, 6vw, 4.4rem);
+      color: var(--yellow);
+      text-shadow: 4px 4px 0 var(--ink);
+      margin: 0 0 10px;
+      line-height: 1.1;
+    }
+    .ranking-hero p { max-width: 620px; margin: 0 auto 16px; font-size: 1.08rem; }
+    .ranking-hero .volver { color: var(--yellow); font-weight: 700; }
+
+    .ranking-wrap {
+      max-width: 860px;
+      margin: -30px auto 72px;
+      padding: 0 20px;
+      position: relative;
+      z-index: 10;
+    }
+    .ranking-card {
+      background: var(--white);
+      border: 4px solid var(--ink);
+      border-radius: var(--radius);
+      box-shadow: 8px 8px 0 var(--ink);
+      padding: 28px 32px 32px;
+    }
+    .tabs { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 22px; }
+    .tabs button {
+      font: inherit; font-weight: 800; cursor: pointer;
+      padding: 10px 20px; border-radius: 999px;
+      border: 3px solid var(--ink); background: var(--white); color: var(--ink);
+      box-shadow: 3px 3px 0 var(--ink);
+    }
+    .tabs button:hover { transform: translate(-1px, -1px); box-shadow: 4px 4px 0 var(--ink); }
+    .tabs button.is-active { background: var(--yellow); }
+    .tabs button:disabled { opacity: .5; cursor: not-allowed; transform: none; }
+
+    .table-wrap { overflow-x: auto; }
+    table { width: 100%; border-collapse: collapse; }
+    thead th {
+      font-family: var(--font-display); letter-spacing: 1px;
+      text-align: left; padding: 10px 12px;
+      border-bottom: 3px solid var(--ink); white-space: nowrap;
+    }
+    tbody td { padding: 12px; border-bottom: 1px solid rgba(11,27,45,.14); }
+    tbody tr:last-child td { border-bottom: 0; }
+    th.num, td.num { text-align: right; }
+    td.puesto { font-family: var(--font-display); font-size: 1.35rem; color: var(--orange); width: 74px; }
+    tbody tr:nth-child(1) td.puesto { color: #d99b08; }
+    td.alias { font-weight: 700; overflow-wrap: anywhere; }
+    td.fecha { color: var(--ink-soft); white-space: nowrap; font-size: .92rem; }
+    td.vacio { text-align: center; padding: 36px 12px; color: var(--ink-soft); font-weight: 600; }
+    .insignias { margin-left: 8px; }
+    .insignias .ins { display: inline-block; white-space: nowrap; }
+    .insignias i { margin-right: 3px; font-size: .85rem; }
+    .insignias .veces {
+      font-size: .78rem; font-weight: 800; color: var(--ink);
+      margin-right: 7px; vertical-align: 1px;
+    }
+    .ins-diaria { color: #b8860b; }
+    .ins-semanal { color: var(--orange); }
+    .total-partidas {
+      text-align: center; margin: 20px 0 0; font-weight: 800;
+      color: var(--ink-soft); border-top: 2px dashed rgba(11,27,45,.2); padding-top: 16px;
+    }
+    tbody tr.clasificable { cursor: pointer; }
+    tbody tr.clasificable:hover, tbody tr.is-selected { background: rgba(255,197,49,.18); }
+    th.accion, td.accion { text-align: right; width: 1%; white-space: nowrap; }
+    .ver-detalle {
+      display: inline-flex; align-items: center; justify-content: center; gap: 5px;
+      min-width: 46px; padding: 5px 8px; border-radius: 999px;
+      border: 2px solid var(--ink); background: var(--white); color: var(--ink);
+      font-size: .8rem; line-height: 1;
+    }
+    .ver-detalle .fa-chevron-right { font-size: .65rem; opacity: .65; }
+    tbody tr.clasificable:hover .ver-detalle,
+    tbody tr.is-selected .ver-detalle { background: var(--yellow); }
+    .ranking-pista { display: none; }
+    .detalle-modal {
+      position: fixed; inset: 0; z-index: 2000; padding: 20px;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .detalle-modal[hidden] { display: none; }
+    .detalle-overlay {
+      position: absolute; inset: 0; background: rgba(11,27,45,.75);
+      backdrop-filter: blur(3px);
+    }
+    .detalle-panel {
+      position: relative; width: min(560px, 100%); max-width: 100%; min-width: 0;
+      max-height: 88vh; overflow: auto;
+      background: var(--cream); border: 4px solid var(--ink); border-radius: 20px;
+      box-shadow: 8px 8px 0 var(--ink); animation: detalle-in .18s ease-out;
+    }
+    @keyframes detalle-in {
+      from { transform: translateY(14px) scale(.97); opacity: 0; }
+      to { transform: none; opacity: 1; }
+    }
+    .detalle-cabecera {
+      position: relative; padding: 22px 58px 18px 24px;
+      background: linear-gradient(135deg, var(--ink) 0%, var(--navy) 100%);
+      color: var(--cream); border-bottom: 4px solid var(--ink);
+    }
+    .detalle-cabecera > i { color: var(--yellow); font-size: 1.7rem; }
+    .detalle-cabecera h2 {
+      margin: 6px 0 2px; font-family: var(--font-display); font-size: 2rem;
+      line-height: 1.1; color: var(--yellow); text-shadow: 3px 3px 0 var(--ink);
+    }
+    .detalle-resumen { margin: 0; font-weight: 700; }
+    .detalle-cerrar {
+      position: absolute; top: 12px; right: 14px; width: 36px; height: 36px;
+      border: 3px solid var(--ink); border-radius: 50%; background: var(--yellow);
+      color: var(--ink); font-size: 1.4rem; font-weight: 900; line-height: 1;
+      cursor: pointer; box-shadow: 3px 3px 0 var(--ink);
+    }
+    .detalle-cerrar:hover { background: var(--orange); }
+    .detalle-contenido { padding: 18px 24px 4px; }
+    .detalle-lista { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
+    .detalle-lista li {
+      display: flex; align-items: center; gap: 10px; padding: 8px 12px;
+      background: var(--white); border: 2px solid var(--ink); border-radius: 12px;
+    }
+    .detalle-marca {
+      flex: 0 0 auto; width: 26px; height: 26px; border-radius: 50%;
+      display: grid; place-items: center; color: var(--white); font-weight: 900;
+      border: 2px solid var(--ink);
+    }
+    .detalle-marca.ok { background: var(--green); }
+    .detalle-marca.ko { background: var(--red); }
+    .detalle-titulo { flex: 1 1 auto; min-width: 0; font-weight: 700; overflow-wrap: anywhere; }
+    .detalle-tiempo {
+      flex: 0 0 auto;
+      color: var(--ink); font-weight: 800; font-variant-numeric: tabular-nums;
+      background: rgba(255,197,49,.35); padding: 2px 8px; border-radius: 20px;
+      white-space: nowrap;
+    }
+    .detalle-elegida { display: block; font-size: .82rem; color: var(--ink-soft); font-weight: 600; overflow-wrap: anywhere; }
+    .detalle-pie { text-align: center; margin: 6px 0 16px; color: var(--ink-soft); font-size: .85rem; }
+    .detalle-compartir {
+      border-top: 2px dashed rgba(11,27,45,.2); padding: 14px 24px 6px; text-align: center;
+    }
+    .detalle-compartir[hidden], .compartir-enlaces[hidden] { display: none; }
+    .btn-compartir {
+      font: inherit; font-weight: 800; cursor: pointer; padding: 10px 18px;
+      border-radius: 999px; border: 3px solid var(--ink); background: var(--yellow);
+      color: var(--ink); box-shadow: 3px 3px 0 var(--ink);
+    }
+    .btn-compartir:hover { background: var(--orange); }
+    .compartir-enlaces { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; margin-top: 10px; }
+    .compartir-enlaces a, .compartir-enlaces button {
+      font: inherit; font-size: .85rem; font-weight: 800; text-decoration: none;
+      padding: 6px 12px; border-radius: 999px; border: 2px solid var(--ink);
+      background: var(--white); color: var(--ink); cursor: pointer;
+    }
+    #compartir-estado { min-height: 18px; margin: 8px 0 0; font-size: .82rem; color: var(--ink-soft); }
+
+    #estado { min-height: 24px; margin: 4px 0 14px; font-weight: 600; color: var(--ink-soft); }
+    .ranking-nota { margin: 24px 0 0; font-size: .9rem; color: var(--ink-soft); line-height: 1.6; }
+    .ranking-cta { display: inline-block; margin-top: 18px; }
+    @media (max-width: 640px) {
+      .ranking-card { padding: 22px 16px 24px; }
+      .tabs button { padding: 8px 14px; }
+      .ranking-pista {
+        display: flex; align-items: center; gap: 8px;
+        margin: -6px 0 12px; padding: 8px 10px;
+        font-size: .85rem; font-weight: 700; color: var(--ink);
+        background: rgba(61,185,192,.12); border: 2px dashed rgba(11,27,45,.28);
+        border-radius: 12px;
+      }
+      .ranking-pista i { color: var(--orange); }
+      table { font-size: .92rem; }
+      tbody td, thead th { padding: 9px 7px; }
+      tbody td.accion { padding-left: 2px; padding-right: 2px; }
+      .detalle-modal { padding: 10px; }
+      .detalle-panel {
+        width: 100%; max-width: 100%; max-height: 88vh; max-height: calc(100dvh - 20px);
+        border-width: 3px; border-radius: 14px; box-shadow: 4px 4px 0 var(--ink);
+      }
+      .detalle-cabecera { padding: 16px 48px 14px 16px; }
+      .detalle-cabecera > i { font-size: 1.4rem; }
+      .detalle-cabecera h2 {
+        font-size: clamp(1.35rem, 6vw, 1.8rem); overflow-wrap: anywhere;
+      }
+      .detalle-resumen { font-size: .9rem; }
+      .detalle-cerrar { top: 9px; right: 10px; width: 32px; height: 32px; }
+      .detalle-contenido { padding: 12px 12px 2px; }
+      .detalle-lista li { padding: 7px 9px; gap: 7px; }
+      .detalle-marca { width: 22px; height: 22px; }
+      .detalle-pie { font-size: .78rem; margin: 4px 0 12px; }
+      .detalle-compartir { padding: 12px 12px 6px; }
+      .btn-compartir { padding: 8px 14px; }
+    }
+  </style>
+</head>
+<body>
+  <main id="main">
+    <header class="site-header" id="site-header">
+      <div class="container nav-inner">
+        <a class="brand" href="../../index.html" aria-label="Peskito y Medio, ir al inicio">
+          <span class="brand-badge"><img src="../../img/logo-800.jpg" alt="Logo de Peskito y Medio" width="46" height="46"></span>
+          <span class="brand-text">
+            <span class="brand-name">Peskito</span>
+            <span class="brand-sub">y Medio</span>
+          </span>
+        </a>
+        <nav class="nav" id="nav" aria-label="Navegación principal">
+          <a href="../../index.html#sobre">El podcast</a>
+          <a href="../../index.html#presentacion">Presentación</a>
+          <a href="../../index.html#episodios">Últimos episodios</a>
+          <a href="../../episodios/">Todos los episodios</a>
+          <a href="../../index.html#equipo">Equipo</a>
+          <a href="../../index.html#reconocimientos">Reconocimientos</a>
+          <a href="../../juegos/juegobsos/" class="is-active" aria-current="page">Juego BSOs</a>
+          <a href="../../index.html#escuchanos">Escúchanos</a>
+        </nav>
+        <button class="nav-toggle" id="nav-toggle" type="button" aria-expanded="false" aria-controls="nav" aria-label="Abrir menú">
+          <span></span><span></span><span></span>
+        </button>
+        <a class="btn btn-primary btn-sm nav-cta" href="./">
+          <i class="fa-solid fa-play" aria-hidden="true"></i> Jugar
+        </a>
+      </div>
+    </header>
+
+    <section class="ranking-hero">
+      <div class="container">
+        <h1>Ranking de BSOs</h1>
+        <p>Mejores puntuaciones de hoy, de la semana y de toda la historia del juego. Cada alias ocupa una sola posición con su mejor partida.</p>
+        <a class="volver" href="./">← Volver al juego</a>
+      </div>
+    </section>
+
+    <div class="ranking-wrap">
+      <section class="ranking-card" aria-label="Clasificación">
+        <div class="tabs" role="group" aria-label="Periodo del ranking">
+          <button type="button" class="is-active" data-periodo="diario" aria-pressed="true">Diario</button>
+          <button type="button" data-periodo="semanal" aria-pressed="false">Semanal</button>
+          <button type="button" data-periodo="historico" aria-pressed="false">Histórico</button>
+        </div>
+
+        <p class="ranking-pista"><i class="fa-solid fa-hand-pointer" aria-hidden="true"></i> Toca una fila para ver las respuestas y compartir el registro.</p>
+
+        <p id="estado" role="status" aria-live="polite"></p>
+
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Jugador</th>
+                <th class="num">Puntos</th>
+                <th class="num">Aciertos</th>
+                <th>Fecha</th>
+                <th class="accion" aria-label="Ver detalle y compartir"></th>
+              </tr>
+            </thead>
+            <tbody id="ranking-body"></tbody>
+          </table>
+        </div>
+
+        <p id="total-partidas" class="total-partidas" role="status" aria-live="polite"></p>
+
+        <p class="ranking-nota">
+          Cada acierto vale 100 puntos, más hasta 50 extra por rapidez (máximo 1500).
+          El día y la semana se cuentan en hora de España. Se muestra la mejor partida
+          de cada alias en el periodo elegido, no la suma de partidas. Si compartís
+          ordenador, usad alias distintos y cada uno tendrá su propia posición.
+          Pulsa sobre una fila para ver sus preguntas, tiempos y compartir el registro.
+          <span class="insignias"><i class="fa-solid fa-medal ins-diaria" aria-hidden="true"></i> victoria diaria · <i class="fa-solid fa-trophy ins-semanal" aria-hidden="true"></i> victoria semanal (el número indica cuántas)</span>
+        </p>
+        <a class="btn btn-primary ranking-cta" href="./"><i class="fa-solid fa-play" aria-hidden="true"></i> Jugar y entrar en el ranking</a>
+      </section>
+    </div>
+  </main>
+
+  <!-- Fuera de .ranking-wrap: ese contenedor crea un stacking context (z-index:10)
+       que dejaría el modal por debajo de la cabecera sticky en móvil. -->
+  <div id="detalle-modal" class="detalle-modal" hidden>
+    <div class="detalle-overlay" data-cerrar-detalle></div>
+    <div class="detalle-panel" role="dialog" aria-modal="true" aria-labelledby="detalle-titulo">
+      <div class="detalle-cabecera">
+        <button type="button" class="detalle-cerrar" data-cerrar-detalle aria-label="Cerrar detalle">×</button>
+        <i class="fa-solid fa-clapperboard" aria-hidden="true"></i>
+        <h2 id="detalle-titulo">Detalle de la partida</h2>
+        <p id="detalle-resumen" class="detalle-resumen" aria-live="polite"></p>
+      </div>
+      <div id="detalle-contenido" class="detalle-contenido"></div>
+      <div id="detalle-compartir" class="detalle-compartir" hidden>
+        <button type="button" class="btn-compartir" id="compartir-registro">
+          <i class="fa-solid fa-share-nodes" aria-hidden="true"></i> Compartir registro
+        </button>
+        <div id="compartir-enlaces" class="compartir-enlaces" hidden>
+          <a id="rsx" target="_blank" rel="noopener" title="Compartir en X"><i class="fa-brands fa-x-twitter"></i> X</a>
+          <a id="rwa" target="_blank" rel="noopener" title="Compartir en WhatsApp"><i class="fa-brands fa-whatsapp"></i> WhatsApp</a>
+          <a id="rfb" target="_blank" rel="noopener" title="Compartir en Facebook"><i class="fa-brands fa-facebook"></i> Facebook</a>
+          <a id="rtg" target="_blank" rel="noopener" title="Compartir en Telegram"><i class="fa-brands fa-telegram"></i> Telegram</a>
+          <button type="button" id="rdown"><i class="fa-solid fa-download" aria-hidden="true"></i> Descargar imagen</button>
+        </div>
+        <p id="compartir-estado" role="status" aria-live="polite"></p>
+      </div>
+      <p class="detalle-pie">Pulsa <strong>Esc</strong> o haz clic fuera para cerrar</p>
+    </div>
+  </div>
+
+  <footer class="site-footer">
+    <div class="container footer-bottom">
+      <p>© <span id="year">2026</span> Peskito y Medio · Tu Podcast Friki. Hecho con ukelele, risas y mucho cariño.</p>
+      <p class="footer-credits"><a href="../../index.html">Volver a la portada</a> · Web estática hecha por un peskito.</p>
+    </div>
+  </footer>
+
+  <script src="config.js"></script>
+  <script src="ranking.js"></script>
+  <script>
+    (function () {
+      "use strict";
+      const $ = id => document.getElementById(id);
+      const ranking = window.PYMRanking;
+      const botones = Array.from(document.querySelectorAll(".tabs button"));
+      let periodo = "diario";
+      let cargando = 0;
+      let detalleActual = null;
+      const posicionesCache = Object.create(null);
+      const PERIODOS_CARD = [
+        ["diario", "Diario"], ["semanal", "Semanal"], ["historico", "Histórico"]
+      ];
+
+      function fechaBonita(valor) {
+        if (!valor) return "";
+        const partes = String(valor).split("-");
+        if (partes.length !== 3) return String(valor);
+        return new Date(Number(partes[0]), Number(partes[1]) - 1, Number(partes[2]))
+          .toLocaleDateString("es-ES", { day: "2-digit", month: "short", year: "numeric" });
+      }
+
+      function insignias(fila) {
+        const grupo = document.createElement("span");
+        grupo.className = "insignias";
+        const tipos = [
+          [Number(fila.victorias_diarias) || 0, "fa-medal ins-diaria", "victoria diaria", "victorias diarias"],
+          [Number(fila.victorias_semanales) || 0, "fa-trophy ins-semanal", "victoria semanal", "victorias semanales"]
+        ];
+        tipos.forEach(([total, clase, singular, plural]) => {
+          if (!total) return;
+          const par = document.createElement("span");
+          par.className = "ins";
+          const ico = document.createElement("i");
+          ico.className = "fa-solid " + clase;
+          ico.title = total === 1 ? singular : total + " " + plural;
+          ico.setAttribute("aria-label", ico.title);
+          par.appendChild(ico);
+          if (total > 1) {
+            const num = document.createElement("span");
+            num.className = "veces";
+            num.textContent = total;
+            num.title = ico.title;
+            par.appendChild(num);
+          }
+          grupo.appendChild(par);
+        });
+        return grupo;
+      }
+
+      function cerrarDetalle() {
+        $("detalle-modal").hidden = true;
+        $("detalle-contenido").textContent = "";
+        $("detalle-resumen").textContent = "";
+        $("detalle-compartir").hidden = true;
+        $("compartir-enlaces").hidden = true;
+        $("compartir-estado").textContent = "";
+        detalleActual = null;
+        document.querySelectorAll("#ranking-body tr.is-selected")
+          .forEach(tr => tr.classList.remove("is-selected"));
+      }
+
+      function prepararDetalle(tr) {
+        $("detalle-titulo").textContent = "Detalle de " + (tr.dataset.alias || "la partida");
+        $("detalle-resumen").textContent = "Cargando detalle…";
+        $("detalle-contenido").textContent = "";
+        $("detalle-compartir").hidden = true;
+        $("compartir-enlaces").hidden = true;
+        detalleActual = null;
+        $("detalle-modal").hidden = false;
+        $("detalle-modal").querySelector(".detalle-cerrar").focus();
+        return $("detalle-resumen");
+      }
+
+      async function mostrarDetalle(tr) {
+        const id = tr.dataset.partida;
+        if (!id) return;
+        const yaAbierto = tr.classList.contains("is-selected");
+        cerrarDetalle();
+        if (yaAbierto) return;
+        tr.classList.add("is-selected");
+        const resumen = prepararDetalle(tr);
+        try {
+          const filas = await ranking.detalles(id) || [];
+          if (!tr.classList.contains("is-selected")) return;
+          if (!filas.length) {
+            resumen.textContent = "Esta partida es anterior al desglose de preguntas.";
+            return;
+          }
+          const aciertos = filas.filter(f => f.acierto).length;
+          resumen.textContent = aciertos + " de " + filas.length + " aciertos · " +
+            (tr.dataset.puntos || "0") + " puntos";
+          const lista = document.createElement("ol");
+          lista.className = "detalle-lista";
+          filas.forEach((f, i) => {
+            const li = document.createElement("li");
+            const marca = document.createElement("span");
+            marca.className = "detalle-marca " + (f.acierto ? "ok" : "ko");
+            marca.textContent = f.acierto ? "✓" : "✗";
+            li.appendChild(marca);
+            const texto = document.createElement("span");
+            texto.className = "detalle-titulo";
+            texto.textContent = (i + 1) + ". " + (f.titulo || "");
+            if (!f.acierto && f.elegida) {
+              const elegida = document.createElement("span");
+              elegida.className = "detalle-elegida";
+              elegida.textContent = "Eligió: " + f.elegida;
+              texto.appendChild(elegida);
+            }
+            li.appendChild(texto);
+            const tiempo = document.createElement("span");
+            tiempo.className = "detalle-tiempo";
+            tiempo.textContent = Number(f.segundos || 0).toFixed(2) + " s";
+            li.appendChild(tiempo);
+            lista.appendChild(li);
+          });
+          $("detalle-contenido").appendChild(lista);
+          detalleActual = {
+            alias: tr.dataset.alias || "",
+            puntos: Number(tr.dataset.puntos) || 0,
+            hits: aciertos,
+            filas: filas,
+            partida: id
+          };
+          $("detalle-compartir").hidden = false;
+        } catch (e) {
+          if (!tr.classList.contains("is-selected")) return;
+          resumen.textContent = "No se pudo cargar el detalle: " + e.message;
+        }
+      }
+
+      /* ---------- Tarjeta para compartir un récord del ranking ---------- */
+      const GAME_URL = "https://www.peskitoymedio.es/juegos/juegobsos/";
+      const VEREDICTOS = [
+        "😅 ¡Ay, madre! Se te han cruzado los cables con las melodías.",
+        "🎵 ¡Uno! Una sola nota rescatada del naufragio… y Malcolm te deja en la lista de «pendientes de repaso».",
+        "📼 ¡Dos! Malcolm dice que ya es hora de ponerse la BSO de «Repasando».",
+        "🍿 ¡Tres! Malcolm te dice: «calienta el oído y vuelve a darle al play».",
+        "👍 ¡No está mal! Pero te toca repasar para septiembre.",
+        "🎼 ¡Cinco! Tu banda sonora va a medias: mitad aciertos, mitad yatussabeh.",
+        "🎬 ¡Aprobado con nota! Afina un poco más y te comes el examen final.",
+        "🎧 ¡Siete! Reconoces la melodía, pero aún se te cuela alguna película en la mezcla.",
+        "👏 ¡Muy bien! Tienes buen oído cinéfilo. Mis dieses.",
+        "🎯 ¡Solo una! Estás a un compás de la perfección.",
+        "🏆 ¡Maestro Absoluto de las BSOs! ¡Malcolm está orgulloso de ti!"
+      ];
+      const MALCOLM_CARD = [
+        { src: "../../img/utils/Malcolm-0-2.png", crop: [121,19,594,1112] },
+        { src: "../../img/utils/Malcolm-3-4.png", crop: [102,20,611,1110] },
+        { src: "../../img/utils/Malcolm-5-6.png", crop: [37,10,699,1131] },
+        { src: "../../img/equipo/Malcolm.png", crop: [8,11,417,616] },
+        { src: "../../img/utils/Malcolm-8-9.png", crop: [46,25,715,1099] },
+        { src: "../../img/utils/Malcolm-10.png", crop: [19,21,736,1115] }
+      ];
+      const tarjeta = document.createElement("canvas");
+      tarjeta.width = 1080;
+      tarjeta.height = 1080;
+
+      function rr(ctx, x, y, w, h, r) {
+        ctx.beginPath();
+        ctx.moveTo(x + r, y);
+        ctx.arcTo(x + w, y, x + w, y + h, r);
+        ctx.arcTo(x + w, y + h, x, y + h, r);
+        ctx.arcTo(x, y + h, x, y, r);
+        ctx.arcTo(x, y, x + w, y, r);
+        ctx.closePath();
+      }
+      function fit(ctx, texto, max) {
+        if (ctx.measureText(texto).width <= max) return texto;
+        let s = texto;
+        while (s.length > 3 && ctx.measureText(s + "…").width > max) s = s.slice(0, -1);
+        return s + "…";
+      }
+      function carga(img) {
+        return new Promise(res => {
+          if (img.complete) return res();
+          img.onload = img.onerror = res;
+        });
+      }
+      async function imagenesTarjeta(hits) {
+        const i = hits <= 2 ? 0 : hits <= 4 ? 1 : hits <= 6 ? 2 : hits === 7 ? 3 : hits <= 9 ? 4 : 5;
+        const peskitos = new Image();
+        peskitos.src = "../../img/utils/peskitos.png";
+        const mal = new Image();
+        mal.src = MALCOLM_CARD[i].src;
+        await Promise.all([carga(peskitos), carga(mal)]);
+        return { peskitos: peskitos, mal: mal, crop: MALCOLM_CARD[i].crop };
+      }
+
+      // Reutiliza los tres rankings para saber en qué puesto está esta partida.
+      // Si no entra en el top 50 de un periodo, ese puesto queda como «—».
+      function posicionesDe(id) {
+        return Promise.all(PERIODOS_CARD.map(async ([clave, nombre]) => {
+          let puesto = null;
+          try {
+            let filas = posicionesCache[clave];
+            if (!filas) {
+              filas = await ranking.cargar(clave);
+              posicionesCache[clave] = filas;
+            }
+            const fila = (filas || []).find(f => String(f.partida_id) === String(id));
+            if (fila && fila.puesto != null) puesto = Number(fila.puesto);
+          } catch (e) {}
+          return { nombre: nombre, puesto: puesto };
+        }));
+      }
+
+      function dibujarTarjeta(d, img) {
+        const ctx = tarjeta.getContext("2d");
+        const bg = ctx.createLinearGradient(0, 0, 1080, 1080);
+        bg.addColorStop(0, "#0D2138"); bg.addColorStop(.55, "#0B1B2D"); bg.addColorStop(1, "#071320");
+        ctx.fillStyle = bg; ctx.fillRect(0, 0, 1080, 1080);
+        const glow = ctx.createRadialGradient(900, 120, 20, 900, 120, 430);
+        glow.addColorStop(0, "rgba(61,185,192,0.22)"); glow.addColorStop(1, "rgba(61,185,192,0)");
+        ctx.fillStyle = glow; ctx.fillRect(0, 0, 1080, 520);
+        ctx.strokeStyle = "#FFC531"; ctx.lineWidth = 14; rr(ctx,26,26,1028,1028,36); ctx.stroke();
+        ctx.strokeStyle = "rgba(61,185,192,0.45)"; ctx.lineWidth = 3; rr(ctx,44,44,992,992,26); ctx.stroke();
+
+        ctx.shadowColor = "rgba(0,0,0,0.45)"; ctx.shadowBlur = 12; ctx.shadowOffsetY = 3;
+        ctx.fillStyle = "#FFF6E9"; ctx.font = "900 58px 'Outfit', sans-serif";
+        ctx.fillText("PESKITO Y MEDIO", 80, 110);
+        ctx.shadowBlur = 0; ctx.shadowOffsetY = 0;
+        ctx.fillStyle = "#F07000"; ctx.font = "900 44px 'Outfit', sans-serif";
+        const subtitulo = "JUEGO DE BANDAS SONORAS";
+        ctx.fillText(subtitulo, 80, 170);
+        // Igual que en el juego: se encogen si el subtítulo es más ancho y
+        // siempre acaban antes del borde interior del marco.
+        if (img.peskitos.naturalWidth) {
+          const finSub = 80 + ctx.measureText(subtitulo).width;
+          const pw = Math.min(185, 1010 - (finSub + 24));
+          if (pw > 90) {
+            ctx.drawImage(img.peskitos,39,13,1202,1172,1010-pw,45,pw,pw*210/215);
+          }
+        }
+
+        // Cinta del alias en una sola fila, igual que en la tarjeta del juego.
+        const etiqueta = "RÉCORD DE";
+        ctx.font = "800 22px 'Outfit', sans-serif";
+        const etiquetaW = ctx.measureText(etiqueta).width;
+        let af = 40;
+        ctx.font = "900 " + af + "px 'Outfit', sans-serif";
+        while (ctx.measureText(d.alias).width > 840 - etiquetaW - 16 && af > 26) {
+          af -= 2; ctx.font = "900 " + af + "px 'Outfit', sans-serif";
+        }
+        const total = etiquetaW + 16 + ctx.measureText(d.alias).width;
+        const aw = Math.min(1000, total + 48);
+        ctx.fillStyle = "#FFC531"; rr(ctx,(1080-aw)/2,196,aw,47,23); ctx.fill();
+        ctx.strokeStyle = "#0B1B2D"; ctx.lineWidth = 6; ctx.stroke();
+        const x0 = (1080 - total) / 2;
+        ctx.textAlign = "left";
+        ctx.fillStyle = "#0B1B2D"; ctx.font = "800 22px 'Outfit', sans-serif";
+        ctx.fillText(etiqueta, x0, 227);
+        ctx.font = "900 " + af + "px 'Outfit', sans-serif";
+        ctx.fillText(d.alias, x0 + etiquetaW + 16, 227);
+
+        const sb = ctx.createLinearGradient(60,260,1020,420);
+        sb.addColorStop(0,"#193650"); sb.addColorStop(1,"#102438");
+        ctx.fillStyle = sb; rr(ctx,60,260,960,160,28); ctx.fill();
+        ctx.strokeStyle = "#2C4A66"; ctx.lineWidth = 3; ctx.stroke();
+        ctx.fillStyle = "#AFC3D6"; ctx.font = "700 28px 'Outfit', sans-serif";
+        ctx.fillText("Puntuación final:", 80, 294);
+        const pts = d.puntos + " pts";
+        let sf = 100; ctx.font = "900 " + sf + "px 'Outfit', sans-serif";
+        while (ctx.measureText(pts).width > 480 && sf > 80) {
+          sf -= 4; ctx.font = "900 " + sf + "px 'Outfit', sans-serif";
+        }
+        ctx.fillStyle = "#FFC531";
+        ctx.shadowColor = "rgba(255,197,49,0.35)"; ctx.shadowBlur = 18;
+        ctx.fillText(pts, 76, 388); ctx.shadowBlur = 0;
+        const hits = d.hits + " de 10 aciertos";
+        const hx = Math.max(500, 76 + ctx.measureText(pts).width + 24);
+
+        // Puestos en los tres rankings, arriba del todo del bloque para dejar
+        // aire con el recuadro de aciertos.
+        let centroFila = null;
+        if (d.posiciones && d.posiciones.length) {
+          ctx.fillStyle = "#AFC3D6"; ctx.font = "800 22px 'Outfit', sans-serif";
+          ctx.fillText("Puestos", hx, 299);
+          let px = hx + ctx.measureText("Puestos").width + 6;
+          ctx.textAlign = "center";
+          d.posiciones.forEach(p => {
+            const texto = p.nombre + " " + (p.puesto ? "#" + p.puesto : "—");
+            ctx.font = "800 22px 'Outfit', sans-serif";
+            const w = ctx.measureText(texto).width + 16;
+            if (px + w > 1000) return;
+            ctx.fillStyle = p.puesto === 1 ? "rgba(255,197,49,0.22)" : "rgba(61,185,192,0.14)";
+            rr(ctx, px, 270, w, 42, 21); ctx.fill();
+            ctx.strokeStyle = p.puesto === 1 ? "rgba(255,197,49,0.75)" : "rgba(61,185,192,0.5)";
+            ctx.lineWidth = 2; ctx.stroke();
+            ctx.fillStyle = p.puesto === 1 ? "#FFC531" : "#3DB9C0";
+            ctx.fillText(texto, px + w / 2, 299);
+            px += w + 4;
+          });
+          ctx.textAlign = "left";
+          centroFila = (hx + px - 4) / 2;
+        }
+        let hf = 42; ctx.font = "800 " + hf + "px 'Outfit', sans-serif";
+        while (ctx.measureText(hits).width > 986 - hx && hf > 26) {
+          hf -= 2; ctx.font = "800 " + hf + "px 'Outfit', sans-serif";
+        }
+        const hw = ctx.measureText(hits).width;
+        const anchoAciertos = hw + 36;
+        const bx = centroFila == null ? hx - 18 : centroFila - anchoAciertos / 2;
+        ctx.fillStyle = "rgba(61,185,192,0.14)"; rr(ctx,bx,340,anchoAciertos,68,20); ctx.fill();
+        ctx.strokeStyle = "rgba(61,185,192,0.55)"; ctx.lineWidth = 2; ctx.stroke();
+        ctx.fillStyle = "#3DB9C0"; ctx.textAlign = "center";
+        ctx.fillText(hits, bx + anchoAciertos/2, 386); ctx.textAlign = "left";
+
+        ctx.fillStyle = "#3DB9C0"; ctx.font = "700 26px 'Outfit', sans-serif";
+        ctx.fillText("Veredicto:", 80, 446);
+        // Como máximo dos líneas: si el veredicto es largo se baja la fuente
+        // antes de dejar que la segunda línea invada el panel del resumen.
+        ctx.fillStyle = "#FFF";
+        const palabras = (VEREDICTOS[d.hits] || "").split(" ");
+        let vf = 26, lineasV = [];
+        while (vf >= 22) {
+          ctx.font = "600 " + vf + "px 'Outfit', sans-serif";
+          lineasV = []; let linea = "";
+          palabras.forEach(palabra => {
+            const prueba = linea ? linea + " " + palabra : palabra;
+            if (ctx.measureText(prueba).width > 920 && linea) {
+              lineasV.push(linea); linea = palabra;
+            } else linea = prueba;
+          });
+          if (linea) lineasV.push(linea);
+          if (lineasV.length <= 2) break;
+          vf -= 2;
+        }
+        let yy = 478;
+        lineasV.slice(0, 2).forEach(l => { ctx.fillText(l, 80, yy); yy += 28; });
+
+        const panel = ctx.createLinearGradient(60,526,1020,980);
+        panel.addColorStop(0,"#17314A"); panel.addColorStop(1,"#102236");
+        ctx.fillStyle = panel; rr(ctx,60,526,960,454,28); ctx.fill();
+        ctx.strokeStyle = "#2C4A66"; ctx.lineWidth = 3; ctx.stroke();
+        if (img.mal.naturalWidth) {
+          const c = img.crop, mh = 420, mw = mh * c[2] / c[3];
+          ctx.save(); rr(ctx,60,526,960,454,28); ctx.clip();
+          ctx.drawImage(img.mal,c[0],c[1],c[2],c[3],1010-mw,551,mw,mh);
+          ctx.restore();
+        }
+        ctx.fillStyle = "rgba(255,197,49,0.12)"; rr(ctx,72,531,350,36,18); ctx.fill();
+        ctx.fillStyle = "#FFC531"; rr(ctx,72,531,6,36,3); ctx.fill();
+        ctx.font = "800 24px 'Outfit', sans-serif";
+        ctx.fillText("RESUMEN DE PELÍCULAS", 92, 558);
+
+        // Mismo ritmo que la tarjeta de partida: filas de 34 px y letra de 30,
+        // para que la lista ocupe el panel y no quede hueco al final.
+        const acertadas = d.filas.filter(f => f.acierto);
+        const falladas = d.filas.filter(f => !f.acierto);
+        let y = 586;
+        const grupo = (list, etiqueta, color, tinto, conElegida) => {
+          if (!list.length) return;
+          ctx.font = "800 26px 'Outfit', sans-serif";
+          const txt = etiqueta + " (" + list.length + ")";
+          const lw = ctx.measureText(txt).width;
+          ctx.fillStyle = tinto; rr(ctx,76,y-24,lw+36,34,17); ctx.fill();
+          ctx.strokeStyle = color; ctx.globalAlpha = .55; ctx.lineWidth = 1.5; ctx.stroke();
+          ctx.globalAlpha = 1; ctx.fillStyle = color; ctx.fillText(txt, 94, y);
+          y += 34;
+          list.forEach((f, i) => {
+            if (i % 2 === 0) {
+              ctx.fillStyle = "rgba(255,255,255,0.035)"; rr(ctx,72,y-23,916,28,10); ctx.fill();
+            }
+            ctx.font = "700 30px 'Outfit', sans-serif";
+            const titulo = fit(ctx, f.titulo || "", conElegida ? 640 : 880);
+            const tw = ctx.measureText(titulo).width;
+            ctx.fillStyle = color; ctx.fillText(conElegida ? "✗" : "✓", 80, y);
+            ctx.fillStyle = "#FFF6E9"; ctx.fillText(titulo, 118, y);
+            if (conElegida && f.elegida) {
+              const ex = 118 + tw + 12;
+              ctx.font = "600 22px 'Outfit', sans-serif"; ctx.fillStyle = "#DCE8F2";
+              ctx.fillText(fit(ctx, "→ eligió: " + f.elegida, 998 - ex), ex, y);
+            }
+            y += 34;
+          });
+        };
+        grupo(acertadas, "✓ ACERTADAS", "#7FA83A", "rgba(127,168,58,0.16)", false);
+        if (acertadas.length && falladas.length) y += 6;
+        grupo(falladas, "✗ FALLADAS", "#D9452E", "rgba(217,69,46,0.16)", true);
+
+        const cta = "¿Podrás superarle? Juega en peskitoymedio.es";
+        let cf = 26; ctx.font = "800 " + cf + "px 'Outfit', sans-serif";
+        while (ctx.measureText(cta).width > 900 && cf > 20) {
+          cf -= 2; ctx.font = "800 " + cf + "px 'Outfit', sans-serif";
+        }
+        ctx.fillStyle = "#FFC531"; rr(ctx,60,1000,960,40,20); ctx.fill();
+        ctx.fillStyle = "#0B1B2D"; ctx.textAlign = "center";
+        ctx.fillText(cta, 540, 1028); ctx.textAlign = "left";
+      }
+
+      function mensajeCompartir(d) {
+        return "¡" + d.alias + " ha acertado " + d.hits + " de 10 bandas sonoras y ha conseguido " +
+          d.puntos + " puntos en el Juego de BSOs de Peskito y Medio! 🎵🍿 ¿Te atreves a superarlo?";
+      }
+      function actualizarEnlaces(d) {
+        const texto = encodeURIComponent(mensajeCompartir(d));
+        const url = encodeURIComponent(GAME_URL);
+        $("rsx").href = "https://twitter.com/intent/tweet?text=" + texto + "&url=" + url;
+        $("rwa").href = "https://api.whatsapp.com/send?text=" + texto + "%20" + url;
+        $("rfb").href = "https://www.facebook.com/sharer/sharer.php?u=" + url;
+        $("rtg").href = "https://t.me/share/url?url=" + url + "&text=" + texto;
+      }
+      function puedeAdjuntar() {
+        try {
+          return !!(navigator.share && navigator.canShare &&
+            navigator.canShare({ files: [new File(["x"], "record-bsos.png", { type: "image/png" })] }));
+        } catch (e) { return false; }
+      }
+      async function compartirRegistro() {
+        if (!detalleActual) return;
+        const estado = $("compartir-estado");
+        estado.textContent = "Preparando tarjeta…";
+        try {
+          const [img, posiciones] = await Promise.all([
+            imagenesTarjeta(detalleActual.hits),
+            posicionesDe(detalleActual.partida)
+          ]);
+          if (!detalleActual) return;
+          detalleActual.posiciones = posiciones;
+          dibujarTarjeta(detalleActual, img);
+          actualizarEnlaces(detalleActual);
+          if (puedeAdjuntar()) {
+            const blob = await new Promise(res => tarjeta.toBlob(res, "image/png"));
+            await navigator.share({
+              title: "Récord de " + detalleActual.alias + " en el Juego de BSOs",
+              text: mensajeCompartir(detalleActual),
+              url: GAME_URL,
+              files: [new File([blob], "record-bsos.png", { type: "image/png" })]
+            });
+            estado.textContent = "";
+          } else {
+            $("compartir-enlaces").hidden = false;
+            estado.textContent = "Elige dónde compartir o descarga la tarjeta.";
+          }
+        } catch (e) {
+          estado.textContent = e && e.name === "AbortError" ? "" : "No se pudo preparar la tarjeta: " + e.message;
+        }
+      }
+      $("compartir-registro").addEventListener("click", compartirRegistro);
+      $("rdown").addEventListener("click", () => {
+        const a = document.createElement("a");
+        a.download = "record-bsos.png";
+        a.href = tarjeta.toDataURL("image/png");
+        a.click();
+      });
+
+      document.querySelectorAll("[data-cerrar-detalle]").forEach(el => {
+        el.addEventListener("click", cerrarDetalle);
+      });
+      document.addEventListener("keydown", e => {
+        if (e.key === "Escape" && !$("detalle-modal").hidden) cerrarDetalle();
+      });
+
+      function pintar(filas) {
+        const cuerpo = $("ranking-body");
+        cuerpo.textContent = "";
+        cerrarDetalle();
+        if (!filas || !filas.length) {
+          const tr = document.createElement("tr");
+          const td = document.createElement("td");
+          td.colSpan = 6;
+          td.className = "vacio";
+          td.textContent = "Todavía no hay puntuaciones en este periodo. ¡Sé el primero!";
+          tr.appendChild(td);
+          cuerpo.appendChild(tr);
+          return;
+        }
+        filas.forEach(fila => {
+          const tr = document.createElement("tr");
+          const id = fila.partida_id == null ? "" : String(fila.partida_id);
+          if (id) {
+            tr.className = "clasificable";
+            tr.tabIndex = 0;
+            tr.setAttribute("role", "button");
+            tr.setAttribute("aria-label", "Ver detalle de " + (fila.alias || "la partida"));
+            tr.dataset.partida = id;
+            tr.dataset.alias = fila.alias == null ? "" : String(fila.alias);
+            tr.dataset.puntos = fila.puntos == null ? "0" : String(fila.puntos);
+            tr.onclick = () => mostrarDetalle(tr);
+            tr.onkeydown = e => {
+              if (e.key === "Enter" || e.key === " ") {
+                e.preventDefault();
+                mostrarDetalle(tr);
+              }
+            };
+          }
+          const datos = [
+            ["puesto", "#" + fila.puesto],
+            null,
+            ["num", fila.puntos],
+            ["num", fila.aciertos],
+            ["fecha", fechaBonita(fila.fecha)]
+          ];
+          datos.forEach(dato => {
+            const td = document.createElement("td");
+            if (dato === null) {
+              td.className = "alias";
+              td.textContent = fila.alias == null ? "" : String(fila.alias);
+              td.appendChild(insignias(fila));
+            } else {
+              td.className = dato[0];
+              td.textContent = dato[1] == null ? "" : String(dato[1]);
+            }
+            tr.appendChild(td);
+          });
+          const accion = document.createElement("td");
+          accion.className = "accion";
+          if (id) {
+            const pill = document.createElement("span");
+            pill.className = "ver-detalle";
+            pill.setAttribute("aria-hidden", "true");
+            pill.innerHTML = '<i class="fa-solid fa-share-nodes"></i><i class="fa-solid fa-chevron-right"></i>';
+            accion.appendChild(pill);
+          }
+          tr.appendChild(accion);
+          cuerpo.appendChild(tr);
+        });
+      }
+
+      async function cargarTotal() {
+        try {
+          const total = await ranking.totalPartidas();
+          $("total-partidas").textContent =
+            total === 1 ? "1 partida registrada" : total + " partidas registradas";
+        } catch (e) {
+          $("total-partidas").textContent = "";
+        }
+      }
+
+      async function actualizar() {
+        const estado = $("estado");
+        const id = ++cargando;
+        botones.forEach(b => { b.disabled = true; });
+        estado.textContent = "Cargando clasificación…";
+        try {
+          const filas = await ranking.cargar(periodo);
+          if (id !== cargando) return;
+          posicionesCache[periodo] = filas;
+          pintar(filas);
+          cargarTotal();
+          estado.textContent = "";
+        } catch (e) {
+          if (id !== cargando) return;
+          pintar([]);
+          estado.textContent = "No se pudo cargar el ranking: " + e.message;
+        } finally {
+          if (id === cargando) botones.forEach(b => { b.disabled = false; });
+        }
+      }
+
+      botones.forEach(boton => {
+        boton.addEventListener("click", () => {
+          periodo = boton.dataset.periodo;
+          botones.forEach(b => {
+            const activo = b === boton;
+            b.classList.toggle("is-active", activo);
+            b.setAttribute("aria-pressed", String(activo));
+          });
+          actualizar();
+        });
+      });
+
+      $("year").textContent = String(new Date().getFullYear());
+
+      /* Menú móvil, igual que en el juego. */
+      const navToggle = $("nav-toggle");
+      const nav = $("nav");
+      if (navToggle && nav) {
+        navToggle.addEventListener("click", () => {
+          const abierto = !nav.classList.contains("is-open");
+          nav.classList.toggle("is-open", abierto);
+          if (abierto) {
+            const header = $("site-header");
+            nav.style.top = (header ? header.getBoundingClientRect().bottom + 6 : 60) + "px";
+          }
+          navToggle.setAttribute("aria-expanded", String(abierto));
+          navToggle.setAttribute("aria-label", abierto ? "Cerrar menú" : "Abrir menú");
+        });
+        nav.querySelectorAll("a").forEach(a => a.addEventListener("click", () => {
+          nav.classList.remove("is-open");
+          navToggle.setAttribute("aria-expanded", "false");
+        }));
+      }
+
+      if (!ranking.configurado) {
+        botones.forEach(b => { b.disabled = true; });
+        pintar([]);
+        $("estado").textContent =
+          "El ranking estará disponible en cuanto se configure el servicio de puntuaciones.";
+      } else {
+        actualizar();
+      }
+    })();
+  </script>
+</body>
+</html>

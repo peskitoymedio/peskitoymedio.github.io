@@ -28,6 +28,32 @@ jobs:
       - name: Descargar repositorio
         uses: actions/checkout@v5
 
+      - name: Mantener activa la base de datos de Supabase
+        if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
+        continue-on-error: true
+        run: |
+          python3 - <<'PY'
+          import json, pathlib, re, urllib.request
+
+          cfg = pathlib.Path("juegos/juegobsos/config.js").read_text(encoding="utf-8")
+          url = re.search(r'supabaseUrl:\s*"([^"]+)"', cfg).group(1).rstrip("/")
+          key = re.search(r'supabaseAnonKey:\s*"([^"]+)"', cfg).group(1)
+          if not url or not key:
+            raise SystemExit("Supabase no configurado; se omite ping.")
+
+          req = urllib.request.Request(
+            url + "/rest/v1/rpc/total_partidas",
+            data=b"{}",
+            headers={
+              "apikey": key,
+              "Authorization": "Bearer " + key,
+              "Content-Type": "application/json",
+            },
+          )
+          with urllib.request.urlopen(req, timeout=20) as r:
+            print("Supabase ping OK:", r.read().decode())
+          PY
+
       - name: Configurar Python
         if: github.event_name != 'push'
         uses: actions/setup-python@v6
