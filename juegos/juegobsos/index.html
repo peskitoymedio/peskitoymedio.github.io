@@ -754,17 +754,18 @@
     // Banco de películas externo: peliculas.js (titulo + consulta)
     const FILMS=window.PELICULAS_BSO.map(p=>[p.titulo,p.consulta]);
     const $=id=>document.getElementById(id);
+    // Redibuja la tarjeta cuando lleguen las imágenes o la fuente (métricas distintas)
+    const redrawCard=()=>{
+      if(!$('end').classList.contains('hidden')) drawCard(results.filter(x=>x.ok).length);
+    };
     // Imágenes decorativas de la tarjeta. En file:// se omiten para no teñir el canvas.
     const peskitos=new Image(), malcolm=new Image();
     if(location.protocol!=="file:"){
       peskitos.src="../../img/utils/peskitos.png";
       malcolm.src="../../img/equipo/Malcolm.png";
     }
-    [peskitos,malcolm].forEach(img=>{
-      img.onload=()=>{
-        if(!$('end').classList.contains('hidden')) drawCard(results.filter(x=>x.ok).length);
-      };
-    });
+    [peskitos,malcolm].forEach(img=>{ img.onload=redrawCard; });
+    if(document.fonts) document.fonts.ready.then(redrawCard);
     const audio=new Audio(); audio.crossOrigin="anonymous"; audio.preload="auto";
     let rounds=[],r=0,score=0,secs=5,startT=0,timer=null,answered=false,results=[];
 
@@ -922,24 +923,43 @@
       ctx.strokeStyle="#FFC531"; ctx.lineWidth=16; ctx.strokeRect(30,30,1020,1020);
 
       // Personajes de la cabecera (se recorta el margen transparente del sprite)
-      if(peskitos.complete && peskitos.naturalWidth){
-        ctx.drawImage(peskitos,39,13,1202,1172,790,55,215,210);
-      }
-
       ctx.fillStyle="#FFF6E9"; ctx.font="900 58px 'Outfit', sans-serif";
       ctx.fillText("PESKITO Y MEDIO", 80, 110);
 
       ctx.fillStyle="#F07000"; ctx.font="900 44px 'Outfit', sans-serif";
-      ctx.fillText("JUEGO DE BANDAS SONORAS", 80, 175);
+      const subtitle="JUEGO DE BANDAS SONORAS";
+      const subtitleEnd=80+ctx.measureText(subtitle).width;
+      ctx.fillText(subtitle, 80, 175);
+
+      // Personajes a la derecha del subtítulo: se encogen si la fuente es más ancha
+      if(peskitos.complete && peskitos.naturalWidth){
+        const pw=Math.min(215,1010-(subtitleEnd+24));
+        if(pw>90) ctx.drawImage(peskitos,39,13,1202,1172,1010-pw,55,pw,pw*210/215);
+      }
 
       ctx.fillStyle="#FFF"; ctx.font="700 30px 'Outfit', sans-serif";
       ctx.fillText("Puntuación final:", 80, 255);
 
-      ctx.fillStyle="#FFC531"; ctx.font="900 110px 'Outfit', sans-serif";
-      ctx.fillText(score + " pts", 76, 370);
+      // Se miden los textos para que puntuación y aciertos nunca se solapen
+      const scoreText=score+" pts";
+      let scoreFont=110;
+      ctx.fillStyle="#FFC531";
+      ctx.font="900 "+scoreFont+"px 'Outfit', sans-serif";
+      while(ctx.measureText(scoreText).width>480 && scoreFont>80){
+        scoreFont-=4; ctx.font="900 "+scoreFont+"px 'Outfit', sans-serif";
+      }
+      ctx.fillText(scoreText,76,370);
+      const scoreEnd=76+ctx.measureText(scoreText).width;
 
-      ctx.fillStyle="#3DB9C0"; ctx.font="800 42px 'Outfit', sans-serif";
-      ctx.fillText(hits + " de 10 aciertos", 560, 350);
+      const hitsText=hits+" de 10 aciertos";
+      const hitsX=Math.max(560,scoreEnd+24);
+      let hitsFont=42;
+      ctx.fillStyle="#3DB9C0";
+      ctx.font="800 "+hitsFont+"px 'Outfit', sans-serif";
+      while(ctx.measureText(hitsText).width>1010-hitsX && hitsFont>26){
+        hitsFont-=2; ctx.font="800 "+hitsFont+"px 'Outfit', sans-serif";
+      }
+      ctx.fillText(hitsText,hitsX,350);
 
       ctx.fillStyle="#3DB9C0"; ctx.font="700 28px 'Outfit', sans-serif";
       ctx.fillText("Veredicto:", 80, 420);

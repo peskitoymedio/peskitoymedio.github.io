@@ -127,7 +127,7 @@ window.PELICULAS_BSO = [
   },
   {
     "titulo": "Encanto",
-    "consulta": "We Don't Talk About Bruno"
+    "consulta": "We Don't Talk About Bruno lin"
   },
   {
     "titulo": "Los Goonies",
