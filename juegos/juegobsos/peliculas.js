@@ -458,7 +458,7 @@ window.PELICULAS_BSO = [
     "consulta": "Robin Hood Prince of Thieves Main Theme Michael Kamen"
   },
   {
-    "titulo": "El último de los mohicanos",
+    "titulo": "El último mohicano",
     "consulta": "The Last of the Mohicans Main Theme Trevor Jones"
   },
   {
