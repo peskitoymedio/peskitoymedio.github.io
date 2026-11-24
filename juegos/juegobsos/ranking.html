@@ -75,7 +75,8 @@
     td.alias { font-weight: 700; overflow-wrap: anywhere; }
     td.fecha { color: var(--ink-soft); white-space: nowrap; font-size: .92rem; }
     td.vacio { text-align: center; padding: 36px 12px; color: var(--ink-soft); font-weight: 600; }
-    .insignias { margin-left: 8px; white-space: nowrap; }
+    .insignias { margin-left: 8px; }
+    .insignias .ins { display: inline-block; white-space: nowrap; }
     .insignias i { margin-right: 3px; font-size: .85rem; }
     .insignias .veces {
       font-size: .78rem; font-weight: 800; color: var(--ink);
@@ -89,19 +90,65 @@
     }
     tbody tr.clasificable { cursor: pointer; }
     tbody tr.clasificable:hover, tbody tr.is-selected { background: rgba(255,197,49,.18); }
-    .detalle {
-      margin-top: 18px; padding: 16px 20px; background: var(--white);
-      border: 3px solid var(--ink); border-radius: 14px; box-shadow: 4px 4px 0 var(--ink);
+    .detalle-modal {
+      position: fixed; inset: 0; z-index: 2000; padding: 20px;
+      display: flex; align-items: center; justify-content: center;
     }
-    .detalle[hidden] { display: none; }
-    .detalle h3 { margin: 0 0 4px; font-family: var(--font-display); font-size: 1.35rem; }
-    .detalle .detalle-estado { margin: 0 0 10px; color: var(--ink-soft); font-weight: 600; }
-    .detalle ol { margin: 0; padding-left: 24px; }
-    .detalle li { margin: 5px 0; }
-    .detalle .ok { color: var(--green); font-weight: 800; }
-    .detalle .ko { color: var(--red); font-weight: 800; }
-    .detalle .tiempo { color: var(--ink-soft); font-variant-numeric: tabular-nums; }
-    .detalle .cerrar { float: right; cursor: pointer; border: 0; background: none; font-size: 1.2rem; }
+    .detalle-modal[hidden] { display: none; }
+    .detalle-overlay {
+      position: absolute; inset: 0; background: rgba(11,27,45,.75);
+      backdrop-filter: blur(3px);
+    }
+    .detalle-panel {
+      position: relative; width: min(560px, 100%); max-width: 100%; min-width: 0;
+      max-height: 88vh; overflow: auto;
+      background: var(--cream); border: 4px solid var(--ink); border-radius: 20px;
+      box-shadow: 8px 8px 0 var(--ink); animation: detalle-in .18s ease-out;
+    }
+    @keyframes detalle-in {
+      from { transform: translateY(14px) scale(.97); opacity: 0; }
+      to { transform: none; opacity: 1; }
+    }
+    .detalle-cabecera {
+      position: relative; padding: 22px 58px 18px 24px;
+      background: linear-gradient(135deg, var(--ink) 0%, var(--navy) 100%);
+      color: var(--cream); border-bottom: 4px solid var(--ink);
+    }
+    .detalle-cabecera > i { color: var(--yellow); font-size: 1.7rem; }
+    .detalle-cabecera h2 {
+      margin: 6px 0 2px; font-family: var(--font-display); font-size: 2rem;
+      line-height: 1.1; color: var(--yellow); text-shadow: 3px 3px 0 var(--ink);
+    }
+    .detalle-resumen { margin: 0; font-weight: 700; }
+    .detalle-cerrar {
+      position: absolute; top: 12px; right: 14px; width: 36px; height: 36px;
+      border: 3px solid var(--ink); border-radius: 50%; background: var(--yellow);
+      color: var(--ink); font-size: 1.4rem; font-weight: 900; line-height: 1;
+      cursor: pointer; box-shadow: 3px 3px 0 var(--ink);
+    }
+    .detalle-cerrar:hover { background: var(--orange); }
+    .detalle-contenido { padding: 18px 24px 4px; }
+    .detalle-lista { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
+    .detalle-lista li {
+      display: flex; align-items: center; gap: 10px; padding: 8px 12px;
+      background: var(--white); border: 2px solid var(--ink); border-radius: 12px;
+    }
+    .detalle-marca {
+      flex: 0 0 auto; width: 26px; height: 26px; border-radius: 50%;
+      display: grid; place-items: center; color: var(--white); font-weight: 900;
+      border: 2px solid var(--ink);
+    }
+    .detalle-marca.ok { background: var(--green); }
+    .detalle-marca.ko { background: var(--red); }
+    .detalle-titulo { flex: 1 1 auto; min-width: 0; font-weight: 700; overflow-wrap: anywhere; }
+    .detalle-tiempo {
+      flex: 0 0 auto;
+      color: var(--ink); font-weight: 800; font-variant-numeric: tabular-nums;
+      background: rgba(255,197,49,.35); padding: 2px 8px; border-radius: 20px;
+      white-space: nowrap;
+    }
+    .detalle-elegida { display: block; font-size: .82rem; color: var(--ink-soft); font-weight: 600; overflow-wrap: anywhere; }
+    .detalle-pie { text-align: center; margin: 6px 0 16px; color: var(--ink-soft); font-size: .85rem; }
 
     #estado { min-height: 24px; margin: 4px 0 14px; font-weight: 600; color: var(--ink-soft); }
     .ranking-nota { margin: 24px 0 0; font-size: .9rem; color: var(--ink-soft); line-height: 1.6; }
@@ -111,6 +158,22 @@
       .tabs button { padding: 8px 14px; }
       table { font-size: .92rem; }
       tbody td, thead th { padding: 9px 7px; }
+      .detalle-modal { padding: 10px; }
+      .detalle-panel {
+        width: 100%; max-width: 100%; max-height: 88vh; max-height: calc(100dvh - 20px);
+        border-width: 3px; border-radius: 14px; box-shadow: 4px 4px 0 var(--ink);
+      }
+      .detalle-cabecera { padding: 16px 48px 14px 16px; }
+      .detalle-cabecera > i { font-size: 1.4rem; }
+      .detalle-cabecera h2 {
+        font-size: clamp(1.35rem, 6vw, 1.8rem); overflow-wrap: anywhere;
+      }
+      .detalle-resumen { font-size: .9rem; }
+      .detalle-cerrar { top: 9px; right: 10px; width: 32px; height: 32px; }
+      .detalle-contenido { padding: 12px 12px 2px; }
+      .detalle-lista li { padding: 7px 9px; gap: 7px; }
+      .detalle-marca { width: 22px; height: 22px; }
+      .detalle-pie { font-size: .78rem; margin: 4px 0 12px; }
     }
   </style>
 </head>
@@ -173,8 +236,6 @@
           </table>
         </div>
 
-        <div id="detalle" class="detalle" hidden aria-live="polite"></div>
-
         <p id="total-partidas" class="total-partidas" role="status" aria-live="polite"></p>
 
         <p class="ranking-nota">
@@ -189,6 +250,22 @@
       </section>
     </div>
   </main>
+
+  <!-- Fuera de .ranking-wrap: ese contenedor crea un stacking context (z-index:10)
+       que dejaría el modal por debajo de la cabecera sticky en móvil. -->
+  <div id="detalle-modal" class="detalle-modal" hidden>
+    <div class="detalle-overlay" data-cerrar-detalle></div>
+    <div class="detalle-panel" role="dialog" aria-modal="true" aria-labelledby="detalle-titulo">
+      <div class="detalle-cabecera">
+        <button type="button" class="detalle-cerrar" data-cerrar-detalle aria-label="Cerrar detalle">×</button>
+        <i class="fa-solid fa-clapperboard" aria-hidden="true"></i>
+        <h2 id="detalle-titulo">Detalle de la partida</h2>
+        <p id="detalle-resumen" class="detalle-resumen" aria-live="polite"></p>
+      </div>
+      <div id="detalle-contenido" class="detalle-contenido"></div>
+      <p class="detalle-pie">Pulsa <strong>Esc</strong> o haz clic fuera para cerrar</p>
+    </div>
+  </div>
 
   <footer class="site-footer">
     <div class="container footer-bottom">
@@ -225,48 +302,40 @@
         ];
         tipos.forEach(([total, clase, singular, plural]) => {
           if (!total) return;
+          const par = document.createElement("span");
+          par.className = "ins";
           const ico = document.createElement("i");
           ico.className = "fa-solid " + clase;
           ico.title = total === 1 ? singular : total + " " + plural;
           ico.setAttribute("aria-label", ico.title);
-          grupo.appendChild(ico);
+          par.appendChild(ico);
           if (total > 1) {
             const num = document.createElement("span");
             num.className = "veces";
             num.textContent = total;
             num.title = ico.title;
-            grupo.appendChild(num);
+            par.appendChild(num);
           }
+          grupo.appendChild(par);
         });
         return grupo;
       }
 
       function cerrarDetalle() {
-        const d = $("detalle");
-        d.hidden = true;
-        d.textContent = "";
+        $("detalle-modal").hidden = true;
+        $("detalle-contenido").textContent = "";
+        $("detalle-resumen").textContent = "";
         document.querySelectorAll("#ranking-body tr.is-selected")
           .forEach(tr => tr.classList.remove("is-selected"));
       }
 
-      function cabeceraDetalle(alias, estado) {
-        const d = $("detalle");
-        d.textContent = "";
-        const cerrar = document.createElement("button");
-        cerrar.type = "button";
-        cerrar.className = "cerrar";
-        cerrar.setAttribute("aria-label", "Cerrar detalle");
-        cerrar.textContent = "×";
-        cerrar.onclick = cerrarDetalle;
-        d.appendChild(cerrar);
-        const titulo = document.createElement("h3");
-        titulo.textContent = "Detalle de " + (alias || "la partida");
-        d.appendChild(titulo);
-        const p = document.createElement("p");
-        p.className = "detalle-estado";
-        p.textContent = estado;
-        d.appendChild(p);
-        return p;
+      function prepararDetalle(tr) {
+        $("detalle-titulo").textContent = "Detalle de " + (tr.dataset.alias || "la partida");
+        $("detalle-resumen").textContent = "Cargando detalle…";
+        $("detalle-contenido").textContent = "";
+        $("detalle-modal").hidden = false;
+        $("detalle-modal").querySelector(".detalle-cerrar").focus();
+        return $("detalle-resumen");
       }
 
       async function mostrarDetalle(tr) {
@@ -276,41 +345,54 @@
         cerrarDetalle();
         if (yaAbierto) return;
         tr.classList.add("is-selected");
-        const d = $("detalle");
-        d.hidden = false;
-        const estado = cabeceraDetalle(tr.dataset.alias, "Cargando detalle…");
+        const resumen = prepararDetalle(tr);
         try {
           const filas = await ranking.detalles(id) || [];
           if (!tr.classList.contains("is-selected")) return;
           if (!filas.length) {
-            estado.textContent = "Esta partida es anterior al desglose de preguntas.";
+            resumen.textContent = "Esta partida es anterior al desglose de preguntas.";
             return;
           }
           const aciertos = filas.filter(f => f.acierto).length;
-          estado.textContent = aciertos + " de " + filas.length + " aciertos";
-          const ol = document.createElement("ol");
-          filas.forEach(f => {
+          resumen.textContent = aciertos + " de " + filas.length + " aciertos · " +
+            (tr.dataset.puntos || "0") + " puntos";
+          const lista = document.createElement("ol");
+          lista.className = "detalle-lista";
+          filas.forEach((f, i) => {
             const li = document.createElement("li");
             const marca = document.createElement("span");
-            marca.className = f.acierto ? "ok" : "ko";
+            marca.className = "detalle-marca " + (f.acierto ? "ok" : "ko");
             marca.textContent = f.acierto ? "✓" : "✗";
             li.appendChild(marca);
-            li.appendChild(document.createTextNode(" " + (f.titulo || "")));
-            const tiempo = document.createElement("span");
-            tiempo.className = "tiempo";
-            tiempo.textContent = " · " + Number(f.segundos || 0).toFixed(2) + " s";
-            li.appendChild(tiempo);
+            const texto = document.createElement("span");
+            texto.className = "detalle-titulo";
+            texto.textContent = (i + 1) + ". " + (f.titulo || "");
             if (!f.acierto && f.elegida) {
-              li.appendChild(document.createTextNode(" · elegiste: " + f.elegida));
+              const elegida = document.createElement("span");
+              elegida.className = "detalle-elegida";
+              elegida.textContent = "Eligió: " + f.elegida;
+              texto.appendChild(elegida);
             }
-            ol.appendChild(li);
+            li.appendChild(texto);
+            const tiempo = document.createElement("span");
+            tiempo.className = "detalle-tiempo";
+            tiempo.textContent = Number(f.segundos || 0).toFixed(2) + " s";
+            li.appendChild(tiempo);
+            lista.appendChild(li);
           });
-          d.appendChild(ol);
+          $("detalle-contenido").appendChild(lista);
         } catch (e) {
           if (!tr.classList.contains("is-selected")) return;
-          estado.textContent = "No se pudo cargar el detalle: " + e.message;
+          resumen.textContent = "No se pudo cargar el detalle: " + e.message;
         }
       }
+
+      document.querySelectorAll("[data-cerrar-detalle]").forEach(el => {
+        el.addEventListener("click", cerrarDetalle);
+      });
+      document.addEventListener("keydown", e => {
+        if (e.key === "Escape" && !$("detalle-modal").hidden) cerrarDetalle();
+      });
 
       function pintar(filas) {
         const cuerpo = $("ranking-body");
@@ -336,6 +418,7 @@
             tr.setAttribute("aria-label", "Ver detalle de " + (fila.alias || "la partida"));
             tr.dataset.partida = id;
             tr.dataset.alias = fila.alias == null ? "" : String(fila.alias);
+            tr.dataset.puntos = fila.puntos == null ? "0" : String(fila.puntos);
             tr.onclick = () => mostrarDetalle(tr);
             tr.onkeydown = e => {
               if (e.key === "Enter" || e.key === " ") {
