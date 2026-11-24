@@ -88,7 +88,7 @@
       return { ok: false, mensaje: "Vuelve a pulsar «Dale al play» para abrir una partida." };
     }
     try {
-      await rpc("registrar_puntuacion", {
+      const id = await rpc("registrar_puntuacion", {
         p_jugador_id: playerId(),
         p_alias: alias,
         p_puntos: Number(datos.puntos) || 0,
@@ -98,7 +98,14 @@
       });
       tokenPartida = null;
       escribir(ALIAS_KEY, alias);
-      return { ok: true, mensaje: "Procesado. Consulta el ranking 🎵" };
+      // null = la partida no ha mejorado la marca de hoy y no entra en ranking.
+      return {
+        ok: true,
+        partida: id == null ? null : Number(id),
+        mensaje: id == null
+          ? "No supera tu mejor marca de hoy; no hay nuevo puesto."
+          : "¡Nueva marca guardada! Mira la tarjeta de abajo 👇"
+      };
     } catch (e) {
       return { ok: false, mensaje: "No se pudo enviar: " + e.message };
     }

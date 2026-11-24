@@ -164,6 +164,11 @@ $$;
 -- Toda llamada válida cuenta como partida. Solo se guarda como marca si
 -- supera la mejor del alias en el día actual (hora de España), para que una
 -- puntuación peor no sustituya a la mejor de hoy.
+-- Devuelve el id de la puntuación que entra en el ranking, o null si la
+-- partida no mejora la marca del alias. CREATE OR REPLACE no permite cambiar
+-- el tipo de retorno, así que hace falta soltar la firma anterior.
+drop function if exists public.registrar_puntuacion(text, text, integer, integer, text, jsonb);
+
 create or replace function public.registrar_puntuacion(
   p_jugador_id text,
   p_alias text,
@@ -172,7 +177,7 @@ create or replace function public.registrar_puntuacion(
   p_token text,
   p_detalles jsonb
 )
-returns void
+returns bigint
 language plpgsql
 security definer
 set search_path = public, extensions
@@ -283,7 +288,7 @@ begin
           date_trunc('day', timezone('Europe/Madrid', now()))
       and puntos >= p_puntos
   ) then
-    return;
+    return null;
   end if;
 
   if exists (
@@ -291,7 +296,7 @@ begin
     where lower(btrim(alias)) = lower(btrim(p_alias))
       and creado_en > now() - interval '5 seconds'
   ) then
-    return;
+    return null;
   end if;
 
   insert into public.puntuaciones (jugador_id, alias, puntos, aciertos)
@@ -308,6 +313,7 @@ begin
   from jsonb_array_elements(p_detalles) with ordinality as t(elem, orden);
 
   perform public.actualizar_lideres();
+  return v_puntuacion_id;
 end;
 $$;
 

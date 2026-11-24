@@ -185,6 +185,21 @@
       color: var(--orange-strong);
     }
 
+    .ranking-felicitacion {
+      margin: 18px 0 6px;
+      padding: 14px 18px;
+      border: 3px solid var(--ink);
+      border-radius: 16px;
+      background: var(--yellow);
+      color: var(--ink);
+      box-shadow: 4px 4px 0 var(--ink);
+      font-size: 1.05rem;
+      font-weight: 800;
+      line-height: 1.45;
+      text-align: center;
+    }
+    .ranking-felicitacion[hidden] { display: none; }
+
     small {
       display: block;
       text-align: center;
@@ -665,6 +680,7 @@
           <small>El alias se recuerda en este equipo; si juega otra persona, cámbialo. Solo se guarda si mejora tu marca de hoy. Tu mejor puntuación entra en los rankings diario, semanal e histórico.</small>
         </div>
 
+        <p id="ranking-felicitacion" class="ranking-felicitacion" role="status" aria-live="polite" hidden></p>
         <canvas id="card" width="1080" height="1080"></canvas>
         <div class="row" style="margin-top: 24px;">
           <button class="btn-game" id="share"><i class="fa-solid fa-share-nodes" aria-hidden="true"></i> Compartir imagen</button>
@@ -750,6 +766,8 @@
     // Banco de películas externo: peliculas.js (titulo + consulta)
     const FILMS=window.PELICULAS_BSO.map(p=>[p.titulo,p.consulta]);
     const $=id=>document.getElementById(id);
+    // Datos del ranking que se añaden a la tarjeta tras enviar la partida.
+    let cardMeta = null;
     // Redibuja la tarjeta cuando lleguen las imágenes o la fuente (métricas distintas)
     const redrawCard=()=>{
       if(!$('end').classList.contains('hidden')) drawCard(results.filter(x=>x.ok).length);
@@ -987,6 +1005,29 @@
         if(pw>90) ctx.drawImage(peskitos,39,13,1202,1172,1010-pw,45,pw,pw*210/215);
       }
 
+      // Cinta del alias: solo aparece después de enviar la partida al ranking.
+      if(cardMeta && cardMeta.alias){
+        const etiqueta="RÉCORD DE";
+        ctx.font="800 22px 'Outfit', sans-serif";
+        const etiquetaW=ctx.measureText(etiqueta).width;
+        let aliasFont=40;
+        ctx.font="900 "+aliasFont+"px 'Outfit', sans-serif";
+        while(ctx.measureText(cardMeta.alias).width>840-etiquetaW-16 && aliasFont>26){
+          aliasFont-=2; ctx.font="900 "+aliasFont+"px 'Outfit', sans-serif";
+        }
+        const aliasW=ctx.measureText(cardMeta.alias).width;
+        const total=etiquetaW+16+aliasW;
+        const rw=Math.min(1000,total+48);
+        ctx.fillStyle="#FFC531"; roundRect(ctx,(1080-rw)/2,185,rw,47,23); ctx.fill();
+        ctx.strokeStyle="#0B1B2D"; ctx.lineWidth=6; ctx.stroke();
+        const x0=(1080-total)/2;
+        ctx.textAlign="left";
+        ctx.fillStyle="#0B1B2D"; ctx.font="800 22px 'Outfit', sans-serif";
+        ctx.fillText(etiqueta,x0,216);
+        ctx.font="900 "+aliasFont+"px 'Outfit', sans-serif";
+        ctx.fillText(cardMeta.alias,x0+etiquetaW+16,216);
+      }
+
       // Tarjeta de puntuación
       const scoreBg=ctx.createLinearGradient(60,235,1020,395);
       scoreBg.addColorStop(0,"#193650"); scoreBg.addColorStop(1,"#102438");
@@ -998,7 +1039,7 @@
 
       // Se miden los textos para que puntuación y aciertos nunca se solapen
       const scoreText=score+" pts";
-      let scoreFont=110;
+      let scoreFont=100;
       ctx.font="900 "+scoreFont+"px 'Outfit', sans-serif";
       while(ctx.measureText(scoreText).width>480 && scoreFont>80){
         scoreFont-=4; ctx.font="900 "+scoreFont+"px 'Outfit', sans-serif";
@@ -1010,18 +1051,45 @@
       const scoreEnd=76+ctx.measureText(scoreText).width;
 
       const hitsText=hits+" de 10 aciertos";
-      const hitsX=Math.max(560,scoreEnd+24);
+      const hitsX=Math.max(500,scoreEnd+24);
+
+      // Puestos del ranking: solo se dibujan si la partida ha mejorado.
+      let centroFila=null;
+      if(cardMeta && cardMeta.posiciones && cardMeta.posiciones.length){
+        ctx.fillStyle="#AFC3D6"; ctx.font="800 22px 'Outfit', sans-serif";
+        ctx.fillText("Puestos",hitsX,279);
+        let px=hitsX+ctx.measureText("Puestos").width+6;
+        ctx.textAlign="center";
+        cardMeta.posiciones.forEach(p=>{
+          const texto=p.nombre+" "+(p.puesto?"#"+p.puesto:"—");
+          ctx.font="800 22px 'Outfit', sans-serif";
+          const w=ctx.measureText(texto).width+16;
+          if(px+w>1000) return;
+          ctx.fillStyle=p.puesto===1?"rgba(255,197,49,0.22)":"rgba(61,185,192,0.14)";
+          roundRect(ctx,px,250,w,42,21); ctx.fill();
+          ctx.strokeStyle=p.puesto===1?"rgba(255,197,49,0.75)":"rgba(61,185,192,0.5)";
+          ctx.lineWidth=2; ctx.stroke();
+          ctx.fillStyle=p.puesto===1?"#FFC531":"#3DB9C0";
+          ctx.fillText(texto,px+w/2,279);
+          px+=w+4;
+        });
+        ctx.textAlign="left";
+        centroFila=(hitsX+px-4)/2;
+      }
+
       let hitsFont=42;
       ctx.font="800 "+hitsFont+"px 'Outfit', sans-serif";
       while(ctx.measureText(hitsText).width>986-hitsX && hitsFont>26){
         hitsFont-=2; ctx.font="800 "+hitsFont+"px 'Outfit', sans-serif";
       }
       const hitsW=ctx.measureText(hitsText).width;
+      const anchoAciertos=hitsW+36;
+      const bx=centroFila==null?hitsX-18:centroFila-anchoAciertos/2;
       ctx.fillStyle="rgba(61,185,192,0.14)";
-      roundRect(ctx,hitsX-18,300,hitsW+36,68,20); ctx.fill();
+      roundRect(ctx,bx,320,anchoAciertos,68,20); ctx.fill();
       ctx.strokeStyle="rgba(61,185,192,0.55)"; ctx.lineWidth=2; ctx.stroke();
       ctx.fillStyle="#3DB9C0"; ctx.textAlign="center";
-      ctx.fillText(hitsText,hitsX+hitsW/2,350); ctx.textAlign="left";
+      ctx.fillText(hitsText,bx+anchoAciertos/2,370); ctx.textAlign="left";
 
       ctx.fillStyle="#3DB9C0"; ctx.font="700 28px 'Outfit', sans-serif";
       ctx.fillText("Veredicto:", 80, 428);
@@ -1109,19 +1177,54 @@
     $('again').onclick=()=>{ $('end').classList.add('hidden'); $('start').classList.remove('hidden'); };
 
     // Envío de la puntuación al ranking (silencioso si no hay configuración).
+    const PERIODOS_RANKING=[["diario","Diario"],["semanal","Semanal"],["historico","Histórico"]];
+    async function puestosDe(id){
+      return Promise.all(PERIODOS_RANKING.map(async ([clave,nombre])=>{
+        try{
+          const filas=await window.PYMRanking.cargar(clave)||[];
+          const fila=filas.find(f=>String(f.partida_id)===String(id));
+          return { nombre:nombre, puesto:fila && fila.puesto!=null?Number(fila.puesto):null };
+        }catch(e){ return { nombre:nombre, puesto:null }; }
+      }));
+    }
+    function textoFelicitacion(alias,posiciones){
+      const conPuesto=posiciones.filter(p=>p.puesto);
+      if(!conPuesto.length){
+        return `¡Enhorabuena, ${alias}! Tu partida es tu mejor marca de hoy, pero no ha entrado en el top 50. ¡Comparte la tarjeta de abajo! 🎉`;
+      }
+      const partes=conPuesto.map(p=>`puesto ${p.puesto} del ${p.nombre.toLowerCase()}`);
+      const lista=partes.length===1
+        ? partes[0]
+        : partes.slice(0,-1).join(", ")+" y "+partes[partes.length-1];
+      return `¡Enhorabuena, ${alias}! Has entrado en el ${lista}. ¡Comparte la tarjeta de abajo! 🎉`;
+    }
     $('save-score').onclick=async()=>{
-      const boton=$('save-score'); const msg=$('save-msg');
+      const boton=$('save-score'); const msg=$('save-msg'); const fel=$('ranking-felicitacion');
       boton.disabled=true; msg.textContent="Enviando…";
+      fel.hidden=true; fel.textContent="";
+      const alias=$('alias').value.replace(/\s+/g," ").trim().slice(0,24);
       const res=await window.PYMRanking.enviar({
         puntos:score,
         aciertos:results.filter(x=>x.ok).length,
-        alias:$('alias').value,
+        alias:alias,
         detalles:results.map(x=>({
           titulo:x.title, acierto:x.ok, ms:x.ms, elegida:x.elegida
         }))
       });
       msg.textContent=res.mensaje;
-      boton.disabled=!res.ok;
+      if(!res.ok){ boton.disabled=false; return; }
+      if(res.partida==null){
+        // No mejora: se quita cualquier puesto anterior, pero se mantiene el alias.
+        cardMeta={ alias:alias };
+        if(!$('end').classList.contains('hidden')) drawCard(results.filter(x=>x.ok).length);
+        return;
+      }
+      const posiciones=await puestosDe(res.partida);
+      cardMeta={ alias:alias, posiciones:posiciones };
+      fel.textContent=textoFelicitacion(alias,posiciones);
+      fel.hidden=false;
+      if(!$('end').classList.contains('hidden')) drawCard(results.filter(x=>x.ok).length);
+      boton.disabled=true;
     };
 
     $('dl').onclick=()=>{
