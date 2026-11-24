@@ -90,6 +90,17 @@
     }
     tbody tr.clasificable { cursor: pointer; }
     tbody tr.clasificable:hover, tbody tr.is-selected { background: rgba(255,197,49,.18); }
+    th.accion, td.accion { text-align: right; width: 1%; white-space: nowrap; }
+    .ver-detalle {
+      display: inline-flex; align-items: center; justify-content: center; gap: 5px;
+      min-width: 46px; padding: 5px 8px; border-radius: 999px;
+      border: 2px solid var(--ink); background: var(--white); color: var(--ink);
+      font-size: .8rem; line-height: 1;
+    }
+    .ver-detalle .fa-chevron-right { font-size: .65rem; opacity: .65; }
+    tbody tr.clasificable:hover .ver-detalle,
+    tbody tr.is-selected .ver-detalle { background: var(--yellow); }
+    .ranking-pista { display: none; }
     .detalle-modal {
       position: fixed; inset: 0; z-index: 2000; padding: 20px;
       display: flex; align-items: center; justify-content: center;
@@ -173,8 +184,17 @@
     @media (max-width: 640px) {
       .ranking-card { padding: 22px 16px 24px; }
       .tabs button { padding: 8px 14px; }
+      .ranking-pista {
+        display: flex; align-items: center; gap: 8px;
+        margin: -6px 0 12px; padding: 8px 10px;
+        font-size: .85rem; font-weight: 700; color: var(--ink);
+        background: rgba(61,185,192,.12); border: 2px dashed rgba(11,27,45,.28);
+        border-radius: 12px;
+      }
+      .ranking-pista i { color: var(--orange); }
       table { font-size: .92rem; }
       tbody td, thead th { padding: 9px 7px; }
+      tbody td.accion { padding-left: 2px; padding-right: 2px; }
       .detalle-modal { padding: 10px; }
       .detalle-panel {
         width: 100%; max-width: 100%; max-height: 88vh; max-height: calc(100dvh - 20px);
@@ -242,6 +262,8 @@
           <button type="button" data-periodo="historico" aria-pressed="false">Histórico</button>
         </div>
 
+        <p class="ranking-pista"><i class="fa-solid fa-hand-pointer" aria-hidden="true"></i> Toca una fila para ver las respuestas y compartir el registro.</p>
+
         <p id="estado" role="status" aria-live="polite"></p>
 
         <div class="table-wrap">
@@ -253,6 +275,7 @@
                 <th class="num">Puntos</th>
                 <th class="num">Aciertos</th>
                 <th>Fecha</th>
+                <th class="accion" aria-label="Ver detalle y compartir"></th>
               </tr>
             </thead>
             <tbody id="ranking-body"></tbody>
@@ -266,7 +289,7 @@
           El día y la semana se cuentan en hora de España. Se muestra la mejor partida
           de cada alias en el periodo elegido, no la suma de partidas. Si compartís
           ordenador, usad alias distintos y cada uno tendrá su propia posición.
-          Pulsa sobre una fila para ver sus preguntas y tiempos.
+          Pulsa sobre una fila para ver sus preguntas, tiempos y compartir el registro.
           <span class="insignias"><i class="fa-solid fa-medal ins-diaria" aria-hidden="true"></i> victoria diaria · <i class="fa-solid fa-trophy ins-semanal" aria-hidden="true"></i> victoria semanal (el número indica cuántas)</span>
         </p>
         <a class="btn btn-primary ranking-cta" href="./"><i class="fa-solid fa-play" aria-hidden="true"></i> Jugar y entrar en el ranking</a>
@@ -321,6 +344,10 @@
       let periodo = "diario";
       let cargando = 0;
       let detalleActual = null;
+      const posicionesCache = Object.create(null);
+      const PERIODOS_CARD = [
+        ["diario", "Diario"], ["semanal", "Semanal"], ["historico", "Histórico"]
+      ];
 
       function fechaBonita(valor) {
         if (!valor) return "";
@@ -429,7 +456,8 @@
             alias: tr.dataset.alias || "",
             puntos: Number(tr.dataset.puntos) || 0,
             hits: aciertos,
-            filas: filas
+            filas: filas,
+            partida: id
           };
           $("detalle-compartir").hidden = false;
         } catch (e) {
@@ -496,6 +524,24 @@
         return { peskitos: peskitos, mal: mal, crop: MALCOLM_CARD[i].crop };
       }
 
+      // Reutiliza los tres rankings para saber en qué puesto está esta partida.
+      // Si no entra en el top 50 de un periodo, ese puesto queda como «—».
+      function posicionesDe(id) {
+        return Promise.all(PERIODOS_CARD.map(async ([clave, nombre]) => {
+          let puesto = null;
+          try {
+            let filas = posicionesCache[clave];
+            if (!filas) {
+              filas = await ranking.cargar(clave);
+              posicionesCache[clave] = filas;
+            }
+            const fila = (filas || []).find(f => String(f.partida_id) === String(id));
+            if (fila && fila.puesto != null) puesto = Number(fila.puesto);
+          } catch (e) {}
+          return { nombre: nombre, puesto: puesto };
+        }));
+      }
+
       function dibujarTarjeta(d, img) {
         const ctx = tarjeta.getContext("2d");
         const bg = ctx.createLinearGradient(0, 0, 1080, 1080);
@@ -549,7 +595,7 @@
         ctx.fillStyle = "#AFC3D6"; ctx.font = "700 28px 'Outfit', sans-serif";
         ctx.fillText("Puntuación final:", 80, 350);
         const pts = d.puntos + " pts";
-        let sf = 110; ctx.font = "900 " + sf + "px 'Outfit', sans-serif";
+        let sf = 100; ctx.font = "900 " + sf + "px 'Outfit', sans-serif";
         while (ctx.measureText(pts).width > 480 && sf > 80) {
           sf -= 4; ctx.font = "900 " + sf + "px 'Outfit', sans-serif";
         }
@@ -557,7 +603,29 @@
         ctx.shadowColor = "rgba(255,197,49,0.35)"; ctx.shadowBlur = 18;
         ctx.fillText(pts, 76, 444); ctx.shadowBlur = 0;
         const hits = d.hits + " de 10 aciertos";
-        const hx = Math.max(560, 76 + ctx.measureText(pts).width + 24);
+        const hx = Math.max(500, 76 + ctx.measureText(pts).width + 24);
+
+        // Puestos en los tres rankings, encima del recuadro de aciertos.
+        if (d.posiciones && d.posiciones.length) {
+          ctx.fillStyle = "#AFC3D6"; ctx.font = "800 22px 'Outfit', sans-serif";
+          ctx.fillText("Puestos", hx, 377);
+          let px = hx + ctx.measureText("Puestos").width + 6;
+          ctx.textAlign = "center";
+          d.posiciones.forEach(p => {
+            const texto = p.nombre + " " + (p.puesto ? "#" + p.puesto : "—");
+            ctx.font = "800 22px 'Outfit', sans-serif";
+            const w = ctx.measureText(texto).width + 16;
+            if (px + w > 1000) return;
+            ctx.fillStyle = p.puesto === 1 ? "rgba(255,197,49,0.22)" : "rgba(61,185,192,0.14)";
+            rr(ctx, px, 348, w, 42, 21); ctx.fill();
+            ctx.strokeStyle = p.puesto === 1 ? "rgba(255,197,49,0.75)" : "rgba(61,185,192,0.5)";
+            ctx.lineWidth = 2; ctx.stroke();
+            ctx.fillStyle = p.puesto === 1 ? "#FFC531" : "#3DB9C0";
+            ctx.fillText(texto, px + w / 2, 377);
+            px += w + 4;
+          });
+          ctx.textAlign = "left";
+        }
         let hf = 42; ctx.font = "800 " + hf + "px 'Outfit', sans-serif";
         while (ctx.measureText(hits).width > 986 - hx && hf > 26) {
           hf -= 2; ctx.font = "800 " + hf + "px 'Outfit', sans-serif";
@@ -661,8 +729,12 @@
         const estado = $("compartir-estado");
         estado.textContent = "Preparando tarjeta…";
         try {
-          const img = await imagenesTarjeta(detalleActual.hits);
+          const [img, posiciones] = await Promise.all([
+            imagenesTarjeta(detalleActual.hits),
+            posicionesDe(detalleActual.partida)
+          ]);
           if (!detalleActual) return;
+          detalleActual.posiciones = posiciones;
           dibujarTarjeta(detalleActual, img);
           actualizarEnlaces(detalleActual);
           if (puedeAdjuntar()) {
@@ -704,7 +776,7 @@
         if (!filas || !filas.length) {
           const tr = document.createElement("tr");
           const td = document.createElement("td");
-          td.colSpan = 5;
+          td.colSpan = 6;
           td.className = "vacio";
           td.textContent = "Todavía no hay puntuaciones en este periodo. ¡Sé el primero!";
           tr.appendChild(td);
@@ -749,6 +821,16 @@
             }
             tr.appendChild(td);
           });
+          const accion = document.createElement("td");
+          accion.className = "accion";
+          if (id) {
+            const pill = document.createElement("span");
+            pill.className = "ver-detalle";
+            pill.setAttribute("aria-hidden", "true");
+            pill.innerHTML = '<i class="fa-solid fa-share-nodes"></i><i class="fa-solid fa-chevron-right"></i>';
+            accion.appendChild(pill);
+          }
+          tr.appendChild(accion);
           cuerpo.appendChild(tr);
         });
       }
@@ -771,6 +853,7 @@
         try {
           const filas = await ranking.cargar(periodo);
           if (id !== cargando) return;
+          posicionesCache[periodo] = filas;
           pintar(filas);
           cargarTotal();
           estado.textContent = "";
