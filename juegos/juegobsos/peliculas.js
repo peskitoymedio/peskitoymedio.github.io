@@ -442,7 +442,7 @@ window.PELICULAS_BSO = [
     "consulta": "Apollo 13 Main Theme James Horner"
   },
   {
-    "titulo": "Corazón valiente",
+    "titulo": "Braveheart",
     "consulta": "Braveheart Main Theme James Horner"
   },
   {
@@ -478,7 +478,7 @@ window.PELICULAS_BSO = [
     "consulta": "The Thin Red Line Main Theme Hans Zimmer"
   },
   {
-    "titulo": "Black Hawk Down",
+    "titulo": "Black Hawk Derribado",
     "consulta": "Black Hawk Down Main Theme Hans Zimmer"
   },
   {
