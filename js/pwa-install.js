@@ -12,7 +12,7 @@
   var DIAS_RECHAZO = 3;
   var deferred = null;
   var banner = null;
-  var enlace = null;
+  var enlaces = [];
 
   function yaInstalada() {
     var mq = window.matchMedia;
@@ -83,8 +83,8 @@
   }
 
   function actualizarEnlace() {
-    if (!enlace) return;
-    enlace.hidden = !deferred || yaInstalada();
+    var visible = !!deferred && !yaInstalada();
+    for (var i = 0; i < enlaces.length; i++) enlaces[i].hidden = !visible;
   }
 
   function lanzarPrompt(registrarRechazo) {
@@ -141,9 +141,9 @@
   });
 
   inyectarEstilos();
-  enlace = document.querySelector('.pwa-install-link');
-  if (enlace) {
-    enlace.addEventListener('click', function (e) {
+  enlaces = document.querySelectorAll('.pwa-install-link');
+  for (var i = 0; i < enlaces.length; i++) {
+    enlaces[i].addEventListener('click', function (e) {
       e.preventDefault();
       // Ignora el rechazo del aviso: quien pulsa aquí lo hace a propósito.
       lanzarPrompt(false);
