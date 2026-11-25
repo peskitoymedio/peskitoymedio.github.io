@@ -219,7 +219,7 @@
       .tabs button { padding: 8px 14px; }
       .ranking-pista {
         display: flex; align-items: center; gap: 8px;
-        margin: -6px 0 12px; padding: 8px 10px;
+        margin: 6px 0 12px; padding: 8px 10px;
         font-size: .85rem; font-weight: 700; color: var(--ink);
         background: rgba(61,185,192,.12); border: 2px dashed rgba(11,27,45,.28);
         border-radius: 12px;
@@ -1021,6 +1021,7 @@
         });
       });
 
+      $("buscar-alias").value = ranking.aliasGuardado();
       $("buscar-form").addEventListener("submit", e => {
         e.preventDefault();
         buscar();

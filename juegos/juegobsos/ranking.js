@@ -157,6 +157,7 @@
     cargar: cargar,
     puesto: puesto,
     totalPartidas: totalPartidas,
+    aliasGuardado: aliasGuardado,
     detalles: detalles,
     initGameForm: initGameForm
   };
