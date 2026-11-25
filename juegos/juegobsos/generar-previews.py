@@ -65,6 +65,25 @@ def previews_actuales():
     return resultado
 
 
+def formato(contenido):
+    """Serializa el catálogo con una entrada por línea para que Git vea diffs útiles."""
+    opciones = {"ensure_ascii": False, "separators": (",", ":")}
+    previews = contenido.get("previews", {})
+    entradas = ",\n".join(
+        "    " + json.dumps(clave, **opciones) + ":" + json.dumps(entrada, **opciones)
+        for clave, entrada in previews.items()
+    )
+    cuerpo = "\n" + entradas + "\n  " if entradas else ""
+    return (
+        "/* Generado por generar-previews.py. No editar a mano. */\n"
+        "window.APPLE_PREVIEWS = {\n"
+        '  "generado":' + json.dumps(contenido["generado"], **opciones) + ",\n"
+        '  "total":' + json.dumps(contenido["total"], **opciones) + ",\n"
+        '  "previews": {' + cuerpo + "}\n"
+        "};\n"
+    )
+
+
 def guardar(previews, total):
     # Solo se actualiza la fecha si cambian los datos. Si no, se conserva el
     # contenido exacto: así el workflow no crea un commit en cada push.
@@ -91,13 +110,7 @@ def guardar(previews, total):
         "total": total,
         "previews": previews,
     }
-    SALIDA.write_text(
-        "/* Generado por generar-previews.py. No editar a mano. */\n"
-        "window.APPLE_PREVIEWS = "
-        + json.dumps(contenido, ensure_ascii=False, separators=(",", ":"))
-        + ";\n",
-        encoding="utf-8",
-    )
+    SALIDA.write_text(formato(contenido), encoding="utf-8")
     return True
 
 
