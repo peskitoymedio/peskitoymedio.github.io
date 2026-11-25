@@ -108,7 +108,7 @@ window.PELICULAS_BSO = [
   },
   {
     "titulo": "Dune",
-    "consulta": "Dune Paul's Dream Hans Zimmer"
+    "consulta": "House Atreides The Dune Sketchbook"
   },
   {
     "titulo": "El bueno, el feo y el malo",
