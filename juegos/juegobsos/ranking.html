@@ -1021,7 +1021,14 @@
         });
       });
 
-      $("buscar-alias").value = ranking.aliasGuardado();
+      try {
+        if (typeof ranking.aliasGuardado === "function") {
+          $("buscar-alias").value = ranking.aliasGuardado();
+        } else {
+          // ranking.js en caché anterior al buscador: la clave es estable.
+          $("buscar-alias").value = (localStorage.getItem("pym-bso-alias") || "").slice(0, 24);
+        }
+      } catch (e) {}
       $("buscar-form").addEventListener("submit", e => {
         e.preventDefault();
         buscar();
