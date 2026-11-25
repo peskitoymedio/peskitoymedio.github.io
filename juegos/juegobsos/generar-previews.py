@@ -66,6 +66,24 @@ def previews_actuales():
 
 
 def guardar(previews, total):
+    # Solo se actualiza la fecha si cambian los datos. Si no, se conserva el
+    # contenido exacto: así el workflow no crea un commit en cada push.
+    actual = {}
+    if SALIDA.exists():
+        texto_actual = SALIDA.read_text(encoding="utf-8")
+        bloque = re.search(r"window\.APPLE_PREVIEWS\s*=\s*(.*);\s*$", texto_actual, re.S)
+        if bloque:
+            try:
+                actual = json.loads(bloque.group(1))
+            except ValueError:
+                actual = {}
+    if (
+        actual.get("generado")
+        and actual.get("total") == total
+        and actual.get("previews") == previews
+    ):
+        return False
+
     contenido = {
         "generado": datetime.datetime.now(datetime.timezone.utc).isoformat(
             timespec="seconds"
@@ -80,6 +98,7 @@ def guardar(previews, total):
         + ";\n",
         encoding="utf-8",
     )
+    return True
 
 
 def buscar(term):
@@ -156,8 +175,9 @@ def main():
                 if i % 20 == 0:
                     guardar(previews, len(terms))
                     print(f"  {i}/{len(pendientes)}")
-    guardar(previews, len(terms))
-    print(f"Guardado previews.js: {len(previews)}/{len(terms)} previews")
+    cambiado = guardar(previews, len(terms))
+    estado = "Actualizado" if cambiado else "Sin cambios"
+    print(f"{estado}: previews.js {len(previews)}/{len(terms)} previews")
 
 
 if __name__ == "__main__":
