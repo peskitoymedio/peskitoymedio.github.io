@@ -212,6 +212,10 @@
     }
 
     .hidden { display: none !important; }
+    /* El botón "Siguiente ronda" reserva su sitio desde el inicio: así la
+       altura de la partida no cambia cuando aparece. visibility lo mantiene
+       en el layout pero no se puede pulsar ni enfocar. */
+    .btn-game.reservado { visibility: hidden; }
 
     /* HUD y progreso */
     .hud {
@@ -564,32 +568,39 @@
       }
       .game-container {
         margin-top: -24px;
-        margin-bottom: 40px;
+        margin-bottom: 28px;
       }
       .game-card {
-        padding: 22px 18px;
-        margin-bottom: 16px;
+        padding: 18px 16px;
+        margin-bottom: 12px;
       }
       .vinyl {
-        width: 118px;
-        height: 118px;
-        margin: 14px auto 22px;
+        width: 104px;
+        height: 104px;
+        margin: 10px auto 14px;
       }
       .opts {
-        gap: 10px;
-        margin: 16px 0;
+        gap: 8px;
+        margin: 12px 0;
       }
       .opt {
-        padding: 14px 16px;
-        font-size: 1rem;
+        padding: 12px 14px;
+        font-size: 0.98rem;
+      }
+      .msg {
+        min-height: 24px;
+        margin: 12px 0;
       }
       .bar {
-        margin-bottom: 20px;
+        margin-bottom: 16px;
       }
       .hud {
         font-size: 1.2rem;
-        margin-bottom: 12px;
+        margin-bottom: 10px;
+        padding-bottom: 10px;
       }
+      /* En partida, el enlace fijo "Volver" puede tapar el botón de ronda. */
+      body.jugando .volver { display: none !important; }
     }
   </style>
 </head>
@@ -663,8 +674,8 @@
         <p class="vinyl-hint">Pulsa el disco para volver a escuchar</p>
         <div class="opts" id="opts"></div>
         <p class="msg" id="msg"></p>
-        <div class="row" style="justify-content: center; margin-top: 24px;">
-          <button class="btn-game hidden" id="next">Siguiente ronda <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></button>
+        <div class="row" style="justify-content: center; margin-top: 16px;">
+          <button class="btn-game reservado" id="next">Siguiente ronda <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></button>
         </div>
       </section>
 
@@ -841,6 +852,7 @@
       if(rounds.length<4){$('loadmsg').textContent="No he podido cargar suficientes bandas sonoras. Revisa la conexión e inténtalo otra vez.";return}
       r=0;score=0;results=[];$('pts').textContent=0;
       $('start').classList.add('hidden'); $('game').classList.remove('hidden');
+      document.body.classList.add('jugando');
       loadRound();
       // En móvil, dejar #game arriba del contenedor con scroll. Se calcula
       // después de que las fuentes estén listas y con scroll-behavior auto:
@@ -888,7 +900,7 @@
     }
 
     function loadRound(){
-      answered=false; $('next').classList.add('hidden'); $('msg').textContent="";
+      answered=false; $('next').classList.add('reservado'); $('msg').textContent="";
       $('rnd').textContent=r+1;
       const cur=rounds[r];
       audio.src=cur.url;
@@ -934,7 +946,7 @@
       }
       results.push({round:r+1, title:c, chosen, ok, pts, ms, elegida:ok?null:chosen});
       document.querySelectorAll('.opt').forEach(b=>b.disabled=true);
-      if(r+1<10){ $('next').classList.remove('hidden'); }
+      if(r+1<10){ $('next').classList.remove('reservado'); }
       else{ setTimeout(showEnd, 1200); }
     }
 
@@ -1202,7 +1214,7 @@
       ctx.fillText(cta,540,1015); ctx.textAlign="left";
     }
 
-    $('again').onclick=()=>{ $('end').classList.add('hidden'); $('start').classList.remove('hidden'); };
+    $('again').onclick=()=>{ $('end').classList.add('hidden'); $('start').classList.remove('hidden'); document.body.classList.remove('jugando'); };
 
     // Envío de la puntuación al ranking (silencioso si no hay configuración).
     const PERIODOS_RANKING=[["diario","Diario"],["semanal","Semanal"],["historico","Histórico"]];
