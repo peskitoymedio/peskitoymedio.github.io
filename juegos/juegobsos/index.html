@@ -827,16 +827,27 @@
     const audio=new Audio(); audio.preload="auto"; audio.setAttribute('playsinline','');
     // iOS solo permite reproducir audio dentro de un gesto del usuario. Este WAV
     // silencioso de 10 ms se reproduce en el primer tap y desbloquea el elemento
-    // para que playClip() pueda arrancar las pistas después de la carga.
+    // para que playClip() pueda arrancar las pistas después de la carga. Solo se
+    // considera desbloqueado si play() termina sin rechazo.
     const SILENT_WAV="data:audio/wav;base64,UklGRsQAAABXQVZFZm10IBAAAAABAAEAQB8AAIA+AAACABAAZGF0YaAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
-    let audioUnlocked=false;
+    let audioUnlocked=false, unlockingAudio=false;
     function unlockAudio(){
-      if(audioUnlocked) return;
-      audioUnlocked=true;
-      try{ audio.src=SILENT_WAV; const p=audio.play(); if(p&&p.catch) p.catch(()=>{}); }catch(e){}
+      if(audioUnlocked || unlockingAudio) return;
+      unlockingAudio=true;
+      try{
+        audio.src=SILENT_WAV;
+        const p=audio.play();
+        if(p&&p.then){
+          p.then(()=>{ audioUnlocked=true; unlockingAudio=false; },
+                 ()=>{ audioUnlocked=false; unlockingAudio=false; });
+        }else{ audioUnlocked=true; unlockingAudio=false; }
+      }catch(e){ audioUnlocked=false; unlockingAudio=false; }
     }
     // Modo único: 5 segundos de escucha por pista.
     let rounds=[],r=0,score=0,secs=5,startT=0,timer=null,answered=false,results=[];
+    // playId invalida cargas/reproducciones pendientes al repetir, responder o
+    // cambiar de ronda. audioStarted evita reiniciar startT en los reintentos.
+    let playId=0,pendingPlaying=null,pendingTimeout=null,audioStarted=false;
 
     // La búsqueda vive en itunes-preview.js, compartida con el laboratorio privado
     const itunes=async term=>{const r=await window.itunesPreview(term);return r?r.url:null};
@@ -880,35 +891,70 @@
       }
     };
 
-    // Un único temporizador controla siempre el fragmento: al repetir se
-    // cancela el anterior, se reinicia desde 0 y se vuelve a contar secs.
+    function clearPendingPlay(){
+      if(pendingPlaying){ audio.removeEventListener('playing', pendingPlaying); pendingPlaying=null; }
+      clearTimeout(pendingTimeout); pendingTimeout=null;
+    }
+
+    // Cualquier corte (respuesta, repetición o ronda nueva) invalida la carga
+    // pendiente para que un 'playing' tardío no arranque la barra después.
     function stopClip(){
       clearTimeout(timer); timer=null;
+      playId++;
+      clearPendingPlay();
       audio.pause();
       $('vinyl').classList.remove('spin');
       $('prog').style.transition="none"; // congela la barra donde esté
     }
 
+    // La barra y los 5 s no empiezan al llamar a play(), sino cuando el evento
+    // 'playing' confirma que el navegador ya está emitiendo audio (en iPhone
+    // puede haber varios segundos de descarga/decodificación). Mientras tanto
+    // la barra queda llena pero detenida y se avisa al usuario.
     function playClip(){
-      clearTimeout(timer);
-      audio.currentTime=0;
-      audio.play().catch(()=>{});
-      $('vinyl').classList.add('spin');
+      stopClip();
+      const id=playId;
       const bar=$('prog');
       bar.style.transition="none"; bar.style.width="100%";
-      void bar.offsetWidth; // fuerza reflow para reiniciar la animación
-      bar.style.transition=`width ${secs}s linear`;
-      bar.style.width="0%";
-      timer=setTimeout(stopClip, secs*1000);
+      $('vinyl').classList.remove('spin');
+      if(!answered) $('msg').textContent="Cargando audio…";
+      try{ audio.currentTime=0; }catch(e){}
+
+      const fail=()=>{
+        if(timer || id!==playId || answered) return;
+        clearPendingPlay();
+        $('vinyl').classList.remove('spin');
+        if(!answered) $('msg').textContent="No he podido reproducir el fragmento. Pulsa el disco para intentarlo otra vez.";
+      };
+      pendingPlaying=()=>{
+        if(id!==playId || answered) return;
+        clearPendingPlay();
+        // startT marca el primer sonido real de la ronda. Al repetir se
+        // reinicia la escucha, pero no el bonus de rapidez.
+        if(!audioStarted){ startT=Date.now(); audioStarted=true; }
+        $('vinyl').classList.add('spin');
+        if(!answered) $('msg').textContent="";
+        bar.style.transition="none"; bar.style.width="100%";
+        void bar.offsetWidth; // fuerza reflow para reiniciar la animación
+        bar.style.transition=`width ${secs}s linear`;
+        bar.style.width="0%";
+        timer=setTimeout(stopClip, secs*1000);
+      };
+      audio.addEventListener('playing', pendingPlaying);
+      pendingTimeout=setTimeout(fail, 8000);
+      try{
+        const p=audio.play();
+        if(p&&p.catch) p.catch(fail);
+      }catch(e){ fail(); }
     }
 
     function loadRound(){
       answered=false; $('next').classList.add('reservado'); $('msg').textContent="";
       $('rnd').textContent=r+1;
+      audioStarted=false; startT=0;
       const cur=rounds[r];
       audio.src=cur.url;
       playClip();
-      startT=Date.now();
 
       // Opciones: 1 correcta + 3 aleatorias
       const wrongPool=FILMS.map(x=>x[0]).filter(x=>x!==cur.title);
@@ -927,8 +973,9 @@
     function answer(chosen, c, btnEl){
       if(answered) return; answered=true;
       stopClip();
-      // Milisegundos enteros: el servidor aplica la MISMA fórmula con este
-      // valor, así puntos mostrados y puntos validados no pueden divergir.
+      // Milisegundos enteros desde el primer 'playing' real de la ronda. Si se
+      // responde antes de que suene el audio, startT sigue a 0 y no hay bonus
+      // de rapidez. El servidor aplica la MISMA fórmula (least(ms,5000)).
       const ms=Math.round(Date.now()-startT);
       const ok=(chosen===c);
       let pts=0;
