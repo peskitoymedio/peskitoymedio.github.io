@@ -104,6 +104,7 @@
     .info .pista { display: block; font-size: .82rem; opacity: .75; overflow-wrap: anywhere; }
     .acciones { display: flex; flex-wrap: wrap; gap: 8px; justify-content: flex-end; }
     .acciones button { white-space: nowrap; font-size: .82rem; padding: 8px 10px; }
+    .acciones .guardado { background: transparent; color: var(--lab-cream); border-color: rgba(255, 255, 255, .35); }
     .acciones .probar { background: transparent; color: var(--lab-yellow); border-color: var(--lab-yellow); }
     .editor {
       grid-column: 2 / -1;
@@ -142,7 +143,7 @@
   <main class="lab">
     <header class="lab-header">
       <h1>Laboratorio de BSOs</h1>
-      <p>Herramienta interna para revisar el banco de películas del juego y sus previews.</p>
+      <p>Herramienta interna para revisar el banco de películas del juego y sus previews. Cada fila tiene un botón para buscar en directo y otro para escuchar el preview guardado en el catálogo.</p>
     </header>
 
     <p class="aviso"><strong>Uso privado:</strong> esta página no está enlazada desde el sitio y está excluida de robots.txt y de los buscadores mediante <code>noindex</code>.</p>
@@ -229,7 +230,11 @@
         $('barra').style.width = '0%';
         $('panel').hidden = true;
         if (activo) { activo.closest('li').classList.remove('activo'); activo = null; }
-        if (ultimoBoton) { ultimoBoton.textContent = '▶ Comprobar y escuchar'; ultimoBoton = null; }
+        if (ultimoBoton) {
+          ultimoBoton.textContent = ultimoBoton.dataset.label || '▶ Comprobar y escuchar';
+          ultimoBoton.disabled = false;
+          ultimoBoton = null;
+        }
       }
 
       // Invalida cualquier reproducción en curso sin dejar el id anterior activo.
@@ -240,9 +245,9 @@
         return id;
       }
 
-      async function reproducir(p, r, id) {
+      async function reproducir(p, r, id, origen) {
         $('panel-titulo').textContent = p.titulo;
-        $('panel-pista').textContent = detalles(r);
+        $('panel-pista').textContent = (origen ? '[' + origen + '] ' : '') + detalles(r);
         $('panel').hidden = false;
         audio.src = r.url;
         audio.currentTime = 0;
@@ -264,27 +269,39 @@
         return true;
       }
 
-      async function comprobarYEscuchar(p, boton) {
+      async function escuchar(p, boton, promesa, origen, busy, vacio) {
         if (activo === boton) { parar(); return; }
         const id = nuevoId();
         boton.disabled = true;
         const etiqueta = boton.closest('li').querySelector('.pista');
-        etiqueta.textContent = 'Buscando en iTunes…';
+        etiqueta.textContent = busy;
 
-        let r;
-        try { r = await obtener(p); }
-        catch (e) { r = null; }
-        if (id !== idRepro) return; // otra reproducción ocupó su lugar
+        let r = null;
+        try { r = await promesa; } catch (e) { r = null; }
         boton.disabled = false;
-        etiqueta.textContent = textoPista(p);
-        if (!r) { etiqueta.textContent = '✗ Sin preview disponible en iTunes'; return; }
-        if (!(await reproducir(p, r, id)) || id !== idRepro) return;
+        if (id !== idRepro) return; // otra reproducción ocupó su lugar
+
+        etiqueta.textContent = origen === 'guardado' && r
+          ? '♪ Guardado: ' + detalles(r)
+          : textoPista(p);
+        if (!r) { etiqueta.textContent = vacio; return; }
+        if (!(await reproducir(p, r, id, origen)) || id !== idRepro) return;
 
         boton.textContent = '⏸ Detener';
         boton.closest('li').classList.add('activo');
         activo = boton;
         ultimoBoton = boton;
       }
+
+      const comprobarYEscuchar = (p, boton) => escuchar(
+        p, boton, obtener(p), 'búsqueda actual',
+        'Buscando en iTunes…', '✗ Sin preview disponible en iTunes'
+      );
+
+      const escucharGuardado = (p, boton) => escuchar(
+        p, boton, window.itunesPreviewGuardado(p.consulta), 'guardado',
+        'Leyendo catálogo…', '✗ No hay preview guardado para esta consulta'
+      );
 
       function abrirEditor(p, li, boton, enfocar) {
         const previo = li.querySelector('.editor');
@@ -402,8 +419,17 @@
           const boton = document.createElement('button');
           boton.type = 'button';
           boton.textContent = '▶ Comprobar y escuchar';
-          boton.setAttribute('aria-label', 'Comprobar y escuchar ' + p.titulo);
+          boton.dataset.label = '▶ Comprobar y escuchar';
+          boton.setAttribute('aria-label', 'Buscar y escuchar ' + p.titulo);
           boton.addEventListener('click', () => comprobarYEscuchar(p, boton));
+
+          const botonGuardado = document.createElement('button');
+          botonGuardado.type = 'button';
+          botonGuardado.className = 'guardado';
+          botonGuardado.textContent = '♪ Guardado';
+          botonGuardado.dataset.label = '♪ Guardado';
+          botonGuardado.setAttribute('aria-label', 'Escuchar el preview guardado de ' + p.titulo);
+          botonGuardado.addEventListener('click', () => escucharGuardado(p, botonGuardado));
 
           const botonProbar = document.createElement('button');
           botonProbar.type = 'button';
@@ -412,7 +438,7 @@
           botonProbar.setAttribute('aria-label', 'Probar otra descripción para ' + p.titulo);
           botonProbar.addEventListener('click', () => abrirEditor(p, li, botonProbar));
 
-          acciones.append(boton, botonProbar);
+          acciones.append(boton, botonGuardado, botonProbar);
           li.append(num, info, acciones);
           if (editores.has(p.consulta)) abrirEditor(p, li, botonProbar, false);
           frag.appendChild(li);

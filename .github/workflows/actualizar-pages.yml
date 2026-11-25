@@ -55,7 +55,6 @@ jobs:
           PY
 
       - name: Configurar Python
-        if: github.event_name != 'push'
         uses: actions/setup-python@v6
         with:
           python-version: "3.12"
@@ -63,6 +62,13 @@ jobs:
       - name: Instalar Pillow para optimizar portadas
         if: github.event_name != 'push'
         run: python -m pip install --upgrade Pillow
+
+      - name: Actualizar previews de Apple para el juego de BSOs
+        # En cada push se comprueba si alguna consulta de peliculas.js cambió;
+        # en programación, solo una vez al día para no agotar el límite de Apple.
+        if: github.event_name == 'push' || github.event_name == 'workflow_dispatch' || github.event.schedule == '17 6 * * *'
+        continue-on-error: true
+        run: python3 juegos/juegobsos/generar-previews.py
 
       - name: Buscar episodios nuevos en iVoox
         if: github.event_name != 'push'
@@ -73,12 +79,26 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add js/episodes.js img/episodes img/chapters feed.xml episodes-raw.json sitemap.xml episodios util/pre-feedburner.xml
+          git add js/episodes.js img/episodes img/chapters feed.xml episodes-raw.json sitemap.xml episodios util/pre-feedburner.xml juegos/juegobsos/previews.js
           git add transcripciones 2>/dev/null || true
           if git diff --cached --quiet; then
             echo "No hay episodios nuevos. No se crea commit."
           else
             git commit -m "Actualiza episodios desde el feed de iVoox"
+            git pull --rebase origin "${GITHUB_REF_NAME}"
+            git push origin HEAD:"${GITHUB_REF_NAME}"
+          fi
+
+      - name: Guardar previews regenerados tras el push
+        if: github.event_name == 'push'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add juegos/juegobsos/previews.js
+          if git diff --cached --quiet; then
+            echo "Las consultas no han cambiado. No se crea commit."
+          else
+            git commit -m "Actualiza previews de BSOs [skip ci]"
             git pull --rebase origin "${GITHUB_REF_NAME}"
             git push origin HEAD:"${GITHUB_REF_NAME}"
           fi

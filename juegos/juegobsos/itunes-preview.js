@@ -5,16 +5,42 @@
  * parámetros (media=music, entity=song, limit=5, country=ES) y mismo criterio
  * de selección (primer resultado con previewUrl).
  *
- * Se usa JSONP en lugar de fetch() para que funcione también con file://.
+ * En iOS Apple redirige itunes.apple.com/search a musics://..., así que el
+ * navegador del iPhone no puede consultar la API en directo. El catálogo
+ * pregenerado en previews.js (ver generar-previews.py) resuelve las búsquedas
+ * del banco de películas sin salir de la web. Solo si no está en el catálogo
+ * se usa la búsqueda JSONP original, que sigue sirviendo para el laboratorio
+ * con textos nuevos y para abrir el juego desde file:// sin el catálogo.
  */
 (function (w) {
   'use strict';
 
-  w.itunesPreview = function (term) {
+  var catalogo = null;
+  var catalogoPromise = null;
+
+  function cargarCatalogo() {
+    if (catalogo) return Promise.resolve(catalogo);
+    if (!catalogoPromise) {
+      catalogoPromise = new Promise(function (resolve) {
+        var s = document.createElement('script');
+        s.src = 'previews.js';
+        s.onload = function () {
+          var datos = w.APPLE_PREVIEWS;
+          catalogo = (datos && datos.previews) || null;
+          resolve(catalogo);
+        };
+        s.onerror = function () { resolve(null); };
+        document.head.appendChild(s);
+      });
+    }
+    return catalogoPromise;
+  }
+
+  function buscarJSONP(term) {
     return new Promise(function (resolve) {
-      const cb = 'cb' + Math.random().toString(36).slice(2);
-      const s = document.createElement('script');
-      const t = setTimeout(function () { resolve(null); cleanup(); }, 8000);
+      var cb = 'cb' + Math.random().toString(36).slice(2);
+      var s = document.createElement('script');
+      var t = setTimeout(function () { resolve(null); cleanup(); }, 8000);
 
       function cleanup() {
         delete w[cb];
@@ -23,8 +49,8 @@
       }
 
       w[cb] = function (d) {
-        const results = (d && d.results) || [];
-        const x = results.find(function (z) { return z.previewUrl; });
+        var results = (d && d.results) || [];
+        var x = results.find(function (z) { return z.previewUrl; });
         cleanup();
         resolve(x ? {
           url: x.previewUrl,
@@ -38,6 +64,20 @@
         cb + '&term=' + encodeURIComponent(term);
       s.onerror = function () { cleanup(); resolve(null); };
       document.body.appendChild(s);
+    });
+  }
+
+  w.itunesPreview = function (term) {
+    return cargarCatalogo().then(function (cat) {
+      if (cat && cat[term]) return cat[term];
+      return buscarJSONP(term);
+    });
+  };
+
+  // Devuelve el preview ya guardado en previews.js, sin buscar en iTunes.
+  w.itunesPreviewGuardado = function (term) {
+    return cargarCatalogo().then(function (cat) {
+      return (cat && cat[term]) || null;
     });
   };
 })(window);

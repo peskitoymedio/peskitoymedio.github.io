@@ -3,6 +3,11 @@
  * Editar aquí las películas y sus términos de búsqueda en iTunes.
  * Formato JS (en vez de JSON) para que funcione también abriendo el juego
  * desde el filesystem (file://), donde fetch() de un .json queda bloqueado.
+ * La clave de cada entrada de previews.js es la consulta que la generó. Si
+ * cambias una consulta aquí, el workflow (o generar-previews.py sin argumentos)
+ * la detecta y la regenera. Para corregir una pista sin cambiar la consulta:
+ *   python3 generar-previews.py --term "texto de la consulta"
+ * Para regenerar todas: --forzar.
  */
 window.PELICULAS_BSO = [
   {
@@ -190,7 +195,7 @@ window.PELICULAS_BSO = [
     "consulta": "Close Encounters of the Third Kind Main Theme John Williams"
   },
   {
-    "titulo": "Hombres de negro",
+    "titulo": "Men in Black",
     "consulta": "Men in Black Main Theme Danny Elfman"
   },
   {
@@ -379,7 +384,7 @@ window.PELICULAS_BSO = [
   },
   {
     "titulo": "La jungla de cristal",
-    "consulta": "Die Hard Nakatomi Plaza Score"
+    "consulta": "Tagaki Dies (From Die Hard)"
   },
   {
     "titulo": "Arma letal",
@@ -419,7 +424,7 @@ window.PELICULAS_BSO = [
   },
   {
     "titulo": "Solo en casa 2",
-    "consulta": "Finale Home Alone 2 John Williams"
+    "consulta": "Home Alone 2 John Williams"
   },
   {
     "titulo": "Karate Kid",
