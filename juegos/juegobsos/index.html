@@ -1097,23 +1097,31 @@
       const hitsX=Math.max(500,scoreEnd+24);
 
       // Puestos del ranking: solo se dibujan si la partida ha mejorado.
+      // Se reduce la letra hasta que caben las tres píldoras.
       let centroFila=null;
       if(cardMeta && cardMeta.posiciones && cardMeta.posiciones.length){
-        ctx.fillStyle="#AFC3D6"; ctx.font="800 22px 'Outfit', sans-serif";
-        ctx.fillText("Puestos",hitsX,279);
-        let px=hitsX+ctx.measureText("Puestos").width+6;
+        let pf=22, etiquetaW, anchos, total;
+        const textos=cardMeta.posiciones.map(p=>p.nombre+" "+(p.puesto?"#"+p.puesto:"—"));
+        for(;;){
+          ctx.font="800 "+pf+"px 'Outfit', sans-serif";
+          etiquetaW=ctx.measureText("Puestos").width;
+          anchos=textos.map(t=>ctx.measureText(t).width+16);
+          total=etiquetaW+6+anchos.reduce((s,w)=>s+w+4,0)-4;
+          if(hitsX+total<=1000||pf<=14) break;
+          pf-=2;
+        }
+        ctx.fillStyle="#AFC3D6"; ctx.fillText("Puestos",hitsX,279);
+        let px=hitsX+etiquetaW+6;
         ctx.textAlign="center";
-        cardMeta.posiciones.forEach(p=>{
-          const texto=p.nombre+" "+(p.puesto?"#"+p.puesto:"—");
-          ctx.font="800 22px 'Outfit', sans-serif";
-          const w=ctx.measureText(texto).width+16;
-          if(px+w>1000) return;
+        anchos.forEach((w,i)=>{
+          const p=cardMeta.posiciones[i];
+          ctx.font="800 "+pf+"px 'Outfit', sans-serif";
           ctx.fillStyle=p.puesto===1?"rgba(255,197,49,0.22)":"rgba(61,185,192,0.14)";
           roundRect(ctx,px,250,w,42,21); ctx.fill();
           ctx.strokeStyle=p.puesto===1?"rgba(255,197,49,0.75)":"rgba(61,185,192,0.5)";
           ctx.lineWidth=2; ctx.stroke();
           ctx.fillStyle=p.puesto===1?"#FFC531":"#3DB9C0";
-          ctx.fillText(texto,px+w/2,279);
+          ctx.fillText(textos[i],px+w/2,279);
           px+=w+4;
         });
         ctx.textAlign="left";

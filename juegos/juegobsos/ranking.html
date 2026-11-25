@@ -655,24 +655,35 @@
         const hx = Math.max(500, 76 + ctx.measureText(pts).width + 24);
 
         // Puestos en los tres rankings, arriba del todo del bloque para dejar
-        // aire con el recuadro de aciertos.
+        // aire con el recuadro de aciertos. Se ajusta la letra para que quepan
+        // las tres píldoras; antes la tercera se descartaba sin avisar.
         let centroFila = null;
         if (d.posiciones && d.posiciones.length) {
-          ctx.fillStyle = "#AFC3D6"; ctx.font = "800 22px 'Outfit', sans-serif";
+          let pf = 22, etiquetaW, anchos, total;
+          const textos = d.posiciones.map(p =>
+            p.nombre + " " + (p.puesto ? "#" + p.puesto : "—")
+          );
+          for (;;) {
+            ctx.font = "800 " + pf + "px 'Outfit', sans-serif";
+            etiquetaW = ctx.measureText("Puestos").width;
+            anchos = textos.map(t => ctx.measureText(t).width + 16);
+            total = etiquetaW + 6 + anchos.reduce((s, w) => s + w + 4, 0) - 4;
+            if (hx + total <= 1000 || pf <= 14) break;
+            pf -= 2;
+          }
+          ctx.fillStyle = "#AFC3D6";
           ctx.fillText("Puestos", hx, 299);
-          let px = hx + ctx.measureText("Puestos").width + 6;
+          let px = hx + etiquetaW + 6;
           ctx.textAlign = "center";
-          d.posiciones.forEach(p => {
-            const texto = p.nombre + " " + (p.puesto ? "#" + p.puesto : "—");
-            ctx.font = "800 22px 'Outfit', sans-serif";
-            const w = ctx.measureText(texto).width + 16;
-            if (px + w > 1000) return;
+          anchos.forEach((w, i) => {
+            const p = d.posiciones[i];
+            ctx.font = "800 " + pf + "px 'Outfit', sans-serif";
             ctx.fillStyle = p.puesto === 1 ? "rgba(255,197,49,0.22)" : "rgba(61,185,192,0.14)";
             rr(ctx, px, 270, w, 42, 21); ctx.fill();
             ctx.strokeStyle = p.puesto === 1 ? "rgba(255,197,49,0.75)" : "rgba(61,185,192,0.5)";
             ctx.lineWidth = 2; ctx.stroke();
             ctx.fillStyle = p.puesto === 1 ? "#FFC531" : "#3DB9C0";
-            ctx.fillText(texto, px + w / 2, 299);
+            ctx.fillText(textos[i], px + w / 2, 299);
             px += w + 4;
           });
           ctx.textAlign = "left";
