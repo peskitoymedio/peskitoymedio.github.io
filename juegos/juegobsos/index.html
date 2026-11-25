@@ -642,7 +642,7 @@
           <a class="btn-game alt" href="./ranking.html"><i class="fa-solid fa-trophy" aria-hidden="true"></i> Ver ranking</a>
         </div>
         <p class="msg" id="loadmsg"></p>
-        <small><strong>Cómo se puntúa:</strong> cada acierto vale 100 puntos, más hasta 50 extra si respondes rápido (máximo 1500). El audio son previews enlazados desde la API pública de iTunes / Apple Music. Peskito no almacena ningún archivo en el servidor.</small>
+        <small><strong>Cómo se puntúa:</strong> cada acierto vale 100 puntos, más hasta 50 extra si respondes rápido (máximo 1500). El audio son previews de la API pública de iTunes / Apple Music, preparados en la propia web para que también funcionen en iPhone. Peskito no almacena ningún archivo de audio en el servidor.</small>
       </section>
 
       <!-- JUEGO -->
@@ -805,7 +805,17 @@
       document.head.appendChild(localScript);
     }else setCardImages();
     if(document.fonts) document.fonts.ready.then(redrawCard);
-    const audio=new Audio(); audio.crossOrigin="anonymous"; audio.preload="auto";
+    const audio=new Audio(); audio.preload="auto"; audio.setAttribute('playsinline','');
+    // iOS solo permite reproducir audio dentro de un gesto del usuario. Este WAV
+    // silencioso de 10 ms se reproduce en el primer tap y desbloquea el elemento
+    // para que playClip() pueda arrancar las pistas después de la carga.
+    const SILENT_WAV="data:audio/wav;base64,UklGRsQAAABXQVZFZm10IBAAAAABAAEAQB8AAIA+AAACABAAZGF0YaAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
+    let audioUnlocked=false;
+    function unlockAudio(){
+      if(audioUnlocked) return;
+      audioUnlocked=true;
+      try{ audio.src=SILENT_WAV; const p=audio.play(); if(p&&p.catch) p.catch(()=>{}); }catch(e){}
+    }
     // Modo único: 5 segundos de escucha por pista.
     let rounds=[],r=0,score=0,secs=5,startT=0,timer=null,answered=false,results=[];
 
@@ -814,15 +824,16 @@
     const shuffle=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.random()*(i+1)|0;[a[i],a[j]]=[a[j],a[i]]}return a};
 
     $('go').onclick=async()=>{
+      unlockAudio(); // debe ejecutarse dentro del tap, antes de cualquier await
       // Token de un solo uso: se pide al empezar, mientras se cargan las pistas.
       if(window.PYMRanking && window.PYMRanking.configurado) window.PYMRanking.iniciarToken();
-      $('go').disabled=true; $('loadmsg').textContent="Buscando bandas sonoras en iTunes…";
+      $('go').disabled=true; $('loadmsg').textContent="Preparando bandas sonoras…";
       const pool=shuffle(FILMS); rounds=[];
       for(const f of pool){ if(rounds.length>=10)break;
         const url=await itunes(f[1]); if(url) rounds.push({title:f[0],url});
         $('loadmsg').textContent=`Cargando bandas sonoras… ${rounds.length}/10`; }
       $('go').disabled=false;
-      if(rounds.length<4){$('loadmsg').textContent="No he podido conectar con el servidor de audio. Revisa la conexión e inténtalo otra vez.";return}
+      if(rounds.length<4){$('loadmsg').textContent="No he podido cargar suficientes bandas sonoras. Revisa la conexión e inténtalo otra vez.";return}
       r=0;score=0;results=[];$('pts').textContent=0;
       $('start').classList.add('hidden'); $('game').classList.remove('hidden');
       loadRound();
