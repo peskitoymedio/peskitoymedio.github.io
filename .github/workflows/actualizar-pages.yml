@@ -106,7 +106,7 @@ jobs:
       - name: Preparar el sitio estático
         run: |
           mkdir -p _site
-          cp -r index.html css js img episodios juegos _site/
+          cp -r index.html css js img episodios juegos manifest.webmanifest icons _site/
           mkdir -p _site/transcripciones
           cp transcripciones/*.srt _site/transcripciones/ 2>/dev/null || true
           mkdir -p _site/util

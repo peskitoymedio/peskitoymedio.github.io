@@ -1,0 +1,33 @@
+{
+  "name": "¡Adivina la BSO! · Peskito y Medio",
+  "short_name": "BSO Peskito",
+  "description": "Juego de bandas sonoras de Peskito y Medio. Escucha fragmentos y adivina la película.",
+  "lang": "es",
+  "start_url": "/juegos/juegobsos/",
+  "scope": "/juegos/juegobsos/",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#0B1B2D",
+  "theme_color": "#0B1B2D",
+  "categories": ["games", "entertainment"],
+  "icons": [
+    {
+      "src": "/icons/bso-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icons/bso-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icons/bso-512-maskable.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}
