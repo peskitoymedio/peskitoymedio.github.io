@@ -510,6 +510,9 @@
         height: 100dvh;
         overflow-y: auto;
         padding-top: 0;
+        /* Evita que Chrome reajuste el scroll después de ocultar #start y
+           mostrar #game (se notaba sobre todo en la PWA instalada). */
+        overflow-anchor: none;
       }
       .game-hero {
         padding: 16px 0 10px;
@@ -839,18 +842,27 @@
       r=0;score=0;results=[];$('pts').textContent=0;
       $('start').classList.add('hidden'); $('game').classList.remove('hidden');
       loadRound();
-      // En móvil, llevar el foco al section de juego para no tener que hacer scroll
-      setTimeout(() => {
+      // En móvil, dejar #game arriba del contenedor con scroll. Se calcula
+      // después de que las fuentes estén listas y con scroll-behavior auto:
+      // así el layout ya es definitivo y Chrome no reajusta el scroll después.
+      const subirGame = () => {
         const main = document.querySelector('main#main');
         const game = $('game');
-        if (main && game) {
-          // Posición de #game relativa a main#main (fiable en contenedores con overflow)
-          const offset = game.getBoundingClientRect().top - main.getBoundingClientRect().top + main.scrollTop;
+        if (!main || !game) return;
+        const anterior = main.style.scrollBehavior;
+        main.style.scrollBehavior = 'auto';
+        const offset = game.getBoundingClientRect().top - main.getBoundingClientRect().top + main.scrollTop;
+        main.scrollTop = offset;
+        requestAnimationFrame(() => {
           main.scrollTop = offset;
-          void main.offsetHeight;
-          main.scrollTop = offset;
-        }
-      }, 100);
+          main.style.scrollBehavior = anterior;
+        });
+      };
+      if (document.fonts && document.fonts.ready) {
+        document.fonts.ready.then(() => requestAnimationFrame(subirGame));
+      } else {
+        requestAnimationFrame(subirGame);
+      }
     };
 
     // Un único temporizador controla siempre el fragmento: al repetir se
