@@ -20,7 +20,8 @@ Qué hace:
   - Añade los episodios y regenera js/episodes.js.
   - Genera una página HTML por episodio en episodios/ con datos estructurados
     PodcastEpisode, además del archivo completo en episodios/index.html.
-  - Sincroniza sitemap.xml con la portada, el archivo, el juego de BSOs y todas las páginas.
+  - Sincroniza sitemap.xml con la portada, el archivo, el juego de BSOs y todas las páginas,
+    usando la fecha real del último cambio de cada archivo como lastmod.
   - Comprueba que el juego de BSOs (HTML y og-image.png) sigue presente y lo
     incluye en la navegación generada de las fichas de episodio.
   - Genera en index.html un bloque de episodios en HTML estático (rastreable sin JS).
@@ -1455,23 +1456,48 @@ def latest_episode_date(episodes: list[dict]) -> str:
     return max(dates) if dates else ""
 
 
+def file_lastmod(path: Path, changed: bool = False) -> str:
+    """Fecha ISO del último cambio real del archivo.
+
+    En GitHub Actions, ``actions/checkout`` asigna la hora del checkout a todos
+    los ficheros, así que el ``mtime`` no es fiable: se prefiere la fecha del
+    último commit que modificó el archivo. Si el propio script acaba de
+    reescribirlo, se usa la fecha de hoy.
+    """
+    if changed:
+        return date.today().isoformat()
+    try:
+        relative = path.relative_to(ROOT).as_posix()
+        result = subprocess.run(
+            ["git", "log", "-1", "--format=%cs", "--", relative],
+            cwd=ROOT,
+            capture_output=True,
+            text=True,
+            check=True,
+            timeout=10,
+        )
+        committed = result.stdout.strip()
+        if re.fullmatch(r"\d{4}-\d{2}-\d{2}", committed):
+            return committed
+    except (OSError, subprocess.SubprocessError):
+        pass
+    try:
+        return date.fromtimestamp(path.stat().st_mtime).isoformat()
+    except OSError:
+        return ""
+
+
 def game_lastmod() -> str:
     """Fecha de modificación del juego (HTML + imagen OG) para el sitemap."""
-    dates = []
-    for name in ("index.html", "og-image.png"):
-        try:
-            dates.append(date.fromtimestamp((GAME_BSOS_DIR / name).stat().st_mtime).isoformat())
-        except OSError:
-            continue
-    return max(dates) if dates else ""
+    return max(
+        (file_lastmod(GAME_BSOS_DIR / name) for name in ("index.html", "og-image.png")),
+        default="",
+    )
 
 
 def ranking_lastmod() -> str:
     """Fecha de modificación de la página del ranking para el sitemap."""
-    try:
-        return date.fromtimestamp((GAME_BSOS_DIR / "ranking.html").stat().st_mtime).isoformat()
-    except OSError:
-        return ""
+    return file_lastmod(GAME_BSOS_DIR / "ranking.html")
 
 
 def check_game_assets() -> None:
@@ -1482,11 +1508,16 @@ def check_game_assets() -> None:
             print("AVISO: falta el archivo del juego de BSOs: " + path.relative_to(ROOT).as_posix())
 
 
-def build_sitemap(episodes: list[dict], lastmod: str) -> str:
+def build_sitemap(
+    episodes: list[dict],
+    lastmod: str,
+    changed_urls: set[str] | None = None,
+) -> str:
     lines = [
         '<?xml version="1.0" encoding="UTF-8"?>',
         '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">',
     ]
+    changed_urls = changed_urls or set()
 
     def add(location: str, modified: str, changefreq: str, priority: str) -> None:
         lines.extend(
@@ -1500,8 +1531,16 @@ def build_sitemap(episodes: list[dict], lastmod: str) -> str:
             ]
         )
 
-    add(SITE_URL, lastmod, "weekly", "1.0")
-    add(SITE_URL + "episodios/", lastmod, "weekly", "0.8")
+    def modified(path: Path, url: str, fallback: str = "") -> str:
+        return file_lastmod(path, url in changed_urls) or fallback or lastmod
+
+    add(SITE_URL, modified(INDEX_HTML, SITE_URL), "weekly", "1.0")
+    add(
+        SITE_URL + "episodios/",
+        modified(EPISODES_DIR / "index.html", SITE_URL + "episodios/"),
+        "weekly",
+        "0.8",
+    )
     if GAME_BSOS_DIR.is_dir():
         add(GAME_BSOS_URL, game_lastmod() or lastmod, "monthly", "0.7")
         if (GAME_BSOS_DIR / "ranking.html").is_file():
@@ -1509,9 +1548,10 @@ def build_sitemap(episodes: list[dict], lastmod: str) -> str:
     for episode in episodes:
         if not episode.get("slug"):
             continue
+        url = episode_url(episode)
         add(
-            episode_url(episode),
-            episode.get("date") or lastmod,
+            url,
+            modified(episode_path(episode), url, episode.get("date") or ""),
             "monthly",
             "0.6",
         )
@@ -1520,12 +1560,16 @@ def build_sitemap(episodes: list[dict], lastmod: str) -> str:
     return "\n".join(lines) + "\n"
 
 
-def sync_sitemap(episodes: list[dict], dry_run: bool = False) -> None:
+def sync_sitemap(
+    episodes: list[dict],
+    changed_urls: set[str] | None = None,
+    dry_run: bool = False,
+) -> None:
     lastmod = latest_episode_date(episodes)
     if not lastmod:
         return
 
-    new = build_sitemap(episodes, lastmod)
+    new = build_sitemap(episodes, lastmod, changed_urls)
     old = SITEMAP_XML.read_text(encoding="utf-8") if SITEMAP_XML.exists() else ""
 
     if new == old:
@@ -2949,7 +2993,7 @@ def main() -> int:
         changed_urls: set[str] = set()
         generate_site(existing, args.dry_run, changed_urls)
         sync_homepage(existing, args.dry_run, changed_urls)
-        sync_sitemap(existing, args.dry_run)
+        sync_sitemap(existing, changed_urls, args.dry_run)
         if not args.no_indexnow:
             notify_indexnow(sorted(changed_urls), args.dry_run)
         print("Todo al día: no hay episodios nuevos en el feed.")
@@ -3030,10 +3074,10 @@ def main() -> int:
     if chapter_images:
         print("Imágenes de capítulos descargadas: " + str(chapter_images))
 
-    sync_sitemap(merged, args.dry_run)
     changed_urls: set[str] = set()
     generate_site(merged, args.dry_run, changed_urls)
     sync_homepage(merged, args.dry_run, changed_urls)
+    sync_sitemap(merged, changed_urls, args.dry_run)
     if not args.no_indexnow:
         notify_indexnow(sorted(changed_urls), args.dry_run)
 
