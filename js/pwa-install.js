@@ -9,9 +9,10 @@
   'use strict';
 
   var CLAVE_RECHAZO = 'pym-bso-install-rechazado';
-  var DIAS_RECHAZO = 30;
+  var DIAS_RECHAZO = 3;
   var deferred = null;
   var banner = null;
+  var enlace = null;
 
   function yaInstalada() {
     var mq = window.matchMedia;
@@ -59,6 +60,14 @@
         'background:transparent;color:#fff6e9;border:2px solid rgba(255,246,233,.45);' +
         'font:700 1.1rem/1 system-ui,sans-serif;cursor:pointer;' +
       '}' +
+      '.pwa-install-link{' +
+        'display:inline-block;margin:10px 0 2px;padding:0;' +
+        'font:600 .82rem/1.3 system-ui,-apple-system,Segoe UI,sans-serif;' +
+        'color:#0B1B2D;background:none;border:0;cursor:pointer;opacity:.78;' +
+        'text-decoration:underline;text-decoration-style:dotted;text-underline-offset:3px;' +
+      '}' +
+      '.pwa-install-link:hover,.pwa-install-link:focus-visible{opacity:1;}' +
+      '.pwa-install-link[hidden]{display:none;}' +
       '@media (max-width:760px){' +
         '.pwa-install{bottom:56px;}' + /* por encima del enlace fijo "Volver" */
         'body.jugando .pwa-install{display:none!important;}' +
@@ -73,9 +82,27 @@
     }
   }
 
+  function actualizarEnlace() {
+    if (!enlace) return;
+    enlace.hidden = !deferred || yaInstalada();
+  }
+
+  function lanzarPrompt(registrarRechazo) {
+    if (!deferred) return;
+    var actual = deferred;
+    deferred = null;
+    ocultar();
+    actualizarEnlace();
+    try { actual.prompt(); } catch (e) { return; }
+    actual.userChoice.then(function (choice) {
+      if ((!choice || choice.outcome !== 'accepted') && registrarRechazo) recordarRechazo();
+      ocultar();
+      actualizarEnlace();
+    });
+  }
+
   function crear() {
     if (banner || yaInstalada() || rechazadaRecientemente() || !deferred) return;
-    inyectarEstilos();
 
     banner = document.createElement('aside');
     banner.className = 'pwa-install';
@@ -88,20 +115,14 @@
     document.body.appendChild(banner);
 
     banner.querySelector('.pwa-install__btn').addEventListener('click', function () {
-      if (!deferred) return;
-      var actual = deferred;
-      deferred = null;
-      try { actual.prompt(); } catch (e) { ocultar(); return; }
-      actual.userChoice.then(function (choice) {
-        if (!choice || choice.outcome !== 'accepted') recordarRechazo();
-        ocultar();
-      });
+      lanzarPrompt(true);
     });
 
     banner.querySelector('.pwa-install__cerrar').addEventListener('click', function () {
       recordarRechazo();
       deferred = null;
       ocultar();
+      actualizarEnlace();
     });
   }
 
@@ -110,12 +131,24 @@
     e.preventDefault();
     deferred = e;
     crear();
+    actualizarEnlace();
   });
 
   window.addEventListener('appinstalled', function () {
     deferred = null;
     ocultar();
+    actualizarEnlace();
   });
+
+  inyectarEstilos();
+  enlace = document.querySelector('.pwa-install-link');
+  if (enlace) {
+    enlace.addEventListener('click', function (e) {
+      e.preventDefault();
+      // Ignora el rechazo del aviso: quien pulsa aquí lo hace a propósito.
+      lanzarPrompt(false);
+    });
+  }
 
   // Si el evento llegó antes de que se cargara este script.
   if (yaInstalada()) ocultar();
