@@ -324,6 +324,8 @@ $$;
 drop function if exists public.registrar_puntuacion(text, text, integer, integer);
 drop function if exists public.registrar_puntuacion(text, text, integer, integer, text);
 drop function if exists public.ranking(text);
+drop function if exists public.puesto_de(text);
+drop function if exists public.puesto_de(text, text);
 drop function if exists public.total_partidas();
 
 -- Ranking por periodo. Se queda con la MEJOR partida de cada alias, no con
@@ -384,6 +386,71 @@ as $$
   limit 50;
 $$;
 
+-- Puesto de un alias en el periodo indicado, aunque quede fuera del top 50.
+-- Devuelve las mismas columnas que ranking() para reutilizar el detalle.
+create or replace function public.puesto_de(
+  p_alias text,
+  p_periodo text default 'diario'
+)
+returns table (
+  puesto bigint,
+  alias text,
+  puntos integer,
+  aciertos integer,
+  fecha date,
+  victorias_diarias bigint,
+  victorias_semanales bigint,
+  partida_id bigint
+)
+language sql
+stable
+security definer
+set search_path = public
+as $$
+  with filtradas as (
+    select p.*
+    from public.puntuaciones p
+    where (
+            p_periodo = 'semanal'
+            and timezone('Europe/Madrid', p.creado_en) >=
+                date_trunc('week', timezone('Europe/Madrid', now()))
+          )
+       or (
+            p_periodo = 'diario'
+            and timezone('Europe/Madrid', p.creado_en) >=
+                date_trunc('day', timezone('Europe/Madrid', now()))
+          )
+       or p_periodo = 'historico'
+  ),
+  mejores as (
+    select distinct on (lower(btrim(f.alias)))
+           f.id, f.alias, f.puntos, f.aciertos, f.creado_en
+    from filtradas f
+    order by lower(btrim(f.alias)), f.puntos desc, f.creado_en asc
+  ),
+  clasificacion as (
+    select row_number() over (order by m.puntos desc, m.creado_en asc) as puesto,
+           m.id, m.alias, m.puntos, m.aciertos, m.creado_en
+    from mejores m
+  )
+  select c.puesto,
+         c.alias,
+         c.puntos,
+         c.aciertos,
+         timezone('Europe/Madrid', c.creado_en)::date as fecha,
+         (select count(*) from public.victorias v
+           where v.periodo = 'diario'
+             and lower(btrim(v.alias)) = lower(btrim(c.alias))) as victorias_diarias,
+         (select count(*) from public.victorias v
+           where v.periodo = 'semanal'
+             and lower(btrim(v.alias)) = lower(btrim(c.alias))) as victorias_semanales,
+         c.id as partida_id
+  from clasificacion c
+  where lower(btrim(c.alias)) = lower(btrim(p_alias))
+  order by c.puesto
+  limit 1;
+$$;
+
 create or replace function public.total_partidas()
 returns bigint
 language sql
@@ -433,11 +500,13 @@ revoke all on function public.emitir_token() from public;
 
 revoke all on function public.registrar_puntuacion(text, text, integer, integer, text, jsonb) from public;
 revoke all on function public.ranking(text) from public;
+revoke all on function public.puesto_de(text, text) from public;
 revoke all on function public.total_partidas() from public;
 revoke all on function public.detalles_partida(bigint) from public;
 
 grant execute on function public.emitir_token() to anon, authenticated;
 grant execute on function public.registrar_puntuacion(text, text, integer, integer, text, jsonb) to anon, authenticated;
 grant execute on function public.ranking(text) to anon, authenticated;
+grant execute on function public.puesto_de(text, text) to anon, authenticated;
 grant execute on function public.total_partidas() to anon, authenticated;
 grant execute on function public.detalles_partida(bigint) to anon, authenticated;

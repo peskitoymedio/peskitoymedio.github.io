@@ -116,6 +116,15 @@
     return rpc("ranking", { p_periodo: periodo });
   }
 
+  async function puesto(alias, periodo) {
+    if (!configurado) throw new Error("El ranking todavía no está disponible.");
+    const filas = await rpc("puesto_de", {
+      p_alias: normalizarAlias(alias),
+      p_periodo: periodo || "diario"
+    });
+    return Array.isArray(filas) && filas.length ? filas[0] : null;
+  }
+
   async function totalPartidas() {
     if (!configurado) throw new Error("El ranking todavía no está disponible.");
     return Number(await rpc("total_partidas", {})) || 0;
@@ -146,6 +155,7 @@
     iniciarToken: iniciarToken,
     enviar: enviar,
     cargar: cargar,
+    puesto: puesto,
     totalPartidas: totalPartidas,
     detalles: detalles,
     initGameForm: initGameForm

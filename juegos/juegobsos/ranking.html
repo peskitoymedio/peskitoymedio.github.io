@@ -62,6 +62,37 @@
     .tabs button.is-active { background: var(--yellow); }
     .tabs button:disabled { opacity: .5; cursor: not-allowed; transform: none; }
 
+    .buscar-form { display: flex; flex-wrap: wrap; gap: 10px; margin: 0 0 4px; }
+    .buscar-form input {
+      font: inherit; flex: 1 1 220px; min-width: 0;
+      padding: 10px 14px; border: 3px solid var(--ink); border-radius: 999px;
+      background: var(--white); color: var(--ink);
+    }
+    .buscar-form input:focus { outline: 3px solid rgba(255,197,49,.6); outline-offset: 1px; }
+    .buscar-form button {
+      font: inherit; font-weight: 800; cursor: pointer;
+      padding: 10px 20px; border-radius: 999px; border: 3px solid var(--ink);
+      background: var(--yellow); color: var(--ink); box-shadow: 3px 3px 0 var(--ink);
+    }
+    .buscar-form button:hover { background: var(--orange); }
+    .buscar-form button:disabled { opacity: .5; cursor: not-allowed; transform: none; }
+    .buscar-estado { min-height: 20px; margin: 0 0 12px; font-weight: 600; color: var(--ink-soft); }
+    .buscar-estado[hidden], .buscar-resultado[hidden] { display: none; }
+    .buscar-resultado {
+      margin: 0 0 18px; padding: 14px 16px;
+      background: rgba(61,185,192,.12); border: 2px dashed rgba(11,27,45,.28);
+      border-radius: 12px;
+    }
+    .buscar-fila { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; }
+    .buscar-puesto { font-family: var(--font-display); font-size: 1.6rem; color: var(--orange); }
+    .buscar-datos { flex: 1 1 260px; font-weight: 700; overflow-wrap: anywhere; }
+    .buscar-ver {
+      font: inherit; font-size: .85rem; font-weight: 800; cursor: pointer;
+      padding: 7px 14px; border-radius: 999px; border: 2px solid var(--ink);
+      background: var(--white); color: var(--ink);
+    }
+    .buscar-ver:hover { background: var(--yellow); }
+
     .table-wrap { overflow-x: auto; }
     table { width: 100%; border-collapse: collapse; }
     thead th {
@@ -265,6 +296,14 @@
           <button type="button" data-periodo="historico" aria-pressed="false">Histórico</button>
         </div>
 
+        <form class="buscar-form" id="buscar-form">
+          <label class="sr-only" for="buscar-alias">Buscar un alias en el ranking</label>
+          <input id="buscar-alias" type="search" maxlength="24" placeholder="Busca un alias…" autocomplete="off">
+          <button type="submit" id="buscar-puesto">Ver mi puesto</button>
+        </form>
+        <p id="buscar-estado" class="buscar-estado" role="status" aria-live="polite" hidden></p>
+        <div id="buscar-resultado" class="buscar-resultado" hidden></div>
+
         <p class="ranking-pista"><i class="fa-solid fa-hand-pointer" aria-hidden="true"></i> Toca una fila para ver las respuestas y compartir el registro.</p>
 
         <p id="estado" role="status" aria-live="polite"></p>
@@ -293,6 +332,7 @@
           de cada alias en el periodo elegido, no la suma de partidas. Si compartís
           ordenador, usad alias distintos y cada uno tendrá su propia posición.
           Pulsa sobre una fila para ver sus preguntas, tiempos y compartir el registro.
+          Si tu alias no está entre los 50 primeros, usa «Ver mi puesto» para consultar tu posición real.
           <span class="insignias"><i class="fa-solid fa-medal ins-diaria" aria-hidden="true"></i> victoria diaria · <i class="fa-solid fa-trophy ins-semanal" aria-hidden="true"></i> victoria semanal (el número indica cuántas)</span>
         </p>
         <button type="button" class="pwa-install-link" hidden>Instalar el juego en este dispositivo</button>
@@ -349,6 +389,8 @@
       let periodo = "diario";
       let cargando = 0;
       let detalleActual = null;
+      let aliasBuscado = "";
+      let busquedaId = 0;
       const posicionesCache = Object.create(null);
       const PERIODOS_CARD = [
         ["diario", "Diario"], ["semanal", "Semanal"], ["historico", "Histórico"]
@@ -860,6 +902,81 @@
         });
       }
 
+      function pintarBusqueda(fila) {
+        const caja = $("buscar-resultado");
+        caja.textContent = "";
+        if (!fila) { caja.hidden = true; return; }
+        caja.hidden = false;
+        const filaDiv = document.createElement("div");
+        filaDiv.className = "buscar-fila";
+        const puesto = document.createElement("span");
+        puesto.className = "buscar-puesto";
+        puesto.textContent = "#" + fila.puesto;
+        const datos = document.createElement("span");
+        datos.className = "buscar-datos";
+        datos.textContent = (fila.alias || "") + " · " +
+          (fila.puntos == null ? 0 : fila.puntos) + " pts · " +
+          (fila.aciertos == null ? 0 : fila.aciertos) + "/10 · " +
+          fechaBonita(fila.fecha);
+        datos.appendChild(insignias(fila));
+        filaDiv.appendChild(puesto);
+        filaDiv.appendChild(datos);
+        if (fila.partida_id != null) {
+          const ver = document.createElement("button");
+          ver.type = "button";
+          ver.className = "buscar-ver";
+          ver.textContent = "Ver detalle";
+          ver.addEventListener("click", () => {
+            const tr = document.createElement("tr");
+            tr.dataset.partida = String(fila.partida_id);
+            tr.dataset.alias = String(fila.alias || "");
+            tr.dataset.puntos = String(fila.puntos == null ? 0 : fila.puntos);
+            mostrarDetalle(tr);
+          });
+          filaDiv.appendChild(ver);
+        }
+        caja.appendChild(filaDiv);
+      }
+
+      async function buscar() {
+        const alias = $("buscar-alias").value.replace(/\s+/g, " ").trim().slice(0, 24);
+        const estado = $("buscar-estado");
+        const id = ++busquedaId;
+        aliasBuscado = alias;
+        $("buscar-resultado").hidden = true;
+        estado.hidden = false;
+        if (!ranking.configurado) {
+          estado.textContent = "El ranking todavía no está disponible.";
+          return;
+        }
+        if (!alias) {
+          estado.textContent = "Escribe un alias para buscarlo.";
+          $("buscar-alias").focus();
+          return;
+        }
+        estado.textContent = "Buscando «" + alias + "»…";
+        $("buscar-puesto").disabled = true;
+        try {
+          const fila = await ranking.puesto(alias, periodo);
+          if (id !== busquedaId) return;
+          pintarBusqueda(fila);
+          if (fila) {
+            estado.textContent = "";
+            estado.hidden = true;
+          } else {
+            const activo = botones.find(b => b.dataset.periodo === periodo);
+            estado.textContent = "No hay puntuaciones de «" + alias + "» en " +
+              (activo ? activo.textContent.toLowerCase() : "este periodo") + ".";
+          }
+        } catch (e) {
+          if (id !== busquedaId) return;
+          pintarBusqueda(null);
+          estado.textContent = "No se pudo buscar: " + e.message;
+        } finally {
+          if (id === busquedaId) $("buscar-puesto").disabled = false;
+        }
+      }
+
       async function cargarTotal() {
         try {
           const total = await ranking.totalPartidas();
@@ -900,7 +1017,13 @@
             b.setAttribute("aria-pressed", String(activo));
           });
           actualizar();
+          if (aliasBuscado) buscar();
         });
+      });
+
+      $("buscar-form").addEventListener("submit", e => {
+        e.preventDefault();
+        buscar();
       });
 
       $("year").textContent = String(new Date().getFullYear());
@@ -927,6 +1050,8 @@
 
       if (!ranking.configurado) {
         botones.forEach(b => { b.disabled = true; });
+        $("buscar-alias").disabled = true;
+        $("buscar-puesto").disabled = true;
         pintar([]);
         $("estado").textContent =
           "El ranking estará disponible en cuanto se configure el servicio de puntuaciones.";
