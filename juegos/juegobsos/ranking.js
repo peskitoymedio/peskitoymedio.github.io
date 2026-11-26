@@ -74,6 +74,15 @@
     }
   }
 
+  // Se llama al terminar la décima respuesta, aunque no se envíe la puntuación.
+  // No consume el token: el envío posterior sigue necesitándolo.
+  async function partidaTerminada() {
+    if (!configurado || !tokenPartida) return;
+    try {
+      await rpc("registrar_partida_terminada", { p_token: tokenPartida });
+    } catch (e) {}
+  }
+
   async function enviar(datos) {
     datos = datos || {};
     if (!configurado) {
@@ -130,6 +139,11 @@
     return Number(await rpc("total_partidas", {})) || 0;
   }
 
+  async function totalPartidasJugadas() {
+    if (!configurado) throw new Error("El ranking todavía no está disponible.");
+    return Number(await rpc("total_partidas_jugadas", {})) || 0;
+  }
+
   async function detalles(id) {
     if (!configurado) throw new Error("El ranking todavía no está disponible.");
     return rpc("detalles_partida", { p_id: Number(id) });
@@ -153,10 +167,12 @@
     configurado: configurado,
     playerId: playerId,
     iniciarToken: iniciarToken,
+    partidaTerminada: partidaTerminada,
     enviar: enviar,
     cargar: cargar,
     puesto: puesto,
     totalPartidas: totalPartidas,
+    totalPartidasJugadas: totalPartidasJugadas,
     aliasGuardado: aliasGuardado,
     detalles: detalles,
     initGameForm: initGameForm

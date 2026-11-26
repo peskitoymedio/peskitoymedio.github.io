@@ -50,14 +50,23 @@ create table if not exists public.ranking_secreto (
   valor text not null
 );
 
--- Una sesión por partida. El token se consume una sola vez.
+-- Una sesión por partida. El token se consume una sola vez al enviar la
+-- puntuación; finalizada se marca al terminar, aunque no se envíe.
 create table if not exists public.sesiones (
   nonce text primary key,
   creado_en timestamptz not null default now(),
   consumida boolean not null default false,
   consumida_en timestamptz
 );
+alter table public.sesiones add column if not exists finalizada boolean not null default false;
 create index if not exists sesiones_creado_en_idx on public.sesiones (creado_en desc);
+
+-- Contadores globales del juego. Una sola fila; RLS sin políticas.
+create table if not exists public.estadisticas (
+  id boolean primary key default true check (id),
+  partidas_jugadas bigint not null default 0,
+  actualizado_en timestamptz not null default now()
+);
 
 -- Desglose de la partida ganadora: una fila por pregunta. Solo se consulta
 -- desde la RPC detalles_partida; el cliente no puede leerla directamente.
@@ -78,6 +87,7 @@ alter table public.partidas enable row level security;
 alter table public.victorias enable row level security;
 alter table public.ranking_secreto enable row level security;
 alter table public.sesiones enable row level security;
+alter table public.estadisticas enable row level security;
 alter table public.detalles_partida enable row level security;
 
 -- Recalcula quién lidera el día y la semana actuales.
@@ -155,6 +165,60 @@ begin
 
   v_payload := v_nonce || ':' || v_emitido::text;
   return v_payload || '.' || encode(hmac(v_payload, v_secreto, 'sha256'), 'hex');
+end;
+$$;
+
+-- Se llama al terminar la décima respuesta, aunque el jugador no envíe su
+-- puntuación. Valida el token pero NO lo consume: el envío posterior sigue
+-- necesitándolo. Marca la sesión como finalizada una sola vez y suma una
+-- partida jugada. Si la sesión ya estaba marcada o ha salido de la ventana,
+-- no cuenta dos veces.
+create or replace function public.registrar_partida_terminada(p_token text)
+returns void
+language plpgsql
+security definer
+set search_path = public, extensions
+as $$
+declare
+  v_payload text;
+  v_firma text;
+  v_nonce text;
+  v_secreto text;
+  v_actualizada text;
+begin
+  if p_token is null or p_token = '' then
+    raise exception 'Falta el token de partida';
+  end if;
+  v_payload := split_part(p_token, '.', 1);
+  v_firma := split_part(p_token, '.', 2);
+  if v_payload = '' or v_firma = '' then
+    raise exception 'Token no válido';
+  end if;
+  select valor into v_secreto from public.ranking_secreto where id;
+  if v_secreto is null then
+    raise exception 'Token no válido';
+  end if;
+  if encode(hmac(v_payload, v_secreto, 'sha256'), 'hex') <> v_firma then
+    raise exception 'Token no válido';
+  end if;
+  v_nonce := split_part(v_payload, ':', 1);
+
+  update public.sesiones
+     set finalizada = true
+   where nonce = v_nonce
+     and not finalizada
+     and creado_en <= now() - interval '5 seconds'
+     and creado_en >= now() - interval '10 minutes'
+  returning nonce into v_actualizada;
+  if v_actualizada is null then
+    return;
+  end if;
+
+  insert into public.estadisticas (id, partidas_jugadas)
+  values (true, 1)
+  on conflict (id) do update
+     set partidas_jugadas = estadisticas.partidas_jugadas + 1,
+         actualizado_en = now();
 end;
 $$;
 
@@ -461,6 +525,16 @@ as $$
   select count(*) from public.partidas;
 $$;
 
+create or replace function public.total_partidas_jugadas()
+returns bigint
+language sql
+stable
+security definer
+set search_path = public
+as $$
+  select coalesce((select partidas_jugadas from public.estadisticas where id), 0);
+$$;
+
 -- Desglose de una partida del ranking: solo se puede pedir por el id que
 -- devuelve ranking(). RLS impide leer la tabla directamente.
 create or replace function public.detalles_partida(p_id bigint)
@@ -493,6 +567,13 @@ select p.jugador_id, p.alias, p.puntos, p.aciertos, p.creado_en
 from public.puntuaciones p
 where not exists (select 1 from public.partidas);
 
+-- El contador de partidas jugadas arranca en 219, el número de sesiones
+-- abiertas al empezar a medirlo. on conflict conserva el valor acumulado
+-- cuando el script se vuelve a ejecutar.
+insert into public.estadisticas (id, partidas_jugadas)
+values (true, 219)
+on conflict (id) do nothing;
+
 select public.actualizar_lideres();
 
 revoke all on function public.actualizar_lideres() from public;
@@ -502,6 +583,8 @@ revoke all on function public.registrar_puntuacion(text, text, integer, integer,
 revoke all on function public.ranking(text) from public;
 revoke all on function public.puesto_de(text, text) from public;
 revoke all on function public.total_partidas() from public;
+revoke all on function public.total_partidas_jugadas() from public;
+revoke all on function public.registrar_partida_terminada(text) from public;
 revoke all on function public.detalles_partida(bigint) from public;
 
 grant execute on function public.emitir_token() to anon, authenticated;
@@ -509,4 +592,6 @@ grant execute on function public.registrar_puntuacion(text, text, integer, integ
 grant execute on function public.ranking(text) to anon, authenticated;
 grant execute on function public.puesto_de(text, text) to anon, authenticated;
 grant execute on function public.total_partidas() to anon, authenticated;
+grant execute on function public.total_partidas_jugadas() to anon, authenticated;
+grant execute on function public.registrar_partida_terminada(text) to anon, authenticated;
 grant execute on function public.detalles_partida(bigint) to anon, authenticated;

@@ -997,7 +997,10 @@
       results.push({round:r+1, title:c, chosen, ok, pts, ms, elegida:ok?null:chosen});
       document.querySelectorAll('.opt').forEach(b=>b.disabled=true);
       if(r+1<10){ $('next').classList.remove('reservado'); }
-      else{ setTimeout(showEnd, 1200); }
+      else{
+        if(window.PYMRanking && window.PYMRanking.configurado) window.PYMRanking.partidaTerminada();
+        setTimeout(showEnd, 1200);
+      }
     }
 
     $('next').onclick=()=>{ r++; loadRound(); };

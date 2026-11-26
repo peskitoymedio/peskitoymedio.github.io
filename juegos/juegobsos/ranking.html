@@ -989,13 +989,16 @@
       }
 
       async function cargarTotal() {
+        const textos = [];
         try {
-          const total = await ranking.totalPartidas();
-          $("total-partidas").textContent =
-            total === 1 ? "1 partida registrada" : total + " partidas registradas";
-        } catch (e) {
-          $("total-partidas").textContent = "";
-        }
+          const jugadas = await ranking.totalPartidasJugadas();
+          textos.push(jugadas === 1 ? "1 partida jugada" : jugadas + " partidas jugadas");
+        } catch (e) {}
+        try {
+          const registradas = await ranking.totalPartidas();
+          textos.push(registradas === 1 ? "1 partida registrada" : registradas + " partidas registradas");
+        } catch (e) {}
+        $("total-partidas").textContent = textos.join(" · ");
       }
 
       async function actualizar() {
