@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Política de privacidad · Peskito y Medio</title>
+  <meta name="description" content="Cómo trata los datos Peskito y Medio: vídeos de YouTube bajo demanda, audio alojado en iVoox, fuentes e iconos externos y ninguna cookie propia ni publicitaria.">
+  <meta name="theme-color" content="#0B1B2D">
+  <link rel="icon" type="image/x-icon" href="/favicon.ico" sizes="any">
+  <link rel="canonical" href="https://www.peskitoymedio.es/privacidad.html">
+  <style>
+    :root {
+      --cream: #FFF6E9;
+      --ink: #0B1B2D;
+      --ink-soft: #263B52;
+      --orange-dark: #A84E00;
+      --teal-dark: #238B91;
+      --white: #FFFFFF;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      padding: 0 20px 72px;
+      font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+      font-size: 16px;
+      line-height: 1.65;
+      color: var(--ink);
+      background: var(--cream);
+    }
+    main { max-width: 760px; margin: 0 auto; }
+    header { padding: 40px 0 24px; }
+    .kicker {
+      font-size: 0.76rem;
+      font-weight: 800;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--teal-dark);
+    }
+    h1 { margin: 6px 0 12px; font-size: clamp(2rem, 6vw, 3rem); line-height: 1.1; }
+    h2 {
+      margin: 36px 0 10px;
+      padding-bottom: 6px;
+      font-size: 1.25rem;
+      color: var(--orange-dark);
+      border-bottom: 2px solid rgba(11, 27, 45, 0.15);
+    }
+    p { margin: 10px 0; color: var(--ink-soft); }
+    ul { margin: 10px 0; padding-left: 22px; color: var(--ink-soft); }
+    li { margin: 8px 0; }
+    strong { color: var(--ink); }
+    a { color: var(--teal-dark); text-underline-offset: 3px; }
+    a:hover { color: var(--orange-dark); }
+    .back {
+      display: inline-block;
+      margin-bottom: 8px;
+      font-weight: 700;
+    }
+    .card {
+      margin-top: 28px;
+      padding: 18px 20px;
+      background: var(--white);
+      border: 2px solid var(--ink);
+      border-radius: 18px;
+      box-shadow: 5px 5px 0 var(--ink);
+    }
+    footer { margin-top: 40px; font-size: 0.86rem; color: var(--ink-soft); }
+    :focus-visible { outline: 3px solid var(--teal-dark); outline-offset: 3px; }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <a class="back" href="index.html">← Volver a Peskito y Medio</a>
+      <p class="kicker">Peskito y Medio</p>
+      <h1>Política de privacidad</h1>
+      <p>Esta web es estática: no hay cuentas de usuario, analítica propia ni publicidad, y el único formulario es el alias del Juego de BSOs. Aquí explicamos los tratamientos de datos: los contenidos de terceros que se cargan cuando tú lo pides y el ranking de ese juego.</p>
+    </header>
+
+    <section>
+      <h2>Responsable del tratamiento</h2>
+      <p><strong>Peskito y Medio</strong> · <a href="mailto:peskitoymedio@gmail.com">peskitoymedio@gmail.com</a></p>
+    </section>
+
+    <section>
+      <h2>Qué datos se tratan y por qué</h2>
+      <ul>
+        <li><strong>Funcionamiento de la web.</strong> El proveedor de alojamiento puede registrar datos técnicos de conexión (dirección IP, navegador, fecha y página solicitada) para entregar la página y mantenerla segura. Base jurídica: interés legítimo en la prestación del servicio.</li>
+        <li><strong>Escucha de episodios.</strong> Al pulsar «Reproducir» en un episodio, tu navegador descarga el audio desde <a href="https://www.ivoox.com/" target="_blank" rel="noopener">iVoox</a>. Ese proveedor puede recibir tu IP y registrar la descarga. Base jurídica: prestación del servicio que solicitas.</li>
+        <li><strong>Vídeos de la portada.</strong> Hay dos vídeos de YouTube. La web <strong>no contacta con Google ni carga el reproductor</strong> hasta que pulsas «Reproducir vídeo». Se usa el modo de privacidad mejorada (<code>youtube-nocookie.com</code>), que evita que esas visualizaciones personalicen tu experiencia en YouTube. Después del clic, Google recibe tu dirección IP, puede instalar cookies y trata los datos según su <a href="https://policies.google.com/privacy?hl=es" target="_blank" rel="noopener">política de privacidad</a>. Base jurídica: el servicio de vídeo que has solicitado expresamente con tu acción. Si no pulsas, este tratamiento no se produce desde nuestra web.</li>
+        <li><strong>Fuentes e iconos.</strong> Las tipografías Bangers y Outfit se descargan desde <code>fonts.googleapis.com</code> y <code>fonts.gstatic.com</code>, y los iconos desde <code>cdnjs.cloudflare.com</code>. Tu navegador los solicita al abrir la página, por lo que esos proveedores pueden ver tu IP. No los utilizamos para seguimiento ni publicidad. Base jurídica: interés legítimo en mostrar correctamente la web. Puedes bloquear esos dominios desde tu navegador.</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>Ranking del Juego de BSOs (Supabase)</h2>
+      <p>El ranking se aloja en <strong>Supabase</strong>, proveedor de base de datos y API. Al pulsar «Dale al play» se crea una sesión; al terminar las diez preguntas se marca como finalizada, incluso si no envías la puntuación. Ninguna de esas dos operaciones incluye tu alias.</p>
+      <p>Si pulsas «Enviar al ranking», se guardan tu <strong>alias</strong> (máximo 24 caracteres), un <strong>identificador aleatorio</strong> creado en tu navegador, los <strong>puntos</strong>, los <strong>aciertos</strong>, la fecha y un desglose por pregunta: título, si acertaste, la opción elegida y el tiempo de respuesta en milisegundos. Base jurídica: el servicio de ranking que solicitas con ese clic.</p>
+      <p>Tu alias y tu mejor marca aparecen en los rankings diario, semanal e histórico, y el desglose de la partida ganadora puede consultarse desde la página del ranking. Supabase puede registrar la dirección IP de la conexión en sus registros de API.</p>
+      <p>Las sesiones se eliminan al día; las puntuaciones y los desgloses se conservan mientras exista el ranking. Para pedir la supresión de tus datos de ranking, escribe a <a href="mailto:peskitoymedio@gmail.com">peskitoymedio@gmail.com</a>.</p>
+    </section>
+
+    <section>
+      <h2>Cookies y almacenamiento local</h2>
+      <p>No utilizamos cookies propias, de analítica ni de publicidad, y no mostramos banner de cookies porque no se instala ni se lee ninguna cookie no esencial antes de que actúes. Las únicas cookies que pueden aparecer son las del reproductor de YouTube, y solo si pulsas «Reproducir vídeo».</p>
+      <p>El Juego de BSOs guarda en el <code>localStorage</code> de tu navegador tu último alias y un identificador aleatorio. Son necesarios para recordar el alias en ese equipo y para el control anti-spam del ranking, por lo que están exceptuados del consentimiento previo; se informan aquí por transparencia.</p>
+    </section>
+
+    <section>
+      <h2>Destinatarios y transferencias</h2>
+      <p>Los archivos de audio se sirven desde iVoox; los vídeos, desde YouTube/Google; los recursos visuales, desde Google y Cloudflare; y el ranking del Juego de BSOs se aloja en Supabase. La ubicación concreta de los servidores y las garantías de transferencia dependen de la configuración de cada proveedor. El tratamiento que hacen ellos se rige por sus propias políticas de privacidad.</p>
+    </section>
+
+    <section>
+      <h2>Tus derechos</h2>
+      <p>Puedes solicitar acceso, rectificación, supresión, limitación, oposición o portabilidad de tus datos escribiendo a <a href="mailto:peskitoymedio@gmail.com">peskitoymedio@gmail.com</a>. Si consideras que hay una vulneración, puedes presentar una reclamación ante la <a href="https://www.aepd.es/" target="_blank" rel="noopener">Agencia Española de Protección de Datos</a>.</p>
+    </section>
+
+    <div class="card">
+      <p><strong>En resumen:</strong> entrar en la web no carga vídeos de Google ni envía tu alias a Supabase. Si pulsas «Reproducir vídeo», entra el reproductor de YouTube; si pulsas «Enviar al ranking», tu alias y tu marca se publican. Sin esas acciones, ese tratamiento no se produce.</p>
+    </div>
+
+    <footer>Actualizado el 26 de noviembre de 2026.</footer>
+  </main>
+</body>
+</html>

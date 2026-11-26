@@ -525,6 +525,30 @@
   const statEpisodes = $("#stat-episodes");
   if (statEpisodes) statEpisodes.textContent = EPISODES.length;
 
+  /* ---------- Vídeos: YouTube se carga solo tras pulsar "Reproducir" ---------- */
+  $$("[data-video-src]").forEach((trigger) => {
+    trigger.addEventListener("click", () => {
+      const frame = trigger.closest(".video-frame");
+      if (!frame || frame.dataset.videoLoaded === "true") return;
+      frame.dataset.videoLoaded = "true";
+
+      const iframe = document.createElement("iframe");
+      iframe.src = trigger.dataset.videoSrc;
+      iframe.title = trigger.dataset.videoTitle || "Vídeo de Peskito y Medio";
+      iframe.setAttribute("loading", "eager");
+      iframe.setAttribute("referrerpolicy", "strict-origin-when-cross-origin");
+      iframe.setAttribute(
+        "allow",
+        "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+      );
+      iframe.setAttribute("allowfullscreen", "");
+
+      frame.textContent = "";
+      frame.appendChild(iframe);
+      iframe.focus();
+    });
+  });
+
   /* ---------- Arranque ---------- */
   updateCounts();
   renderEpisodes();
