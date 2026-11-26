@@ -30,11 +30,11 @@
   <meta name="twitter:image:alt" content="Portada del podcast Peskito y Medio">
   <meta name="google-site-verification" content="fdTQrXJJH4AGhfMvaZfRAQHAwCJSzVCIrPQmn8eMO3s" />
 
+  <!-- Imagen del hero (elemento LCP) -->
+  <link rel="preload" as="image" href="img/logo-hero.webp" type="image/webp" fetchpriority="high">
+
   <!-- Fuentes e iconos -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" referrerpolicy="no-referrer">
 
   <link rel="stylesheet" href="css/styles.css">
@@ -232,7 +232,7 @@
   <header class="site-header" id="site-header">
     <div class="container nav-inner">
       <a class="brand" href="#top" aria-label="Peskito y Medio, ir al inicio">
-        <span class="brand-badge"><img src="img/logo-800.jpg" alt="Logo de Peskito y Medio" width="46" height="46"></span>
+        <span class="brand-badge"><img src="img/logo-badge.webp" alt="Logo de Peskito y Medio" width="46" height="46"></span>
         <span class="brand-text">
           <span class="brand-name">Peskito</span>
           <span class="brand-sub">y Medio</span>
@@ -316,7 +316,7 @@
           <div class="logo-stage">
             <span class="logo-shadow" aria-hidden="true"></span>
             <figure class="logo-card">
-              <img src="img/logo-800.jpg" alt="Portada oficial del podcast Peskito y Medio" width="800" height="800">
+              <img src="img/logo-hero.webp" alt="Portada oficial del podcast Peskito y Medio" width="640" height="640" fetchpriority="high">
               <figcaption class="sr-only">Peskito y Medio, tu podcast friki</figcaption>
             </figure>
 
@@ -458,7 +458,7 @@
         <div class="presentation-videos">
           <figure class="video-block video-block--main reveal">
             <div class="video-frame video-facade">
-              <img class="video-facade-poster" src="img/videos/peskito-spice.jpg" alt="Imagen del vídeo «Peskito Spice»" width="1280" height="720" loading="lazy" decoding="async">
+              <img class="video-facade-poster" src="img/videos/peskito-spice-760.webp" srcset="img/videos/peskito-spice-480.webp 480w, img/videos/peskito-spice-760.webp 760w" sizes="(max-width: 760px) 92vw, 760px" alt="Imagen del vídeo «Peskito Spice»" width="760" height="423" loading="lazy" decoding="async">
               <div class="video-facade-overlay">
                 <button class="video-facade-play" type="button" aria-label="Reproducir «Peskito Spice»" data-video-src="https://www.youtube-nocookie.com/embed/gACRCjHO6VE?autoplay=1" data-video-title="Peskito Spice - Huele como un friki, friki.">
                   <i class="fa-solid fa-play" aria-hidden="true"></i>
@@ -479,7 +479,7 @@
             <div class="short-showcase">
               <div class="short-embed">
                 <div class="video-frame video-frame--short video-facade">
-                  <img class="video-facade-poster" src="img/videos/juegakens-short.jpg" alt="Imagen del short «Momento de concurso en Peskito y Medio»" width="1080" height="1920" loading="lazy" decoding="async">
+                  <img class="video-facade-poster" src="img/videos/juegakens-short-640.webp" srcset="img/videos/juegakens-short-360.webp 360w, img/videos/juegakens-short-640.webp 640w" sizes="(max-width: 760px) 84vw, 360px" alt="Imagen del short «Momento de concurso en Peskito y Medio»" width="640" height="1138" loading="lazy" decoding="async">
                   <div class="video-facade-overlay">
                     <button class="video-facade-play" type="button" aria-label="Reproducir el short «Momento de concurso en Peskito y Medio»" data-video-src="https://www.youtube-nocookie.com/embed/yx24CvNtQ7Y?autoplay=1" data-video-title="Momento de concurso en Peskito y Medio">
                       <i class="fa-solid fa-play" aria-hidden="true"></i>
@@ -1096,7 +1096,7 @@
     <div class="container footer-grid">
       <div class="footer-brand">
         <a class="brand brand--footer" href="#top" aria-label="Peskito y Medio, ir al inicio">
-          <span class="brand-badge"><img src="img/logo-800.jpg" alt="Logo de Peskito y Medio" width="46" height="46"></span>
+          <span class="brand-badge"><img src="img/logo-badge.webp" alt="Logo de Peskito y Medio" width="46" height="46"></span>
           <span class="brand-text">
             <span class="brand-name">Peskito</span>
             <span class="brand-sub">y Medio</span>
@@ -1151,7 +1151,7 @@
   <!-- REPRODUCTOR -->
   <div class="mini-player" id="player" aria-hidden="true">
     <div class="player-inner">
-      <img class="player-cover" id="player-cover" src="img/logo-800.jpg" alt="Portada del podcast Peskito y Medio" width="56" height="56">
+      <img class="player-cover" id="player-cover" src="img/logo-badge.webp" alt="Portada del podcast Peskito y Medio" width="56" height="56">
       <div class="player-info">
         <strong class="player-title" id="player-title">Selecciona un episodio</strong>
         <span class="player-sub" id="player-sub">Peskito y Medio · Tu Podcast Friki</span>

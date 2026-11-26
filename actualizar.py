@@ -1640,7 +1640,7 @@ def site_header(prefix: str, cta_html: str, active: str = "") -> str:
     return f"""  <header class="site-header" id="site-header">
     <div class="container nav-inner">
       <a class="brand" href="{prefix}index.html" aria-label="Peskito y Medio, ir al inicio">
-        <span class="brand-badge"><img src="{prefix}img/logo-800.jpg" alt="Logo de Peskito y Medio" width="46" height="46"></span>
+        <span class="brand-badge"><img src="{prefix}img/logo-badge.webp" alt="Logo de Peskito y Medio" width="46" height="46"></span>
         <span class="brand-text">
           <span class="brand-name">Peskito</span>
           <span class="brand-sub">y Medio</span>
@@ -1666,7 +1666,7 @@ def site_footer(prefix: str) -> str:
     <div class="container footer-grid">
       <div class="footer-brand">
         <a class="brand brand--footer" href="{prefix}index.html" aria-label="Peskito y Medio, ir al inicio">
-          <span class="brand-badge"><img src="{prefix}img/logo-800.jpg" alt="Logo de Peskito y Medio" width="46" height="46"></span>
+          <span class="brand-badge"><img src="{prefix}img/logo-badge.webp" alt="Logo de Peskito y Medio" width="46" height="46"></span>
           <span class="brand-text">
             <span class="brand-name">Peskito</span>
             <span class="brand-sub">y Medio</span>
@@ -2127,10 +2127,7 @@ def build_episode_page(episode: dict, episodes: list[dict], latest: dict | None,
   <meta name="twitter:image" content="{attr(image)}">
 
   <!-- Fuentes e iconos -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" referrerpolicy="no-referrer">
   <link rel="stylesheet" href="../css/styles.css">
   <link rel="stylesheet" href="../css/episodio.css">
@@ -2321,10 +2318,7 @@ def build_archive_page(episodes: list[dict], latest: dict | None) -> str:
   <meta name="twitter:title" content="Todos los episodios · Peskito y Medio">
   <meta name="twitter:description" content="{attr(description)}">
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" referrerpolicy="no-referrer">
   <link rel="stylesheet" href="../css/styles.css">
   <link rel="stylesheet" href="../css/episodio.css">
