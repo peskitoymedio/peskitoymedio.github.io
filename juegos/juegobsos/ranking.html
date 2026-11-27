@@ -586,6 +586,39 @@
         }));
       }
 
+      // Tiempo de respuesta en las acertadas: pastilla reloj al lado del título.
+      const tiempoTexto = seg => {
+        const n = Number(seg);
+        return Number.isFinite(n) && n >= 0 && n < 60
+          ? n.toFixed(2).replace(".", ",") + " s" : "—";
+      };
+      const anchoTiempo = (ctx, txt) => {
+        ctx.save();
+        ctx.font = "600 21px 'Outfit', sans-serif";
+        const w = ctx.measureText(txt).width + 35;
+        ctx.restore();
+        return w;
+      };
+      function dibujarTiempo(ctx, x, y, txt, color) {
+        ctx.save();
+        ctx.font = "600 21px 'Outfit', sans-serif";
+        const w = ctx.measureText(txt).width + 35, h = 24, top = y - 21;
+        ctx.fillStyle = "rgba(127,168,58,0.18)";
+        rr(ctx, x, top, w, h, 12); ctx.fill();
+        ctx.strokeStyle = "rgba(127,168,58,0.55)";
+        ctx.lineWidth = 1.5; ctx.stroke();
+        ctx.strokeStyle = color; ctx.lineWidth = 1.8;
+        ctx.beginPath(); ctx.arc(x + 13, y - 9, 6, 0, Math.PI * 2); ctx.stroke();
+        ctx.beginPath();
+        ctx.moveTo(x + 13, y - 9); ctx.lineTo(x + 13, y - 12);
+        ctx.moveTo(x + 13, y - 9); ctx.lineTo(x + 16, y - 9);
+        ctx.stroke();
+        ctx.fillStyle = color; ctx.textBaseline = "middle";
+        ctx.fillText(txt, x + 25, y - 8.5);
+        ctx.restore();
+        return w;
+      }
+
       function dibujarTarjeta(d, img) {
         const ctx = tarjeta.getContext("2d");
         const bg = ctx.createLinearGradient(0, 0, 1080, 1080);
@@ -755,10 +788,14 @@
               ctx.fillStyle = "rgba(255,255,255,0.035)"; rr(ctx,72,y-23,916,28,10); ctx.fill();
             }
             ctx.font = "700 30px 'Outfit', sans-serif";
-            const titulo = fit(ctx, f.titulo || "", conElegida ? 640 : 880);
+            const tiempo = conElegida ? null : tiempoTexto(f.segundos);
+            const tiempoW = tiempo ? anchoTiempo(ctx, tiempo) + 12 : 0;
+            ctx.font = "700 30px 'Outfit', sans-serif";
+            const titulo = fit(ctx, f.titulo || "", conElegida ? 640 : 880 - tiempoW);
             const tw = ctx.measureText(titulo).width;
             ctx.fillStyle = color; ctx.fillText(conElegida ? "✗" : "✓", 80, y);
             ctx.fillStyle = "#FFF6E9"; ctx.fillText(titulo, 118, y);
+            if (tiempo) dibujarTiempo(ctx, 118 + tw + 12, y, tiempo, color);
             if (conElegida && f.elegida) {
               const ex = 118 + tw + 12;
               ctx.font = "600 22px 'Outfit', sans-serif"; ctx.fillStyle = "#DCE8F2";

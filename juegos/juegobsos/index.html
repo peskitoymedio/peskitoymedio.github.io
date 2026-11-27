@@ -1061,6 +1061,32 @@
       ctx.closePath();
     }
 
+    // Tiempo de respuesta en las acertadas: pastilla reloj al lado del título.
+    const tiempoTexto=ms=>{
+      const seg=Number(ms)/1000;
+      return Number.isFinite(seg) && seg>=0 && seg<60
+        ? seg.toFixed(2).replace(".",",")+" s" : "—";
+    };
+    const anchoTiempo=(ctx,txt)=>{
+      ctx.save(); ctx.font="600 21px 'Outfit', sans-serif";
+      const w=ctx.measureText(txt).width+35; ctx.restore(); return w;
+    };
+    function drawTiempo(ctx,x,y,txt,color){
+      ctx.save();
+      ctx.font="600 21px 'Outfit', sans-serif";
+      const w=ctx.measureText(txt).width+35, h=24, top=y-21;
+      ctx.fillStyle="rgba(127,168,58,0.18)"; roundRect(ctx,x,top,w,h,12); ctx.fill();
+      ctx.strokeStyle="rgba(127,168,58,0.55)"; ctx.lineWidth=1.5; ctx.stroke();
+      ctx.strokeStyle=color; ctx.lineWidth=1.8;
+      ctx.beginPath(); ctx.arc(x+13,y-9,6,0,Math.PI*2); ctx.stroke();
+      ctx.beginPath(); ctx.moveTo(x+13,y-9); ctx.lineTo(x+13,y-12);
+      ctx.moveTo(x+13,y-9); ctx.lineTo(x+16,y-9); ctx.stroke();
+      ctx.fillStyle=color; ctx.textBaseline="middle";
+      ctx.fillText(txt,x+25,y-8.5);
+      ctx.restore();
+      return w;
+    }
+
     function drawCard(hits){
       const canvas=$('card'), ctx=canvas.getContext('2d');
 
@@ -1243,10 +1269,14 @@
         list.forEach((x,i)=>{
           if(i%2===0){ ctx.fillStyle="rgba(255,255,255,0.035)"; roundRect(ctx,72,y-23,916,28,10); ctx.fill(); }
           ctx.font="700 30px 'Outfit', sans-serif";
-          const title=fit(x.title, withChoice?640:880);
+          const tiempo=withChoice?null:tiempoTexto(x.ms);
+          const tiempoW=tiempo?anchoTiempo(ctx,tiempo)+12:0;
+          ctx.font="700 30px 'Outfit', sans-serif";
+          const title=fit(x.title, withChoice?640:880-tiempoW);
           const titleW=ctx.measureText(title).width;
           ctx.fillStyle=color; ctx.fillText(mark, 80, y);
           ctx.fillStyle="#FFF6E9"; ctx.fillText(title, 118, y);
+          if(tiempo) drawTiempo(ctx,118+titleW+12,y,tiempo,color);
           if(withChoice){
             const ax=118+titleW+12;
             ctx.font="600 22px 'Outfit', sans-serif";
