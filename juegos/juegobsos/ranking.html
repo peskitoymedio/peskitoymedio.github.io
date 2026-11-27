@@ -62,9 +62,7 @@
     .tabs button.is-active { background: var(--yellow); }
     .tabs button:disabled { opacity: .5; cursor: not-allowed; transform: none; }
 
-    .ranking-acciones { display: flex; align-items: center; gap: 10px; margin: 0 0 14px; }
-    .ranking-acciones .btn-compartir { margin-left: auto; }
-    .acciones-filtros { display: flex; flex-wrap: wrap; gap: 10px; }
+    .acciones-filtros { display: flex; flex-wrap: wrap; gap: 10px; margin: 0 0 14px; }
     .btn-filtro {
       font: inherit; font-weight: 800; cursor: pointer;
       display: inline-flex; align-items: center; gap: 8px;
@@ -247,8 +245,18 @@
     #compartir-estado { min-height: 18px; margin: 8px 0 0; font-size: .82rem; color: var(--ink-soft); }
     #rank-estado { margin: 8px 0 0; font-size: .82rem; color: var(--ink-soft); }
     .btn-compartir:disabled { opacity: .5; cursor: not-allowed; transform: none; }
-    .ranking-share { margin: 0 0 14px; }
+    .ranking-compartir {
+      display: grid; grid-template-columns: minmax(0, 1fr) auto;
+      align-items: center; gap: 12px 18px; margin: 20px 0 0; padding: 18px 20px;
+      background: linear-gradient(135deg, rgba(61,185,192,.14), rgba(255,197,49,.12));
+      border: 3px solid var(--ink); border-radius: 16px;
+    }
+    .compartir-texto { display: grid; gap: 4px; }
+    .compartir-texto strong { font-family: var(--font-display); font-size: 1.15rem; }
+    .compartir-texto span { font-size: .9rem; font-weight: 600; color: var(--ink-soft); }
+    .ranking-compartir .btn-compartir { justify-self: end; }
     .ranking-share[hidden] { display: none; }
+    .ranking-compartir .ranking-share { grid-column: 1 / -1; margin: 0; }
     .ranking-share .compartir-enlaces { justify-content: flex-start; margin-top: 0; }
 
     #estado { min-height: 24px; margin: 4px 0 14px; font-weight: 600; color: var(--ink-soft); }
@@ -258,10 +266,10 @@
       .ranking-card { padding: 20px 14px 24px; }
       .tabs { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; margin-bottom: 14px; }
       .tabs button { padding: 10px 8px; font-size: .95rem; }
-      .ranking-acciones { flex-direction: column; align-items: stretch; gap: 10px; }
-      .ranking-acciones .btn-compartir { order: -1; width: 100%; margin-left: 0; }
-      .acciones-filtros { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+      .acciones-filtros { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; margin-bottom: 12px; }
       .btn-filtro { justify-content: center; width: 100%; padding: 9px 6px; font-size: .9rem; }
+      .ranking-compartir { grid-template-columns: minmax(0, 1fr); gap: 12px; margin-top: 16px; padding: 16px; }
+      .ranking-compartir .btn-compartir { justify-self: stretch; width: 100%; }
       .panel-filtro { padding: 12px; }
       .fecha-elegir { grid-template-columns: minmax(0, 1fr); gap: 8px; }
       .buscar-form { display: grid; grid-template-columns: minmax(0, 1fr); gap: 8px; }
@@ -346,29 +354,13 @@
           <button type="button" data-periodo="insignias" aria-pressed="false">Insignias</button>
         </div>
 
-        <div class="ranking-acciones">
-          <div class="acciones-filtros">
-            <button type="button" class="btn-filtro" id="toggle-fechas" aria-expanded="false" aria-controls="fecha-elegir" hidden>
-              <i class="fa-solid fa-calendar-days" aria-hidden="true"></i> Fechas <i class="fa-solid fa-chevron-down" aria-hidden="true"></i>
-            </button>
-            <button type="button" class="btn-filtro" id="toggle-buscar" aria-expanded="false" aria-controls="panel-buscar">
-              <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i> Buscar alias <i class="fa-solid fa-chevron-down" aria-hidden="true"></i>
-            </button>
-          </div>
-          <button type="button" class="btn-compartir" id="compartir-ranking">
-            <i class="fa-solid fa-share-nodes" aria-hidden="true"></i> Compartir ranking
+        <div class="acciones-filtros">
+          <button type="button" class="btn-filtro" id="toggle-fechas" aria-expanded="false" aria-controls="fecha-elegir" hidden>
+            <i class="fa-solid fa-calendar-days" aria-hidden="true"></i> Fechas <i class="fa-solid fa-chevron-down" aria-hidden="true"></i>
           </button>
-        </div>
-
-        <div class="ranking-share" id="ranking-share" hidden>
-          <div id="rank-enlaces" class="compartir-enlaces" hidden>
-            <a id="krx" target="_blank" rel="noopener" title="Compartir en X"><i class="fa-brands fa-x-twitter"></i> X</a>
-            <a id="kwa" target="_blank" rel="noopener" title="Compartir en WhatsApp"><i class="fa-brands fa-whatsapp"></i> WhatsApp</a>
-            <a id="kfb" target="_blank" rel="noopener" title="Compartir en Facebook"><i class="fa-brands fa-facebook"></i> Facebook</a>
-            <a id="ktg" target="_blank" rel="noopener" title="Compartir en Telegram"><i class="fa-brands fa-telegram"></i> Telegram</a>
-            <button type="button" id="kdown"><i class="fa-solid fa-download" aria-hidden="true"></i> Descargar imagen</button>
-          </div>
-          <p id="rank-estado" role="status" aria-live="polite"></p>
+          <button type="button" class="btn-filtro" id="toggle-buscar" aria-expanded="false" aria-controls="panel-buscar">
+            <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i> Buscar alias <i class="fa-solid fa-chevron-down" aria-hidden="true"></i>
+          </button>
         </div>
 
         <div class="fecha-elegir panel-filtro" id="fecha-elegir" hidden>
@@ -403,6 +395,26 @@
             </thead>
             <tbody id="ranking-body"></tbody>
           </table>
+        </div>
+
+        <div class="ranking-compartir">
+          <div class="compartir-texto">
+            <strong>Comparte esta clasificación</strong>
+            <span>Genera una tarjeta con el top 10 de la pestaña activa.</span>
+          </div>
+          <button type="button" class="btn-compartir" id="compartir-ranking">
+            <i class="fa-solid fa-share-nodes" aria-hidden="true"></i> Compartir ranking
+          </button>
+          <div class="ranking-share" id="ranking-share" hidden>
+            <div id="rank-enlaces" class="compartir-enlaces" hidden>
+              <a id="krx" target="_blank" rel="noopener" title="Compartir en X"><i class="fa-brands fa-x-twitter"></i> X</a>
+              <a id="kwa" target="_blank" rel="noopener" title="Compartir en WhatsApp"><i class="fa-brands fa-whatsapp"></i> WhatsApp</a>
+              <a id="kfb" target="_blank" rel="noopener" title="Compartir en Facebook"><i class="fa-brands fa-facebook"></i> Facebook</a>
+              <a id="ktg" target="_blank" rel="noopener" title="Compartir en Telegram"><i class="fa-brands fa-telegram"></i> Telegram</a>
+              <button type="button" id="kdown"><i class="fa-solid fa-download" aria-hidden="true"></i> Descargar imagen</button>
+            </div>
+            <p id="rank-estado" role="status" aria-live="polite"></p>
+          </div>
         </div>
 
         <p id="total-partidas" class="total-partidas" role="status" aria-live="polite"></p>
