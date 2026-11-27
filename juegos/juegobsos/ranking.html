@@ -218,7 +218,11 @@
       padding: 6px 12px; border-radius: 999px; border: 2px solid var(--ink);
       background: var(--white); color: var(--ink); cursor: pointer;
     }
-    #compartir-estado { min-height: 18px; margin: 8px 0 0; font-size: .82rem; color: var(--ink-soft); }
+    #compartir-estado, #rank-estado { min-height: 18px; margin: 8px 0 0; font-size: .82rem; color: var(--ink-soft); }
+    .btn-compartir:disabled { opacity: .5; cursor: not-allowed; transform: none; }
+    .ranking-share { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; margin: 0 0 18px; }
+    .ranking-share .btn-compartir { margin-left: auto; }
+    .ranking-share .compartir-enlaces { justify-content: flex-start; }
 
     #estado { min-height: 24px; margin: 4px 0 14px; font-weight: 600; color: var(--ink-soft); }
     .ranking-nota { margin: 24px 0 0; font-size: .9rem; color: var(--ink-soft); line-height: 1.6; }
@@ -306,6 +310,20 @@
           <button type="button" data-periodo="insignias" aria-pressed="false">Insignias</button>
         </div>
 
+        <div class="ranking-share">
+          <button type="button" class="btn-compartir" id="compartir-ranking">
+            <i class="fa-solid fa-share-nodes" aria-hidden="true"></i> Compartir ranking
+          </button>
+          <div id="rank-enlaces" class="compartir-enlaces" hidden>
+            <a id="krx" target="_blank" rel="noopener" title="Compartir en X"><i class="fa-brands fa-x-twitter"></i> X</a>
+            <a id="kwa" target="_blank" rel="noopener" title="Compartir en WhatsApp"><i class="fa-brands fa-whatsapp"></i> WhatsApp</a>
+            <a id="kfb" target="_blank" rel="noopener" title="Compartir en Facebook"><i class="fa-brands fa-facebook"></i> Facebook</a>
+            <a id="ktg" target="_blank" rel="noopener" title="Compartir en Telegram"><i class="fa-brands fa-telegram"></i> Telegram</a>
+            <button type="button" id="kdown"><i class="fa-solid fa-download" aria-hidden="true"></i> Descargar imagen</button>
+          </div>
+          <p id="rank-estado" role="status" aria-live="polite"></p>
+        </div>
+
         <div class="fecha-elegir" id="fecha-elegir" hidden>
           <label for="periodo-fecha">Consultar</label>
           <select id="periodo-fecha"><option value="">Actual</option></select>
@@ -349,7 +367,7 @@
           ordenador, usad alias distintos y cada uno tendrá su propia posición.
           Pulsa sobre una fila para ver sus preguntas, tiempos y compartir el registro.
           En Diario y Semanal puedes elegir un día o una semana pasada con el selector o el calendario; las insignias y la corona se cuentan solo hasta ese momento. Si tu alias no está entre los 50 primeros, usa «Ver mi puesto» para consultar tu posición real.
-          <span class="insignias"><i class="fa-solid fa-crown ins-historica" aria-hidden="true"></i> campeón histórico · <i class="fa-solid fa-trophy ins-semanal" aria-hidden="true"></i> victoria semanal · <i class="fa-solid fa-medal ins-diaria" aria-hidden="true"></i> victoria diaria (el número indica cuántas)</span>
+          <span class="insignias"><i class="fa-solid fa-crown ins-historica" aria-hidden="true"></i> mejor marca histórica · <i class="fa-solid fa-trophy ins-semanal" aria-hidden="true"></i> victoria semanal · <i class="fa-solid fa-medal ins-diaria" aria-hidden="true"></i> victoria diaria (el número indica cuántas)</span>
           En Insignias aparece quien tiene al menos una victoria o la corona; se ordena por semanales, luego diarias. La corona señala al mejor marcador histórico.
         </p>
         <button type="button" class="pwa-install-link" hidden>Instalar el juego en este dispositivo</button>
@@ -629,6 +647,11 @@
 
       /* ---------- Tarjeta para compartir un récord del ranking ---------- */
       const GAME_URL = "https://www.peskitoymedio.es/juegos/juegobsos/";
+      const RANKING_URL = location.href.split("#")[0];
+      const TITULOS_RANKING = {
+        diario: "RANKING DIARIO", semanal: "RANKING SEMANAL",
+        historico: "RANKING HISTÓRICO", insignias: "INSIGNIAS"
+      };
       const VEREDICTOS = [
         "😅 ¡Ay, madre! Se te han cruzado los cables con las melodías.",
         "🎵 ¡Uno! Una sola nota rescatada del naufragio… y Malcolm te deja en la lista de «pendientes de repaso».",
@@ -993,6 +1016,380 @@
         a.click();
       });
 
+      /* ---------- Tarjeta para compartir el ranking de la pestaña activa ---------- */
+      const tarjetaRanking = document.createElement("canvas");
+      tarjetaRanking.width = 1080;
+      tarjetaRanking.height = 1080;
+
+      function hoyISO() {
+        const d = new Date();
+        return d.getFullYear() + "-" + pad(d.getMonth() + 1) + "-" + pad(d.getDate());
+      }
+
+      function metaRanking() {
+        let subtitulo;
+        if (periodo === "insignias") subtitulo = "Palmarés actual";
+        else if (periodo === "historico") subtitulo = "Todos los tiempos";
+        else if (periodo === "diario") {
+          subtitulo = (fecha ? "" : "Hoy · ") +
+            etiquetaPeriodo({ clave: "", fecha: fecha || hoyISO() });
+        } else {
+          subtitulo = (fecha ? "" : "Esta semana · ") +
+            etiquetaPeriodo({ clave: "", fecha: fecha || lunesDe(hoyISO()) });
+        }
+        return {
+          periodo: periodo, fecha: fechaSQL(), clave: claveCache(),
+          titulo: TITULOS_RANKING[periodo] || "RANKING",
+          subtitulo: subtitulo, esInsignias: periodo === "insignias"
+        };
+      }
+
+      /* Paletas de la tarjeta de ranking. Para recuperar la anterior, cambia PALETA_RANKING a "verde". */
+      const PALETAS_RANKING = {
+        verde: {
+          bg: ["#0B3336", "#072124", "#041316"],
+          glow: ["rgba(185,242,124,0.22)", "rgba(185,242,124,0)"],
+          glow2: ["rgba(255,138,91,0.13)", "rgba(255,138,91,0)"],
+          borde: "#B9F27C", bordeSuave: "rgba(255,138,91,0.45)",
+          claro: "#F4F1E8", acento: "#B9F27C",
+          cinta: ["#1F7A6B", "#2FA36C"], suave: "#CFE8DF",
+          panel: ["rgba(16,61,64,0.94)", "rgba(7,33,36,0.94)"],
+          bordePanel: "rgba(185,242,124,0.35)", badgeFondo: "rgba(185,242,124,0.18)",
+          insignias: { corona: "#FFD166", trofeo: "#FF8A5B", medalla: "#B9F27C" },
+          medallaCentro: "#0A292C",
+          filaFondo: ["rgba(255,209,102,0.15)", "rgba(185,242,124,0.10)"],
+          filaBorde: ["rgba(255,209,102,0.85)", "rgba(185,242,124,0.5)", "rgba(126,217,208,0.28)"],
+          circulo: ["#FFD166", "#B9F27C", "#7ED9D0"], numero: "#0A292C",
+          nombre: "#FFD166", puntos: "#B9F27C", aciertos: "#FFB08F"
+        },
+        celeste: {
+          bg: ["#0A2E45", "#06202F", "#03121C"],
+          glow: ["rgba(111,214,255,0.22)", "rgba(111,214,255,0)"],
+          glow2: ["rgba(255,196,102,0.13)", "rgba(255,196,102,0)"],
+          borde: "#6FD6FF", bordeSuave: "rgba(255,196,102,0.45)",
+          claro: "#F4F8FB", acento: "#6FD6FF",
+          cinta: ["#155E86", "#1E8FB8"], suave: "#C6E4F2",
+          panel: ["rgba(14,58,82,0.94)", "rgba(6,32,47,0.94)"],
+          bordePanel: "rgba(111,214,255,0.35)", badgeFondo: "rgba(111,214,255,0.18)",
+          insignias: { corona: "#FFD166", trofeo: "#FF9E6B", medalla: "#6FD6FF" },
+          medallaCentro: "#06202F",
+          filaFondo: ["rgba(255,209,102,0.15)", "rgba(111,214,255,0.10)"],
+          filaBorde: ["rgba(255,209,102,0.85)", "rgba(111,214,255,0.5)", "rgba(155,228,255,0.28)"],
+          circulo: ["#FFD166", "#6FD6FF", "#9BE4FF"], numero: "#06202F",
+          nombre: "#FFD166", puntos: "#6FD6FF", aciertos: "#FFC48F"
+        }
+      };
+      const PALETA_RANKING = "celeste";
+
+      function dibujarTarjetaRanking(filas, meta, img) {
+        const ctx = tarjetaRanking.getContext("2d");
+        const P = PALETAS_RANKING[PALETA_RANKING] || PALETAS_RANKING.verde;
+        const bg = ctx.createLinearGradient(0, 0, 1080, 1080);
+        bg.addColorStop(0, P.bg[0]); bg.addColorStop(.5, P.bg[1]); bg.addColorStop(1, P.bg[2]);
+        ctx.fillStyle = bg; ctx.fillRect(0, 0, 1080, 1080);
+        const glow1 = ctx.createRadialGradient(920, 90, 10, 920, 90, 470);
+        glow1.addColorStop(0, P.glow[0]); glow1.addColorStop(1, P.glow[1]);
+        ctx.fillStyle = glow1; ctx.fillRect(0, 0, 1080, 600);
+        const glow2 = ctx.createRadialGradient(90, 1010, 10, 90, 1010, 460);
+        glow2.addColorStop(0, P.glow2[0]); glow2.addColorStop(1, P.glow2[1]);
+        ctx.fillStyle = glow2; ctx.fillRect(0, 560, 1080, 520);
+        ctx.strokeStyle = P.borde; ctx.lineWidth = 12; rr(ctx,24,24,1032,1032,38); ctx.stroke();
+        ctx.strokeStyle = P.bordeSuave; ctx.lineWidth = 3; rr(ctx,43,43,994,994,27); ctx.stroke();
+
+        ctx.shadowColor = "rgba(0,0,0,0.5)"; ctx.shadowBlur = 14; ctx.shadowOffsetY = 3;
+        ctx.fillStyle = P.claro; ctx.font = "900 58px 'Outfit', sans-serif";
+        ctx.fillText("PESKITO Y MEDIO", 80, 110);
+        ctx.shadowBlur = 0; ctx.shadowOffsetY = 0;
+        ctx.fillStyle = P.acento; ctx.font = "900 44px 'Outfit', sans-serif";
+        const subtituloJuego = "JUEGO DE BANDAS SONORAS";
+        ctx.fillText(subtituloJuego, 80, 170);
+        if (img.peskitos.naturalWidth) {
+          const finSub = 80 + ctx.measureText(subtituloJuego).width;
+          const pw = Math.min(185, 1010 - (finSub + 24));
+          if (pw > 90) ctx.drawImage(img.peskitos,39,13,1202,1172,1010-pw,45,pw,pw*210/215);
+        }
+
+        let tf = 44;
+        ctx.font = "900 " + tf + "px 'Outfit', sans-serif";
+        while (ctx.measureText(meta.titulo).width > 870 && tf > 28) {
+          tf -= 2; ctx.font = "900 " + tf + "px 'Outfit', sans-serif";
+        }
+        const anchoTitulo = Math.min(1000, ctx.measureText(meta.titulo).width + 64);
+        const cinta = ctx.createLinearGradient(0,196,1080,252);
+        cinta.addColorStop(0,P.cinta[0]); cinta.addColorStop(1,P.cinta[1]);
+        ctx.fillStyle = cinta; rr(ctx,(1080-anchoTitulo)/2,196,anchoTitulo,56,28); ctx.fill();
+        ctx.strokeStyle = P.borde; ctx.lineWidth = 4; ctx.stroke();
+        ctx.fillStyle = "#FFFFFF"; ctx.textAlign = "center";
+        ctx.fillText(meta.titulo, 540, 234);
+        ctx.fillStyle = P.suave; ctx.font = "700 24px 'Outfit', sans-serif";
+        ctx.fillText(fit(ctx, meta.subtitulo, 900), 540, 283);
+        ctx.textAlign = "left";
+
+        const panel = ctx.createLinearGradient(60,320,1020,980);
+        panel.addColorStop(0,P.panel[0]); panel.addColorStop(1,P.panel[1]);
+        ctx.fillStyle = panel; rr(ctx,60,320,960,660,28); ctx.fill();
+        ctx.strokeStyle = P.bordePanel; ctx.lineWidth = 3; ctx.stroke();
+        if (img.mal.naturalWidth) {
+          const c = img.crop, mh = 480, mw = mh * c[2] / c[3];
+          ctx.save(); rr(ctx,60,320,960,660,28); ctx.clip();
+          ctx.globalAlpha = .12;
+          ctx.drawImage(img.mal,c[0],c[1],c[2],c[3],1010-mw,400,mw,mh);
+          ctx.restore();
+        }
+        const top10 = (filas || []).slice(0, 10);
+        ctx.fillStyle = P.badgeFondo; rr(ctx,76,328,150,32,16); ctx.fill();
+        ctx.fillStyle = P.acento; ctx.font = "800 19px 'Outfit', sans-serif";
+        ctx.fillText("TOP " + top10.length, 92, 350);
+
+        const COLOR_INS = P.insignias;
+        const iconoInsignia = (tipo, x, y, size) => {
+          ctx.save(); ctx.translate(x, y); ctx.scale(size, size);
+          ctx.fillStyle = COLOR_INS[tipo]; ctx.strokeStyle = COLOR_INS[tipo];
+          if (tipo === "corona") {
+            ctx.beginPath();
+            ctx.moveTo(.04,.34); ctx.lineTo(.17,.09);
+            ctx.quadraticCurveTo(.31,.35,.5,.07);
+            ctx.quadraticCurveTo(.69,.35,.83,.09);
+            ctx.lineTo(.96,.34); ctx.lineTo(.88,.60);
+            ctx.lineTo(.12,.60); ctx.closePath(); ctx.fill();
+            ctx.fillRect(.12,.66,.76,.16);
+            ctx.fillStyle = "rgba(255,255,255,0.65)";
+            ctx.beginPath(); ctx.arc(.17,.09,.045,0,Math.PI*2); ctx.fill();
+            ctx.beginPath(); ctx.arc(.5,.07,.045,0,Math.PI*2); ctx.fill();
+            ctx.beginPath(); ctx.arc(.83,.09,.045,0,Math.PI*2); ctx.fill();
+          } else if (tipo === "trofeo") {
+            ctx.beginPath(); ctx.moveTo(.22,.12); ctx.lineTo(.78,.12);
+            ctx.quadraticCurveTo(.75,.58,.5,.64);
+            ctx.quadraticCurveTo(.25,.58,.22,.12); ctx.fill();
+            ctx.lineWidth = .07;
+            ctx.beginPath(); ctx.arc(.2,.27,.13,Math.PI*1.5,Math.PI*.5,true); ctx.stroke();
+            ctx.beginPath(); ctx.arc(.8,.27,.13,Math.PI*.5,Math.PI*1.5,true); ctx.stroke();
+            ctx.fillRect(.45,.62,.1,.18); ctx.fillRect(.32,.8,.36,.1);
+          } else {
+            ctx.beginPath(); ctx.moveTo(.25,.1); ctx.lineTo(.45,.43);
+            ctx.lineTo(.56,.37); ctx.lineTo(.38,.06); ctx.closePath(); ctx.fill();
+            ctx.beginPath(); ctx.moveTo(.75,.1); ctx.lineTo(.55,.43);
+            ctx.lineTo(.44,.37); ctx.lineTo(.62,.06); ctx.closePath(); ctx.fill();
+            ctx.beginPath(); ctx.arc(.5,.63,.27,0,Math.PI*2); ctx.fill();
+            ctx.fillStyle = P.medallaCentro;
+            ctx.beginPath(); ctx.arc(.5,.63,.14,0,Math.PI*2); ctx.fill();
+          }
+          ctx.restore();
+        };
+        const marcaInsignia = (tipo, x, y, size, numero) => {
+          iconoInsignia(tipo, x, y - size, size);
+          let w = size;
+          if (numero) {
+            const txt = "×" + numero;
+            ctx.font = "800 " + Math.max(16, Math.round(size * .64)) + "px 'Outfit', sans-serif";
+            ctx.fillStyle = COLOR_INS[tipo];
+            ctx.fillText(txt, x + size + 4, y);
+            w += ctx.measureText(txt).width + 8;
+          }
+          return x + w + 10;
+        };
+        const leyendaInsignias = () => {
+          const items = [
+            ["corona", "mejor marca histórica"],
+            ["trofeo", "victoria semanal"],
+            ["medalla", "victoria diaria"]
+          ];
+          ctx.font = "700 17px 'Outfit', sans-serif";
+          const anchos = items.map(item => 30 + ctx.measureText(item[1]).width);
+          const total = anchos.reduce((s, w, i) => s + w + (i < 2 ? 18 : 0), 0);
+          let x = 980 - total;
+          items.forEach((item, i) => {
+            iconoInsignia(item[0], x, 938, 24);
+            ctx.fillStyle = P.suave; ctx.fillText(item[1], x + 30, 958);
+            x += anchos[i] + 18;
+          });
+        };
+
+        const n = top10.length;
+        const areaY = 364, areaH = 536;
+        const gap = n >= 9 ? 5 : 8;
+        const pesos = top10.map((_, i) => i === 0 ? 1.5 : i < 3 ? 1.2 : 1);
+        const sumaPesos = pesos.reduce((a, b) => a + b, 0);
+        const unidad = n ? Math.min(78, (areaH - gap * Math.max(0, n - 1)) / sumaPesos) : 52;
+        const alturas = pesos.map(p => Math.round(unidad * p));
+        const ocupado = alturas.reduce((a, b) => a + b, 0) + gap * Math.max(0, n - 1);
+        let yFila = areaY + Math.max(0, areaH - ocupado) / 2;
+        if (!n) {
+          ctx.textAlign = "center";
+          ctx.fillStyle = P.claro; ctx.font = "900 42px 'Outfit', sans-serif";
+          ctx.fillText("Todavía no hay clasificación", 540, 610);
+          ctx.fillStyle = P.suave; ctx.font = "700 27px 'Outfit', sans-serif";
+          ctx.fillText("¡Juega y entra en el ranking!", 540, 665);
+          ctx.textAlign = "left";
+        }
+        top10.forEach((fila, i) => {
+          const rowH = alturas[i];
+          const y = yFila;
+          yFila += rowH + gap;
+          const campeon = i === 0;
+          const destacado = i < 3;
+          const factor = Math.min(1.6, rowH / 58);
+          const cy = y + rowH / 2;
+          const radio = Math.min(24, rowH * .32);
+          ctx.fillStyle = campeon ? P.filaFondo[0]
+            : destacado ? P.filaFondo[1]
+            : (i % 2 ? "rgba(255,255,255,0.035)" : "rgba(255,255,255,0.06)");
+          rr(ctx,76,y,916,rowH,Math.min(18,rowH/3)); ctx.fill();
+          ctx.strokeStyle = campeon ? P.filaBorde[0]
+            : destacado ? P.filaBorde[1] : P.filaBorde[2];
+          ctx.lineWidth = destacado ? 2 : 1; ctx.stroke();
+
+          ctx.fillStyle = P.circulo[campeon ? 0 : destacado ? 1 : 2];
+          ctx.beginPath(); ctx.arc(108,cy,radio,0,Math.PI*2); ctx.fill();
+          ctx.fillStyle = P.numero; ctx.font = "900 " + Math.round(radio * 1.1) + "px 'Outfit', sans-serif";
+          ctx.textAlign = "center";
+          ctx.fillText(String(fila.puesto == null ? i + 1 : fila.puesto), 108, cy + radio * .36);
+          ctx.textAlign = "left";
+
+          let af = Math.min((campeon ? 44 : destacado ? 32 : 28) * factor, rowH * .52);
+          const minAf = Math.min(af, (campeon ? 30 : destacado ? 24 : 20) * factor);
+          ctx.font = "900 " + Math.round(af) + "px 'Outfit', sans-serif";
+          while (ctx.measureText(String(fila.alias || "")).width > 360 && af > minAf) {
+            af -= 2; ctx.font = "900 " + Math.round(af) + "px 'Outfit', sans-serif";
+          }
+          const nombreY = y + rowH * .42;
+          ctx.fillStyle = campeon ? P.nombre : P.claro;
+          ctx.fillText(fit(ctx, String(fila.alias || "?"), 360), 142, nombreY);
+
+          const metaY = y + rowH * .97;
+          const metaFont = Math.max(14, Math.min(18, rowH * .25));
+          const sizeIns = Math.min(32, (destacado ? 30 : 26) * factor, rowH * .44);
+          let bx = 142;
+          if (!meta.esInsignias) {
+            const f = fechaBonita(fila.fecha);
+            if (f) {
+              ctx.font = "700 " + Math.round(metaFont) + "px 'Outfit', sans-serif";
+              ctx.fillStyle = P.suave;
+              ctx.fillText(f, bx, metaY);
+              bx += ctx.measureText(f).width + 12;
+            }
+          }
+          if (fila.es_campeon_historico === true) bx = marcaInsignia("corona", bx, metaY, sizeIns);
+          if (!meta.esInsignias) {
+            const sem = Number(fila.victorias_semanales) || 0;
+            const dia = Number(fila.victorias_diarias) || 0;
+            if (sem) bx = marcaInsignia("trofeo", bx, metaY, sizeIns, sem);
+            if (dia) bx = marcaInsignia("medalla", bx, metaY, sizeIns, dia);
+          }
+
+          ctx.textAlign = "right";
+          if (meta.esInsignias) {
+            const sem = Number(fila.victorias_semanales) || 0;
+            const dia = Number(fila.victorias_diarias) || 0;
+            const sizeMayor = Math.min(40, (destacado ? 38 : 34) * factor, rowH * .52);
+            ctx.font = "900 " + Math.round(sizeMayor * .76) + "px 'Outfit', sans-serif";
+            const ancho = sizeMayor + ctx.measureText("×" + sem).width + 16 +
+                          sizeMayor + ctx.measureText("×" + dia).width;
+            let mx = 980 - ancho;
+            iconoInsignia("trofeo", mx, cy - sizeMayor * .5, sizeMayor);
+            ctx.fillStyle = COLOR_INS.trofeo; ctx.textAlign = "left";
+            ctx.fillText("×" + sem, mx + sizeMayor + 4, cy + sizeMayor * .18);
+            mx += sizeMayor + ctx.measureText("×" + sem).width + 16;
+            iconoInsignia("medalla", mx, cy - sizeMayor * .5, sizeMayor);
+            ctx.fillStyle = COLOR_INS.medalla;
+            ctx.fillText("×" + dia, mx + sizeMayor + 4, cy + sizeMayor * .18);
+            ctx.textAlign = "right"; ctx.font = "700 " + Math.round(metaFont) + "px 'Outfit', sans-serif";
+            ctx.fillStyle = P.suave;
+            ctx.fillText("mejor marca: " + (fila.puntos == null ? 0 : fila.puntos) + " pts", 980, metaY);
+          } else {
+            const m = (fila.puntos == null ? 0 : fila.puntos) + " pts";
+            let mf = Math.min((campeon ? 38 : destacado ? 31 : 26) * factor, rowH * .5);
+            ctx.font = "900 " + Math.round(mf) + "px 'Outfit', sans-serif";
+            while (ctx.measureText(m).width > 210 && mf > 18) {
+              mf -= 2; ctx.font = "900 " + Math.round(mf) + "px 'Outfit', sans-serif";
+            }
+            ctx.fillStyle = P.puntos; ctx.fillText(m, 980, nombreY);
+            ctx.font = "700 " + Math.round(metaFont) + "px 'Outfit', sans-serif";
+            ctx.fillStyle = P.aciertos;
+            ctx.fillText((fila.aciertos == null ? 0 : fila.aciertos) + " aciertos", 980, metaY);
+          }
+          ctx.textAlign = "left";
+        });
+        leyendaInsignias();
+
+        const cta = "¿Entras tú en el ranking? Juega en peskitoymedio.es";
+        let cf = 27;
+        ctx.font = "800 " + cf + "px 'Outfit', sans-serif";
+        while (ctx.measureText(cta).width > 900 && cf > 20) {
+          cf -= 2; ctx.font = "800 " + cf + "px 'Outfit', sans-serif";
+        }
+        const ctaFondo = ctx.createLinearGradient(60,0,1020,0);
+        ctaFondo.addColorStop(0,P.cinta[0]); ctaFondo.addColorStop(1,P.cinta[1]);
+        ctx.fillStyle = ctaFondo; rr(ctx,60,1000,960,40,20); ctx.fill();
+        ctx.fillStyle = P.claro; ctx.textAlign = "center";
+        ctx.fillText(cta, 540, 1028); ctx.textAlign = "left";
+      }
+
+      function mensajeRanking(filas, meta) {
+        const primero = (filas || [])[0];
+        let logro = "sin clasificación todavía";
+        if (primero) {
+          logro = "#1 " + (primero.alias || "?") + " con " +
+            (meta.esInsignias
+              ? (Number(primero.victorias_semanales) || 0) + " semanales y " +
+                (Number(primero.victorias_diarias) || 0) + " diarias"
+              : (primero.puntos == null ? 0 : primero.puntos) + " puntos");
+        }
+        return "🏆 " + meta.titulo + " del Juego de BSOs de Peskito y Medio: " + logro +
+          ". 🎵🍿 Mira el ranking y juega: " + RANKING_URL;
+      }
+
+      function enlacesRanking(texto) {
+        const t = encodeURIComponent(texto), u = encodeURIComponent(RANKING_URL);
+        $("krx").href = "https://twitter.com/intent/tweet?text=" + t + "&url=" + u;
+        $("kwa").href = "https://api.whatsapp.com/send?text=" + t + "%20" + u;
+        $("kfb").href = "https://www.facebook.com/sharer/sharer.php?u=" + u;
+        $("ktg").href = "https://t.me/share/url?url=" + u + "&text=" + t;
+      }
+
+      async function compartirRanking() {
+        if (!ranking.configurado) return;
+        const estado = $("rank-estado");
+        const meta = metaRanking();
+        estado.textContent = "Preparando tarjeta…";
+        try {
+          let filas = posicionesCache[meta.clave];
+          if (!filas) {
+            filas = meta.esInsignias
+              ? await ranking.cargarInsignias()
+              : await ranking.cargar(meta.periodo, meta.fecha);
+            posicionesCache[meta.clave] = filas;
+          }
+          const img = await imagenesTarjeta(10);
+          dibujarTarjetaRanking(filas || [], meta, img);
+          const mensaje = mensajeRanking(filas, meta);
+          enlacesRanking(mensaje);
+          if (puedeAdjuntar()) {
+            const blob = await new Promise(res => tarjetaRanking.toBlob(res, "image/png"));
+            await navigator.share({
+              title: meta.titulo + " · Peskito y Medio",
+              text: mensaje,
+              url: RANKING_URL,
+              files: [new File([blob], "ranking-bsos.png", { type: "image/png" })]
+            });
+            estado.textContent = "";
+          } else {
+            $("rank-enlaces").hidden = false;
+            estado.textContent = "Elige dónde compartir o descarga la tarjeta.";
+          }
+        } catch (e) {
+          estado.textContent = e && e.name === "AbortError" ? ""
+            : "No se pudo preparar la tarjeta: " + e.message;
+        }
+      }
+      $("compartir-ranking").addEventListener("click", compartirRanking);
+      $("kdown").addEventListener("click", () => {
+        const a = document.createElement("a");
+        a.download = "ranking-bsos.png";
+        a.href = tarjetaRanking.toDataURL("image/png");
+        a.click();
+      });
+
       document.querySelectorAll("[data-cerrar-detalle]").forEach(el => {
         el.addEventListener("click", cerrarDetalle);
       });
@@ -1171,6 +1568,8 @@
       async function actualizar() {
         const estado = $("estado");
         const id = ++cargando;
+        $("rank-enlaces").hidden = true;
+        $("rank-estado").textContent = "";
         botones.forEach(b => { b.disabled = true; });
         actualizarCabeceras();
         estado.textContent = "Cargando clasificación…";
@@ -1267,6 +1666,7 @@
 
       if (!ranking.configurado) {
         botones.forEach(b => { b.disabled = true; });
+        $("compartir-ranking").disabled = true;
         $("buscar-alias").disabled = true;
         $("buscar-puesto").disabled = true;
         pintar([]);
