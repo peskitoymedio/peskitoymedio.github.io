@@ -1376,7 +1376,7 @@
         });
         leyendaInsignias();
 
-        const cta = "¿Entras tú en el ranking? Juega en peskitoymedio.es";
+        const cta = "¿Quieres entrar en el ranking? Juega en peskitoymedio.es";
         let cf = 27;
         ctx.font = "800 " + cf + "px 'Outfit', sans-serif";
         while (ctx.measureText(cta).width > 900 && cf > 20) {
@@ -1400,7 +1400,7 @@
               : (primero.puntos == null ? 0 : primero.puntos) + " puntos");
         }
         return "🏆 " + meta.titulo + " del Juego de BSOs de Peskito y Medio: " + logro +
-          ". 🎵🍿 Mira el ranking y juega: " + RANKING_URL;
+          ". 🎵🍿 Mira el ranking y juega también";
       }
 
       function enlacesRanking(texto) {
