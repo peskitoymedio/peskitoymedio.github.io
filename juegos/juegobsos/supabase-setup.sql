@@ -390,6 +390,8 @@ drop function if exists public.registrar_puntuacion(text, text, integer, integer
 drop function if exists public.ranking(text);
 drop function if exists public.puesto_de(text);
 drop function if exists public.puesto_de(text, text);
+drop function if exists public.ranking_insignias();
+drop function if exists public.puesto_de_insignias(text);
 drop function if exists public.total_partidas();
 
 -- Ranking por periodo. Se queda con la MEJOR partida de cada alias, no con
@@ -405,6 +407,7 @@ returns table (
   fecha date,
   victorias_diarias bigint,
   victorias_semanales bigint,
+  es_campeon_historico boolean,
   partida_id bigint
 )
 language sql
@@ -412,7 +415,13 @@ stable
 security definer
 set search_path = public
 as $$
-  with filtradas as (
+  with campeon as (
+    select lower(btrim(p.alias)) as clave
+    from public.puntuaciones p
+    order by p.puntos desc, p.creado_en asc
+    limit 1
+  ),
+  filtradas as (
     select p.*
     from public.puntuaciones p
     where (
@@ -444,6 +453,7 @@ as $$
          (select count(*) from public.victorias v
            where v.periodo = 'semanal'
              and lower(btrim(v.alias)) = lower(btrim(m.alias))) as victorias_semanales,
+          exists (select 1 from campeon c where c.clave = lower(btrim(m.alias))) as es_campeon_historico,
   m.id as partida_id
   from mejores m
   order by m.puntos desc, m.creado_en asc
@@ -464,6 +474,7 @@ returns table (
   fecha date,
   victorias_diarias bigint,
   victorias_semanales bigint,
+  es_campeon_historico boolean,
   partida_id bigint
 )
 language sql
@@ -471,7 +482,13 @@ stable
 security definer
 set search_path = public
 as $$
-  with filtradas as (
+  with campeon as (
+    select lower(btrim(p.alias)) as clave
+    from public.puntuaciones p
+    order by p.puntos desc, p.creado_en asc
+    limit 1
+  ),
+  filtradas as (
     select p.*
     from public.puntuaciones p
     where (
@@ -508,10 +525,137 @@ as $$
          (select count(*) from public.victorias v
            where v.periodo = 'semanal'
              and lower(btrim(v.alias)) = lower(btrim(c.alias))) as victorias_semanales,
-         c.id as partida_id
+                 exists (select 1 from campeon cam where cam.clave = lower(btrim(c.alias))) as es_campeon_historico,
+  c.id as partida_id
   from clasificacion c
   where lower(btrim(c.alias)) = lower(btrim(p_alias))
   order by c.puesto
+  limit 1;
+$$;
+
+-- Ranking de insignias: solo alias con al menos una victoria diaria o semanal.
+-- Se ordena por semanales, luego diarias y, si empatan, por mejor marca histórica.
+-- La "mejor marca" es la mejor puntuación histórica del alias, no la de la última victoria.
+-- La corona (es_campeon_historico) marca al primero del ranking histórico.
+create or replace function public.ranking_insignias()
+returns table (
+  puesto bigint,
+  alias text,
+  victorias_semanales bigint,
+  victorias_diarias bigint,
+  puntos integer,
+  aciertos integer,
+  es_campeon_historico boolean,
+  partida_id bigint
+)
+language sql
+stable
+security definer
+set search_path = public
+as $$
+  with trofeos as (
+    select lower(btrim(v.alias)) as clave,
+           count(*) filter (where v.periodo = 'semanal') as semanales,
+           count(*) filter (where v.periodo = 'diario') as diarias
+    from public.victorias v
+    group by lower(btrim(v.alias))
+  ),
+  mejores as (
+    select distinct on (lower(btrim(p.alias)))
+           lower(btrim(p.alias)) as clave, p.alias, p.puntos, p.aciertos, p.id, p.creado_en
+    from public.puntuaciones p
+    order by lower(btrim(p.alias)), p.puntos desc, p.creado_en asc
+  ),
+  campeon as (
+    select m.clave
+    from mejores m
+    order by m.puntos desc, m.creado_en asc
+    limit 1
+  )
+  select row_number() over (
+           order by t.semanales desc, t.diarias desc, m.puntos desc
+         ) as puesto,
+         m.alias,
+         t.semanales,
+         t.diarias,
+         m.puntos,
+         m.aciertos,
+         (c.clave is not null) as es_campeon_historico,
+         m.id as partida_id
+  from (
+    select clave, semanales, diarias from trofeos
+    union all
+    select c.clave, 0::bigint, 0::bigint from campeon c
+    where not exists (select 1 from trofeos t2 where t2.clave = c.clave)
+  ) t
+  join mejores m on m.clave = t.clave
+  left join campeon c on c.clave = t.clave
+  order by t.semanales desc, t.diarias desc, m.puntos desc
+  limit 50;
+$$;
+
+-- Puesto de un alias en el ranking de insignias, aunque quede fuera del top 50.
+create or replace function public.puesto_de_insignias(p_alias text)
+returns table (
+  puesto bigint,
+  alias text,
+  victorias_semanales bigint,
+  victorias_diarias bigint,
+  puntos integer,
+  aciertos integer,
+  es_campeon_historico boolean,
+  partida_id bigint
+)
+language sql
+stable
+security definer
+set search_path = public
+as $$
+  with trofeos as (
+    select lower(btrim(v.alias)) as clave,
+           count(*) filter (where v.periodo = 'semanal') as semanales,
+           count(*) filter (where v.periodo = 'diario') as diarias
+    from public.victorias v
+    group by lower(btrim(v.alias))
+  ),
+  mejores as (
+    select distinct on (lower(btrim(p.alias)))
+           lower(btrim(p.alias)) as clave, p.alias, p.puntos, p.aciertos, p.id, p.creado_en
+    from public.puntuaciones p
+    order by lower(btrim(p.alias)), p.puntos desc, p.creado_en asc
+  ),
+  campeon as (
+    select m.clave
+    from mejores m
+    order by m.puntos desc, m.creado_en asc
+    limit 1
+  ),
+  clasificados as (
+    select row_number() over (
+             order by t.semanales desc, t.diarias desc, m.puntos desc
+           ) as puesto,
+           t.clave,
+           m.alias,
+           t.semanales as victorias_semanales,
+           t.diarias as victorias_diarias,
+           m.puntos,
+           m.aciertos,
+           (c.clave is not null) as es_campeon_historico,
+           m.id as partida_id
+    from (
+      select clave, semanales, diarias from trofeos
+      union all
+      select c.clave, 0::bigint, 0::bigint from campeon c
+      where not exists (select 1 from trofeos t2 where t2.clave = c.clave)
+    ) t
+    join mejores m on m.clave = t.clave
+    left join campeon c on c.clave = t.clave
+  )
+  select puesto, alias, victorias_semanales, victorias_diarias,
+         puntos, aciertos, es_campeon_historico, partida_id
+  from clasificados
+  where clave = lower(btrim(p_alias))
+  order by puesto
   limit 1;
 $$;
 
@@ -582,6 +726,8 @@ revoke all on function public.emitir_token() from public;
 revoke all on function public.registrar_puntuacion(text, text, integer, integer, text, jsonb) from public;
 revoke all on function public.ranking(text) from public;
 revoke all on function public.puesto_de(text, text) from public;
+revoke all on function public.ranking_insignias() from public;
+revoke all on function public.puesto_de_insignias(text) from public;
 revoke all on function public.total_partidas() from public;
 revoke all on function public.total_partidas_jugadas() from public;
 revoke all on function public.registrar_partida_terminada(text) from public;
@@ -591,6 +737,8 @@ grant execute on function public.emitir_token() to anon, authenticated;
 grant execute on function public.registrar_puntuacion(text, text, integer, integer, text, jsonb) to anon, authenticated;
 grant execute on function public.ranking(text) to anon, authenticated;
 grant execute on function public.puesto_de(text, text) to anon, authenticated;
+grant execute on function public.ranking_insignias() to anon, authenticated;
+grant execute on function public.puesto_de_insignias(text) to anon, authenticated;
 grant execute on function public.total_partidas() to anon, authenticated;
 grant execute on function public.total_partidas_jugadas() to anon, authenticated;
 grant execute on function public.registrar_partida_terminada(text) to anon, authenticated;

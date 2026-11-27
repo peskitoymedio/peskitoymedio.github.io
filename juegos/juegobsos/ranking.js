@@ -134,6 +134,19 @@
     return Array.isArray(filas) && filas.length ? filas[0] : null;
   }
 
+  async function cargarInsignias() {
+    if (!configurado) throw new Error("El ranking todavía no está disponible.");
+    return rpc("ranking_insignias", {});
+  }
+
+  async function puestoInsignias(alias) {
+    if (!configurado) throw new Error("El ranking todavía no está disponible.");
+    const filas = await rpc("puesto_de_insignias", {
+      p_alias: normalizarAlias(alias)
+    });
+    return Array.isArray(filas) && filas.length ? filas[0] : null;
+  }
+
   async function totalPartidas() {
     if (!configurado) throw new Error("El ranking todavía no está disponible.");
     return Number(await rpc("total_partidas", {})) || 0;
@@ -171,6 +184,8 @@
     enviar: enviar,
     cargar: cargar,
     puesto: puesto,
+    cargarInsignias: cargarInsignias,
+    puestoInsignias: puestoInsignias,
     totalPartidas: totalPartidas,
     totalPartidasJugadas: totalPartidasJugadas,
     aliasGuardado: aliasGuardado,
