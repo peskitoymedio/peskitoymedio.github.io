@@ -156,12 +156,15 @@ La clasificación pública está en `juegos/juegobsos/ranking.html` (enlazada de
 | Dato | Valor |
 |---|---|
 | Pestañas | `diario`, `semanal`, `historico` (hora de `Europe/Madrid`) e `insignias` |
+| Fechas pasadas | En Diario y Semanal, selector de periodos con datos + calendario; `p_fecha` en `ranking()`/`puesto_de()` |
 | Tamaño | Top 50 por pestaña |
 | Usuario | Alias de hasta 24 caracteres; el identificador anónimo se guarda en `localStorage` (`pym-bso-jugador-id`) |
 | Mejora | Solo entra la mejor marca del alias en cada periodo; `registrar_puntuacion` devuelve `null` si no la supera |
 | Desempate | Menor tiempo de envío (marca más antigua) gana a igual puntuación; el alias se compara sin distinguir mayúsculas |
 | Seguridad | Token de un solo uso emitido al pulsar «Dale al play» (≤ 10 min), detalle de las 10 respuestas validado en servidor y puntuación recalculada allí |
-| Extras | Contadores de victorias diarias/semanales, `puesto_de` para puestos fuera del top 50, tarjeta compartible del récord y consulta de detalle de cada partida |
+| Extras | `periodos_disponibles()` para el selector, contadores de victorias, `puesto_de` para puestos fuera del top 50, tarjeta compartible del récord y detalle de cada partida |
+
+**Rankings pasados:** `ranking(p_periodo, p_fecha)` y `puesto_de(p_alias, p_periodo, p_fecha)` aceptan una fecha (día, o lunes de la semana); `null` = vigente. En una vista pasada, las insignias y la corona se cuentan **solo hasta el final de ese periodo**, no hasta hoy. Los trofeos se reconstruyen desde `puntuaciones` (mejor marca por día/semana, con el mismo desempate que `actualizar_lideres()`), no desde `victorias`, que solo guarda al líder final y no permite recuperar líderes intermedios. En Semanal la fecha se normaliza al lunes ISO de su semana antes de calcular el corte. `periodos_disponibles(p_periodo)` devuelve los días/semanas con partidas para el selector; el calendario permite además ir a cualquier fecha. Con `p_fecha = null` los contadores coinciden con los de `victorias`.
 
 **Pestaña Insignias** (`ranking_insignias()` / `puesto_de_insignias()` en Supabase): incluye alias con al menos una victoria diaria o semanal y, además, al campeón histórico (la corona cuenta como insignia aunque tenga 0 victorias). Columnas: `#`, `Jugador`, `Semanales`, `Diarias`, `Mejor marca` y detalle. Se ordena por **semanales desc, diarias desc y mejor marca histórica desc**. La mejor marca es la mejor puntuación histórica del alias. La corona morada (`fa-crown`, `es_campeon_historico`) distingue al campeón histórico, es decir, el primero de `ranking('historico')` (mismo desempate por fecha), y se muestra en el alias de **todas** las pestañas. El orden de las insignias en el alias es corona → semanal → diaria.
 

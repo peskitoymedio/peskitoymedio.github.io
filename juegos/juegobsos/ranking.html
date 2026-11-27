@@ -58,6 +58,17 @@
     .tabs button:hover { transform: translate(-1px, -1px); box-shadow: 4px 4px 0 var(--ink); }
     .tabs button.is-active { background: var(--yellow); }
     .tabs button:disabled { opacity: .5; cursor: not-allowed; transform: none; }
+    .fecha-elegir {
+      display: flex; flex-wrap: wrap; align-items: center; gap: 10px;
+      margin: -6px 0 18px; font-weight: 700;
+    }
+    .fecha-elegir[hidden] { display: none; }
+    .fecha-elegir label { color: var(--ink-soft); }
+    .fecha-elegir select, .fecha-elegir input {
+      font: inherit; font-weight: 700; padding: 8px 10px;
+      border: 3px solid var(--ink); border-radius: 10px;
+      background: var(--white); color: var(--ink);
+    }
 
     .buscar-form { display: flex; flex-wrap: wrap; gap: 10px; margin: 0 0 4px; }
     .buscar-form input {
@@ -295,6 +306,12 @@
           <button type="button" data-periodo="insignias" aria-pressed="false">Insignias</button>
         </div>
 
+        <div class="fecha-elegir" id="fecha-elegir" hidden>
+          <label for="periodo-fecha">Consultar</label>
+          <select id="periodo-fecha"><option value="">Actual</option></select>
+          <input type="date" id="fecha-calendario" aria-label="Ir a una fecha concreta">
+        </div>
+
         <form class="buscar-form" id="buscar-form">
           <label class="sr-only" for="buscar-alias">Buscar un alias en el ranking</label>
           <input id="buscar-alias" type="search" maxlength="24" placeholder="Busca un alias…" autocomplete="off">
@@ -331,7 +348,7 @@
           de cada alias en el periodo elegido, no la suma de partidas. Si compartís
           ordenador, usad alias distintos y cada uno tendrá su propia posición.
           Pulsa sobre una fila para ver sus preguntas, tiempos y compartir el registro.
-          Si tu alias no está entre los 50 primeros, usa «Ver mi puesto» para consultar tu posición real.
+          En Diario y Semanal puedes elegir un día o una semana pasada con el selector o el calendario; las insignias y la corona se cuentan solo hasta ese momento. Si tu alias no está entre los 50 primeros, usa «Ver mi puesto» para consultar tu posición real.
           <span class="insignias"><i class="fa-solid fa-crown ins-historica" aria-hidden="true"></i> campeón histórico · <i class="fa-solid fa-trophy ins-semanal" aria-hidden="true"></i> victoria semanal · <i class="fa-solid fa-medal ins-diaria" aria-hidden="true"></i> victoria diaria (el número indica cuántas)</span>
           En Insignias aparece quien tiene al menos una victoria o la corona; se ordena por semanales, luego diarias. La corona señala al mejor marcador histórico.
         </p>
@@ -396,6 +413,82 @@
         ["diario", "Diario"], ["semanal", "Semanal"], ["historico", "Histórico"]
       ];
       const cabeceras = Array.from(document.querySelectorAll("table thead th"));
+      let fecha = "";
+      const periodosCache = Object.create(null);
+      const esFechable = () => periodo === "diario" || periodo === "semanal";
+      const fechaSQL = () => fecha || null;
+      const claveCache = () => periodo + "|" + fecha;
+      const pad = n => String(n).padStart(2, "0");
+
+      function semanaISO(d) {
+        const t = new Date(Date.UTC(d.getFullYear(), d.getMonth(), d.getDate()));
+        const dia = t.getUTCDay() || 7;
+        t.setUTCDate(t.getUTCDate() + 4 - dia);
+        const inicioAno = new Date(Date.UTC(t.getUTCFullYear(), 0, 1));
+        return Math.ceil((((t - inicioAno) / 86400000) + 1) / 7);
+      }
+
+      function etiquetaPeriodo(f) {
+        const partes = String(f.fecha).split("-").map(Number);
+        const inicio = new Date(partes[0], partes[1] - 1, partes[2]);
+        if (!Number.isFinite(inicio.getTime())) return String(f.clave);
+        if (periodo === "diario") {
+          return inicio.toLocaleDateString("es-ES", { day: "numeric", month: "short", year: "numeric" });
+        }
+        const fin = new Date(inicio);
+        fin.setDate(fin.getDate() + 6);
+        const coincidencia = /W(\d\d)$/.exec(String(f.clave || ""));
+        const semana = coincidencia ? Number(coincidencia[1]) : semanaISO(inicio);
+        return "S" + semana + " · " +
+          inicio.toLocaleDateString("es-ES", { day: "numeric", month: "short" }) + "–" +
+          fin.toLocaleDateString("es-ES", { day: "numeric", month: "short" });
+      }
+
+      function lunesDe(valor) {
+        const partes = String(valor).split("-").map(Number);
+        if (partes.length !== 3) return "";
+        const d = new Date(partes[0], partes[1] - 1, partes[2]);
+        d.setDate(d.getDate() - ((d.getDay() + 6) % 7));
+        return d.getFullYear() + "-" + pad(d.getMonth() + 1) + "-" + pad(d.getDate());
+      }
+
+      async function cargarPeriodos() {
+        const caja = $("fecha-elegir");
+        if (!esFechable()) { caja.hidden = true; return; }
+        caja.hidden = false;
+        const select = $("periodo-fecha");
+        try {
+          let filas = periodosCache[periodo];
+          if (!filas) {
+            filas = await ranking.periodosDisponibles(periodo) || [];
+            periodosCache[periodo] = filas;
+          }
+          select.textContent = "";
+          const actual = document.createElement("option");
+          actual.value = "";
+          actual.textContent = periodo === "diario" ? "Hoy" : "Esta semana";
+          select.appendChild(actual);
+          filas.forEach(f => {
+            const opcion = document.createElement("option");
+            opcion.value = f.fecha;
+            opcion.textContent = etiquetaPeriodo(f);
+            select.appendChild(opcion);
+          });
+          if (fecha && !filas.some(f => f.fecha === fecha)) {
+            const elegida = document.createElement("option");
+            elegida.value = fecha;
+            elegida.textContent = etiquetaPeriodo({ clave: "", fecha: fecha });
+            select.appendChild(elegida);
+          }
+          select.value = fecha;
+        } catch (e) {
+          select.textContent = "";
+          const actual = document.createElement("option");
+          actual.value = "";
+          actual.textContent = "Actual";
+          select.appendChild(actual);
+        }
+      }
 
       function actualizarCabeceras() {
         const ins = periodo === "insignias";
@@ -598,10 +691,12 @@
         return Promise.all(PERIODOS_CARD.map(async ([clave, nombre]) => {
           let puesto = null;
           try {
-            let filas = posicionesCache[clave];
+            const fechaCard = clave === "historico" ? null : fechaSQL();
+            const claveCacheCard = clave + "|" + (fechaCard || "");
+            let filas = posicionesCache[claveCacheCard];
             if (!filas) {
-              filas = await ranking.cargar(clave);
-              posicionesCache[clave] = filas;
+              filas = await ranking.cargar(clave, fechaCard);
+              posicionesCache[claveCacheCard] = filas;
             }
             const fila = (filas || []).find(f => String(f.partida_id) === String(id));
             if (fila && fila.puesto != null) puesto = Number(fila.puesto);
@@ -1038,7 +1133,7 @@
         try {
           const fila = periodo === "insignias"
             ? await ranking.puestoInsignias(alias)
-            : await ranking.puesto(alias, periodo);
+            : await ranking.puesto(alias, periodo, fechaSQL());
           if (id !== busquedaId) return;
           pintarBusqueda(fila);
           if (fila) {
@@ -1082,9 +1177,9 @@
         try {
           const filas = periodo === "insignias"
             ? await ranking.cargarInsignias()
-            : await ranking.cargar(periodo);
+            : await ranking.cargar(periodo, fechaSQL());
           if (id !== cargando) return;
-          posicionesCache[periodo] = filas;
+          posicionesCache[claveCache()] = filas;
           pintar(filas);
           cargarTotal();
           estado.textContent = "";
@@ -1100,14 +1195,39 @@
       botones.forEach(boton => {
         boton.addEventListener("click", () => {
           periodo = boton.dataset.periodo;
+          fecha = "";
+          $("fecha-calendario").value = "";
           botones.forEach(b => {
             const activo = b === boton;
             b.classList.toggle("is-active", activo);
             b.setAttribute("aria-pressed", String(activo));
           });
+          cargarPeriodos();
           actualizar();
           if (aliasBuscado) buscar();
         });
+      });
+
+      $("periodo-fecha").addEventListener("change", e => {
+        fecha = e.target.value;
+        if (fecha) $("fecha-calendario").value = fecha;
+        actualizar();
+        if (aliasBuscado) buscar();
+      });
+
+      $("fecha-calendario").addEventListener("change", e => {
+        const valor = e.target.value;
+        fecha = valor ? (periodo === "semanal" ? lunesDe(valor) : valor) : "";
+        const select = $("periodo-fecha");
+        if (fecha && !Array.from(select.options).some(o => o.value === fecha)) {
+          const elegida = document.createElement("option");
+          elegida.value = fecha;
+          elegida.textContent = etiquetaPeriodo({ clave: "", fecha: fecha });
+          select.appendChild(elegida);
+        }
+        select.value = fecha;
+        actualizar();
+        if (aliasBuscado) buscar();
       });
 
       try {
@@ -1153,6 +1273,7 @@
         $("estado").textContent =
           "El ranking estará disponible en cuanto se configure el servicio de puntuaciones.";
       } else {
+        cargarPeriodos();
         actualizar();
       }
     })();

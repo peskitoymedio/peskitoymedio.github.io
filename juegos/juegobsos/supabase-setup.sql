@@ -388,17 +388,25 @@ $$;
 drop function if exists public.registrar_puntuacion(text, text, integer, integer);
 drop function if exists public.registrar_puntuacion(text, text, integer, integer, text);
 drop function if exists public.ranking(text);
+drop function if exists public.ranking(text, date);
 drop function if exists public.puesto_de(text);
 drop function if exists public.puesto_de(text, text);
+drop function if exists public.puesto_de(text, text, date);
+drop function if exists public.periodos_disponibles(text);
 drop function if exists public.ranking_insignias();
 drop function if exists public.puesto_de_insignias(text);
 drop function if exists public.total_partidas();
 
 -- Ranking por periodo. Se queda con la MEJOR partida de cada alias, no con
 -- la suma, para no premiar a quien más juega. Día y semana en Europe/Madrid.
--- Los trofeos son acumulados: cuentan todas las victorias del alias, esté en
--- la pestaña que esté.
-create or replace function public.ranking(p_periodo text default 'diario')
+-- p_fecha permite consultar un día o una semana pasados; null = vigente.
+-- Las insignias y la corona se cuentan SOLO hasta el final del periodo elegido.
+-- Los trofeos se reconstruyen de puntuaciones, no de victorias (que solo guarda
+-- al líder final), con el mismo desempate que actualizar_lideres().
+create or replace function public.ranking(
+  p_periodo text default 'diario',
+  p_fecha date default null
+)
 returns table (
   puesto bigint,
   alias text,
@@ -415,24 +423,60 @@ stable
 security definer
 set search_path = public
 as $$
-  with campeon as (
+  with base as (
+    -- En semanal la fecha de referencia es siempre el lunes ISO de la semana;
+    -- si no, al sumar 6 días para el domingo se cambia de semana.
+    select case when p_periodo = 'semanal'
+                then date_trunc('week', coalesce(p_fecha, timezone('Europe/Madrid', now())::date)::timestamp)::date
+                else coalesce(p_fecha, timezone('Europe/Madrid', now())::date)
+           end as fecha
+  ),
+  limites as (
+    select b.fecha,
+           (b.fecha + case when p_periodo = 'semanal' then 6 else 0 end)::date as hasta,
+           to_char((b.fecha + case when p_periodo = 'semanal' then 6 else 0 end)::date, 'YYYY-MM-DD') as clave_dia,
+           to_char((b.fecha + case when p_periodo = 'semanal' then 6 else 0 end)::date, 'IYYY-"W"IW') as clave_sem,
+           timezone('Europe/Madrid',
+                    (b.fecha + case when p_periodo = 'semanal' then 7 else 1 end)::timestamp
+           ) as hasta_ts
+    from base b
+  ),
+  -- Líderes reconstruidos como en actualizar_lideres(): mejor puntuación de
+  -- cada día/semana (puntos desc, creado_en asc), cortados al final del
+  -- periodo consultado. Así se recuperan líderes que luego perdieron el puesto.
+  dia_lideres as (
+    select distinct on (to_char(timezone('Europe/Madrid', p.creado_en), 'YYYY-MM-DD'))
+           to_char(timezone('Europe/Madrid', p.creado_en), 'YYYY-MM-DD') as clave,
+           lower(btrim(p.alias)) as alias
+    from public.puntuaciones p cross join limites l
+    where p.creado_en < l.hasta_ts
+    order by 1, p.puntos desc, p.creado_en asc
+  ),
+  sem_lideres as (
+    select distinct on (to_char(timezone('Europe/Madrid', p.creado_en), 'IYYY-"W"IW'))
+           to_char(timezone('Europe/Madrid', p.creado_en), 'IYYY-"W"IW') as clave,
+           lower(btrim(p.alias)) as alias
+    from public.puntuaciones p cross join limites l
+    where p.creado_en < l.hasta_ts
+    order by 1, p.puntos desc, p.creado_en asc
+  ),
+  campeon as (
     select lower(btrim(p.alias)) as clave
-    from public.puntuaciones p
+    from public.puntuaciones p cross join limites l
+    where timezone('Europe/Madrid', p.creado_en)::date <= l.hasta
     order by p.puntos desc, p.creado_en asc
     limit 1
   ),
   filtradas as (
     select p.*
-    from public.puntuaciones p
+    from public.puntuaciones p cross join limites l
     where (
             p_periodo = 'semanal'
-            and timezone('Europe/Madrid', p.creado_en) >=
-                date_trunc('week', timezone('Europe/Madrid', now()))
+            and to_char(timezone('Europe/Madrid', p.creado_en), 'IYYY-"W"IW') = l.clave_sem
           )
        or (
             p_periodo = 'diario'
-            and timezone('Europe/Madrid', p.creado_en) >=
-                date_trunc('day', timezone('Europe/Madrid', now()))
+            and timezone('Europe/Madrid', p.creado_en)::date = l.fecha
           )
        or p_periodo = 'historico'
   ),
@@ -447,13 +491,13 @@ as $$
          m.puntos,
          m.aciertos,
          timezone('Europe/Madrid', m.creado_en)::date as fecha,
-         (select count(*) from public.victorias v
-           where v.periodo = 'diario'
-             and lower(btrim(v.alias)) = lower(btrim(m.alias))) as victorias_diarias,
-         (select count(*) from public.victorias v
-           where v.periodo = 'semanal'
-             and lower(btrim(v.alias)) = lower(btrim(m.alias))) as victorias_semanales,
-          exists (select 1 from campeon c where c.clave = lower(btrim(m.alias))) as es_campeon_historico,
+         (select count(*) from dia_lideres d cross join limites l
+           where d.clave <= l.clave_dia
+             and d.alias = lower(btrim(m.alias))) as victorias_diarias,
+         (select count(*) from sem_lideres s cross join limites l
+           where s.clave <= l.clave_sem
+             and s.alias = lower(btrim(m.alias))) as victorias_semanales,
+         exists (select 1 from campeon c where c.clave = lower(btrim(m.alias))) as es_campeon_historico,
   m.id as partida_id
   from mejores m
   order by m.puntos desc, m.creado_en asc
@@ -464,7 +508,8 @@ $$;
 -- Devuelve las mismas columnas que ranking() para reutilizar el detalle.
 create or replace function public.puesto_de(
   p_alias text,
-  p_periodo text default 'diario'
+  p_periodo text default 'diario',
+  p_fecha date default null
 )
 returns table (
   puesto bigint,
@@ -482,24 +527,60 @@ stable
 security definer
 set search_path = public
 as $$
-  with campeon as (
+  with base as (
+    -- En semanal la fecha de referencia es siempre el lunes ISO de la semana;
+    -- si no, al sumar 6 días para el domingo se cambia de semana.
+    select case when p_periodo = 'semanal'
+                then date_trunc('week', coalesce(p_fecha, timezone('Europe/Madrid', now())::date)::timestamp)::date
+                else coalesce(p_fecha, timezone('Europe/Madrid', now())::date)
+           end as fecha
+  ),
+  limites as (
+    select b.fecha,
+           (b.fecha + case when p_periodo = 'semanal' then 6 else 0 end)::date as hasta,
+           to_char((b.fecha + case when p_periodo = 'semanal' then 6 else 0 end)::date, 'YYYY-MM-DD') as clave_dia,
+           to_char((b.fecha + case when p_periodo = 'semanal' then 6 else 0 end)::date, 'IYYY-"W"IW') as clave_sem,
+           timezone('Europe/Madrid',
+                    (b.fecha + case when p_periodo = 'semanal' then 7 else 1 end)::timestamp
+           ) as hasta_ts
+    from base b
+  ),
+  -- Líderes reconstruidos como en actualizar_lideres(): mejor puntuación de
+  -- cada día/semana (puntos desc, creado_en asc), cortados al final del
+  -- periodo consultado. Así se recuperan líderes que luego perdieron el puesto.
+  dia_lideres as (
+    select distinct on (to_char(timezone('Europe/Madrid', p.creado_en), 'YYYY-MM-DD'))
+           to_char(timezone('Europe/Madrid', p.creado_en), 'YYYY-MM-DD') as clave,
+           lower(btrim(p.alias)) as alias
+    from public.puntuaciones p cross join limites l
+    where p.creado_en < l.hasta_ts
+    order by 1, p.puntos desc, p.creado_en asc
+  ),
+  sem_lideres as (
+    select distinct on (to_char(timezone('Europe/Madrid', p.creado_en), 'IYYY-"W"IW'))
+           to_char(timezone('Europe/Madrid', p.creado_en), 'IYYY-"W"IW') as clave,
+           lower(btrim(p.alias)) as alias
+    from public.puntuaciones p cross join limites l
+    where p.creado_en < l.hasta_ts
+    order by 1, p.puntos desc, p.creado_en asc
+  ),
+  campeon as (
     select lower(btrim(p.alias)) as clave
-    from public.puntuaciones p
+    from public.puntuaciones p cross join limites l
+    where timezone('Europe/Madrid', p.creado_en)::date <= l.hasta
     order by p.puntos desc, p.creado_en asc
     limit 1
   ),
   filtradas as (
     select p.*
-    from public.puntuaciones p
+    from public.puntuaciones p cross join limites l
     where (
             p_periodo = 'semanal'
-            and timezone('Europe/Madrid', p.creado_en) >=
-                date_trunc('week', timezone('Europe/Madrid', now()))
+            and to_char(timezone('Europe/Madrid', p.creado_en), 'IYYY-"W"IW') = l.clave_sem
           )
        or (
             p_periodo = 'diario'
-            and timezone('Europe/Madrid', p.creado_en) >=
-                date_trunc('day', timezone('Europe/Madrid', now()))
+            and timezone('Europe/Madrid', p.creado_en)::date = l.fecha
           )
        or p_periodo = 'historico'
   ),
@@ -519,18 +600,40 @@ as $$
          c.puntos,
          c.aciertos,
          timezone('Europe/Madrid', c.creado_en)::date as fecha,
-         (select count(*) from public.victorias v
-           where v.periodo = 'diario'
-             and lower(btrim(v.alias)) = lower(btrim(c.alias))) as victorias_diarias,
-         (select count(*) from public.victorias v
-           where v.periodo = 'semanal'
-             and lower(btrim(v.alias)) = lower(btrim(c.alias))) as victorias_semanales,
-                 exists (select 1 from campeon cam where cam.clave = lower(btrim(c.alias))) as es_campeon_historico,
+         (select count(*) from dia_lideres d cross join limites l
+           where d.clave <= l.clave_dia
+             and d.alias = lower(btrim(c.alias))) as victorias_diarias,
+         (select count(*) from sem_lideres s cross join limites l
+           where s.clave <= l.clave_sem
+             and s.alias = lower(btrim(c.alias))) as victorias_semanales,
+         exists (select 1 from campeon cam where cam.clave = lower(btrim(c.alias))) as es_campeon_historico,
   c.id as partida_id
   from clasificacion c
   where lower(btrim(c.alias)) = lower(btrim(p_alias))
   order by c.puesto
   limit 1;
+$$;
+
+-- Días o semanas (lunes) con partidas, para poblar el selector del ranking.
+-- Las semanas se agrupan por ISO en Europe/Madrid; clave = YYYY-MM-DD o IYYY-Www.
+create or replace function public.periodos_disponibles(p_periodo text default 'diario')
+returns table (clave text, fecha date)
+language sql
+stable
+security definer
+set search_path = public
+as $$
+  select distinct to_char(x.d, 'YYYY-MM-DD'), x.d
+  from (
+    select 'diario' as tipo, timezone('Europe/Madrid', p.creado_en)::date as d
+    from public.puntuaciones p
+    union all
+    select 'semanal', date_trunc('week', timezone('Europe/Madrid', p.creado_en))::date
+    from public.puntuaciones p
+  ) x
+  where x.tipo = p_periodo
+  order by 2 desc
+  limit 500;
 $$;
 
 -- Ranking de insignias: solo alias con al menos una victoria diaria o semanal.
@@ -724,8 +827,9 @@ revoke all on function public.actualizar_lideres() from public;
 revoke all on function public.emitir_token() from public;
 
 revoke all on function public.registrar_puntuacion(text, text, integer, integer, text, jsonb) from public;
-revoke all on function public.ranking(text) from public;
-revoke all on function public.puesto_de(text, text) from public;
+revoke all on function public.ranking(text, date) from public;
+revoke all on function public.puesto_de(text, text, date) from public;
+revoke all on function public.periodos_disponibles(text) from public;
 revoke all on function public.ranking_insignias() from public;
 revoke all on function public.puesto_de_insignias(text) from public;
 revoke all on function public.total_partidas() from public;
@@ -735,8 +839,9 @@ revoke all on function public.detalles_partida(bigint) from public;
 
 grant execute on function public.emitir_token() to anon, authenticated;
 grant execute on function public.registrar_puntuacion(text, text, integer, integer, text, jsonb) to anon, authenticated;
-grant execute on function public.ranking(text) to anon, authenticated;
-grant execute on function public.puesto_de(text, text) to anon, authenticated;
+grant execute on function public.ranking(text, date) to anon, authenticated;
+grant execute on function public.puesto_de(text, text, date) to anon, authenticated;
+grant execute on function public.periodos_disponibles(text) to anon, authenticated;
 grant execute on function public.ranking_insignias() to anon, authenticated;
 grant execute on function public.puesto_de_insignias(text) to anon, authenticated;
 grant execute on function public.total_partidas() to anon, authenticated;
