@@ -24,7 +24,7 @@ Es una web estática: no hay servidor, base de datos ni proceso de compilación.
 - Vídeo de presentación incrustado desde YouTube.
 - Sección de reconocimientos con los premios de la Asociación Podcast y los rankings de Goodpods.
 - Contadores de episodios y de cada categoría calculados en tiempo real.
-- **Juego de Bandas Sonoras** (`juegos/juegobsos/`): minijuego online para adivinar películas a partir de fragmentos de sus bandas sonoras. Banco de 89 películas frikis, 10 rondas, puntuación por acierto y rapidez, modo de dificultad (3/5/10 segundos), tarjeta de resultado para compartir y descargar, y audio preview vía iTunes API sin almacenar archivos en el servidor.
+- **Juego de Bandas Sonoras** (`juegos/juegobsos/`): minijuego online para adivinar películas a partir de fragmentos de sus bandas sonoras. Banco de 89 películas frikis, 10 rondas, puntuación por acierto y rapidez, modo de dificultad (3/5/10 segundos), tarjeta de resultado para compartir y descargar, audio preview vía iTunes API sin almacenar archivos en el servidor y ranking online (diario, semanal e histórico).
 - Diseño adaptable a móvil, tableta y escritorio, con una estética de cómic y aire friki.
 - Navegación por teclado, textos alternativos y contraste cuidado.
 - Sin dependencias de JavaScript: solo HTML, CSS y JS del navegador.
@@ -149,15 +149,38 @@ Al terminar se muestra una pantalla final con la puntuación, el veredicto ("Mae
 
 La página declara `<title>` y `<meta name="description">` propios, `link rel="canonical"` absoluta, y metadatos Open Graph/Twitter con imagen de vista previa (`og-image.png`, 1200×630). Se enlaza desde la navegación principal del sitio y del pie de página.
 
+### Ranking online
+
+La clasificación pública está en `juegos/juegobsos/ranking.html` (enlazada desde el juego) y se alimenta de Supabase mediante las funciones RPC definidas en `supabase-setup.sql`. El cliente compartido es `ranking.js` (`window.PYMRanking`) y las credenciales viven en `config.js`: si están vacías, el juego sigue funcionando y la página de ranking muestra un aviso en lugar de dar error.
+
+| Dato | Valor |
+|---|---|
+| Periodos | `diario`, `semanal` e `historico` (hora de `Europe/Madrid`) |
+| Tamaño | Top 50 por periodo |
+| Usuario | Alias de hasta 24 caracteres; el identificador anónimo se guarda en `localStorage` (`pym-bso-jugador-id`) |
+| Mejora | Solo entra la mejor marca del alias en cada periodo; `registrar_puntuacion` devuelve `null` si no la supera |
+| Desempate | Menor tiempo de envío (marca más antigua) gana a igual puntuación; el alias se compara sin distinguir mayúsculas |
+| Seguridad | Token de un solo uso emitido al pulsar «Dale al play» (≤ 10 min), detalle de las 10 respuestas validado en servidor y puntuación recalculada allí |
+| Extras | Contadores de victorias diarias/semanales, `puesto_de` para puestos fuera del top 50, tarjeta compartible del récord y consulta de detalle de cada partida |
+
+Nota: «el juego», «el ranking», «la clasificación», «el top» o «mi puesto» en este proyecto significan siempre esta sección; no confundir con los rankings de Goodpods ni con las transcripciones de `episodios/`.
+
 ### Estructura
 
 ```
 juegos/juegobsos/
-  index.html         Página del juego (HTML, estilos embebidos y lógica JS)
-  peliculas.js       Banco externo de películas (titulo + consulta)
-  itunes-preview.js  Búsqueda de previews compartida con el laboratorio
-  lab-bso.html       Laboratorio privado: listado, filtro, test de previews y prueba de descripciones alternativas (noindex + robots.txt)
-  og-image.png       Imagen de vista previa para redes sociales
+  index.html            Página del juego (HTML, estilos embebidos y lógica JS)
+  ranking.html          Clasificación pública (diaria, semanal e histórica)
+  ranking.js            Cliente Supabase compartido por juego y ranking
+  config.js             URL y clave pública de Supabase (vacías = ranking off)
+  supabase-setup.sql    Esquema, RPC y reglas del ranking (fuente de verdad)
+  peliculas.js          Banco externo de películas (titulo + consulta)
+  itunes-preview.js     Búsqueda de previews compartida con el laboratorio
+  previews.js           Caché/localizador de previews
+  generar-previews.py   Generación de la caché de previews
+  card-images-local.js  Imágenes locales para la tarjeta de resultado
+  lab-bso.html          Laboratorio privado: listado, filtro, test de previews y prueba de descripciones alternativas (noindex + robots.txt)
+  og-image.png          Imagen de vista previa para redes sociales
 ```
 
 ## Actualización automática
