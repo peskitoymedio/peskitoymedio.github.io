@@ -48,29 +48,55 @@
       box-shadow: 8px 8px 0 var(--ink);
       padding: 28px 32px 32px;
     }
-    .tabs { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 22px; }
+    .tabs {
+      display: grid; grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 10px; margin-bottom: 16px;
+    }
     .tabs button {
       font: inherit; font-weight: 800; cursor: pointer;
-      padding: 10px 20px; border-radius: 999px;
+      padding: 10px 8px; border-radius: 999px;
       border: 3px solid var(--ink); background: var(--white); color: var(--ink);
       box-shadow: 3px 3px 0 var(--ink);
     }
     .tabs button:hover { transform: translate(-1px, -1px); box-shadow: 4px 4px 0 var(--ink); }
     .tabs button.is-active { background: var(--yellow); }
     .tabs button:disabled { opacity: .5; cursor: not-allowed; transform: none; }
-    .fecha-elegir {
-      display: flex; flex-wrap: wrap; align-items: center; gap: 10px;
-      margin: -6px 0 18px; font-weight: 700;
+
+    .ranking-acciones { display: flex; align-items: center; gap: 10px; margin: 0 0 14px; }
+    .ranking-acciones .btn-compartir { margin-left: auto; }
+    .acciones-filtros { display: flex; flex-wrap: wrap; gap: 10px; }
+    .btn-filtro {
+      font: inherit; font-weight: 800; cursor: pointer;
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 9px 14px; border-radius: 999px;
+      border: 3px solid var(--ink); background: var(--white); color: var(--ink);
+      box-shadow: 3px 3px 0 var(--ink);
     }
-    .fecha-elegir[hidden] { display: none; }
+    .btn-filtro:hover { transform: translate(-1px, -1px); box-shadow: 4px 4px 0 var(--ink); }
+    .btn-filtro.is-open { background: var(--yellow); }
+    .btn-filtro:disabled { opacity: .5; cursor: not-allowed; transform: none; }
+    .btn-filtro[hidden] { display: none; }
+    .btn-filtro .fa-chevron-down { font-size: .72rem; transition: transform .18s ease; }
+    .btn-filtro.is-open .fa-chevron-down { transform: rotate(180deg); }
+
+    .panel-filtro {
+      margin: 0 0 14px; padding: 14px 16px;
+      background: rgba(61,185,192,.10); border: 2px dashed rgba(11,27,45,.28);
+      border-radius: 14px;
+    }
+    .panel-filtro[hidden] { display: none; }
+    .fecha-elegir {
+      display: grid; grid-template-columns: auto minmax(0,1fr) minmax(0,1fr);
+      align-items: center; gap: 10px; font-weight: 700;
+    }
     .fecha-elegir label { color: var(--ink-soft); }
     .fecha-elegir select, .fecha-elegir input {
-      font: inherit; font-weight: 700; padding: 8px 10px;
+      font: inherit; font-weight: 700; width: 100%; min-width: 0; padding: 8px 10px;
       border: 3px solid var(--ink); border-radius: 10px;
       background: var(--white); color: var(--ink);
     }
 
-    .buscar-form { display: flex; flex-wrap: wrap; gap: 10px; margin: 0 0 4px; }
+    .buscar-form { display: flex; gap: 10px; margin: 0; }
     .buscar-form input {
       font: inherit; flex: 1 1 220px; min-width: 0;
       padding: 10px 14px; border: 3px solid var(--ink); border-radius: 999px;
@@ -78,7 +104,7 @@
     }
     .buscar-form input:focus { outline: 3px solid rgba(255,197,49,.6); outline-offset: 1px; }
     .buscar-form button {
-      font: inherit; font-weight: 800; cursor: pointer;
+      font: inherit; font-weight: 800; cursor: pointer; white-space: nowrap;
       padding: 10px 20px; border-radius: 999px; border: 3px solid var(--ink);
       background: var(--yellow); color: var(--ink); box-shadow: 3px 3px 0 var(--ink);
     }
@@ -218,18 +244,28 @@
       padding: 6px 12px; border-radius: 999px; border: 2px solid var(--ink);
       background: var(--white); color: var(--ink); cursor: pointer;
     }
-    #compartir-estado, #rank-estado { min-height: 18px; margin: 8px 0 0; font-size: .82rem; color: var(--ink-soft); }
+    #compartir-estado { min-height: 18px; margin: 8px 0 0; font-size: .82rem; color: var(--ink-soft); }
+    #rank-estado { margin: 8px 0 0; font-size: .82rem; color: var(--ink-soft); }
     .btn-compartir:disabled { opacity: .5; cursor: not-allowed; transform: none; }
-    .ranking-share { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; margin: 0 0 18px; }
-    .ranking-share .btn-compartir { margin-left: auto; }
-    .ranking-share .compartir-enlaces { justify-content: flex-start; }
+    .ranking-share { margin: 0 0 14px; }
+    .ranking-share[hidden] { display: none; }
+    .ranking-share .compartir-enlaces { justify-content: flex-start; margin-top: 0; }
 
     #estado { min-height: 24px; margin: 4px 0 14px; font-weight: 600; color: var(--ink-soft); }
     .ranking-nota { margin: 24px 0 0; font-size: .9rem; color: var(--ink-soft); line-height: 1.6; }
     .ranking-cta { display: flex; width: max-content; max-width: 100%; margin-top: 18px; }
     @media (max-width: 640px) {
-      .ranking-card { padding: 22px 16px 24px; }
-      .tabs button { padding: 8px 14px; }
+      .ranking-card { padding: 20px 14px 24px; }
+      .tabs { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; margin-bottom: 14px; }
+      .tabs button { padding: 10px 8px; font-size: .95rem; }
+      .ranking-acciones { flex-direction: column; align-items: stretch; gap: 10px; }
+      .ranking-acciones .btn-compartir { order: -1; width: 100%; margin-left: 0; }
+      .acciones-filtros { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+      .btn-filtro { justify-content: center; width: 100%; padding: 9px 6px; font-size: .9rem; }
+      .panel-filtro { padding: 12px; }
+      .fecha-elegir { grid-template-columns: minmax(0, 1fr); gap: 8px; }
+      .buscar-form { display: grid; grid-template-columns: minmax(0, 1fr); gap: 8px; }
+      .buscar-form button { width: 100%; }
       .ranking-pista {
         display: flex; align-items: center; gap: 8px;
         margin: 6px 0 12px; padding: 8px 10px;
@@ -310,10 +346,21 @@
           <button type="button" data-periodo="insignias" aria-pressed="false">Insignias</button>
         </div>
 
-        <div class="ranking-share">
+        <div class="ranking-acciones">
+          <div class="acciones-filtros">
+            <button type="button" class="btn-filtro" id="toggle-fechas" aria-expanded="false" aria-controls="fecha-elegir" hidden>
+              <i class="fa-solid fa-calendar-days" aria-hidden="true"></i> Fechas <i class="fa-solid fa-chevron-down" aria-hidden="true"></i>
+            </button>
+            <button type="button" class="btn-filtro" id="toggle-buscar" aria-expanded="false" aria-controls="panel-buscar">
+              <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i> Buscar alias <i class="fa-solid fa-chevron-down" aria-hidden="true"></i>
+            </button>
+          </div>
           <button type="button" class="btn-compartir" id="compartir-ranking">
             <i class="fa-solid fa-share-nodes" aria-hidden="true"></i> Compartir ranking
           </button>
+        </div>
+
+        <div class="ranking-share" id="ranking-share" hidden>
           <div id="rank-enlaces" class="compartir-enlaces" hidden>
             <a id="krx" target="_blank" rel="noopener" title="Compartir en X"><i class="fa-brands fa-x-twitter"></i> X</a>
             <a id="kwa" target="_blank" rel="noopener" title="Compartir en WhatsApp"><i class="fa-brands fa-whatsapp"></i> WhatsApp</a>
@@ -324,13 +371,13 @@
           <p id="rank-estado" role="status" aria-live="polite"></p>
         </div>
 
-        <div class="fecha-elegir" id="fecha-elegir" hidden>
+        <div class="fecha-elegir panel-filtro" id="fecha-elegir" hidden>
           <label for="periodo-fecha">Consultar</label>
           <select id="periodo-fecha"><option value="">Actual</option></select>
           <input type="date" id="fecha-calendario" aria-label="Ir a una fecha concreta">
         </div>
 
-        <form class="buscar-form" id="buscar-form">
+        <form class="buscar-form panel-filtro" id="panel-buscar" hidden>
           <label class="sr-only" for="buscar-alias">Buscar un alias en el ranking</label>
           <input id="buscar-alias" type="search" maxlength="24" placeholder="Busca un alias…" autocomplete="off">
           <button type="submit" id="buscar-puesto">Ver mi puesto</button>
@@ -432,8 +479,19 @@
       ];
       const cabeceras = Array.from(document.querySelectorAll("table thead th"));
       let fecha = "";
+      let fechasAbiertas = false;
       const periodosCache = Object.create(null);
       const esFechable = () => periodo === "diario" || periodo === "semanal";
+      const alternarFiltro = (botonId, panelId, abrir) => {
+        const boton = $(botonId), panel = $(panelId);
+        panel.hidden = !abrir;
+        boton.classList.toggle("is-open", abrir);
+        boton.setAttribute("aria-expanded", String(abrir));
+      };
+      const estadoRanking = texto => {
+        $("rank-estado").textContent = texto;
+        $("ranking-share").hidden = !texto && $("rank-enlaces").hidden;
+      };
       const fechaSQL = () => fecha || null;
       const claveCache = () => periodo + "|" + fecha;
       const pad = n => String(n).padStart(2, "0");
@@ -472,8 +530,14 @@
 
       async function cargarPeriodos() {
         const caja = $("fecha-elegir");
-        if (!esFechable()) { caja.hidden = true; return; }
-        caja.hidden = false;
+        if (!esFechable()) {
+          fechasAbiertas = false;
+          alternarFiltro("toggle-fechas", "fecha-elegir", false);
+          $("toggle-fechas").hidden = true;
+          return;
+        }
+        $("toggle-fechas").hidden = false;
+        alternarFiltro("toggle-fechas", "fecha-elegir", fechasAbiertas);
         const select = $("periodo-fecha");
         try {
           let filas = periodosCache[periodo];
@@ -1349,9 +1413,8 @@
 
       async function compartirRanking() {
         if (!ranking.configurado) return;
-        const estado = $("rank-estado");
         const meta = metaRanking();
-        estado.textContent = "Preparando tarjeta…";
+        estadoRanking("Preparando tarjeta…");
         try {
           let filas = posicionesCache[meta.clave];
           if (!filas) {
@@ -1372,14 +1435,14 @@
               url: RANKING_URL,
               files: [new File([blob], "ranking-bsos.png", { type: "image/png" })]
             });
-            estado.textContent = "";
+            estadoRanking("");
           } else {
             $("rank-enlaces").hidden = false;
-            estado.textContent = "Elige dónde compartir o descarga la tarjeta.";
+            estadoRanking("Elige dónde compartir o descarga la tarjeta.");
           }
         } catch (e) {
-          estado.textContent = e && e.name === "AbortError" ? ""
-            : "No se pudo preparar la tarjeta: " + e.message;
+          estadoRanking(e && e.name === "AbortError" ? ""
+            : "No se pudo preparar la tarjeta: " + e.message);
         }
       }
       $("compartir-ranking").addEventListener("click", compartirRanking);
@@ -1569,7 +1632,7 @@
         const estado = $("estado");
         const id = ++cargando;
         $("rank-enlaces").hidden = true;
-        $("rank-estado").textContent = "";
+        estadoRanking("");
         botones.forEach(b => { b.disabled = true; });
         actualizarCabeceras();
         estado.textContent = "Cargando clasificación…";
@@ -1607,6 +1670,21 @@
         });
       });
 
+      $("toggle-fechas").addEventListener("click", () => {
+        const abrir = $("fecha-elegir").hidden;
+        fechasAbiertas = abrir;
+        alternarFiltro("toggle-fechas", "fecha-elegir", abrir);
+        if (abrir) alternarFiltro("toggle-buscar", "panel-buscar", false);
+      });
+      $("toggle-buscar").addEventListener("click", () => {
+        const abrir = $("panel-buscar").hidden;
+        alternarFiltro("toggle-buscar", "panel-buscar", abrir);
+        if (abrir && fechasAbiertas) {
+          fechasAbiertas = false;
+          alternarFiltro("toggle-fechas", "fecha-elegir", false);
+        }
+      });
+
       $("periodo-fecha").addEventListener("change", e => {
         fecha = e.target.value;
         if (fecha) $("fecha-calendario").value = fecha;
@@ -1637,7 +1715,7 @@
           $("buscar-alias").value = (localStorage.getItem("pym-bso-alias") || "").slice(0, 24);
         }
       } catch (e) {}
-      $("buscar-form").addEventListener("submit", e => {
+      $("panel-buscar").addEventListener("submit", e => {
         e.preventDefault();
         buscar();
       });
@@ -1667,6 +1745,8 @@
       if (!ranking.configurado) {
         botones.forEach(b => { b.disabled = true; });
         $("compartir-ranking").disabled = true;
+        $("toggle-fechas").disabled = true;
+        $("toggle-buscar").disabled = true;
         $("buscar-alias").disabled = true;
         $("buscar-puesto").disabled = true;
         pintar([]);
