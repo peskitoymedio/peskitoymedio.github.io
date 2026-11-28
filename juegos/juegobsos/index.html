@@ -1170,7 +1170,7 @@
       const hitsX=Math.max(500,scoreEnd+24);
 
       // Puestos del ranking: solo se dibujan si la partida ha mejorado.
-      // Se reduce la letra hasta que caben las tres píldoras.
+      // Se reduce la letra hasta que caben las píldoras del ranking.
       let centroFila=null;
       if(cardMeta && cardMeta.posiciones && cardMeta.posiciones.length){
         let pf=22, etiquetaW, anchos, total;
@@ -1305,11 +1305,13 @@
     $('again').onclick=()=>{ $('end').classList.add('hidden'); $('start').classList.remove('hidden'); document.body.classList.remove('jugando'); };
 
     // Envío de la puntuación al ranking (silencioso si no hay configuración).
-    const PERIODOS_RANKING=[["diario","Diario"],["semanal","Semanal"],["historico","Histórico"]];
+    const PERIODOS_RANKING=[["diario","Diario"],["semanal","Semanal"],["historico","Histórico"],["poles","Poles"]];
     async function puestosDe(id){
       return Promise.all(PERIODOS_RANKING.map(async ([clave,nombre])=>{
         try{
-          const filas=await window.PYMRanking.cargar(clave)||[];
+          const filas=clave==="poles" && typeof window.PYMRanking.cargarPoles==="function"
+            ? await window.PYMRanking.cargarPoles()||[]
+            : await window.PYMRanking.cargar(clave)||[];
           const fila=filas.find(f=>String(f.partida_id)===String(id));
           return { nombre:nombre, puesto:fila && fila.puesto!=null?Number(fila.puesto):null };
         }catch(e){ return { nombre:nombre, puesto:null }; }

@@ -395,7 +395,87 @@ drop function if exists public.puesto_de(text, text, date);
 drop function if exists public.periodos_disponibles(text);
 drop function if exists public.ranking_insignias();
 drop function if exists public.puesto_de_insignias(text);
+drop function if exists public.ranking_poles();
+drop function if exists public.puesto_de_poles(text);
+drop function if exists public.poles_registradas();
 drop function if exists public.total_partidas();
+
+-- Una pole por día (Europe/Madrid): el primer envío válido del día con 5 o
+-- más aciertos. Se deriva de partidas, que guarda TODOS los envíos con token
+-- válido, no solo los que mejoraron la marca del alias. Se descartan los
+-- envíos que el propio registrar_puntuacion() habría rechazado por anti-spam
+-- (mismo alias en los 5 segundos anteriores), aunque dejaran fila en partidas.
+-- El backfill fue el 24/11/2026: ese día puede haber intentos ≥5 ocultos detrás
+-- de un 4-aciertos con 500 puntos o más. A partir del 25/11 todo está completo
+-- y `verificada` es siempre true.
+create or replace function public.poles_diarias()
+returns table (
+  clave text,
+  fecha date,
+  alias_key text,
+  alias text,
+  puntos integer,
+  aciertos integer,
+  creado_en timestamptz,
+  partida_id bigint,
+  verificada boolean
+)
+language sql
+stable
+security definer
+set search_path = public
+as $$
+  with validos as (
+    select p.*
+    from public.partidas p
+    where not exists (
+      select 1
+      from public.puntuaciones ant
+      where lower(btrim(ant.alias)) = lower(btrim(p.alias))
+        and ant.creado_en < p.creado_en
+        and ant.creado_en > p.creado_en - interval '5 seconds'
+    )
+  ),
+  candidatas as (
+    select to_char(timezone('Europe/Madrid', p.creado_en), 'YYYY-MM-DD') as clave,
+           timezone('Europe/Madrid', p.creado_en)::date as fecha,
+           lower(btrim(p.alias)) as alias_key,
+           p.alias,
+           p.puntos,
+           p.aciertos,
+           p.creado_en,
+           p.id as partida_id,
+           row_number() over (
+             partition by to_char(timezone('Europe/Madrid', p.creado_en), 'YYYY-MM-DD')
+             order by p.creado_en asc, p.id asc
+           ) as orden_dia
+    from validos p
+    where p.aciertos >= 5
+  ),
+  riesgo as (
+    select to_char(timezone('Europe/Madrid', p.creado_en), 'YYYY-MM-DD') as clave,
+           min(p.creado_en) as primera_4_alta
+    from validos p
+    where p.aciertos = 4 and p.puntos >= 500
+    group by 1
+  )
+  select c.clave,
+         c.fecha,
+         c.alias_key,
+         c.alias,
+         c.puntos,
+         c.aciertos,
+         c.creado_en,
+         c.partida_id,
+         (c.creado_en >= timestamp '2026-11-25 00:00:00+01:00'
+          or (c.creado_en >= timestamp '2026-11-24 00:00:00+01:00'
+              and (r.primera_4_alta is null or r.primera_4_alta > c.creado_en))) as verificada
+  from candidatas c
+  left join riesgo r on r.clave = c.clave
+  where c.orden_dia = 1;
+$$;
+
+revoke all on function public.poles_diarias() from public;
 
 -- Ranking por periodo. Se queda con la MEJOR partida de cada alias, no con
 -- la suma, para no premiar a quien más juega. Día y semana en Europe/Madrid.
@@ -416,7 +496,8 @@ returns table (
   victorias_diarias bigint,
   victorias_semanales bigint,
   es_campeon_historico boolean,
-  partida_id bigint
+  partida_id bigint,
+  poles bigint
 )
 language sql
 stable
@@ -466,6 +547,14 @@ as $$
     where timezone('Europe/Madrid', p.creado_en)::date <= l.hasta
     order by p.puntos desc, p.creado_en asc
     limit 1
+  ),
+  -- Igual que trofeos y corona: en una vista pasada se cuentan solo las poles
+  -- ganadas hasta el final del periodo consultado.
+  poles_hasta as (
+    select d.alias_key, count(*) as poles
+    from public.poles_diarias() d cross join limites l
+    where d.verificada and d.creado_en < l.hasta_ts
+    group by d.alias_key
   ),
   filtradas as (
     select p.*
@@ -498,7 +587,9 @@ as $$
            where s.clave <= l.clave_sem
              and s.alias = lower(btrim(m.alias))) as victorias_semanales,
          exists (select 1 from campeon c where c.clave = lower(btrim(m.alias))) as es_campeon_historico,
-  m.id as partida_id
+  m.id as partida_id,
+  coalesce((select ph.poles from poles_hasta ph
+             where ph.alias_key = lower(btrim(m.alias))), 0) as poles
   from mejores m
   order by m.puntos desc, m.creado_en asc
   limit 50;
@@ -520,7 +611,8 @@ returns table (
   victorias_diarias bigint,
   victorias_semanales bigint,
   es_campeon_historico boolean,
-  partida_id bigint
+  partida_id bigint,
+  poles bigint
 )
 language sql
 stable
@@ -570,6 +662,14 @@ as $$
     where timezone('Europe/Madrid', p.creado_en)::date <= l.hasta
     order by p.puntos desc, p.creado_en asc
     limit 1
+  ),
+  -- Igual que trofeos y corona: en una vista pasada se cuentan solo las poles
+  -- ganadas hasta el final del periodo consultado.
+  poles_hasta as (
+    select d.alias_key, count(*) as poles
+    from public.poles_diarias() d cross join limites l
+    where d.verificada and d.creado_en < l.hasta_ts
+    group by d.alias_key
   ),
   filtradas as (
     select p.*
@@ -607,7 +707,9 @@ as $$
            where s.clave <= l.clave_sem
              and s.alias = lower(btrim(c.alias))) as victorias_semanales,
          exists (select 1 from campeon cam where cam.clave = lower(btrim(c.alias))) as es_campeon_historico,
-  c.id as partida_id
+  c.id as partida_id,
+  coalesce((select ph.poles from poles_hasta ph
+             where ph.alias_key = lower(btrim(c.alias))), 0) as poles
   from clasificacion c
   where lower(btrim(c.alias)) = lower(btrim(p_alias))
   order by c.puesto
@@ -636,10 +738,10 @@ as $$
   limit 500;
 $$;
 
--- Ranking de insignias: solo alias con al menos una victoria diaria o semanal.
--- Se ordena por semanales, luego diarias y, si empatan, por mejor marca histórica.
--- La "mejor marca" es la mejor puntuación histórica del alias, no la de la última victoria.
--- La corona (es_campeon_historico) marca al primero del ranking histórico.
+-- Ranking de insignias: alias con al menos una victoria diaria/semanal, la
+-- corona o una pole. Se ordena por semanales, diarias y poles; la mejor marca
+-- histórica solo desempata. La "mejor marca" sigue siendo la mejor puntuación
+-- histórica del alias, no la de la última victoria ni la de la pole.
 create or replace function public.ranking_insignias()
 returns table (
   puesto bigint,
@@ -649,7 +751,8 @@ returns table (
   puntos integer,
   aciertos integer,
   es_campeon_historico boolean,
-  partida_id bigint
+  partida_id bigint,
+  poles bigint
 )
 language sql
 stable
@@ -674,26 +777,50 @@ as $$
     from mejores m
     order by m.puntos desc, m.creado_en asc
     limit 1
+  ),
+  poles as (
+    select d.alias_key, count(*) as total
+    from public.poles_diarias() d
+    where d.verificada
+    group by d.alias_key
+  ),
+  clasificados as (
+    select t.clave,
+           t.semanales,
+           t.diarias,
+           coalesce(p.total, 0) as poles,
+           m.alias,
+           m.puntos,
+           m.aciertos,
+           m.id as partida_id,
+           (c.clave is not null) as es_campeon_historico
+    from (
+      select clave, semanales, diarias from trofeos
+      union all
+      select c.clave, 0::bigint, 0::bigint from campeon c
+      where not exists (select 1 from trofeos t2 where t2.clave = c.clave)
+      union all
+      select p.alias_key, 0::bigint, 0::bigint from poles p
+      where not exists (select 1 from trofeos t2 where t2.clave = p.alias_key)
+        and not exists (select 1 from campeon c2 where c2.clave = p.alias_key)
+    ) t
+    join mejores m on m.clave = t.clave
+    left join campeon c on c.clave = t.clave
+    left join poles p on p.alias_key = t.clave
   )
   select row_number() over (
-           order by t.semanales desc, t.diarias desc, m.puntos desc
+           order by c.semanales desc, c.diarias desc, c.poles desc, c.puntos desc
          ) as puesto,
-         m.alias,
-         t.semanales,
-         t.diarias,
-         m.puntos,
-         m.aciertos,
-         (c.clave is not null) as es_campeon_historico,
-         m.id as partida_id
-  from (
-    select clave, semanales, diarias from trofeos
-    union all
-    select c.clave, 0::bigint, 0::bigint from campeon c
-    where not exists (select 1 from trofeos t2 where t2.clave = c.clave)
-  ) t
-  join mejores m on m.clave = t.clave
-  left join campeon c on c.clave = t.clave
-  order by t.semanales desc, t.diarias desc, m.puntos desc
+         c.alias,
+         c.semanales,
+         c.diarias,
+         c.puntos,
+         c.aciertos,
+         c.es_campeon_historico,
+         c.partida_id,
+         c.poles
+  from clasificados c
+  order by c.semanales desc, c.diarias desc, c.poles desc, c.puntos desc
   limit 50;
 $$;
 
@@ -707,7 +834,8 @@ returns table (
   puntos integer,
   aciertos integer,
   es_campeon_historico boolean,
-  partida_id bigint
+  partida_id bigint,
+  poles bigint
 )
 language sql
 stable
@@ -733,9 +861,16 @@ as $$
     order by m.puntos desc, m.creado_en asc
     limit 1
   ),
+  poles as (
+    select d.alias_key, count(*) as total
+    from public.poles_diarias() d
+    where d.verificada
+    group by d.alias_key
+  ),
   clasificados as (
     select row_number() over (
-             order by t.semanales desc, t.diarias desc, m.puntos desc
+             order by t.semanales desc, t.diarias desc,
+                      coalesce(p.total, 0) desc, m.puntos desc
            ) as puesto,
            t.clave,
            m.alias,
@@ -744,22 +879,172 @@ as $$
            m.puntos,
            m.aciertos,
            (c.clave is not null) as es_campeon_historico,
-           m.id as partida_id
+           m.id as partida_id,
+           coalesce(p.total, 0) as poles
     from (
       select clave, semanales, diarias from trofeos
       union all
       select c.clave, 0::bigint, 0::bigint from campeon c
       where not exists (select 1 from trofeos t2 where t2.clave = c.clave)
+      union all
+      select p.alias_key, 0::bigint, 0::bigint from poles p
+      where not exists (select 1 from trofeos t2 where t2.clave = p.alias_key)
+        and not exists (select 1 from campeon c2 where c2.clave = p.alias_key)
     ) t
     join mejores m on m.clave = t.clave
     left join campeon c on c.clave = t.clave
+    left join poles p on p.alias_key = t.clave
   )
   select puesto, alias, victorias_semanales, victorias_diarias,
-         puntos, aciertos, es_campeon_historico, partida_id
+         puntos, aciertos, es_campeon_historico, partida_id, poles
   from clasificados
   where clave = lower(btrim(p_alias))
   order by puesto
   limit 1;
+$$;
+
+-- Ranking de poles: se ordena SOLO por número de poles; en empate gana la
+-- pole más reciente. No admite fecha: muestra siempre el palmarés vigente.
+create or replace function public.ranking_poles()
+returns table (
+  puesto bigint,
+  alias text,
+  poles bigint,
+  ultima_pole date,
+  puntos integer,
+  aciertos integer,
+  partida_id bigint
+)
+language sql
+stable
+security definer
+set search_path = public
+as $$
+  with diarias as (
+    select d.*,
+           (select p.id from public.puntuaciones p
+             where lower(btrim(p.alias)) = d.alias_key
+               and p.creado_en = d.creado_en
+               and p.puntos = d.puntos
+               and p.aciertos = d.aciertos
+             order by p.id
+             limit 1) as detalle_id
+    from public.poles_diarias() d
+    where d.verificada
+  ),
+  agrupadas as (
+    select d.alias_key,
+           count(*) as poles,
+           max(d.creado_en) as ultima_ts,
+           (array_agg(d.alias order by d.creado_en desc, d.partida_id desc))[1] as alias,
+           (array_agg(d.puntos order by d.creado_en desc, d.partida_id desc))[1] as puntos,
+           (array_agg(d.aciertos order by d.creado_en desc, d.partida_id desc))[1] as aciertos,
+           (array_agg(d.detalle_id order by d.creado_en desc)
+              filter (where d.detalle_id is not null))[1] as partida_id
+    from diarias d
+    group by d.alias_key
+  )
+  select row_number() over (
+           order by a.poles desc, a.ultima_ts desc, a.alias_key asc
+         ) as puesto,
+         a.alias,
+         a.poles,
+         timezone('Europe/Madrid', a.ultima_ts)::date as ultima_pole,
+         a.puntos,
+         a.aciertos,
+         a.partida_id
+  from agrupadas a
+  order by a.poles desc, a.ultima_ts desc, a.alias_key asc
+  limit 50;
+$$;
+
+-- Puesto de un alias en el ranking de poles, aunque quede fuera del top 50.
+create or replace function public.puesto_de_poles(p_alias text)
+returns table (
+  puesto bigint,
+  alias text,
+  poles bigint,
+  ultima_pole date,
+  puntos integer,
+  aciertos integer,
+  partida_id bigint
+)
+language sql
+stable
+security definer
+set search_path = public
+as $$
+  with diarias as (
+    select d.*,
+           (select p.id from public.puntuaciones p
+             where lower(btrim(p.alias)) = d.alias_key
+               and p.creado_en = d.creado_en
+               and p.puntos = d.puntos
+               and p.aciertos = d.aciertos
+             order by p.id
+             limit 1) as detalle_id
+    from public.poles_diarias() d
+    where d.verificada
+  ),
+  agrupadas as (
+    select d.alias_key,
+           count(*) as poles,
+           max(d.creado_en) as ultima_ts,
+           (array_agg(d.alias order by d.creado_en desc, d.partida_id desc))[1] as alias,
+           (array_agg(d.puntos order by d.creado_en desc, d.partida_id desc))[1] as puntos,
+           (array_agg(d.aciertos order by d.creado_en desc, d.partida_id desc))[1] as aciertos,
+           (array_agg(d.detalle_id order by d.creado_en desc)
+              filter (where d.detalle_id is not null))[1] as partida_id
+    from diarias d
+    group by d.alias_key
+  )
+  select row_number() over (
+           order by a.poles desc, a.ultima_ts desc, a.alias_key asc
+         ) as puesto,
+         a.alias,
+         a.poles,
+         timezone('Europe/Madrid', a.ultima_ts)::date as ultima_pole,
+         a.puntos,
+         a.aciertos,
+         a.partida_id
+  from agrupadas a
+  where a.alias_key = lower(btrim(p_alias))
+  order by a.poles desc, a.ultima_ts desc, a.alias_key asc
+  limit 1;
+$$;
+
+-- Historial: una pole por día, la más reciente primero. `verificada` es
+-- informativa; las poles dudosas solo pueden afectar al backfill del 24/11.
+create or replace function public.poles_registradas()
+returns table (
+  fecha date,
+  alias text,
+  puntos integer,
+  aciertos integer,
+  creado_en timestamptz,
+  partida_id bigint,
+  verificada boolean
+)
+language sql
+stable
+security definer
+set search_path = public
+as $$
+  select d.fecha,
+         d.alias,
+         d.puntos,
+         d.aciertos,
+         d.creado_en,
+         (select p.id from public.puntuaciones p
+           where lower(btrim(p.alias)) = d.alias_key
+             and p.creado_en = d.creado_en
+             and p.puntos = d.puntos
+             and p.aciertos = d.aciertos
+           order by p.id
+           limit 1) as partida_id,
+         d.verificada
+  from public.poles_diarias() d
+  order by d.fecha desc;
 $$;
 
 create or replace function public.total_partidas()
@@ -832,6 +1117,9 @@ revoke all on function public.puesto_de(text, text, date) from public;
 revoke all on function public.periodos_disponibles(text) from public;
 revoke all on function public.ranking_insignias() from public;
 revoke all on function public.puesto_de_insignias(text) from public;
+revoke all on function public.ranking_poles() from public;
+revoke all on function public.puesto_de_poles(text) from public;
+revoke all on function public.poles_registradas() from public;
 revoke all on function public.total_partidas() from public;
 revoke all on function public.total_partidas_jugadas() from public;
 revoke all on function public.registrar_partida_terminada(text) from public;
@@ -844,6 +1132,9 @@ grant execute on function public.puesto_de(text, text, date) to anon, authentica
 grant execute on function public.periodos_disponibles(text) to anon, authenticated;
 grant execute on function public.ranking_insignias() to anon, authenticated;
 grant execute on function public.puesto_de_insignias(text) to anon, authenticated;
+grant execute on function public.ranking_poles() to anon, authenticated;
+grant execute on function public.puesto_de_poles(text) to anon, authenticated;
+grant execute on function public.poles_registradas() to anon, authenticated;
 grant execute on function public.total_partidas() to anon, authenticated;
 grant execute on function public.total_partidas_jugadas() to anon, authenticated;
 grant execute on function public.registrar_partida_terminada(text) to anon, authenticated;

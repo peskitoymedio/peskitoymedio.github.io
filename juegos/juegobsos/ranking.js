@@ -153,6 +153,24 @@
     return Array.isArray(filas) && filas.length ? filas[0] : null;
   }
 
+  async function cargarPoles() {
+    if (!configurado) throw new Error("El ranking todavía no está disponible.");
+    return rpc("ranking_poles", {});
+  }
+
+  async function puestoPoles(alias) {
+    if (!configurado) throw new Error("El ranking todavía no está disponible.");
+    const filas = await rpc("puesto_de_poles", {
+      p_alias: normalizarAlias(alias)
+    });
+    return Array.isArray(filas) && filas.length ? filas[0] : null;
+  }
+
+  async function polesRegistradas() {
+    if (!configurado) throw new Error("El ranking todavía no está disponible.");
+    return rpc("poles_registradas", {});
+  }
+
   async function totalPartidas() {
     if (!configurado) throw new Error("El ranking todavía no está disponible.");
     return Number(await rpc("total_partidas", {})) || 0;
@@ -193,6 +211,9 @@
     periodosDisponibles: periodosDisponibles,
     cargarInsignias: cargarInsignias,
     puestoInsignias: puestoInsignias,
+    cargarPoles: cargarPoles,
+    puestoPoles: puestoPoles,
+    polesRegistradas: polesRegistradas,
     totalPartidas: totalPartidas,
     totalPartidasJugadas: totalPartidasJugadas,
     aliasGuardado: aliasGuardado,

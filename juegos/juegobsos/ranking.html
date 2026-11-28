@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Ranking de BSOs · Peskito y Medio</title>
-  <meta name="description" content="Ranking diario, semanal e histórico del Juego de Bandas Sonoras de Peskito y Medio.">
+  <meta name="description" content="Ranking diario, semanal, histórico, de poles y de insignias del Juego de Bandas Sonoras de Peskito y Medio.">
   <meta name="theme-color" content="#0B1B2D">
   <link rel="icon" type="image/x-icon" href="/favicon.ico" sizes="any">
   <link rel="manifest" href="/manifest.webmanifest">
@@ -49,7 +49,7 @@
       padding: 28px 32px 32px;
     }
     .tabs {
-      display: grid; grid-template-columns: repeat(4, minmax(0, 1fr));
+      display: grid; grid-template-columns: repeat(5, minmax(0, 1fr));
       gap: 10px; margin-bottom: 16px;
     }
     .tabs button {
@@ -150,6 +150,7 @@
     .ins-diaria { color: #b8860b; }
     .ins-semanal { color: var(--orange); }
     .ins-historica { color: #7b2cbf; }
+    .ins-pole { color: #1f7ac9; }
     .total-partidas {
       text-align: center; margin: 20px 0 0; font-weight: 800;
       color: var(--ink-soft); border-top: 2px dashed rgba(11,27,45,.2); padding-top: 16px;
@@ -167,6 +168,13 @@
     tbody tr.clasificable:hover .ver-detalle,
     tbody tr.is-selected .ver-detalle { background: var(--yellow); }
     .ranking-pista { display: none; }
+    .nota-poles {
+      margin: 0 0 14px; padding: 10px 12px; font-weight: 700;
+      color: var(--ink); background: rgba(31,122,201,.12);
+      border: 2px solid rgba(31,122,201,.45); border-radius: 12px;
+    }
+    .nota-poles i { color: #1f7ac9; }
+    .nota-poles[hidden] { display: none; }
     .detalle-modal {
       position: fixed; inset: 0; z-index: 2000; padding: 20px;
       display: flex; align-items: center; justify-content: center;
@@ -340,7 +348,7 @@
     <section class="ranking-hero">
       <div class="container">
         <h1>Ranking de BSOs</h1>
-        <p>Mejores puntuaciones de hoy, de la semana y de toda la historia del juego. Cada alias ocupa una sola posición con su mejor partida.</p>
+        <p>Mejores puntuaciones de hoy, de la semana y de toda la historia, más el palmarés de poles e insignias. Cada alias ocupa una sola posición con su mejor partida.</p>
         <a class="volver" href="./">← Volver al juego</a>
       </div>
     </section>
@@ -351,6 +359,7 @@
           <button type="button" class="is-active" data-periodo="diario" aria-pressed="true">Diario</button>
           <button type="button" data-periodo="semanal" aria-pressed="false">Semanal</button>
           <button type="button" data-periodo="historico" aria-pressed="false">Histórico</button>
+          <button type="button" data-periodo="poles" aria-pressed="false">Poles</button>
           <button type="button" data-periodo="insignias" aria-pressed="false">Insignias</button>
         </div>
 
@@ -377,6 +386,11 @@
         <p id="buscar-estado" class="buscar-estado" role="status" aria-live="polite" hidden></p>
         <div id="buscar-resultado" class="buscar-resultado" hidden></div>
 
+        <p id="nota-poles" class="nota-poles" hidden>
+          <i class="fa-solid fa-bolt" aria-hidden="true"></i>
+          Hacer la pole del día consiste en ser la primera persona en registrar una partida de 5 o más aciertos en hora de España. Si después llega una marca mejor, la pole sigue siendo tuya.
+        </p>
+
         <p class="ranking-pista"><i class="fa-solid fa-hand-pointer" aria-hidden="true"></i> Toca una fila para ver las respuestas y compartir el registro.</p>
 
         <p id="estado" role="status" aria-live="polite"></p>
@@ -389,6 +403,7 @@
                 <th>Jugador</th>
                 <th class="num">Puntos</th>
                 <th class="num">Aciertos</th>
+                <th class="num">Poles</th>
                 <th>Fecha</th>
                 <th class="accion" aria-label="Ver detalle y compartir"></th>
               </tr>
@@ -425,9 +440,9 @@
           de cada alias en el periodo elegido, no la suma de partidas. Si compartís
           ordenador, usad alias distintos y cada uno tendrá su propia posición.
           Pulsa sobre una fila para ver sus preguntas, tiempos y compartir el registro.
-          En Diario y Semanal puedes elegir un día o una semana pasada con el selector o el calendario; las insignias y la corona se cuentan solo hasta ese momento. Si tu alias no está entre los 50 primeros, usa «Ver mi puesto» para consultar tu posición real.
-          <span class="insignias"><i class="fa-solid fa-crown ins-historica" aria-hidden="true"></i> mejor marca histórica · <i class="fa-solid fa-trophy ins-semanal" aria-hidden="true"></i> victoria semanal · <i class="fa-solid fa-medal ins-diaria" aria-hidden="true"></i> victoria diaria (el número indica cuántas)</span>
-          En Insignias aparece quien tiene al menos una victoria o la corona; se ordena por semanales, luego diarias. La corona señala al mejor marcador histórico.
+          En Diario y Semanal puedes elegir un día o una semana pasada con el selector o el calendario; las insignias, las poles y la corona se cuentan solo hasta ese momento. Si tu alias no está entre los 50 primeros, usa «Ver mi puesto» para consultar tu posición real.
+          <span class="insignias"><i class="fa-solid fa-crown ins-historica" aria-hidden="true"></i> mejor marca histórica · <i class="fa-solid fa-trophy ins-semanal" aria-hidden="true"></i> victoria semanal · <i class="fa-solid fa-medal ins-diaria" aria-hidden="true"></i> victoria diaria · <i class="fa-solid fa-bolt ins-pole" aria-hidden="true"></i> pole (el número indica cuántas)</span>
+          Hacer la pole del día consiste en ser la primera persona en registrar una partida de 5 o más aciertos en hora de España; una marca posterior no te la quita. En Insignias entran quienes tienen victoria, corona o pole y se ordenan por semanales, diarias y poles; la mejor marca solo desempata. En Poles se ordena por número de poles y, en empate, por la pole más reciente.
         </p>
         <button type="button" class="pwa-install-link" hidden>Instalar el juego en este dispositivo</button>
         <a class="btn btn-primary ranking-cta" href="./"><i class="fa-solid fa-play" aria-hidden="true"></i> Jugar y entrar en el ranking</a>
@@ -487,7 +502,8 @@
       let busquedaId = 0;
       const posicionesCache = Object.create(null);
       const PERIODOS_CARD = [
-        ["diario", "Diario"], ["semanal", "Semanal"], ["historico", "Histórico"]
+        ["diario", "Diario"], ["semanal", "Semanal"], ["historico", "Histórico"],
+        ["poles", "Poles"]
       ];
       const cabeceras = Array.from(document.querySelectorAll("table thead th"));
       let fecha = "";
@@ -506,6 +522,29 @@
       };
       const fechaSQL = () => fecha || null;
       const claveCache = () => periodo + "|" + fecha;
+      const esInsignias = () => periodo === "insignias";
+      const esPoles = () => periodo === "poles";
+
+      function cargarFilas() {
+        if (esInsignias()) return ranking.cargarInsignias();
+        if (esPoles()) {
+          return typeof ranking.cargarPoles === "function"
+            ? ranking.cargarPoles()
+            : Promise.resolve([]);
+        }
+        return ranking.cargar(periodo, fechaSQL());
+      }
+
+      function cargarPuestoAlias(alias) {
+        if (esInsignias()) return ranking.puestoInsignias(alias);
+        if (esPoles()) {
+          return typeof ranking.puestoPoles === "function"
+            ? ranking.puestoPoles(alias)
+            : Promise.resolve(null);
+        }
+        return ranking.puesto(alias, periodo, fechaSQL());
+      }
+
       const pad = n => String(n).padStart(2, "0");
 
       function semanaISO(d) {
@@ -585,13 +624,21 @@
       }
 
       function actualizarCabeceras() {
-        const ins = periodo === "insignias";
-        ["#", "Jugador", ins ? "Semanales" : "Puntos",
-         ins ? "Diarias" : "Aciertos", ins ? "Mejor marca" : "Fecha"]
-          .forEach((nombre, i) => {
-            if (cabeceras[i]) cabeceras[i].textContent = nombre;
-          });
-        if (cabeceras[4]) cabeceras[4].classList.toggle("num", ins);
+        const nombres = esPoles()
+          ? ["#", "Jugador", "Poles", "Última pole", "Puntos", "Aciertos"]
+          : esInsignias()
+            ? ["#", "Jugador", "Semanales", "Diarias", "Poles", "Mejor marca"]
+            : ["#", "Jugador", "Puntos", "Aciertos", "Poles", "Fecha"];
+        const numericas = esPoles()
+          ? [false, false, true, false, true, true]
+          : esInsignias()
+            ? [false, false, true, true, true, true]
+            : [false, false, true, true, true, false];
+        nombres.forEach((nombre, i) => {
+          if (!cabeceras[i]) return;
+          cabeceras[i].textContent = nombre;
+          cabeceras[i].classList.toggle("num", numericas[i]);
+        });
       }
 
       function fechaBonita(valor) {
@@ -617,7 +664,8 @@
         }
         const tipos = [
           [Number(fila.victorias_semanales) || 0, "fa-trophy ins-semanal", "victoria semanal", "victorias semanales"],
-          [Number(fila.victorias_diarias) || 0, "fa-medal ins-diaria", "victoria diaria", "victorias diarias"]
+          [Number(fila.victorias_diarias) || 0, "fa-medal ins-diaria", "victoria diaria", "victorias diarias"],
+          [Number(fila.poles) || 0, "fa-bolt ins-pole", "pole", "poles"]
         ];
         tipos.forEach(([total, clase, singular, plural]) => {
           if (!total) return;
@@ -726,7 +774,7 @@
       const RANKING_URL = location.href.split("#")[0];
       const TITULOS_RANKING = {
         diario: "RANKING DIARIO", semanal: "RANKING SEMANAL",
-        historico: "RANKING HISTÓRICO", insignias: "INSIGNIAS"
+        historico: "RANKING HISTÓRICO", poles: "POLES", insignias: "INSIGNIAS"
       };
       const VEREDICTOS = [
         "😅 ¡Ay, madre! Se te han cruzado los cables con las melodías.",
@@ -790,12 +838,22 @@
         return Promise.all(PERIODOS_CARD.map(async ([clave, nombre]) => {
           let puesto = null;
           try {
-            const fechaCard = clave === "historico" ? null : fechaSQL();
-            const claveCacheCard = clave + "|" + (fechaCard || "");
-            let filas = posicionesCache[claveCacheCard];
-            if (!filas) {
-              filas = await ranking.cargar(clave, fechaCard);
-              posicionesCache[claveCacheCard] = filas;
+            let filas;
+            if (clave === "poles") {
+              filas = posicionesCache["poles|"];
+              if (!filas && typeof ranking.cargarPoles === "function") {
+                filas = await ranking.cargarPoles();
+                posicionesCache["poles|"] = filas;
+              }
+              filas = filas || [];
+            } else {
+              const fechaCard = clave === "historico" ? null : fechaSQL();
+              const claveCacheCard = clave + "|" + (fechaCard || "");
+              filas = posicionesCache[claveCacheCard];
+              if (!filas) {
+                filas = await ranking.cargar(clave, fechaCard);
+                posicionesCache[claveCacheCard] = filas;
+              }
             }
             const fila = (filas || []).find(f => String(f.partida_id) === String(id));
             if (fila && fila.puesto != null) puesto = Number(fila.puesto);
@@ -1104,7 +1162,8 @@
 
       function metaRanking() {
         let subtitulo;
-        if (periodo === "insignias") subtitulo = "Palmarés actual";
+        if (periodo === "poles") subtitulo = "Palmarés actual";
+        else if (periodo === "insignias") subtitulo = "Palmarés actual";
         else if (periodo === "historico") subtitulo = "Todos los tiempos";
         else if (periodo === "diario") {
           subtitulo = (fecha ? "" : "Hoy · ") +
@@ -1116,7 +1175,8 @@
         return {
           periodo: periodo, fecha: fechaSQL(), clave: claveCache(),
           titulo: TITULOS_RANKING[periodo] || "RANKING",
-          subtitulo: subtitulo, esInsignias: periodo === "insignias"
+          subtitulo: subtitulo,
+          esInsignias: esInsignias(), esPoles: esPoles()
         };
       }
 
@@ -1131,7 +1191,7 @@
           cinta: ["#1F7A6B", "#2FA36C"], suave: "#CFE8DF",
           panel: ["rgba(16,61,64,0.94)", "rgba(7,33,36,0.94)"],
           bordePanel: "rgba(185,242,124,0.35)", badgeFondo: "rgba(185,242,124,0.18)",
-          insignias: { corona: "#FFD166", trofeo: "#FF8A5B", medalla: "#B9F27C" },
+          insignias: { corona: "#FFD166", trofeo: "#FF8A5B", medalla: "#B9F27C", pole: "#6FD6FF" },
           medallaCentro: "#0A292C",
           filaFondo: ["rgba(255,209,102,0.15)", "rgba(185,242,124,0.10)"],
           filaBorde: ["rgba(255,209,102,0.85)", "rgba(185,242,124,0.5)", "rgba(126,217,208,0.28)"],
@@ -1147,7 +1207,7 @@
           cinta: ["#155E86", "#1E8FB8"], suave: "#C6E4F2",
           panel: ["rgba(14,58,82,0.94)", "rgba(6,32,47,0.94)"],
           bordePanel: "rgba(111,214,255,0.35)", badgeFondo: "rgba(111,214,255,0.18)",
-          insignias: { corona: "#FFD166", trofeo: "#FF9E6B", medalla: "#6FD6FF" },
+          insignias: { corona: "#FFD166", trofeo: "#FF9E6B", medalla: "#6FD6FF", pole: "#B9F27C" },
           medallaCentro: "#06202F",
           filaFondo: ["rgba(255,209,102,0.15)", "rgba(111,214,255,0.10)"],
           filaBorde: ["rgba(255,209,102,0.85)", "rgba(111,214,255,0.5)", "rgba(155,228,255,0.28)"],
@@ -1241,6 +1301,11 @@
             ctx.beginPath(); ctx.arc(.2,.27,.13,Math.PI*1.5,Math.PI*.5,true); ctx.stroke();
             ctx.beginPath(); ctx.arc(.8,.27,.13,Math.PI*.5,Math.PI*1.5,true); ctx.stroke();
             ctx.fillRect(.45,.62,.1,.18); ctx.fillRect(.32,.8,.36,.1);
+          } else if (tipo === "pole") {
+            ctx.beginPath();
+            ctx.moveTo(.62,.02); ctx.lineTo(.16,.56); ctx.lineTo(.45,.56);
+            ctx.lineTo(.36,.98); ctx.lineTo(.85,.40); ctx.lineTo(.55,.40);
+            ctx.closePath(); ctx.fill();
           } else {
             ctx.beginPath(); ctx.moveTo(.25,.1); ctx.lineTo(.45,.43);
             ctx.lineTo(.56,.37); ctx.lineTo(.38,.06); ctx.closePath(); ctx.fill();
@@ -1268,11 +1333,12 @@
           const items = [
             ["corona", "mejor marca histórica"],
             ["trofeo", "victoria semanal"],
-            ["medalla", "victoria diaria"]
+            ["medalla", "victoria diaria"],
+            ["pole", "pole"]
           ];
           ctx.font = "700 17px 'Outfit', sans-serif";
           const anchos = items.map(item => 30 + ctx.measureText(item[1]).width);
-          const total = anchos.reduce((s, w, i) => s + w + (i < 2 ? 18 : 0), 0);
+          const total = anchos.reduce((s, w, i) => s + w + (i < items.length - 1 ? 18 : 0), 0);
           let x = 980 - total;
           items.forEach((item, i) => {
             iconoInsignia(item[0], x, 938, 24);
@@ -1336,7 +1402,7 @@
           const metaFont = Math.max(14, Math.min(18, rowH * .25));
           const sizeIns = Math.min(32, (destacado ? 30 : 26) * factor, rowH * .44);
           let bx = 142;
-          if (!meta.esInsignias) {
+          if (!meta.esInsignias && !meta.esPoles) {
             const f = fechaBonita(fila.fecha);
             if (f) {
               ctx.font = "700 " + Math.round(metaFont) + "px 'Outfit', sans-serif";
@@ -1352,6 +1418,8 @@
             if (sem) bx = marcaInsignia("trofeo", bx, metaY, sizeIns, sem);
             if (dia) bx = marcaInsignia("medalla", bx, metaY, sizeIns, dia);
           }
+          const polesFila = Number(fila.poles) || 0;
+          if (polesFila) bx = marcaInsignia("pole", bx, metaY, sizeIns, polesFila);
 
           ctx.textAlign = "right";
           if (meta.esInsignias) {
@@ -1372,6 +1440,18 @@
             ctx.textAlign = "right"; ctx.font = "700 " + Math.round(metaFont) + "px 'Outfit', sans-serif";
             ctx.fillStyle = P.suave;
             ctx.fillText("mejor marca: " + (fila.puntos == null ? 0 : fila.puntos) + " pts", 980, metaY);
+          } else if (meta.esPoles) {
+            const sizeMayor = Math.min(40, (destacado ? 38 : 34) * factor, rowH * .52);
+            ctx.font = "900 " + Math.round(sizeMayor * .76) + "px 'Outfit', sans-serif";
+            const textoPoles = "×" + polesFila;
+            const ancho = sizeMayor + ctx.measureText(textoPoles).width;
+            const mx = 980 - ancho;
+            iconoInsignia("pole", mx, cy - sizeMayor * .5, sizeMayor);
+            ctx.fillStyle = COLOR_INS.pole; ctx.textAlign = "left";
+            ctx.fillText(textoPoles, mx + sizeMayor + 4, cy + sizeMayor * .18);
+            ctx.textAlign = "right"; ctx.font = "700 " + Math.round(metaFont) + "px 'Outfit', sans-serif";
+            ctx.fillStyle = P.suave;
+            ctx.fillText("última pole: " + fechaBonita(fila.ultima_pole), 980, metaY);
           } else {
             const m = (fila.puntos == null ? 0 : fila.puntos) + " pts";
             let mf = Math.min((campeon ? 38 : destacado ? 31 : 26) * factor, rowH * .5);
@@ -1405,11 +1485,16 @@
         const primero = (filas || [])[0];
         let logro = "sin clasificación todavía";
         if (primero) {
+          const pol = Number(primero.poles) || 0;
           logro = "#1 " + (primero.alias || "?") + " con " +
-            (meta.esInsignias
-              ? (Number(primero.victorias_semanales) || 0) + " semanales y " +
-                (Number(primero.victorias_diarias) || 0) + " diarias"
-              : (primero.puntos == null ? 0 : primero.puntos) + " puntos");
+            (meta.esPoles
+              ? pol + (pol === 1 ? " pole" : " poles") +
+                (primero.ultima_pole ? " (última: " + fechaBonita(primero.ultima_pole) + ")" : "")
+              : meta.esInsignias
+                ? (Number(primero.victorias_semanales) || 0) + " semanales, " +
+                  (Number(primero.victorias_diarias) || 0) + " diarias y " +
+                  pol + " poles"
+                : (primero.puntos == null ? 0 : primero.puntos) + " puntos");
         }
         return "🏆 " + meta.titulo + " del Juego de BSOs de Peskito y Medio: " + logro +
           ". 🎵🍿 Mira el ranking y juega también";
@@ -1430,9 +1515,7 @@
         try {
           let filas = posicionesCache[meta.clave];
           if (!filas) {
-            filas = meta.esInsignias
-              ? await ranking.cargarInsignias()
-              : await ranking.cargar(meta.periodo, meta.fecha);
+            filas = await cargarFilas();
             posicionesCache[meta.clave] = filas;
           }
           const img = await imagenesTarjeta(10);
@@ -1481,9 +1564,11 @@
           const td = document.createElement("td");
           td.colSpan = 6;
           td.className = "vacio";
-          td.textContent = periodo === "insignias"
-            ? "Todavía no hay insignias. ¡Gana un día o una semana para entrar!"
-            : "Todavía no hay puntuaciones en este periodo. ¡Sé el primero!";
+          td.textContent = esPoles()
+            ? "Todavía no hay poles. ¡Llega antes a 5 aciertos en un día!"
+            : esInsignias()
+              ? "Todavía no hay insignias. ¡Gana un día, una semana o una pole para entrar!"
+              : "Todavía no hay puntuaciones en este periodo. ¡Sé el primero!";
           tr.appendChild(td);
           cuerpo.appendChild(tr);
           return;
@@ -1507,15 +1592,20 @@
               }
             };
           }
-          const esInsignias = periodo === "insignias";
+          const num = v => v == null ? 0 : Number(v) || 0;
           const datos = [
             ["puesto", "#" + fila.puesto],
             null,
-            ["num", esInsignias ? (fila.victorias_semanales == null ? 0 : fila.victorias_semanales) : fila.puntos],
-            ["num", esInsignias ? (fila.victorias_diarias == null ? 0 : fila.victorias_diarias) : fila.aciertos],
-            esInsignias
-              ? ["num", fila.puntos == null ? 0 : fila.puntos]
-              : ["fecha", fechaBonita(fila.fecha)]
+            esPoles() ? ["num", num(fila.poles)]
+              : esInsignias() ? ["num", num(fila.victorias_semanales)]
+                : ["num", fila.puntos],
+            esPoles() ? ["fecha", fechaBonita(fila.ultima_pole)]
+              : esInsignias() ? ["num", num(fila.victorias_diarias)]
+                : ["num", fila.aciertos],
+            ["num", esPoles() ? num(fila.puntos) : num(fila.poles)],
+            esInsignias() ? ["num", num(fila.puntos)]
+              : esPoles() ? ["num", num(fila.aciertos)]
+                : ["fecha", fechaBonita(fila.fecha)]
           ];
           datos.forEach(dato => {
             const td = document.createElement("td");
@@ -1555,15 +1645,18 @@
         puesto.textContent = "#" + fila.puesto;
         const datos = document.createElement("span");
         datos.className = "buscar-datos";
-        datos.textContent = periodo === "insignias"
-          ? (fila.alias || "") + " · " +
-            (fila.victorias_semanales == null ? 0 : fila.victorias_semanales) + " semanales · " +
-            (fila.victorias_diarias == null ? 0 : fila.victorias_diarias) + " diarias · " +
-            (fila.puntos == null ? 0 : fila.puntos) + " pts"
-          : (fila.alias || "") + " · " +
-            (fila.puntos == null ? 0 : fila.puntos) + " pts · " +
-            (fila.aciertos == null ? 0 : fila.aciertos) + "/10 · " +
-            fechaBonita(fila.fecha);
+        const n = v => v == null ? 0 : Number(v) || 0;
+        datos.textContent = esPoles()
+          ? (fila.alias || "") + " · " + n(fila.poles) + " poles · " +
+            (fila.ultima_pole ? "última: " + fechaBonita(fila.ultima_pole) : "sin fecha")
+          : esInsignias()
+            ? (fila.alias || "") + " · " +
+              n(fila.victorias_semanales) + " semanales · " +
+              n(fila.victorias_diarias) + " diarias · " +
+              n(fila.poles) + " poles · " + n(fila.puntos) + " pts"
+            : (fila.alias || "") + " · " +
+              n(fila.puntos) + " pts · " + n(fila.aciertos) + "/10 · " +
+              n(fila.poles) + " poles · " + fechaBonita(fila.fecha);
         datos.appendChild(insignias(fila));
         filaDiv.appendChild(puesto);
         filaDiv.appendChild(datos);
@@ -1603,9 +1696,7 @@
         estado.textContent = "Buscando «" + alias + "»…";
         $("buscar-puesto").disabled = true;
         try {
-          const fila = periodo === "insignias"
-            ? await ranking.puestoInsignias(alias)
-            : await ranking.puesto(alias, periodo, fechaSQL());
+          const fila = await cargarPuestoAlias(alias);
           if (id !== busquedaId) return;
           pintarBusqueda(fila);
           if (fila) {
@@ -1613,10 +1704,12 @@
             estado.hidden = true;
           } else {
             const activo = botones.find(b => b.dataset.periodo === periodo);
-            estado.textContent = periodo === "insignias"
-              ? "«" + alias + "» todavía no tiene insignias."
-              : "No hay puntuaciones de «" + alias + "» en " +
-                (activo ? activo.textContent.toLowerCase() : "este periodo") + ".";
+            estado.textContent = esPoles()
+              ? "«" + alias + "» todavía no tiene poles."
+              : esInsignias()
+                ? "«" + alias + "» todavía no tiene insignias."
+                : "No hay puntuaciones de «" + alias + "» en " +
+                  (activo ? activo.textContent.toLowerCase() : "este periodo") + ".";
           }
         } catch (e) {
           if (id !== busquedaId) return;
@@ -1643,15 +1736,14 @@
       async function actualizar() {
         const estado = $("estado");
         const id = ++cargando;
+        $("nota-poles").hidden = !esPoles();
         $("rank-enlaces").hidden = true;
         estadoRanking("");
         botones.forEach(b => { b.disabled = true; });
         actualizarCabeceras();
         estado.textContent = "Cargando clasificación…";
         try {
-          const filas = periodo === "insignias"
-            ? await ranking.cargarInsignias()
-            : await ranking.cargar(periodo, fechaSQL());
+          const filas = await cargarFilas();
           if (id !== cargando) return;
           posicionesCache[claveCache()] = filas;
           pintar(filas);
