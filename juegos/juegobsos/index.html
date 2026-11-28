@@ -199,6 +199,32 @@
     }
     .ranking-felicitacion[hidden] { display: none; }
 
+    .ranking-animo {
+      margin: 4px 0 2px;
+      padding: 12px 14px;
+      border: 3px solid var(--ink);
+      border-radius: 14px;
+      background: #DFF4F7;
+      color: var(--ink);
+      box-shadow: 3px 3px 0 var(--ink);
+      font-size: 1.02rem;
+      font-weight: 800;
+      line-height: 1.4;
+      text-align: center;
+    }
+    .ranking-animo.es-pole {
+      background: #6FD6FF;
+      box-shadow: 3px 3px 0 #1F7AC9;
+    }
+    .ranking-animo[hidden] { display: none; }
+
+    .compartir-destacado { animation: compartir-brillo 1.4s ease-in-out 3; }
+    @keyframes compartir-brillo {
+      0%, 100% { box-shadow: 3px 3px 0 var(--orange); }
+      50% { box-shadow: 3px 3px 0 var(--orange), 0 0 0 6px rgba(111,214,255,.55); }
+    }
+    .share-links.compartir-destacado { outline: 3px dashed #1F7AC9; outline-offset: 10px; border-radius: 16px; }
+
     small {
       display: block;
       text-align: center;
@@ -691,6 +717,7 @@
             <button class="btn-game" id="save-score" type="button"><i class="fa-solid fa-trophy" aria-hidden="true"></i> Enviar al ranking</button>
           </div>
           <p class="msg" id="save-msg" role="status" aria-live="polite"></p>
+          <p id="ranking-animo" class="ranking-animo" role="status" aria-live="polite" hidden></p>
           <small>El alias se recuerda en este equipo; si juega otra persona, cámbialo. Solo se guarda si mejora tu marca de hoy. Tu mejor puntuación entra en los rankings diario, semanal e histórico. Al enviar, tu alias y tu puntuación se publican en el ranking.</small>
         </div>
 
@@ -702,7 +729,7 @@
           <button class="btn-game alt" id="again"><i class="fa-solid fa-rotate-right" aria-hidden="true"></i> Otra partida</button>
           <a class="btn-game" href="./ranking.html"><i class="fa-solid fa-trophy" aria-hidden="true"></i> Ver ranking</a>
         </div>
-        <div class="share-links">
+        <div class="share-links" id="share-links">
           <a id="sx" target="_blank" rel="noopener" title="Abre el menú de compartir con la imagen (o X / Twitter si tu navegador no lo admite)"><i class="fa-brands fa-x-twitter"></i> X / Twitter</a>
           <a id="swa" target="_blank" rel="noopener" title="Abre el menú de compartir con la imagen (o WhatsApp si tu navegador no lo admite)"><i class="fa-brands fa-whatsapp"></i> WhatsApp</a>
           <a id="sfb" target="_blank" rel="noopener" title="Abre el menú de compartir con la imagen (o Facebook si tu navegador no lo admite)"><i class="fa-brands fa-facebook"></i> Facebook</a>
@@ -1031,6 +1058,7 @@
       drawCard(hits);
       updateShareLinks(hits);
       if (window.PYMRanking) window.PYMRanking.initGameForm();
+      actualizarAnimo();
     }
 
     function wrapText(ctx,text,x,y,maxWidth,lineHeight,maxLines){
@@ -1059,6 +1087,17 @@
       ctx.arcTo(x,y+h,x,y,rr);
       ctx.arcTo(x,y,x+w,y,rr);
       ctx.closePath();
+    }
+
+    // Rayo vectorial para la pole del día (mismo trazo que la insignia del ranking).
+    function drawRayo(ctx,x,y,tam,color){
+      ctx.save();
+      ctx.translate(x,y); ctx.scale(tam,tam);
+      ctx.beginPath();
+      ctx.moveTo(.62,.02); ctx.lineTo(.16,.56); ctx.lineTo(.45,.56);
+      ctx.lineTo(.36,.98); ctx.lineTo(.85,.40); ctx.lineTo(.55,.40);
+      ctx.closePath(); ctx.fillStyle=color; ctx.fill();
+      ctx.restore();
     }
 
     // Tiempo de respuesta en las acertadas: pastilla reloj al lado del título.
@@ -1121,27 +1160,52 @@
         if(pw>90) ctx.drawImage(peskitos,39,13,1202,1172,1010-pw,45,pw,pw*210/215);
       }
 
-      // Cinta del alias: solo aparece después de enviar la partida al ranking.
+      // Cinta del alias: aparece tras enviar. Si ha hecho pole, se convierte
+      // en un galardón azul con rayo y brillo propio.
       if(cardMeta && cardMeta.alias){
-        const etiqueta="RÉCORD DE";
+        const esPole=!!cardMeta.pole;
+        const etiqueta=esPole?"POLE DEL DÍA · RÉCORD DE":"RÉCORD DE";
+        const insigniaW=esPole?70:0;
         ctx.font="800 22px 'Outfit', sans-serif";
         const etiquetaW=ctx.measureText(etiqueta).width;
         let aliasFont=40;
         ctx.font="900 "+aliasFont+"px 'Outfit', sans-serif";
-        while(ctx.measureText(cardMeta.alias).width>840-etiquetaW-16 && aliasFont>26){
+        while(ctx.measureText(cardMeta.alias).width>840-insigniaW-etiquetaW-16 && aliasFont>24){
           aliasFont-=2; ctx.font="900 "+aliasFont+"px 'Outfit', sans-serif";
         }
         const aliasW=ctx.measureText(cardMeta.alias).width;
-        const total=etiquetaW+16+aliasW;
+        const total=insigniaW+etiquetaW+16+aliasW;
         const rw=Math.min(1000,total+48);
-        ctx.fillStyle="#FFC531"; roundRect(ctx,(1080-rw)/2,185,rw,47,23); ctx.fill();
+        const rx=(1080-rw)/2, ry=185, rh=esPole?48:47;
+        if(esPole){
+          const brillo=ctx.createRadialGradient(540,ry+rh/2,10,540,ry+rh/2,rw*.7);
+          brillo.addColorStop(0,"rgba(111,214,255,0.42)");
+          brillo.addColorStop(1,"rgba(111,214,255,0)");
+          ctx.fillStyle=brillo; roundRect(ctx,rx-14,ry-6,rw+28,rh+12,30); ctx.fill();
+        }
+        const cinta=ctx.createLinearGradient(rx,ry,rx+rw,ry+rh);
+        cinta.addColorStop(0,esPole?"#6FD6FF":"#FFC531");
+        cinta.addColorStop(1,esPole?"#1F7AC9":"#FFC531");
+        ctx.fillStyle=cinta; roundRect(ctx,rx,ry,rw,rh,rh/2); ctx.fill();
         ctx.strokeStyle="#0B1B2D"; ctx.lineWidth=6; ctx.stroke();
-        const x0=(1080-total)/2;
+        const cy=ry+rh/2+8;
+        if(esPole){
+          const cx=rx+35, centroY=ry+rh/2;
+          ctx.save();
+          ctx.shadowColor="rgba(11,27,45,0.5)"; ctx.shadowBlur=12;
+          ctx.fillStyle="#0B1B2D"; ctx.beginPath(); ctx.arc(cx,centroY,20,0,Math.PI*2); ctx.fill();
+          ctx.restore();
+          ctx.strokeStyle="#FFF6E9"; ctx.lineWidth=3;
+          ctx.beginPath(); ctx.arc(cx,centroY,20,0,Math.PI*2); ctx.stroke();
+          drawRayo(ctx,cx-13,centroY-14,26,"#FFC531");
+        }
+        const x0=rx+24+insigniaW;
         ctx.textAlign="left";
-        ctx.fillStyle="#0B1B2D"; ctx.font="800 22px 'Outfit', sans-serif";
-        ctx.fillText(etiqueta,x0,216);
+        ctx.fillStyle=esPole?"#FFF6E9":"#0B1B2D";
+        ctx.font="800 22px 'Outfit', sans-serif";
+        ctx.fillText(etiqueta,x0,cy);
         ctx.font="900 "+aliasFont+"px 'Outfit', sans-serif";
-        ctx.fillText(cardMeta.alias,x0+etiquetaW+16,216);
+        ctx.fillText(cardMeta.alias,x0+etiquetaW+16,cy);
       }
 
       // Tarjeta de puntuación
@@ -1302,7 +1366,14 @@
       ctx.fillText(cta,540,1015); ctx.textAlign="left";
     }
 
-    $('again').onclick=()=>{ $('end').classList.add('hidden'); $('start').classList.remove('hidden'); document.body.classList.remove('jugando'); };
+    $('again').onclick=()=>{
+      cardMeta=null;
+      clearTimeout(animoTimer); $('ranking-animo').hidden=true;
+      $('share').classList.remove('compartir-destacado');
+      $('share-links').classList.remove('compartir-destacado');
+      $('end').classList.add('hidden'); $('start').classList.remove('hidden');
+      document.body.classList.remove('jugando');
+    };
 
     // Envío de la puntuación al ranking (silencioso si no hay configuración).
     const PERIODOS_RANKING=[["diario","Diario"],["semanal","Semanal"],["historico","Histórico"],["poles","Poles"]];
@@ -1317,6 +1388,40 @@
         }catch(e){ return { nombre:nombre, puesto:null }; }
       }));
     }
+    // Aviso antes de enviar: pole del día o entrada estimada en el top 10.
+    // Es una estimación de solo lectura; otro jugador puede adelantarse.
+    let animoId=0, animoTimer=null;
+    async function actualizarAnimo(){
+      const animo=$('ranking-animo');
+      if(!window.PYMRanking || !window.PYMRanking.previsualizarEnvio){
+        animo.hidden=true; return;
+      }
+      const id=++animoId;
+      const alias=$('alias').value.replace(/\s+/g," ").trim().slice(0,24);
+      const res=await window.PYMRanking.previsualizarEnvio({
+        alias:alias, puntos:score, aciertos:results.filter(x=>x.ok).length
+      });
+      if(id!==animoId || $('end').classList.contains('hidden')) return;
+      if(!res.disponible || (!res.pole && !res.top10)){
+        animo.hidden=true; animo.classList.remove('es-pole'); return;
+      }
+      animo.textContent=res.pole
+        ? "⚡ ¡Envía ya! Harías la pole del día: serías la primera persona en registrar 5 o más aciertos hoy."
+        : "🏆 ¡Envía ya! Entrarías en el top 10 de hoy (puesto estimado #"+res.puesto+").";
+      animo.classList.toggle('es-pole',!!res.pole);
+      animo.hidden=false;
+    }
+    if($('alias')){
+      const pedirAnimo=()=>{
+        clearTimeout(animoTimer);
+        animoTimer=setTimeout(()=>{
+          if(!$('end').classList.contains('hidden')) actualizarAnimo();
+        },350);
+      };
+      $('alias').addEventListener('input',pedirAnimo);
+      $('alias').addEventListener('change',pedirAnimo);
+    }
+
     function textoFelicitacion(alias,posiciones){
       const conPuesto=posiciones.filter(p=>p.puesto);
       if(!conPuesto.length){
@@ -1328,14 +1433,46 @@
         : partes.slice(0,-1).join(", ")+" y "+partes[partes.length-1];
       return `¡Enhorabuena, ${alias}! Has entrado en el ${lista}. ¡Comparte la tarjeta de abajo! 🎉`;
     }
+    // ¿La pole de hoy es de esta partida? partida_id puede ser null si el envío
+    // no mejoró marca, así que se coteja también puntos, aciertos y frescura.
+    async function detectarPolePropia(alias,partidaId,puntos,aciertos){
+      try{
+        if(!window.PYMRanking || !window.PYMRanking.poleHoy) return false;
+        const pole=await window.PYMRanking.poleHoy();
+        if(!pole || String(pole.alias||"").trim().toLowerCase()!==alias.trim().toLowerCase()) return false;
+        if(partidaId!=null && pole.partida_id!=null && String(pole.partida_id)===String(partidaId)) return true;
+        if(Number(pole.puntos)!==Number(puntos) || Number(pole.aciertos)!==Number(aciertos)) return false;
+        const edad=pole.creado_en?Date.now()-new Date(pole.creado_en).getTime():Infinity;
+        return edad>=0 && edad<=300000;
+      }catch(e){ return false; }
+    }
+
+    function celebrarEnvio(fel,pole,puestoDiario){
+      if(pole){
+        fel.textContent="⚡ ¡Pole del día! Has sido la primera persona en registrar 5 o más aciertos hoy. ¡Comparte tu tarjeta en redes y presume de rayo!";
+      }else if(puestoDiario!=null && Number(puestoDiario)<=10){
+        fel.textContent="🏆 ¡Top 10 del día! Estás en el puesto #"+puestoDiario+". ¡Comparte tu tarjeta en redes y reta a los demás!";
+      }else{
+        return false;
+      }
+      fel.hidden=false;
+      $('share').classList.add('compartir-destacado');
+      $('share-links').classList.add('compartir-destacado');
+      return true;
+    }
+
     $('save-score').onclick=async()=>{
       const boton=$('save-score'); const msg=$('save-msg'); const fel=$('ranking-felicitacion');
+      const hits=results.filter(x=>x.ok).length;
       boton.disabled=true; msg.textContent="Enviando…";
+      clearTimeout(animoTimer); $('ranking-animo').hidden=true;
       fel.hidden=true; fel.textContent="";
+      $('share').classList.remove('compartir-destacado');
+      $('share-links').classList.remove('compartir-destacado');
       const alias=$('alias').value.replace(/\s+/g," ").trim().slice(0,24);
       const res=await window.PYMRanking.enviar({
         puntos:score,
-        aciertos:results.filter(x=>x.ok).length,
+        aciertos:hits,
         alias:alias,
         detalles:results.map(x=>({
           titulo:x.title, acierto:x.ok, ms:x.ms, elegida:x.elegida
@@ -1343,17 +1480,25 @@
       });
       msg.textContent=res.mensaje;
       if(!res.ok){ boton.disabled=false; return; }
+      const pole=await detectarPolePropia(alias,res.partida,score,hits);
       if(res.partida==null){
-        // No mejora: se quita cualquier puesto anterior, pero se mantiene el alias.
-        cardMeta={ alias:alias };
-        if(!$('end').classList.contains('hidden')) drawCard(results.filter(x=>x.ok).length);
-        return;
+        // No mejora la marca, pero la pole puede ser suya igualmente.
+        cardMeta={ alias:alias, pole:pole };
+        celebrarEnvio(fel,pole,null);
+      }else{
+        const posiciones=await puestosDe(res.partida);
+        const diario=posiciones.find(p=>p.nombre==="Diario");
+        const puestoDiario=diario?diario.puesto:null;
+        // El galardón sustituye a la píldora de Poles en la tarjeta.
+        cardMeta={ alias:alias, pole:pole,
+          posiciones:pole?posiciones.filter(p=>p.nombre!=="Poles"):posiciones };
+        if(!celebrarEnvio(fel,pole,puestoDiario)){
+          fel.textContent=textoFelicitacion(alias,posiciones);
+          fel.hidden=false;
+        }
       }
-      const posiciones=await puestosDe(res.partida);
-      cardMeta={ alias:alias, posiciones:posiciones };
-      fel.textContent=textoFelicitacion(alias,posiciones);
-      fel.hidden=false;
-      if(!$('end').classList.contains('hidden')) drawCard(results.filter(x=>x.ok).length);
+      updateShareLinks(hits);
+      if(!$('end').classList.contains('hidden')) drawCard(hits);
       boton.disabled=true;
     };
 
@@ -1368,7 +1513,8 @@
     // al cargar la página, cuando score todavía era 0).
     const GAME_URL="https://www.peskitoymedio.es/juegos/juegobsos/";
     function shareMessage(hits){
-      return `¡He acertado ${hits} de 10 bandas sonoras y he conseguido ${score} puntos en el Juego de BSOs de Peskito y Medio! 🎵🍿 ¿Te atreves a superarme? #PeskitoyMedio`;
+      const pole=cardMeta && cardMeta.pole?"⚡ ¡He hecho la pole del día! ":"";
+      return pole+`¡He acertado ${hits} de 10 bandas sonoras y he conseguido ${score} puntos en el Juego de BSOs de Peskito y Medio! 🎵🍿 ¿Te atreves a superarme? #PeskitoyMedio`;
     }
 
     function updateShareLinks(hits){

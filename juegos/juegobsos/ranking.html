@@ -810,6 +810,16 @@
         ctx.arcTo(x, y, x + w, y, r);
         ctx.closePath();
       }
+      // Rayo vectorial de la pole (mismo trazo que la insignia del ranking).
+      function dibujarRayo(ctx, x, y, tam, color) {
+        ctx.save();
+        ctx.translate(x, y); ctx.scale(tam, tam);
+        ctx.beginPath();
+        ctx.moveTo(.62,.02); ctx.lineTo(.16,.56); ctx.lineTo(.45,.56);
+        ctx.lineTo(.36,.98); ctx.lineTo(.85,.40); ctx.lineTo(.55,.40);
+        ctx.closePath(); ctx.fillStyle = color; ctx.fill();
+        ctx.restore();
+      }
       function fit(ctx, texto, max) {
         if (ctx.measureText(texto).width <= max) return texto;
         let s = texto;
@@ -860,6 +870,21 @@
           } catch (e) {}
           return { nombre: nombre, puesto: puesto };
         }));
+      }
+
+      // ¿Esta partida fue la pole de su día? Se consulta el historial completo,
+      // no solo la pole vigente: la tarjeta puede corresponder a otro día.
+      async function poleDePartida(d) {
+        if (!ranking.polesRegistradas) return false;
+        try {
+          const filas = await ranking.polesRegistradas() || [];
+          const clave = String(d.alias || "").trim().toLowerCase();
+          const fila = filas.find(f => String(f.partida_id) === String(d.partida)) ||
+            filas.find(f => String(f.alias || "").trim().toLowerCase() === clave &&
+              Number(f.puntos) === Number(d.puntos) &&
+              Number(f.aciertos) === Number(d.hits));
+          return !!(fila && fila.verificada !== false);
+        } catch (e) { return false; }
       }
 
       // Tiempo de respuesta en las acertadas: pastilla reloj al lado del título.
@@ -923,25 +948,49 @@
           }
         }
 
-        // Cinta del alias en una sola fila, igual que en la tarjeta del juego.
-        const etiqueta = "RÉCORD DE";
+        // Cinta del alias: azul con rayo cuando la partida fue pole de su día.
+        const esPole = !!d.pole;
+        const etiqueta = esPole ? "POLE DEL DÍA · RÉCORD DE" : "RÉCORD DE";
+        const insigniaW = esPole ? 70 : 0;
         ctx.font = "800 22px 'Outfit', sans-serif";
         const etiquetaW = ctx.measureText(etiqueta).width;
         let af = 40;
         ctx.font = "900 " + af + "px 'Outfit', sans-serif";
-        while (ctx.measureText(d.alias).width > 840 - etiquetaW - 16 && af > 26) {
+        while (ctx.measureText(d.alias).width > 840 - insigniaW - etiquetaW - 16 && af > 26) {
           af -= 2; ctx.font = "900 " + af + "px 'Outfit', sans-serif";
         }
-        const total = etiquetaW + 16 + ctx.measureText(d.alias).width;
+        const total = insigniaW + etiquetaW + 16 + ctx.measureText(d.alias).width;
         const aw = Math.min(1000, total + 48);
-        ctx.fillStyle = "#FFC531"; rr(ctx,(1080-aw)/2,196,aw,47,23); ctx.fill();
+        const ax = (1080 - aw) / 2, ay = 196, alto = esPole ? 48 : 47;
+        if (esPole) {
+          const brillo = ctx.createRadialGradient(540, ay + alto / 2, 10, 540, ay + alto / 2, aw * .7);
+          brillo.addColorStop(0, "rgba(111,214,255,0.42)");
+          brillo.addColorStop(1, "rgba(111,214,255,0)");
+          ctx.fillStyle = brillo; rr(ctx, ax - 14, ay - 6, aw + 28, alto + 12, 30); ctx.fill();
+        }
+        const cinta = ctx.createLinearGradient(ax, ay, ax + aw, ay + alto);
+        cinta.addColorStop(0, esPole ? "#6FD6FF" : "#FFC531");
+        cinta.addColorStop(1, esPole ? "#1F7AC9" : "#FFC531");
+        ctx.fillStyle = cinta; rr(ctx, ax, ay, aw, alto, alto / 2); ctx.fill();
         ctx.strokeStyle = "#0B1B2D"; ctx.lineWidth = 6; ctx.stroke();
-        const x0 = (1080 - total) / 2;
+        const cy = ay + alto / 2 + 8;
+        if (esPole) {
+          const cx = ax + 35, centroY = ay + alto / 2;
+          ctx.save();
+          ctx.shadowColor = "rgba(11,27,45,0.5)"; ctx.shadowBlur = 12;
+          ctx.fillStyle = "#0B1B2D"; ctx.beginPath(); ctx.arc(cx, centroY, 20, 0, Math.PI * 2); ctx.fill();
+          ctx.restore();
+          ctx.strokeStyle = "#FFF6E9"; ctx.lineWidth = 3;
+          ctx.beginPath(); ctx.arc(cx, centroY, 20, 0, Math.PI * 2); ctx.stroke();
+          dibujarRayo(ctx, cx - 13, centroY - 14, 26, "#FFC531");
+        }
+        const x0 = ax + 24 + insigniaW;
         ctx.textAlign = "left";
-        ctx.fillStyle = "#0B1B2D"; ctx.font = "800 22px 'Outfit', sans-serif";
-        ctx.fillText(etiqueta, x0, 227);
+        ctx.fillStyle = esPole ? "#FFF6E9" : "#0B1B2D";
+        ctx.font = "800 22px 'Outfit', sans-serif";
+        ctx.fillText(etiqueta, x0, cy);
         ctx.font = "900 " + af + "px 'Outfit', sans-serif";
-        ctx.fillText(d.alias, x0 + etiquetaW + 16, 227);
+        ctx.fillText(d.alias, x0 + etiquetaW + 16, cy);
 
         const sb = ctx.createLinearGradient(60,260,1020,420);
         sb.addColorStop(0,"#193650"); sb.addColorStop(1,"#102438");
@@ -965,8 +1014,9 @@
         // las tres píldoras; antes la tercera se descartaba sin avisar.
         let centroFila = null;
         if (d.posiciones && d.posiciones.length) {
+          const posiciones = esPole ? d.posiciones.filter(p => p.nombre !== "Poles") : d.posiciones;
           let pf = 22, etiquetaW, anchos, total;
-          const textos = d.posiciones.map(p =>
+          const textos = posiciones.map(p =>
             p.nombre + " " + (p.puesto ? "#" + p.puesto : "—")
           );
           for (;;) {
@@ -982,7 +1032,7 @@
           let px = hx + etiquetaW + 6;
           ctx.textAlign = "center";
           anchos.forEach((w, i) => {
-            const p = d.posiciones[i];
+            const p = posiciones[i];
             ctx.font = "800 " + pf + "px 'Outfit', sans-serif";
             ctx.fillStyle = p.puesto === 1 ? "rgba(255,197,49,0.22)" : "rgba(61,185,192,0.14)";
             rr(ctx, px, 270, w, 42, 21); ctx.fill();
@@ -1095,6 +1145,11 @@
       }
 
       function mensajeCompartir(d) {
+        if (d.pole) {
+          return "⚡ ¡" + d.alias + " ha hecho la pole del día! Ha acertado " + d.hits +
+            " de 10 bandas sonoras y ha conseguido " + d.puntos +
+            " puntos en el Juego de BSOs de Peskito y Medio! 🎵🍿 ¿Te atreves a superarlo? #PeskitoyMedio";
+        }
         return "¡" + d.alias + " ha acertado " + d.hits + " de 10 bandas sonoras y ha conseguido " +
           d.puntos + " puntos en el Juego de BSOs de Peskito y Medio! 🎵🍿 ¿Te atreves a superarlo? #PeskitoyMedio";
       }
@@ -1117,12 +1172,14 @@
         const estado = $("compartir-estado");
         estado.textContent = "Preparando tarjeta…";
         try {
-          const [img, posiciones] = await Promise.all([
+          const [img, posiciones, pole] = await Promise.all([
             imagenesTarjeta(detalleActual.hits),
-            posicionesDe(detalleActual.partida)
+            posicionesDe(detalleActual.partida),
+            poleDePartida(detalleActual)
           ]);
           if (!detalleActual) return;
           detalleActual.posiciones = posiciones;
+          detalleActual.pole = pole;
           dibujarTarjeta(detalleActual, img);
           actualizarEnlaces(detalleActual);
           if (puedeAdjuntar()) {

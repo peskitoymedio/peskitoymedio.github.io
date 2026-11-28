@@ -39,6 +39,17 @@
     return String(valor || "").replace(/\s+/g, " ").trim().slice(0, LIMITE);
   }
 
+  // Día en hora de España, mismo criterio que ranking() y poles_diarias().
+  function fechaMadrid() {
+    try {
+      return new Intl.DateTimeFormat("en-CA", {
+        timeZone: "Europe/Madrid", year: "numeric", month: "2-digit", day: "2-digit"
+      }).format(new Date());
+    } catch (e) {
+      return new Date().toISOString().slice(0, 10);
+    }
+  }
+
   async function rpc(nombre, parametros) {
     const respuesta = await fetch(base + "/rest/v1/rpc/" + nombre, {
       method: "POST",
@@ -171,6 +182,56 @@
     return rpc("poles_registradas", {});
   }
 
+  // Pole vigente de hoy (null si todavía no hay ninguna verificada).
+  async function poleHoy() {
+    const filas = await polesRegistradas();
+    const hoy = fechaMadrid();
+    return (Array.isArray(filas) ? filas : []).find(f =>
+      String(f.fecha) === hoy && f.verificada !== false
+    ) || null;
+  }
+
+  // Estimación antes de enviar: ¿sería pole y/o entraría en el top 10 de hoy?
+  // Solo lectura; no consume token ni escribe nada. Un fallo deja el resultado
+  // en "disponible: false" para que el juego no muestre un aviso engañoso.
+  async function previsualizarEnvio(datos) {
+    datos = datos || {};
+    const alias = normalizarAlias(datos.alias);
+    const puntos = Math.max(0, Number(datos.puntos) || 0);
+    const aciertos = Math.max(0, Number(datos.aciertos) || 0);
+    const sinDatos = { disponible: false, pole: false, top10: false, puesto: null, mejora: false };
+    if (!configurado || !alias) return sinDatos;
+    let pole, filas, actual;
+    try {
+      [pole, filas, actual] = await Promise.all([
+        poleHoy(), cargar("diario"), puesto(alias, "diario")
+      ]);
+    } catch (e) {
+      return sinDatos;
+    }
+    const seraPole = aciertos >= 5 && !pole;
+    const mejora = !actual || puntos > Number(actual.puntos || 0);
+    let puestoEstimado = null;
+    if (mejora) {
+      // La partida nueva sustituye a la marca anterior del alias. En empate de
+      // puntos va detrás de las marcas antiguas (mismo desempate del ranking).
+      const clave = alias.toLowerCase();
+      const ajenas = (Array.isArray(filas) ? filas : []).filter(f =>
+        String(f.alias || "").trim().toLowerCase() !== clave
+      );
+      const superiores = ajenas.filter(f => Number(f.puntos) > puntos).length;
+      const empatadas = ajenas.filter(f => Number(f.puntos) === puntos).length;
+      puestoEstimado = 1 + superiores + empatadas;
+    }
+    return {
+      disponible: true,
+      pole: seraPole,
+      top10: mejora && puestoEstimado <= 10,
+      puesto: puestoEstimado,
+      mejora: mejora
+    };
+  }
+
   async function totalPartidas() {
     if (!configurado) throw new Error("El ranking todavía no está disponible.");
     return Number(await rpc("total_partidas", {})) || 0;
@@ -214,6 +275,9 @@
     cargarPoles: cargarPoles,
     puestoPoles: puestoPoles,
     polesRegistradas: polesRegistradas,
+    poleHoy: poleHoy,
+    previsualizarEnvio: previsualizarEnvio,
+    fechaMadrid: fechaMadrid,
     totalPartidas: totalPartidas,
     totalPartidasJugadas: totalPartidasJugadas,
     aliasGuardado: aliasGuardado,
