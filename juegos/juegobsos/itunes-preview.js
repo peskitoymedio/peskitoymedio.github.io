@@ -23,7 +23,13 @@
     if (!catalogoPromise) {
       catalogoPromise = new Promise(function (resolve) {
         var s = document.createElement('script');
-        s.src = 'previews.js';
+        // El laboratorio fija PYM_PREVIEWS_NO_CACHE para leer siempre el
+        // catálogo recién generado: GitHub Pages sirve previews.js con
+        // max-age=600 y una consulta regenerada quedaría invisible.
+        var sufijo = (w.PYM_PREVIEWS_NO_CACHE && /^https?:$/.test(location.protocol))
+          ? '?v=' + Date.now()
+          : '';
+        s.src = 'previews.js' + sufijo;
         s.onload = function () {
           var datos = w.APPLE_PREVIEWS;
           catalogo = (datos && datos.previews) || null;

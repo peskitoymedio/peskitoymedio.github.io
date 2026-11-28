@@ -181,6 +181,11 @@
   </main>
 
   <script src="peliculas.js"></script>
+  <script>
+    // Herramienta interna: previews.js puede haberse regenerado hace segundos,
+    // así que se lee sin caché (ver itunes-preview.js).
+    window.PYM_PREVIEWS_NO_CACHE = true;
+  </script>
   <script src="itunes-preview.js"></script>
   <script>
     (function () {
