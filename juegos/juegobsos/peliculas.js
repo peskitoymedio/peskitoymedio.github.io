@@ -144,7 +144,7 @@ window.PELICULAS_BSO = [
   },
   {
     "titulo": "Avatar",
-    "consulta": "I See You Avatar James Horner"
+    "consulta": "I See You Avatar James Horner Orchestra"
   },
   {
     "titulo": "Ratatouille",
