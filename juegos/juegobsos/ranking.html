@@ -1445,15 +1445,43 @@
           ctx.fillText(String(fila.puesto == null ? i + 1 : fila.puesto), 108, cy + radio * .36);
           ctx.textAlign = "left";
 
+          // El bloque derecho comparte franja vertical con el alias: se mide
+          // antes para usar todo el hueco disponible sin solaparlo.
+          const polesFila = Number(fila.poles) || 0;
+          const semFila = Number(fila.victorias_semanales) || 0;
+          const diaFila = Number(fila.victorias_diarias) || 0;
+          const fuentePrev = ctx.font;
+          let sizeMayor = 0, mf = 0, textoPuntos = "", anchoDerecha = 0;
+          if (meta.esInsignias || meta.esPoles) {
+            sizeMayor = Math.min(40, (destacado ? 38 : 34) * factor, rowH * .52);
+            ctx.font = "900 " + Math.round(sizeMayor * .76) + "px 'Outfit', sans-serif";
+            if (meta.esInsignias) {
+              anchoDerecha = sizeMayor + ctx.measureText("×" + semFila).width + 16 +
+                             sizeMayor + ctx.measureText("×" + diaFila).width;
+            } else {
+              anchoDerecha = sizeMayor + ctx.measureText("×" + polesFila).width;
+            }
+          } else {
+            textoPuntos = (fila.puntos == null ? 0 : fila.puntos) + " pts";
+            mf = Math.min((campeon ? 38 : destacado ? 31 : 26) * factor, rowH * .5);
+            ctx.font = "900 " + Math.round(mf) + "px 'Outfit', sans-serif";
+            while (ctx.measureText(textoPuntos).width > 210 && mf > 18) {
+              mf -= 2; ctx.font = "900 " + Math.round(mf) + "px 'Outfit', sans-serif";
+            }
+            anchoDerecha = ctx.measureText(textoPuntos).width;
+          }
+          ctx.font = fuentePrev;
+          const maxAlias = Math.max(260, 980 - anchoDerecha - 24 - 142);
+
           let af = Math.min((campeon ? 44 : destacado ? 32 : 28) * factor, rowH * .52);
           const minAf = Math.min(af, (campeon ? 30 : destacado ? 24 : 20) * factor);
           ctx.font = "900 " + Math.round(af) + "px 'Outfit', sans-serif";
-          while (ctx.measureText(String(fila.alias || "")).width > 360 && af > minAf) {
+          while (ctx.measureText(String(fila.alias || "")).width > maxAlias && af > minAf) {
             af -= 2; ctx.font = "900 " + Math.round(af) + "px 'Outfit', sans-serif";
           }
           const nombreY = y + rowH * .42;
           ctx.fillStyle = campeon ? P.nombre : P.claro;
-          ctx.fillText(fit(ctx, String(fila.alias || "?"), 360), 142, nombreY);
+          ctx.fillText(fit(ctx, String(fila.alias || "?"), maxAlias), 142, nombreY);
 
           const metaY = y + rowH * .97;
           const metaFont = Math.max(14, Math.min(18, rowH * .25));
@@ -1470,53 +1498,37 @@
           }
           if (fila.es_campeon_historico === true) bx = marcaInsignia("corona", bx, metaY, sizeIns);
           if (!meta.esInsignias) {
-            const sem = Number(fila.victorias_semanales) || 0;
-            const dia = Number(fila.victorias_diarias) || 0;
-            if (sem) bx = marcaInsignia("trofeo", bx, metaY, sizeIns, sem);
-            if (dia) bx = marcaInsignia("medalla", bx, metaY, sizeIns, dia);
+            if (semFila) bx = marcaInsignia("trofeo", bx, metaY, sizeIns, semFila);
+            if (diaFila) bx = marcaInsignia("medalla", bx, metaY, sizeIns, diaFila);
           }
-          const polesFila = Number(fila.poles) || 0;
           if (polesFila) bx = marcaInsignia("pole", bx, metaY, sizeIns, polesFila);
 
           ctx.textAlign = "right";
           if (meta.esInsignias) {
-            const sem = Number(fila.victorias_semanales) || 0;
-            const dia = Number(fila.victorias_diarias) || 0;
-            const sizeMayor = Math.min(40, (destacado ? 38 : 34) * factor, rowH * .52);
             ctx.font = "900 " + Math.round(sizeMayor * .76) + "px 'Outfit', sans-serif";
-            const ancho = sizeMayor + ctx.measureText("×" + sem).width + 16 +
-                          sizeMayor + ctx.measureText("×" + dia).width;
-            let mx = 980 - ancho;
+            let mx = 980 - anchoDerecha;
             iconoInsignia("trofeo", mx, cy - sizeMayor * .5, sizeMayor);
             ctx.fillStyle = COLOR_INS.trofeo; ctx.textAlign = "left";
-            ctx.fillText("×" + sem, mx + sizeMayor + 4, cy + sizeMayor * .18);
-            mx += sizeMayor + ctx.measureText("×" + sem).width + 16;
+            ctx.fillText("×" + semFila, mx + sizeMayor + 4, cy + sizeMayor * .18);
+            mx += sizeMayor + ctx.measureText("×" + semFila).width + 16;
             iconoInsignia("medalla", mx, cy - sizeMayor * .5, sizeMayor);
             ctx.fillStyle = COLOR_INS.medalla;
-            ctx.fillText("×" + dia, mx + sizeMayor + 4, cy + sizeMayor * .18);
+            ctx.fillText("×" + diaFila, mx + sizeMayor + 4, cy + sizeMayor * .18);
             ctx.textAlign = "right"; ctx.font = "700 " + Math.round(metaFont) + "px 'Outfit', sans-serif";
             ctx.fillStyle = P.suave;
             ctx.fillText("mejor marca: " + (fila.puntos == null ? 0 : fila.puntos) + " pts", 980, metaY);
           } else if (meta.esPoles) {
-            const sizeMayor = Math.min(40, (destacado ? 38 : 34) * factor, rowH * .52);
             ctx.font = "900 " + Math.round(sizeMayor * .76) + "px 'Outfit', sans-serif";
-            const textoPoles = "×" + polesFila;
-            const ancho = sizeMayor + ctx.measureText(textoPoles).width;
-            const mx = 980 - ancho;
+            const mx = 980 - anchoDerecha;
             iconoInsignia("pole", mx, cy - sizeMayor * .5, sizeMayor);
             ctx.fillStyle = COLOR_INS.pole; ctx.textAlign = "left";
-            ctx.fillText(textoPoles, mx + sizeMayor + 4, cy + sizeMayor * .18);
+            ctx.fillText("×" + polesFila, mx + sizeMayor + 4, cy + sizeMayor * .18);
             ctx.textAlign = "right"; ctx.font = "700 " + Math.round(metaFont) + "px 'Outfit', sans-serif";
             ctx.fillStyle = P.suave;
             ctx.fillText("última pole: " + fechaBonita(fila.ultima_pole), 980, metaY);
           } else {
-            const m = (fila.puntos == null ? 0 : fila.puntos) + " pts";
-            let mf = Math.min((campeon ? 38 : destacado ? 31 : 26) * factor, rowH * .5);
             ctx.font = "900 " + Math.round(mf) + "px 'Outfit', sans-serif";
-            while (ctx.measureText(m).width > 210 && mf > 18) {
-              mf -= 2; ctx.font = "900 " + Math.round(mf) + "px 'Outfit', sans-serif";
-            }
-            ctx.fillStyle = P.puntos; ctx.fillText(m, 980, nombreY);
+            ctx.fillStyle = P.puntos; ctx.fillText(textoPuntos, 980, nombreY);
             ctx.font = "700 " + Math.round(metaFont) + "px 'Outfit', sans-serif";
             ctx.fillStyle = P.aciertos;
             ctx.fillText((fila.aciertos == null ? 0 : fila.aciertos) + " aciertos", 980, metaY);
