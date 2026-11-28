@@ -8,38 +8,52 @@
  * En iOS Apple redirige itunes.apple.com/search a musics://..., así que el
  * navegador del iPhone no puede consultar la API en directo. El catálogo
  * pregenerado en previews.js (ver generar-previews.py) resuelve las búsquedas
- * del banco de películas sin salir de la web. Solo si no está en el catálogo
- * se usa la búsqueda JSONP original, que sigue sirviendo para el laboratorio
- * con textos nuevos y para abrir el juego desde file:// sin el catálogo.
+ * del banco de películas sin salir de la web. Si una consulta no aparece (puede
+ * venir de una caché antigua de GitHub Pages), se recarga el catálogo una sola
+ * vez sin caché antes de acudir a la búsqueda JSONP original; esa búsqueda
+ * sigue sirviendo para el laboratorio con textos nuevos y para abrir el juego
+ * desde file:// sin el catálogo.
  */
 (function (w) {
   'use strict';
 
   var catalogo = null;
   var catalogoPromise = null;
+  var catalogoFresco = false;
+  var recargaPromise = null;
 
-  function cargarCatalogo() {
-    if (catalogo) return Promise.resolve(catalogo);
-    if (!catalogoPromise) {
-      catalogoPromise = new Promise(function (resolve) {
-        var s = document.createElement('script');
-        // El laboratorio fija PYM_PREVIEWS_NO_CACHE para leer siempre el
-        // catálogo recién generado: GitHub Pages sirve previews.js con
-        // max-age=600 y una consulta regenerada quedaría invisible.
-        var sufijo = (w.PYM_PREVIEWS_NO_CACHE && /^https?:$/.test(location.protocol))
-          ? '?v=' + Date.now()
-          : '';
-        s.src = 'previews.js' + sufijo;
-        s.onload = function () {
-          var datos = w.APPLE_PREVIEWS;
-          catalogo = (datos && datos.previews) || null;
-          resolve(catalogo);
-        };
-        s.onerror = function () { resolve(null); };
-        document.head.appendChild(s);
-      });
-    }
+  // GitHub Pages sirve previews.js con max-age=600. El laboratorio fija
+  // PYM_PREVIEWS_NO_CACHE para leer siempre la versión recién generada; el
+  // juego solo pide una recarga cuando una consulta no aparece en el catálogo.
+  function cargarCatalogo(fresco) {
+    if (!fresco && catalogo) return Promise.resolve(catalogo);
+    if (!fresco && catalogoPromise) return catalogoPromise;
+    catalogoFresco = Boolean((fresco || w.PYM_PREVIEWS_NO_CACHE) &&
+      /^https?:$/.test(location.protocol));
+    catalogoPromise = new Promise(function (resolve) {
+      var s = document.createElement('script');
+      s.src = 'previews.js' + (catalogoFresco ? '?v=' + Date.now() : '');
+      s.onload = function () {
+        var datos = w.APPLE_PREVIEWS;
+        catalogo = (datos && datos.previews) || null;
+        resolve(catalogo);
+      };
+      s.onerror = function () { resolve(null); };
+      document.head.appendChild(s);
+    });
     return catalogoPromise;
+  }
+
+  function recargarCatalogo() {
+    // Varias películas pueden fallar a la vez: todas esperan la misma recarga.
+    if (!recargaPromise) {
+      // Si ya se cargó sin caché (lab, o un miss anterior), no repetir la descarga.
+      if (catalogoFresco) return Promise.resolve(catalogo);
+      catalogo = null;
+      catalogoPromise = null;
+      recargaPromise = cargarCatalogo(true);
+    }
+    return recargaPromise;
   }
 
   function buscarJSONP(term) {
@@ -76,7 +90,10 @@
   w.itunesPreview = function (term) {
     return cargarCatalogo().then(function (cat) {
       if (cat && cat[term]) return cat[term];
-      return buscarJSONP(term);
+      return recargarCatalogo().then(function (catFresco) {
+        if (catFresco && catFresco[term]) return catFresco[term];
+        return buscarJSONP(term);
+      });
     });
   };
 
